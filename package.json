@@ -1,7 +1,7 @@
 {
-  "name": "abci",
-  "version": "7.0.0",
-  "description": "Tendermint ABCI server",
+  "name": "@dashevo/abci",
+  "version": "0.34.0-dev.1",
+  "description": "Tenderdash ABCI server",
   "main": "index.js",
   "scripts": {
     "test": "standard src/*.js test/*.js && nyc ava test/connection.js test/server.js test/integration.js",
@@ -16,7 +16,7 @@
   "author": "Matt Bell <mappum@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bl": "^1.2.2",
+    "bl": "^1.2.3",
     "debug": "^3.1.0",
     "protobufjs": "^6.8.8",
     "protocol-buffers-encodings": "^1.1.0"
