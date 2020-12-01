@@ -61,7 +61,7 @@ describe('abci', function () {
     expect(rpcResponse).to.deep.equal({ response: info })
   })
 
-  it.skip('large tx', async () => {
+  it('large tx', async () => {
     let server = createAbciServer({
       info: () => ({
         data: 'test app',
