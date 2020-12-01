@@ -15,9 +15,14 @@ describe('abci', function () {
   let ports;
   let client;
   let container;
+  let dockerImage;
 
   before(async () => {
     docker = new Docker();
+
+    dockerImage = 'tendermint/tendermint';
+
+    await docker.pull(dockerImage);
   })
 
   beforeEach(async () => {
@@ -27,7 +32,7 @@ describe('abci', function () {
     }
 
     container = await docker.createContainer({
-      Image: 'tendermint/tendermint',
+      Image: dockerImage,
       Cmd: ['node', '--proxy_app', `host.docker.internal:${ports.abci}`],
       HostConfig: {
         AutoRemove: true,
