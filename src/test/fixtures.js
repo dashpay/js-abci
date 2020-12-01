@@ -4,64 +4,64 @@ const {
   tendermint: {
     abci: {
       Request,
-      Response,
+      Response
     }
   }
-} = require('../types');
+} = require('../../types')
 
-function encodeDelimited(MessageClass, message) {
-  let err = MessageClass.verify(infoRequest);
+function encodeDelimited (MessageClass, message) {
+  let err = MessageClass.verify(infoRequest)
   if (err) {
-    throw new Error(err);
+    throw new Error(err)
   }
 
-  const messageBytes = MessageClass.encode(message).finish();
+  const messageBytes = MessageClass.encode(message).finish()
 
   let lengthBytes = Buffer.from(
-    varint.encode(messageBytes.length << 1),
-  );
+    varint.encode(messageBytes.length << 1)
+  )
 
-  return Buffer.concat([lengthBytes, messageBytes]);
+  return Buffer.concat([lengthBytes, messageBytes])
 }
 
 const infoRequest = new Request({
   info: {
     version: '0.19.2-64408a40'
-  },
-});
+  }
+})
 
-const infoRequestBytes = encodeDelimited(Request, infoRequest);
+const infoRequestBytes = encodeDelimited(Request, infoRequest)
 
 const infoResponse = new Response({
   info: {
     data: 'test',
     version: '123',
     lastBlockHeight: 5,
-    lastBlockAppHash: Buffer.alloc(0),
+    lastBlockAppHash: Buffer.alloc(0)
   }
-});
+})
 
-const infoResponseBytes = encodeDelimited(Response, infoResponse);
+const infoResponseBytes = encodeDelimited(Response, infoResponse)
 
 const echoMessage = {
   echo: {
-    message: 'hello!',
-  },
-};
+    message: 'hello!'
+  }
+}
 
-const echoRequest = new Request(echoMessage);
+const echoRequest = new Request(echoMessage)
 
-const echoRequestBytes = encodeDelimited(Request, echoRequest);
+const echoRequestBytes = encodeDelimited(Request, echoRequest)
 
-const echoResponse = new Response(echoMessage);
+const echoResponse = new Response(echoMessage)
 
-const echoResponseBytes = encodeDelimited(Response, echoResponse);
+const echoResponseBytes = encodeDelimited(Response, echoResponse)
 
 const flushRequest = new Request({
-  flush: { },
-});
+  flush: { }
+})
 
-const flushRequestBytes = encodeDelimited(Request, flushRequest);
+const flushRequestBytes = encodeDelimited(Request, flushRequest)
 
 module.exports = {
   multiRequestBytes: Buffer.concat([infoRequestBytes, flushRequestBytes]),

@@ -4,7 +4,8 @@
   "description": "Tenderdash ABCI server",
   "main": "index.js",
   "scripts": {
-    "test": "standard src/*.js test/*.js && nyc ava test/connection.js test/server.js test/integration.js",
+    "lint": "standard src/*.js test/*.js",
+    "test": "nyc mocha 'test/integration/*.spec.js' 'test/functional/*.spec.js'",
     "build": "pbjs -t static-module -w commonjs -o types.js -p proto proto/tendermint/abci/types.proto && pbts -o index.d.ts types.js"
   },
   "keywords": [
@@ -22,12 +23,14 @@
     "protocol-buffers-encodings": "^1.1.0"
   },
   "devDependencies": {
-    "ava": "^3.10.1",
-    "get-port": "^3.2.0",
+    "chai": "^4.2.0",
+    "dirty-chai": "^2.0.1",
+    "dockerode": "^3.2.1",
+    "get-port": "^5.1.1",
+    "mocha": "^8.2.1",
     "nyc": "^15.0.0",
     "standard": "^11.0.1",
-    "tempy": "^0.2.1",
-    "tendermint-node": "^5.2.0"
+    "tendermint": "^5.0.2"
   },
   "directories": {
     "example": "example",
