@@ -7632,7 +7632,7 @@ $root.tendermint = (function() {
              * @property {Array.<tendermint.abci.IValidatorUpdate>|null} [validatorUpdates] ResponseEndBlock validatorUpdates
              * @property {tendermint.abci.IConsensusParams|null} [consensusParamUpdates] ResponseEndBlock consensusParamUpdates
              * @property {Array.<tendermint.abci.IEvent>|null} [events] ResponseEndBlock events
-             * @property {tendermint.types.ICoreChainLock|null} [coreChainLockUpdate] ResponseEndBlock coreChainLockUpdate
+             * @property {tendermint.types.ICoreChainLock|null} [nextCoreChainLockUpdate] ResponseEndBlock nextCoreChainLockUpdate
              */
 
             /**
@@ -7677,12 +7677,12 @@ $root.tendermint = (function() {
             ResponseEndBlock.prototype.events = $util.emptyArray;
 
             /**
-             * ResponseEndBlock coreChainLockUpdate.
-             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLockUpdate
+             * ResponseEndBlock nextCoreChainLockUpdate.
+             * @member {tendermint.types.ICoreChainLock|null|undefined} nextCoreChainLockUpdate
              * @memberof tendermint.abci.ResponseEndBlock
              * @instance
              */
-            ResponseEndBlock.prototype.coreChainLockUpdate = null;
+            ResponseEndBlock.prototype.nextCoreChainLockUpdate = null;
 
             /**
              * Creates a new ResponseEndBlock instance using the specified properties.
@@ -7716,8 +7716,8 @@ $root.tendermint = (function() {
                 if (message.events != null && message.events.length)
                     for (var i = 0; i < message.events.length; ++i)
                         $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
-                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
+                if (message.nextCoreChainLockUpdate != null && message.hasOwnProperty("nextCoreChainLockUpdate"))
+                    $root.tendermint.types.CoreChainLock.encode(message.nextCoreChainLockUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
                 return writer;
             };
 
@@ -7766,7 +7766,7 @@ $root.tendermint = (function() {
                         message.events.push($root.tendermint.abci.Event.decode(reader, reader.uint32()));
                         break;
                     case 100:
-                        message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
+                        message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -7826,10 +7826,10 @@ $root.tendermint = (function() {
                             return "events." + error;
                     }
                 }
-                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate")) {
-                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLockUpdate);
+                if (message.nextCoreChainLockUpdate != null && message.hasOwnProperty("nextCoreChainLockUpdate")) {
+                    var error = $root.tendermint.types.CoreChainLock.verify(message.nextCoreChainLockUpdate);
                     if (error)
-                        return "coreChainLockUpdate." + error;
+                        return "nextCoreChainLockUpdate." + error;
                 }
                 return null;
             };
@@ -7871,10 +7871,10 @@ $root.tendermint = (function() {
                         message.events[i] = $root.tendermint.abci.Event.fromObject(object.events[i]);
                     }
                 }
-                if (object.coreChainLockUpdate != null) {
-                    if (typeof object.coreChainLockUpdate !== "object")
-                        throw TypeError(".tendermint.abci.ResponseEndBlock.coreChainLockUpdate: object expected");
-                    message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLockUpdate);
+                if (object.nextCoreChainLockUpdate != null) {
+                    if (typeof object.nextCoreChainLockUpdate !== "object")
+                        throw TypeError(".tendermint.abci.ResponseEndBlock.nextCoreChainLockUpdate: object expected");
+                    message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.nextCoreChainLockUpdate);
                 }
                 return message;
             };
@@ -7898,7 +7898,7 @@ $root.tendermint = (function() {
                 }
                 if (options.defaults) {
                     object.consensusParamUpdates = null;
-                    object.coreChainLockUpdate = null;
+                    object.nextCoreChainLockUpdate = null;
                 }
                 if (message.validatorUpdates && message.validatorUpdates.length) {
                     object.validatorUpdates = [];
@@ -7912,8 +7912,8 @@ $root.tendermint = (function() {
                     for (var j = 0; j < message.events.length; ++j)
                         object.events[j] = $root.tendermint.abci.Event.toObject(message.events[j], options);
                 }
-                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
-                    object.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLockUpdate, options);
+                if (message.nextCoreChainLockUpdate != null && message.hasOwnProperty("nextCoreChainLockUpdate"))
+                    object.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.nextCoreChainLockUpdate, options);
                 return object;
             };
 
@@ -15081,8 +15081,8 @@ $root.tendermint = (function() {
              * Properties of a CoreChainLock.
              * @memberof tendermint.types
              * @interface ICoreChainLock
-             * @property {number|null} [blockHeight] CoreChainLock blockHeight
-             * @property {Uint8Array|null} [blockHash] CoreChainLock blockHash
+             * @property {number|null} [coreBlockHeight] CoreChainLock coreBlockHeight
+             * @property {Uint8Array|null} [coreBlockHash] CoreChainLock coreBlockHash
              * @property {Uint8Array|null} [signature] CoreChainLock signature
              */
 
@@ -15102,20 +15102,20 @@ $root.tendermint = (function() {
             }
 
             /**
-             * CoreChainLock blockHeight.
-             * @member {number} blockHeight
+             * CoreChainLock coreBlockHeight.
+             * @member {number} coreBlockHeight
              * @memberof tendermint.types.CoreChainLock
              * @instance
              */
-            CoreChainLock.prototype.blockHeight = 0;
+            CoreChainLock.prototype.coreBlockHeight = 0;
 
             /**
-             * CoreChainLock blockHash.
-             * @member {Uint8Array} blockHash
+             * CoreChainLock coreBlockHash.
+             * @member {Uint8Array} coreBlockHash
              * @memberof tendermint.types.CoreChainLock
              * @instance
              */
-            CoreChainLock.prototype.blockHash = $util.newBuffer([]);
+            CoreChainLock.prototype.coreBlockHash = $util.newBuffer([]);
 
             /**
              * CoreChainLock signature.
@@ -15149,10 +15149,10 @@ $root.tendermint = (function() {
             CoreChainLock.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
-                if (message.blockHeight != null && message.hasOwnProperty("blockHeight"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.blockHeight);
-                if (message.blockHash != null && message.hasOwnProperty("blockHash"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.blockHash);
+                if (message.coreBlockHeight != null && message.hasOwnProperty("coreBlockHeight"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.coreBlockHeight);
+                if (message.coreBlockHash != null && message.hasOwnProperty("coreBlockHash"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.coreBlockHash);
                 if (message.signature != null && message.hasOwnProperty("signature"))
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.signature);
                 return writer;
@@ -15190,10 +15190,10 @@ $root.tendermint = (function() {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.blockHeight = reader.uint32();
+                        message.coreBlockHeight = reader.uint32();
                         break;
                     case 2:
-                        message.blockHash = reader.bytes();
+                        message.coreBlockHash = reader.bytes();
                         break;
                     case 3:
                         message.signature = reader.bytes();
@@ -15233,12 +15233,12 @@ $root.tendermint = (function() {
             CoreChainLock.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
-                if (message.blockHeight != null && message.hasOwnProperty("blockHeight"))
-                    if (!$util.isInteger(message.blockHeight))
-                        return "blockHeight: integer expected";
-                if (message.blockHash != null && message.hasOwnProperty("blockHash"))
-                    if (!(message.blockHash && typeof message.blockHash.length === "number" || $util.isString(message.blockHash)))
-                        return "blockHash: buffer expected";
+                if (message.coreBlockHeight != null && message.hasOwnProperty("coreBlockHeight"))
+                    if (!$util.isInteger(message.coreBlockHeight))
+                        return "coreBlockHeight: integer expected";
+                if (message.coreBlockHash != null && message.hasOwnProperty("coreBlockHash"))
+                    if (!(message.coreBlockHash && typeof message.coreBlockHash.length === "number" || $util.isString(message.coreBlockHash)))
+                        return "coreBlockHash: buffer expected";
                 if (message.signature != null && message.hasOwnProperty("signature"))
                     if (!(message.signature && typeof message.signature.length === "number" || $util.isString(message.signature)))
                         return "signature: buffer expected";
@@ -15257,13 +15257,13 @@ $root.tendermint = (function() {
                 if (object instanceof $root.tendermint.types.CoreChainLock)
                     return object;
                 var message = new $root.tendermint.types.CoreChainLock();
-                if (object.blockHeight != null)
-                    message.blockHeight = object.blockHeight >>> 0;
-                if (object.blockHash != null)
-                    if (typeof object.blockHash === "string")
-                        $util.base64.decode(object.blockHash, message.blockHash = $util.newBuffer($util.base64.length(object.blockHash)), 0);
-                    else if (object.blockHash.length)
-                        message.blockHash = object.blockHash;
+                if (object.coreBlockHeight != null)
+                    message.coreBlockHeight = object.coreBlockHeight >>> 0;
+                if (object.coreBlockHash != null)
+                    if (typeof object.coreBlockHash === "string")
+                        $util.base64.decode(object.coreBlockHash, message.coreBlockHash = $util.newBuffer($util.base64.length(object.coreBlockHash)), 0);
+                    else if (object.coreBlockHash.length)
+                        message.coreBlockHash = object.coreBlockHash;
                 if (object.signature != null)
                     if (typeof object.signature === "string")
                         $util.base64.decode(object.signature, message.signature = $util.newBuffer($util.base64.length(object.signature)), 0);
@@ -15286,13 +15286,13 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    object.blockHeight = 0;
+                    object.coreBlockHeight = 0;
                     if (options.bytes === String)
-                        object.blockHash = "";
+                        object.coreBlockHash = "";
                     else {
-                        object.blockHash = [];
+                        object.coreBlockHash = [];
                         if (options.bytes !== Array)
-                            object.blockHash = $util.newBuffer(object.blockHash);
+                            object.coreBlockHash = $util.newBuffer(object.coreBlockHash);
                     }
                     if (options.bytes === String)
                         object.signature = "";
@@ -15302,10 +15302,10 @@ $root.tendermint = (function() {
                             object.signature = $util.newBuffer(object.signature);
                     }
                 }
-                if (message.blockHeight != null && message.hasOwnProperty("blockHeight"))
-                    object.blockHeight = message.blockHeight;
-                if (message.blockHash != null && message.hasOwnProperty("blockHash"))
-                    object.blockHash = options.bytes === String ? $util.base64.encode(message.blockHash, 0, message.blockHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockHash) : message.blockHash;
+                if (message.coreBlockHeight != null && message.hasOwnProperty("coreBlockHeight"))
+                    object.coreBlockHeight = message.coreBlockHeight;
+                if (message.coreBlockHash != null && message.hasOwnProperty("coreBlockHash"))
+                    object.coreBlockHash = options.bytes === String ? $util.base64.encode(message.coreBlockHash, 0, message.coreBlockHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.coreBlockHash) : message.coreBlockHash;
                 if (message.signature != null && message.hasOwnProperty("signature"))
                     object.signature = options.bytes === String ? $util.base64.encode(message.signature, 0, message.signature.length) : options.bytes === Array ? Array.prototype.slice.call(message.signature) : message.signature;
                 return object;

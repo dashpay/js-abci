@@ -2909,8 +2909,8 @@ export namespace tendermint {
             /** ResponseEndBlock events */
             events?: (tendermint.abci.IEvent[]|null);
 
-            /** ResponseEndBlock coreChainLockUpdate */
-            coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
+            /** ResponseEndBlock nextCoreChainLockUpdate */
+            nextCoreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
         }
 
         /** Represents a ResponseEndBlock. */
@@ -2931,8 +2931,8 @@ export namespace tendermint {
             /** ResponseEndBlock events. */
             public events: tendermint.abci.IEvent[];
 
-            /** ResponseEndBlock coreChainLockUpdate. */
-            public coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
+            /** ResponseEndBlock nextCoreChainLockUpdate. */
+            public nextCoreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
 
             /**
              * Creates a new ResponseEndBlock instance using the specified properties.
@@ -5947,11 +5947,11 @@ export namespace tendermint {
         /** Properties of a CoreChainLock. */
         interface ICoreChainLock {
 
-            /** CoreChainLock blockHeight */
-            blockHeight?: (number|null);
+            /** CoreChainLock coreBlockHeight */
+            coreBlockHeight?: (number|null);
 
-            /** CoreChainLock blockHash */
-            blockHash?: (Uint8Array|null);
+            /** CoreChainLock coreBlockHash */
+            coreBlockHash?: (Uint8Array|null);
 
             /** CoreChainLock signature */
             signature?: (Uint8Array|null);
@@ -5966,11 +5966,11 @@ export namespace tendermint {
              */
             constructor(properties?: tendermint.types.ICoreChainLock);
 
-            /** CoreChainLock blockHeight. */
-            public blockHeight: number;
+            /** CoreChainLock coreBlockHeight. */
+            public coreBlockHeight: number;
 
-            /** CoreChainLock blockHash. */
-            public blockHash: Uint8Array;
+            /** CoreChainLock coreBlockHash. */
+            public coreBlockHash: Uint8Array;
 
             /** CoreChainLock signature. */
             public signature: Uint8Array;
