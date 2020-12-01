@@ -1,13 +1,42 @@
+const { varint } = require('protocol-buffers-encodings')
+
+const { tendermint: { abci: { Request, RequestInfo, RequestFlush } } } = require('../types');
+
+function encodeRequest(message) {
+  let err = Request.verify(infoRequest);
+  if (err) {
+    throw new Error(err);
+  }
+
+  const messageBytes = Request.encode(message).finish();
+
+  let lengthBytes = Buffer.from(
+    varint.encode(messageBytes.length << 1),
+  );
+
+  return Buffer.concat([lengthBytes, messageBytes]);
+}
+
+const infoRequest = new Request({
+  info: new RequestInfo({
+    version: '0.19.2-64408a40'
+  }),
+});
+
+const infoRequestBytes = encodeRequest(infoRequest);
+
+const flushRequest = new Request({
+  flush: new RequestFlush(),
+});
+
+const flushRequestBytes = encodeRequest(flushRequest);
+
 module.exports = {
-  multiRequestBytes: Buffer.from('2622110a0f302e31392e322d3634343038613430041a00', 'hex'),
-  infoRequestBytes: Buffer.from('2622110a0f302e31392e322d3634343038613430', 'hex'),
-  flushRequestBytes: Buffer.from('041a00', 'hex'),
+  multiRequestBytes: Buffer.concat([infoRequestBytes, flushRequestBytes]),
+  infoRequestBytes: infoRequestBytes,
+  flushRequestBytes: flushRequestBytes,
   echoRequestBytes: Buffer.from('0e12050a03010203', 'hex'),
-  infoRequest: {
-    info: {
-      version: '0.19.2-64408a40'
-    }
-  },
+  infoRequest: infoRequest.toJSON(),
   infoResponse: {
     info: {
       data: 'test',
