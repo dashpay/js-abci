@@ -1,5 +1,7 @@
 const getPort = require('get-port');
 
+const os = require('os');
+
 const Docker = require('dockerode');
 
 const { RpcClient } = require('tendermint');
@@ -28,19 +30,45 @@ describe('abci', function () {
   beforeEach(async () => {
     ports = {
       abci: await getPort(),
+      p2p: await getPort(),
       rpc: await getPort(),
     }
 
-    container = await docker.createContainer({
+    let createOptions = {
       Image: dockerImage,
-      Cmd: ['node', '--proxy_app', `host.docker.internal:${ports.abci}`],
+      Cmd: [
+        'node',
+        '--proxy_app', `host.docker.internal:${ports.abci}`,
+      ],
       HostConfig: {
         AutoRemove: true,
         PortBindings: {
-          '26657/tcp': [{ HostPort: ports.rpc.toString() }],
+          [`26657/tcp`]: [{ HostPort: ports.rpc.toString() }],
         }
       },
-    });
+    }
+
+    if (os.platform() === 'linux') {
+      createOptions = {
+        Image: dockerImage,
+        Cmd: [
+          'node',
+          '--proxy_app', `127.0.0.1:${ports.abci}`,
+          '--p2p.laddr', `127.0.0.1:${ports.p2p}`,
+          '--rpc.laddr', `127.0.0.1:${ports.rpc}`,
+        ],
+        ExposedPorts: {
+          [`${ports.rpc}/tcp`]: {},
+          [`${ports.p2p}/tcp`]: {},
+        },
+        HostConfig: {
+          NetworkMode: 'host',
+          AutoRemove: true,
+        },
+      }
+    }
+
+    container = await docker.createContainer(createOptions);
 
     await container.start();
 
@@ -59,7 +87,7 @@ describe('abci', function () {
 
     server.listen(ports.abci)
 
-    await wait(5000)
+    await wait(2000)
 
     const rpcResponse = await client.abciInfo()
 
@@ -92,7 +120,7 @@ describe('abci', function () {
 
     server.listen(ports.abci)
 
-    await wait(5000)
+    await wait(2000)
 
     let res = await client.broadcastTxCommit({
       tx: '0x' + Buffer.alloc(10e3).toString('hex')
