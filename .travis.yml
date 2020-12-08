@@ -7,5 +7,6 @@ services:
   - docker
 install:
   - npm install
+  - docker pull dashpay/tenderdash
 script:
   - npm run lint && npm test
