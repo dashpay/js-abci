@@ -59,7 +59,7 @@ describe('abci', function () {
 
     server.listen(ports.abci)
 
-    await wait(2000)
+    await wait(5000)
 
     const rpcResponse = await client.abciInfo()
 
@@ -92,7 +92,7 @@ describe('abci', function () {
 
     server.listen(ports.abci)
 
-    await wait(2000)
+    await wait(5000)
 
     let res = await client.broadcastTxCommit({
       tx: '0x' + Buffer.alloc(10e3).toString('hex')
