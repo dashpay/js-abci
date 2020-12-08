@@ -20,7 +20,7 @@ describe('abci', function () {
   before(async () => {
     docker = new Docker();
 
-    dockerImage = 'tendermint/tendermint';
+    dockerImage = 'dashpay/tenderdash';
 
     await docker.pull(dockerImage);
   })
@@ -73,19 +73,19 @@ describe('abci', function () {
         version: '1.2.3'
       }),
 
-      initChain (req) {
+      initChain () {
         return {}
       },
 
-      beginBlock (req) {
+      beginBlock () {
         return {}
       },
 
-      checkTx (req) {
+      checkTx () {
         return {}
       },
 
-      deliverTx (req) {
+      deliverTx () {
         return {}
       }
     })
