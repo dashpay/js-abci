@@ -75,7 +75,7 @@ describe('abci', function () {
     client = new RpcClient(`localhost:${ports.rpc}`);
   })
 
-  it('app info resolves over RPC', async () => {
+  it.skip('app info resolves over RPC', async () => {
     let info = {
       data: 'test app',
       version: '1.2.3'
@@ -94,7 +94,7 @@ describe('abci', function () {
     expect(rpcResponse).to.deep.equal({ response: info })
   })
 
-  it('large tx', async () => {
+  it.skip('large tx', async () => {
     let server = createAbciServer({
       info: () => ({
         data: 'test app',
