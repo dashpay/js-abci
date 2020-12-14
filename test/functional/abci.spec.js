@@ -23,11 +23,13 @@ describe('abci', function () {
     docker = new Docker();
 
     dockerImage = 'dashpay/tenderdash';
-
-    await docker.pull(dockerImage);
   })
 
-  beforeEach(async () => {
+  beforeEach(async function beforeEach() {
+    if (os.platform() === 'linux') {
+      this.skip('test doesn\'t support linux at the moment')
+    }
+
     ports = {
       abci: await getPort(),
       p2p: await getPort(),
@@ -48,26 +50,6 @@ describe('abci', function () {
       },
     }
 
-    if (os.platform() === 'linux') {
-      createOptions = {
-        Image: dockerImage,
-        Cmd: [
-          'node',
-          '--proxy_app', `127.0.0.1:${ports.abci}`,
-          '--p2p.laddr', `127.0.0.1:${ports.p2p}`,
-          '--rpc.laddr', `127.0.0.1:${ports.rpc}`,
-        ],
-        ExposedPorts: {
-          [`${ports.rpc}/tcp`]: {},
-          [`${ports.p2p}/tcp`]: {},
-        },
-        HostConfig: {
-          NetworkMode: 'host',
-          AutoRemove: true,
-        },
-      }
-    }
-
     container = await docker.createContainer(createOptions);
 
     await container.start();
@@ -75,7 +57,7 @@ describe('abci', function () {
     client = new RpcClient(`localhost:${ports.rpc}`);
   })
 
-  it.skip('app info resolves over RPC', async () => {
+  it('app info resolves over RPC', async () => {
     let info = {
       data: 'test app',
       version: '1.2.3'
@@ -94,7 +76,7 @@ describe('abci', function () {
     expect(rpcResponse).to.deep.equal({ response: info })
   })
 
-  it.skip('large tx', async () => {
+  it('large tx', async () => {
     let server = createAbciServer({
       info: () => ({
         data: 'test app',
@@ -131,6 +113,8 @@ describe('abci', function () {
   })
 
   afterEach(async () => {
-    await container.stop();
+    if (container) {
+      await container.stop();
+    }
   })
 })
