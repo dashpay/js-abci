@@ -1,8 +1,8 @@
-const { expect, use } = require('chai');
-const dirtyChai = require('dirty-chai');
+const { expect, use } = require('chai')
+const dirtyChai = require('dirty-chai')
 
-use(dirtyChai);
+use(dirtyChai)
 
-process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'test'
 
-global.expect = expect;
+global.expect = expect
