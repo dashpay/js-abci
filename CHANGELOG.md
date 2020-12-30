@@ -1,4 +1,4 @@
-# [0.17.0](https://github.com/tendermint/js-abci/compare/v3.1.0...v0.17.0) (2020-12-30)
+# 0.17.0 (2020-12-30)
 
 
 ### Features
