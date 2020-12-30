@@ -7,3 +7,8 @@
 * update to tenderdash v0.17 ([#1](https://github.com/tendermint/js-abci/issues/1))
 
 
+### BREAKING CHANGES
+
+* this project is no longer compatible with an original Tendermint
+
+
