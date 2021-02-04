@@ -1,6 +1,6 @@
 {
   "name": "@dashevo/abci",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "Tenderdash ABCI server",
   "main": "index.js",
   "scripts": {
