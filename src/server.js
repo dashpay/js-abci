@@ -56,11 +56,11 @@ function createServer (app) {
       } catch (err) {
         fail(err)
       }
-    });
+    })
 
     conn.on('error', (error) => {
-      server.emit('error', error);
-    });
+      server.emit('error', error)
+    })
   })
 
   return server
