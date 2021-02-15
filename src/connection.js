@@ -24,11 +24,15 @@ class Connection extends EventEmitter {
   error (err) {
     debug('Connection error:', err)
 
-    this.write({
-      exception: { error: err.toString() }
-    })
+    try {
+      this.write({
+        exception: { error: err.toString() }
+      })
 
-    this.close()
+      this.close()
+    } catch (e) {
+      debug('Can\'t write error or close connection:', e)
+    }
 
     this.emit('error', err)
   }
