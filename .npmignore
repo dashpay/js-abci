@@ -1,3 +1,5 @@
+.idea
+.circleci
 example
 test
 .nyc_output
