@@ -28,29 +28,39 @@ class Connection extends EventEmitter {
 
   async onData (data) {
     this.recvBuf.append(data)
+
     if (this.waiting) return
-    this.maybeReadNextMessage()
+
+    try {
+      this.maybeReadNextMessage()
+    } catch (e) {
+      e.recvBuf = this.recvBuf.toString('hex')
+
+      this.error(e)
+    }
   }
 
   maybeReadNextMessage () {
     let length = varint.decode(this.recvBuf.slice(0, 8)) >> 1
-    let lengthLength = varint.decode.bytes
+
+    let messageLength = varint.decode.bytes
 
     if (length > MAX_MESSAGE_SIZE) {
       this.error(Error('message is longer than maximum size'))
       return
     }
 
-    if (lengthLength + length > this.recvBuf.length) {
+    if (messageLength + length > this.recvBuf.length) {
       // buffering message, don't read yet
       return
     }
 
     let messageBytes = this.recvBuf.slice(
-      lengthLength,
-      lengthLength + length
+      messageLength,
+      messageLength + length
     )
-    this.recvBuf.consume(lengthLength + length)
+
+    this.recvBuf.consume(messageLength + length)
 
     let message = Request.decode(messageBytes)
 
