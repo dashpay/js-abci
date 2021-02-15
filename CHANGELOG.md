@@ -1,3 +1,12 @@
+## [0.18.2](https://github.com/tendermint/js-abci/compare/v0.17.0...v0.18.2) (2021-02-15)
+
+
+### Features
+
+* handle write or close errors ([6d5bfd3](https://github.com/tendermint/js-abci/commit/6d5bfd3d44d205007a3e9e0f20246d3d06759bdc))
+
+
+
 ## [0.18.1](https://github.com/tendermint/js-abci/compare/v0.17.0...v0.18.1) (2021-02-15)
 
 
