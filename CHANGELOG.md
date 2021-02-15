@@ -1,3 +1,17 @@
+## [0.18.1](https://github.com/tendermint/js-abci/compare/v0.17.0...v0.18.1) (2021-02-15)
+
+
+### Bug Fixes
+
+* an error on `maybeReadNextMessage` breaks server ([bca69da](https://github.com/tendermint/js-abci/commit/bca69da512e9fcf8073e7957090f236db6e3c9e2))
+
+
+### Features
+
+* write error on connection error ([f94bbf5](https://github.com/tendermint/js-abci/commit/f94bbf578fd9219ef15575d1470e85bc45938543))
+
+
+
 # [0.18.0](https://github.com/tendermint/js-abci/compare/v0.17.0...v0.18.0) (2021-02-04)
 
 
