@@ -1,3 +1,12 @@
+## [0.18.4](https://github.com/tendermint/js-abci/compare/v0.18.3...v0.18.4) (2021-02-16)
+
+
+### Bug Fixes
+
+* skip write on write error ([a26f065](https://github.com/tendermint/js-abci/commit/a26f06562b43f0caa440b2df354f322aa61a9fb2))
+
+
+
 ## [0.18.3](https://github.com/tendermint/js-abci/compare/v0.18.2...v0.18.3) (2021-02-16)
 
 
