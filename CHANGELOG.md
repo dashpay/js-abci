@@ -1,3 +1,12 @@
+## [0.18.3](https://github.com/tendermint/js-abci/compare/v0.18.2...v0.18.3) (2021-02-16)
+
+
+### Bug Fixes
+
+* connection errror writes to closed stream ([47da4e9](https://github.com/tendermint/js-abci/commit/47da4e9233f8047781cf6f986bb5d4891d5af03e))
+
+
+
 ## [0.18.2](https://github.com/tendermint/js-abci/compare/v0.17.0...v0.18.2) (2021-02-15)
 
 
