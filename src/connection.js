@@ -24,14 +24,14 @@ class Connection extends EventEmitter {
   error (err) {
     debug('Connection error:', err)
 
-    try {
+    if (this.stream.writable) {
       this.write({
         exception: { error: err.toString() }
       })
+    }
 
+    if (!this.stream.writableEnded && !this.stream.destroyed) {
       this.close()
-    } catch (e) {
-      debug('Can\'t write error or close connection:', e)
     }
 
     this.emit('error', err)
