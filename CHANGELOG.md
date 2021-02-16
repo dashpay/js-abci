@@ -1,3 +1,12 @@
+## [0.18.5](https://github.com/tendermint/js-abci/compare/v0.18.3...v0.18.5) (2021-02-16)
+
+
+### Features
+
+* better handle connection errors ([53cac14](https://github.com/tendermint/js-abci/commit/53cac14b7bed6dced9712e8fd62e98b3d3d58a4b))
+
+
+
 ## [0.18.4](https://github.com/tendermint/js-abci/compare/v0.18.3...v0.18.4) (2021-02-16)
 
 
