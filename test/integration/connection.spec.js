@@ -86,11 +86,19 @@ describe('connection', () => {
     let onMessage = (message, cb) => cb()
     let stream = mockStream()
 
+    const error = new Error('write error');
+
+    stream.write = () => {
+      throw error
+    }
+
     let connection = new ConnectionSpec(stream, onMessage)
+
     connection.on('error', (err) => {
-      expect(err.message).to.equal("Cannot read property 'exception' of undefined")
+      expect(err).to.equal(error)
     })
-    connection.write()
+
+    connection.write(fixtures.infoResponse);
 
     await wait()
   })
