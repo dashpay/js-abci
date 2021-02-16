@@ -21,10 +21,10 @@ class Connection extends EventEmitter {
     stream.on('error', this.error.bind(this))
   }
 
-  error (err) {
+  error (err, skipWriteError = false) {
     debug('Connection error:', err)
 
-    if (this.stream.writable) {
+    if (this.stream.writable && !skipWriteError) {
       this.write({
         exception: { error: err.toString() }
       })
@@ -95,7 +95,7 @@ class Connection extends EventEmitter {
 
   write (message) {
     this._write(message)
-      .catch((err) => this.emit('error', err))
+      .catch((err) => this.emit('error', err, true))
   }
 
   async _write (message) {
