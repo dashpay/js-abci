@@ -5,9 +5,19 @@ const {
     abci: {
       Request,
       Response,
+      RequestInfo,
+      RequestEcho,
     },
   },
 } = require('../../types');
+
+function getMessageLengthBuffer(MessageClass, message) {
+  const messageBytes = MessageClass.encode(message).finish();
+
+  return Buffer.from(
+    varint.encode(messageBytes.length << 1),
+  );
+}
 
 function encodeDelimited(MessageClass, message) {
   const err = MessageClass.verify(infoRequest);
@@ -25,9 +35,9 @@ function encodeDelimited(MessageClass, message) {
 }
 
 const infoRequest = new Request({
-  info: {
+  info: new RequestInfo({
     version: '0.19.2-64408a40',
-  },
+  }),
 });
 
 const infoRequestBytes = encodeDelimited(Request, infoRequest);
@@ -44,9 +54,9 @@ const infoResponse = new Response({
 const infoResponseBytes = encodeDelimited(Response, infoResponse);
 
 const echoMessage = {
-  echo: {
+  echo: new RequestEcho({
     message: 'hello!',
-  },
+  }),
 };
 
 const echoRequest = new Request(echoMessage);
@@ -68,11 +78,35 @@ module.exports = {
   infoRequestBytes,
   flushRequestBytes,
   echoRequestBytes,
-  infoRequest: infoRequest.toJSON(),
-  infoResponse: infoResponse.toJSON(),
+  // infoRequest: infoRequest.toJSON(),
+  // infoResponse: infoResponse.toJSON(),
   infoResponseHex: infoResponseBytes.toString('hex'),
   emptyInfoResponseHex: '042200',
   flushResponseHex: '041a00',
   echoResponseHex: echoResponseBytes.toString('hex'),
   exceptionResponseHex: '2a0a130a114572726f723a2074657374206572726f72',
+
+  info: {
+    request: {
+      object: infoRequest,
+      bufferWithDelimiter: infoRequestBytes,
+    },
+    response: {
+      object: infoResponse,
+      buffer: Response.encode(infoResponse).finish(),
+      delimiter: getMessageLengthBuffer(Response, infoResponse)
+    },
+  },
+
+  echo: {
+    request: {
+      object: echoRequest,
+      bufferWithDelimiter: echoRequestBytes,
+    },
+    response: {
+      object: echoResponse,
+      buffer: Response.encode(infoResponse).finish(),
+      delimiter: getMessageLengthBuffer(Response, echoResponse),
+    },
+  },
 };

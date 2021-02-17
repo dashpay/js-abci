@@ -19,8 +19,6 @@ const {
   },
 } = require('../types.js');
 
-const MAX_MESSAGE_SIZE = 104857600; // 100mb
-
 class Connection extends EventEmitter {
   /**
    * @param {Socket} socket
@@ -93,8 +91,8 @@ class Connection extends EventEmitter {
       const requestLength = varint.decode(this.readerBuffer.slice(0, 8)) >> 1;
       const varintLength = varint.decode.bytes;
 
-      if (requestLength > MAX_MESSAGE_SIZE) {
-        this.socket.destroy(new MaxRequestSizeError(MAX_MESSAGE_SIZE));
+      if (requestLength > Connection.MAX_MESSAGE_SIZE) {
+        this.socket.destroy(new MaxRequestSizeError(Connection.MAX_MESSAGE_SIZE));
 
         return;
       }
@@ -133,16 +131,16 @@ class Connection extends EventEmitter {
       this.socket.resume();
     } catch (handlerError) {
       if (handlerError instanceof ResponseExceptionError) {
+        let emitError;
+
         try {
           await this.write(handlerError.getResponse());
         } catch (writeError) {
-          this.socket.destroy(writeError);
-
-          return;
+          emitError = writeError;
         }
 
-        // Do not emit connection error
-        this.socket.destroy();
+        // Do not emit connection error if write is successful
+        this.socket.destroy(emitError);
 
         return;
       }
@@ -171,6 +169,6 @@ class Connection extends EventEmitter {
   }
 }
 
-Connection.MAX_MESSAGE_SIZE = MAX_MESSAGE_SIZE;
+Connection.MAX_MESSAGE_SIZE = 104857600; // 100mb;
 
 module.exports = Connection;
