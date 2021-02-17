@@ -1,2 +1,2 @@
-module.exports = require('./src/createServer.js');
-module.exports.createServer = require('./src/createServer.js');
+module.exports = require('./lib/createServer.js');
+module.exports.createServer = require('./lib/createServer.js');

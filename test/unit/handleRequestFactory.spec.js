@@ -8,9 +8,9 @@ const {
   },
 } = require('../../types');
 
-const handleRequestFactory = require('../../src/handleRequestFactory');
-const ResponseExceptionError = require('../../src/errors/ResponseExceptionError');
-const InvalidAbciResponseError = require('../../src/errors/InvalidAbciResponseError');
+const handleRequestFactory = require('../../lib/handleRequestFactory');
+const ResponseExceptionError = require('../../lib/errors/ResponseExceptionError');
+const InvalidAbciResponseError = require('../../lib/errors/InvalidAbciResponseError');
 
 describe('handleRequestFactory', () => {
   let handleRequest;

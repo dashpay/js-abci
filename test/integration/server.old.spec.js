@@ -1,8 +1,8 @@
 const net = require('net');
-const Connection = require('../../src/Connection.js');
+const Connection = require('../../lib/Connection.js');
 const { createServer } = require('../../index');
-const fixtures = require('../../src/test/fixtures.js');
-const { mockStream, wait } = require('../../src/test/common.js');
+const fixtures = require('../../lib/test/fixtures.js');
+const { mockStream, wait } = require('../../lib/test/common.js');
 
 describe('server', () => {
   it('create server', () => {

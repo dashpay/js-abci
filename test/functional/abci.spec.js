@@ -6,7 +6,7 @@ const Docker = require('dockerode');
 
 const { RpcClient } = require('tendermint');
 
-const { wait } = require('../../src/test/common');
+const { wait } = require('../../lib/test/common');
 
 const createAbciServer = require('../../index');
 

@@ -1,6 +1,6 @@
-const ConnectionOldSpec = require('../../src/Connection.js');
-const fixtures = require('../../src/test/fixtures.js');
-const { mockStream, wait } = require('../../src/test/common.js');
+const ConnectionOldSpec = require('../../lib/Connection.js');
+const fixtures = require('../../lib/test/fixtures.js');
+const { mockStream, wait } = require('../../lib/test/common.js');
 
 describe('connection', () => {
   it('create connection', () => {

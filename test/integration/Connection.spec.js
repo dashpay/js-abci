@@ -1,8 +1,9 @@
 const { DuplexMock } = require('stream-mock');
-const fixtures = require('../../src/test/fixtures.js');
+const fixtures = require('../../lib/test/fixtures.js');
 
-const Connection = require('../../src/Connection');
-const MaxRequestSizeError = require("../../src/errors/MaxRequestSizeError");
+const Connection = require('../../lib/Connection');
+const MaxRequestSizeError = require('../../lib/errors/MaxRequestSizeError');
+const UnableToParseRequestError = require("../../lib/errors/UnableToParseRequestError");
 
 /**
  *
@@ -30,7 +31,7 @@ describe('Connection', () => {
   let errorHandlerSpy;
 
   beforeEach(function beforeEach() {
-    socketMock = new DuplexMock();
+    socketMock = new DuplexMock(null, { objectMode: true });
 
     this.sinon.spy(socketMock);
 
@@ -53,8 +54,7 @@ describe('Connection', () => {
   it('should handle request', () => {
     requestHandlerMock.resolves(fixtures.info.response.object);
 
-    socketMock.write(fixtures.info.request.bufferWithDelimiter);
-    socketMock.write.resetHistory();
+    socketMock.emit('data', fixtures.info.request.bufferWithDelimiter);
 
     setImmediate(() => {
       expect(requestHandlerMock).to.be.calledOnceWithExactly(fixtures.info.request.object);
@@ -72,12 +72,10 @@ describe('Connection', () => {
     requestHandlerMock.withArgs(fixtures.echo.request.object)
       .resolves(fixtures.echo.response.object);
 
-    socketMock.write(Buffer.concat([
+    socketMock.emit('data', Buffer.concat([
       fixtures.info.request.bufferWithDelimiter,
       fixtures.echo.request.bufferWithDelimiter,
     ]));
-
-    socketMock.write.resetHistory();
 
     setImmediate(() => {
       assertSocketWrite(socketMock, fixtures.info, fixtures.echo);
@@ -98,9 +96,8 @@ describe('Connection', () => {
     requestHandlerMock.withArgs(fixtures.echo.request.object)
       .resolves(fixtures.echo.response.object);
 
-    socketMock.write(fixtures.info.request.bufferWithDelimiter);
-    socketMock.write(fixtures.echo.request.bufferWithDelimiter);
-    socketMock.write.resetHistory();
+    socketMock.emit('data', fixtures.info.request.bufferWithDelimiter);
+    socketMock.emit('data', fixtures.echo.request.bufferWithDelimiter);
 
     setImmediate(() => {
       expect(socketMock.write).to.not.be.called();
@@ -118,8 +115,7 @@ describe('Connection', () => {
   it('should emit MaxRequestSizeError and destroy socket if request is bigger than max limit', () => {
     Connection.MAX_MESSAGE_SIZE = 1;
 
-    socketMock.write(fixtures.info.request.bufferWithDelimiter);
-    socketMock.write.resetHistory();
+    socketMock.emit('data', fixtures.info.request.bufferWithDelimiter);
 
     setImmediate(() => {
       expect(requestHandlerMock).to.not.be.called();
@@ -137,36 +133,52 @@ describe('Connection', () => {
     });
   });
 
-  it('should wait for more data if request is not buffered completely', (done) => {
-    // setTimeout(done, 1000);
-
+  it('should wait for more data if request is not buffered completely', () => {
     const firstRequestPart = fixtures.info.request.bufferWithDelimiter.slice(0, 5);
     const secondRequestPart = fixtures.info.request.bufferWithDelimiter.slice(5);
 
     requestHandlerMock.withArgs(fixtures.info.request.object)
       .resolves(fixtures.info.response.object);
 
-    socketMock.write(firstRequestPart);
-    socketMock.write.resetHistory();
+    socketMock.emit('data', firstRequestPart);
 
-    setImmediate(() => {
+    setImmediate(async () => {
       expect(requestHandlerMock).to.not.be.called();
 
       socketMock.emit('data', secondRequestPart);
+    });
 
-      socketMock.write(secondRequestPart);
-      socketMock.write.resetHistory();
+    setImmediate(() => {
+      expect(requestHandlerMock).to.be.calledWithExactly(fixtures.info.request.object);
 
-      setImmediate(() => {
-        setTimeout(() => {
-          expect(requestHandlerMock).to.not.be.called();
-          // done();
-        }, 3000);
-      });
+      assertSocketWrite(socketMock, fixtures.info);
     });
   });
 
-  it('should emit UnableToParseRequestError and destroy socket on request parse error');
+  it('should emit UnableToParseRequestError and destroy socket on request parse error', () => {
+    const invalidRequest = Buffer.alloc(64).fill('b');
+
+    socketMock.emit('data', invalidRequest);
+
+    setImmediate(() => {
+      expect(requestHandlerMock).to.not.be.called();
+      expect(socketMock.write).to.not.be.called();
+
+      expect(socketMock.destroy).to.be.calledOnce();
+      expect(socketMock.destroy.getCall(0).args).to.have.lengthOf(1);
+
+      const [maxSizeError] = socketMock.destroy.getCall(0).args;
+
+      expect(maxSizeError).to.be.instanceOf(UnableToParseRequestError);
+      expect(maxSizeError.getError()).to.be.instanceOf(Error);
+      expect(maxSizeError.getError()).to.have.property('message', 'index out of range: 4 + 98 > 49');
+
+      expect(maxSizeError.getReaderBuffer().toString()).to.equal(invalidRequest.toString());
+
+      expect(errorHandlerSpy).to.be.calledOnce();
+    });
+  });
+
   it('should not handle requests if stream is destroyed');
   it('should not read data since handler is running');
   it('should throw error if handler throws');
