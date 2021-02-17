@@ -45,7 +45,7 @@ function handleRequestFactory(app, server) {
 
         break;
       default:
-        if (app[messageType] !== undefined) {
+        if (app[messageType] === undefined) {
           responseMessage = {};
 
           break;
