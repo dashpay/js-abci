@@ -36,7 +36,12 @@ class Connection extends EventEmitter {
 
     this.writeAndFlush = promisify(this.socket.write.bind(socket));
 
-    this.socket.on('data', this.onData.bind(this));
+    this.socket.on('data', (data) => {
+      this.readerBuffer.append(data);
+
+      // noinspection JSIgnoredPromiseFromCall
+      this.readNextRequest();
+    });
   }
 
   /**
@@ -71,28 +76,15 @@ class Connection extends EventEmitter {
 
   /**
    * @private
-   * @param {Buffer} data
    * @return {Promise<void>}
    */
-  async onData(data) {
-    this.readerBuffer.append(data);
-
-    if (this.isReadingRequest || this.socket.destroyed) {
+  async readNextRequest() {
+    if (this.isReadingRequest) {
       return;
     }
 
     this.isReadingRequest = true;
 
-    await this.readNextRequest();
-
-    this.isReadingRequest = false;
-  }
-
-  /**
-   * @private
-   * @return {Promise<void>}
-   */
-  async readNextRequest() {
     let request;
 
     // Parse request
@@ -109,6 +101,8 @@ class Connection extends EventEmitter {
 
       if (varintLength + requestLength > this.readerBuffer.length) {
         // buffering message, don't read yet
+        this.isReadingRequest = false;
+
         return;
       }
 
@@ -167,10 +161,12 @@ class Connection extends EventEmitter {
       return;
     }
 
+    this.isReadingRequest = false;
+
     // Read more requests if available
     if (this.readerBuffer.length > 0) {
-      // TODO: Sync or Async?
-      await this.readNextRequest();
+      // noinspection JSIgnoredPromiseFromCall,ES6MissingAwait
+      this.readNextRequest();
     }
   }
 }
