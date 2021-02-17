@@ -3,7 +3,7 @@ const fixtures = require('../../lib/test/fixtures.js');
 
 const Connection = require('../../lib/Connection');
 const MaxRequestSizeError = require('../../lib/errors/MaxRequestSizeError');
-const UnableToParseRequestError = require("../../lib/errors/UnableToParseRequestError");
+const UnableToParseRequestError = require('../../lib/errors/UnableToParseRequestError');
 
 /**
  *
@@ -142,7 +142,7 @@ describe('Connection', () => {
 
     socketMock.emit('data', firstRequestPart);
 
-    setImmediate(async () => {
+    setImmediate(() => {
       expect(requestHandlerMock).to.not.be.called();
 
       socketMock.emit('data', secondRequestPart);
@@ -152,6 +152,8 @@ describe('Connection', () => {
       expect(requestHandlerMock).to.be.calledWithExactly(fixtures.info.request.object);
 
       assertSocketWrite(socketMock, fixtures.info);
+
+      expect(errorHandlerSpy).to.not.be.called();
     });
   });
 
@@ -173,15 +175,44 @@ describe('Connection', () => {
       expect(maxSizeError.getError()).to.be.instanceOf(Error);
       expect(maxSizeError.getError()).to.have.property('message', 'index out of range: 4 + 98 > 49');
 
-      expect(maxSizeError.getReaderBuffer().toString()).to.equal(invalidRequest.toString());
+      expect(maxSizeError.getRequestBuffer().toString()).to.equal(
+        'b'.repeat(50),
+      );
 
       expect(errorHandlerSpy).to.be.calledOnce();
     });
   });
 
-  it('should not handle requests if stream is destroyed');
-  it('should not read data since handler is running');
-  it('should throw error if handler throws');
+  it('should not handle requests if stream is destroyed', () => {
+    const invalidRequest = Buffer.alloc(64).fill('b');
+
+    socketMock.emit('data', invalidRequest);
+
+    expect(socketMock.destroyed).to.be.true();
+
+    socketMock.emit('data', fixtures.info.request.bufferWithDelimiter);
+
+    setImmediate(() => {
+      expect(requestHandlerMock).to.not.be.called();
+      expect(errorHandlerSpy).to.be.calledOnce();
+    });
+  });
+
+  it('should throw error if handler throws', () => {
+    const error = new Error();
+
+    requestHandlerMock.throws(error);
+
+    socketMock.emit('data', fixtures.info.request.bufferWithDelimiter);
+
+    setImmediate(() => {
+      expect(socketMock.write).to.not.be.called();
+      expect(errorHandlerSpy).to.not.be.called();
+
+      expect.fail('it should throw error but doesn\'t');
+    });
+  });
+
   it('should write error and destroy socket if handler responds with ResponseExceptionError');
   it('should destroy socket if can\'t write ResponseExceptionError');
   it('should write flush response with flush acknowledgment');
