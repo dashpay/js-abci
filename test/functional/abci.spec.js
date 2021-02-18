@@ -9,32 +9,31 @@ const { RpcClient } = require('tendermint');
 const {
   tendermint: {
     abci: {
-      Request,
-      ResponseCommit,
+      ResponseQuery,
     },
   },
 } = require('../../types');
 
-const { wait } = require('../../lib/test/common');
+const fixtures = require('../../lib/test/fixtures');
 
 const createServer = require('../../index');
+const path = require('path');
 
 describe('abci', function describe() {
-  this.timeout(20000000);
+  this.timeout(200000);
 
   let docker;
+  let app;
   let ports;
   let client;
   let container;
-  let dockerImage;
-
-  before(async () => {
-    docker = new Docker();
-
-    dockerImage = 'dashpay/tenderdash';
-  });
+  let server;
 
   beforeEach(async function beforeEach() {
+    docker = new Docker();
+
+    const dockerImage = 'dashpay/tenderdash';
+
     if (os.platform() === 'linux') {
       this.skip('test doesn\'t support linux at the moment');
     }
@@ -59,59 +58,8 @@ describe('abci', function describe() {
       },
     };
 
-    container = await docker.createContainer(createOptions);
-
-    await container.start();
-
-    client = new RpcClient(`localhost:${ports.rpc}`);
-  });
-
-  it('app info resolves over RPC', async (done) => {
-    const info = {
-      data: 'test app',
-      version: '1.2.3',
-    };
-
-    const server = createServer({
-      info: () => info,
-      commit: () => {
-        return new ResponseCommit({
-          appHash: Buffer.alloc(32).fill(1),
-        });
-      },
-    });
-
-    server.on('error', (e) => {
-      console.error(e);
-    });
-
-    server.on('connection', async (socket) => {
-      socket.on('error', (e) => {
-        console.error(e);
-      });
-    });
-
-    server.once('connection', async () => {
-      console.log('request');
-      const rpcResponse = await client.abciInfo();
-      console.log('requested');
-
-      expect(rpcResponse).to.deep.equal({ response: info });
-
-      done();
-    });
-
-    server.listen(ports.abci);
-  });
-
-  it('test close');
-
-  it.skip('large tx', async () => {
-    const server = createServer({
-      info: () => ({
-        data: 'test app',
-        version: '1.2.3',
-      }),
+    app = {
+      info: () => fixtures.info.response.object,
 
       initChain() {
         return {};
@@ -128,18 +76,61 @@ describe('abci', function describe() {
       deliverTx() {
         return {};
       },
+
+      query() {
+        return new ResponseQuery({
+          value: Buffer.alloc(32).fill(1),
+        });
+      },
+    };
+
+    container = await docker.createContainer(createOptions);
+
+    await container.start();
+
+    client = new RpcClient(`127.0.0.1:${ports.rpc}`);
+    console.log(ports.rpc);
+
+    server = createServer(app);
+
+    server.once('error', expect.fail);
+
+    server.on('connection', async (socket) => {
+      socket.on('error', expect.fail);
+    });
+  });
+
+  it('app info resolves over RPC', async (done) => {
+    server.once('connection', async () => {
+      setTimeout(async () => {
+        console.log('request');
+        const rpcResponse = await client.abciQuery({ path: '/', data: '123' });
+        console.log('requested');
+
+        expect(rpcResponse).to.deep.equal(fixtures.info.response.object);
+
+        done();
+      }, 4000);
     });
 
     server.listen(ports.abci);
+  });
 
-    await wait(2000);
+  it('test close');
 
-    const res = await client.broadcastTxCommit({
-      tx: `0x${Buffer.alloc(10e3).toString('hex')}`,
+  it('should accept transaction', async (done) => {
+    server.once('connection', async () => {
+      const res = await client.broadcastTxCommit({
+        tx: `0x${Buffer.alloc(10e3).toString('hex')}`,
+      });
+
+      expect(res.check_tx.code).to.equal(0);
+      expect(res.deliver_tx.code).to.equal(0);
+
+      done();
     });
 
-    expect(res.check_tx.code).to.equal(0);
-    expect(res.deliver_tx.code).to.equal(0);
+    server.listen(ports.abci);
   });
 
   afterEach(async () => {
