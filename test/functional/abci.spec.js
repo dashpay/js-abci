@@ -34,8 +34,9 @@ describe('abci', function describe() {
 
     const dockerImage = 'dashpay/tenderdash';
 
+    const extraHosts = [];
     if (os.platform() === 'linux') {
-      this.skip('test doesn\'t support linux at the moment');
+      extraHosts.push('host.docker.internal:host-gateway');
     }
 
     ports = {
@@ -55,6 +56,7 @@ describe('abci', function describe() {
         PortBindings: {
           '26657/tcp': [{ HostPort: ports.rpc.toString() }],
         },
+        ExtraHosts: extraHosts,
       },
     };
 
