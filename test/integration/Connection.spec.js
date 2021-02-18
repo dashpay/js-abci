@@ -51,7 +51,9 @@ describe('Connection', () => {
       Connection.MAX_MESSAGE_SIZE = originMaxMessageSize;
     }
 
-    connection = new Connection(socketMock, requestHandlerMock);
+    const id = 1;
+
+    connection = new Connection(id, socketMock, requestHandlerMock);
   });
 
   it('should handle request', () => {
@@ -88,7 +90,7 @@ describe('Connection', () => {
   });
 
   it('should not handle next request until the first one is not handled', () => {
-    let resolveFirstRequestPromise;
+    let resolveFirstRequestPromise = () => {};
     const firstRequestPromise = new Promise((resolve) => {
       resolveFirstRequestPromise = resolve;
     });
@@ -301,6 +303,74 @@ describe('Connection', () => {
       expect(socketMock.destroy).to.be.calledOnceWithExactly(writeError);
 
       expect(errorHandlerSpy).to.be.calledOnceWithExactly(writeError);
+    });
+  });
+
+  describe('close', () => {
+    it('should not handle requests after close', () => {
+      const closePromise = connection.close();
+
+      socketMock.emit('data', fixtures.info.request.bufferWithDelimiter);
+
+      setImmediate(() => {
+        expect(closePromise).to.be.fulfilled();
+        expect(requestHandlerMock).to.not.be.called();
+        expect(socketMock.write).to.not.be.called();
+        expect(errorHandlerSpy).to.not.be.called();
+      });
+    });
+
+    it('should handle the current request and close socket', () => {
+      let resolveCurrentRequestPromise = () => {};
+      const currentRequestPromise = new Promise((resolve) => {
+        resolveCurrentRequestPromise = resolve;
+      });
+
+      requestHandlerMock.withArgs(fixtures.info.request.object)
+        .returns(currentRequestPromise);
+
+      socketMock.emit('data', fixtures.info.request.bufferWithDelimiter);
+
+      const closePromise = connection.close();
+
+      resolveCurrentRequestPromise(fixtures.info.response.object);
+
+      setImmediate(() => {
+        assertSocketWrite(socketMock, fixtures.info);
+
+        expect(closePromise).to.be.fulfilled();
+
+        expect(errorHandlerSpy).to.not.be.called();
+      });
+    });
+
+    it('should resolve close promise if socket was destroyed', function it() {
+      const error = new Error();
+
+      let resolveCurrentRequestPromise = () => {};
+      const currentRequestPromise = new Promise((resolve) => {
+        resolveCurrentRequestPromise = resolve;
+      });
+
+      requestHandlerMock.withArgs(fixtures.info.request.object)
+        .returns(currentRequestPromise);
+
+      socketMock.write.restore();
+      this.sinon.stub(socketMock, 'write').throws(error);
+
+      socketMock.emit('data', fixtures.info.request.bufferWithDelimiter);
+
+      const closePromise = connection.close();
+
+      resolveCurrentRequestPromise(fixtures.info.response.object);
+
+      setImmediate(() => {
+        expect(socketMock.destroy).to.be.calledOnceWithExactly(error);
+
+        expect(errorHandlerSpy).to.be.calledOnceWithExactly(error);
+
+        expect(closePromise).to.be.fulfilled();
+      });
     });
   });
 });
