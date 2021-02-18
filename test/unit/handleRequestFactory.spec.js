@@ -1,12 +1,13 @@
 const {
   tendermint: {
     abci: {
+      Request,
       Response,
-      ResponseFlush,
-      ResponseEcho,
     },
   },
 } = require('../../types');
+
+const fixtures = require('../../lib/test/fixtures');
 
 const handleRequestFactory = require('../../lib/handleRequestFactory');
 const ResponseExceptionError = require('../../lib/errors/ResponseExceptionError');
@@ -19,76 +20,57 @@ describe('handleRequestFactory', () => {
 
   beforeEach(function beforeEach() {
     appMock = {
-      testHandler: this.sinonSandbox.stub(),
-      commit: this.sinonSandbox.stub(),
+      info: this.sinon.stub(),
+      commit: this.sinon.stub(),
     };
 
     serverMock = {
-      emit: this.sinonSandbox.stub(),
+      emit: this.sinon.stub(),
     };
 
     handleRequest = handleRequestFactory(appMock, serverMock);
   });
 
   it('should respond with flush', async () => {
-    const request = {
-      flush: {},
-    };
+    const response = await handleRequest(fixtures.flush.request.object);
 
-    const result = await handleRequest(request);
-
-    expect(result).to.have.property('flush');
-    expect(result.flush).to.be.an.instanceOf(ResponseFlush);
+    expect(response).to.deep.equal(fixtures.flush.response.object);
   });
 
   it('should respond with echo', async () => {
-    const request = {
-      echo: {},
-    };
+    const response = await handleRequest(fixtures.echo.request.object);
 
-    const result = await handleRequest(request);
-
-    expect(result).to.have.property('echo');
-    expect(result.echo).to.be.an.instanceOf(ResponseEcho);
+    expect(response).to.deep.equal(fixtures.echo.response.object);
   });
 
   it('should respond with with empty message if handler is not defined', async () => {
-    const request = {
+    const request = new Request({
       unknownHandler: {},
-    };
+    });
 
-    const result = await handleRequest(request);
+    const response = await handleRequest(request);
 
-    expect(result).to.deep.equal(new Response({
+    expect(response).to.deep.equal(new Response({
       unknownHandler: {},
     }));
   });
 
   it('should respond handler message', async () => {
-    const request = {
-      testHandler: {},
-    };
+    appMock.info.resolves(fixtures.info.response.object.info);
 
-    appMock.testHandler.resolves(42);
+    const response = await handleRequest(fixtures.info.request.object);
 
-    const result = await handleRequest(request);
-
-    expect(result).to.deep.equal(new Response({
-      testHandler: 42,
-    }));
+    expect(response).to.deep.equal(fixtures.info.response.object);
   });
 
   it('should throw ResponseExceptionError if handler is errored', async () => {
-    const request = {
-      testHandler: {},
-    };
-
     const error = new Error('some error');
 
-    appMock.testHandler.throws(error);
+    appMock.info.throws(error);
 
     try {
-      await handleRequest(request);
+      await handleRequest(fixtures.info.request.object);
+
       expect.fail('Error was not thrown');
     } catch (e) {
       expect(e).to.be.an.instanceOf(ResponseExceptionError);
@@ -98,14 +80,11 @@ describe('handleRequestFactory', () => {
   });
 
   it('should throw InvalidAbciResponseError if message is not valid', async () => {
-    const request = {
-      commit: {},
-    };
-
-    appMock.commit.resolves(42);
+    appMock.info.resolves(42);
 
     try {
-      await handleRequest(request);
+      await handleRequest(fixtures.info.request.object);
+
       expect.fail('Error was not thrown');
     } catch (e) {
       expect(e).to.be.an.instanceOf(InvalidAbciResponseError);
