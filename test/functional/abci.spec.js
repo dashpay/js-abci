@@ -17,7 +17,6 @@ const {
 const fixtures = require('../../lib/test/fixtures');
 
 const createServer = require('../../index');
-const path = require('path');
 
 describe('abci', function describe() {
   this.timeout(200000);
@@ -29,7 +28,7 @@ describe('abci', function describe() {
   let container;
   let server;
 
-  beforeEach(async function beforeEach() {
+  beforeEach(async () => {
     docker = new Docker();
 
     const dockerImage = 'dashpay/tenderdash';
@@ -52,7 +51,7 @@ describe('abci', function describe() {
         '--proxy_app', `host.docker.internal:${ports.abci}`,
       ],
       HostConfig: {
-        AutoRemove: true,
+        // AutoRemove: true,
         PortBindings: {
           '26657/tcp': [{ HostPort: ports.rpc.toString() }],
         },
@@ -102,20 +101,40 @@ describe('abci', function describe() {
     });
   });
 
-  it('app info resolves over RPC', async (done) => {
-    server.once('connection', async () => {
-      setTimeout(async () => {
-        console.log('request');
-        const rpcResponse = await client.abciQuery({ path: '/', data: '123' });
-        console.log('requested');
+  it('app abci query resolves over RPC', async () => {
+    server.listen(ports.abci, '0.0.0.0');
 
-        expect(rpcResponse).to.deep.equal(fixtures.info.response.object);
-
-        done();
-      }, 4000);
+    let connectionPromiseResolve = () => {};
+    const connectionPromise = new Promise((resolve) => {
+      connectionPromiseResolve = resolve;
     });
 
-    server.listen(ports.abci);
+    server.once('connection', () => {
+      connectionPromiseResolve();
+    });
+
+    await connectionPromise;
+    await new Promise((resolve) => {
+      setTimeout(resolve, 4000);
+    });
+
+    console.log('request');
+    const rpcResponse = await client.abciQuery();
+    console.log('requested');
+
+    expect(rpcResponse).to.deep.equal({
+      response: {
+        code: 0,
+        log: '',
+        info: '',
+        index: '0',
+        key: null,
+        value: 'AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQE=',
+        proofOps: null,
+        height: '0',
+        codespace: '',
+      },
+    });
   });
 
   it('test close');
