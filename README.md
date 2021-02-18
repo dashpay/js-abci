@@ -1,10 +1,10 @@
 # js-abci
 
-ABCI server for Node.js. Supports Tendermint version 0.33+.
+ABCI server for Node.js. Supports Tenderdash 0.34+
 
 ## Usage
 
-`npm install abci`
+`npm install @dashevo/abci`
 
 Requires Node.js v10.9+
 
@@ -19,7 +19,50 @@ let server = createServer({
 
   // implement any ABCI method handlers here
 })
+
+process.on('SIGTERM', async () => {
+  await server.close();
+
+  // Gracefull shutdown
+
+  process.exit(0);
+});
+
+server.on('connection', (socket) => {
+  console.log(`Accepted new ABCI connection #${socket.connection.id} from ${socket.remoteAddress}:${socket.remotePort}`);
+
+  socket.on('error', (e) => {
+    console.error(`ABCI connection #${socket.connection.id} error`);
+  });
+
+  socket.once('close', (hasError) => {
+    let message = `ABCI connection #${socket.connection.id} is closed`;
+    if (hasError) {
+      message += ' with error';
+    }
+
+    console.log(message);
+  });
+});
+
+server.once('close', () => {
+  console.log('ABCI server is closed');
+});
+
+server.on('error', async (e) => {
+  console.error(e);
+  
+  // Graceful shutdown
+  
+  process.exit(1);
+});
+
+server.on('listening', () => {
+  console.log(`ABCI server is waiting for connections`);
+});
+
 server.listen(26658)
+
 ```
 
 ### `let server = createServer(app)`
