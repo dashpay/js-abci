@@ -6,12 +6,21 @@ const Docker = require('dockerode');
 
 const { RpcClient } = require('tendermint');
 
+const {
+  tendermint: {
+    abci: {
+      Request,
+      ResponseCommit,
+    },
+  },
+} = require('../../types');
+
 const { wait } = require('../../lib/test/common');
 
-const createAbciServer = require('../../index');
+const createServer = require('../../index');
 
-describe('abci', function () {
-  this.timeout(20000);
+describe('abci', function describe() {
+  this.timeout(20000000);
 
   let docker;
   let ports;
@@ -57,27 +66,48 @@ describe('abci', function () {
     client = new RpcClient(`localhost:${ports.rpc}`);
   });
 
-  it('app info resolves over RPC', async () => {
+  it('app info resolves over RPC', async (done) => {
     const info = {
       data: 'test app',
       version: '1.2.3',
     };
 
-    const server = createAbciServer({
+    const server = createServer({
       info: () => info,
+      commit: () => {
+        return new ResponseCommit({
+          appHash: Buffer.alloc(32).fill(1),
+        });
+      },
+    });
+
+    server.on('error', (e) => {
+      console.error(e);
+    });
+
+    server.on('connection', async (socket) => {
+      socket.on('error', (e) => {
+        console.error(e);
+      });
+    });
+
+    server.once('connection', async () => {
+      console.log('request');
+      const rpcResponse = await client.abciInfo();
+      console.log('requested');
+
+      expect(rpcResponse).to.deep.equal({ response: info });
+
+      done();
     });
 
     server.listen(ports.abci);
-
-    await wait(2000);
-
-    const rpcResponse = await client.abciInfo();
-
-    expect(rpcResponse).to.deep.equal({ response: info });
   });
 
-  it('large tx', async () => {
-    const server = createAbciServer({
+  it('test close');
+
+  it.skip('large tx', async () => {
+    const server = createServer({
       info: () => ({
         data: 'test app',
         version: '1.2.3',

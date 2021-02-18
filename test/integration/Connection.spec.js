@@ -1,6 +1,6 @@
 const { DuplexMock } = require('stream-mock');
 
-const fixtures = require('../../lib/test/fixtures.js');
+const fixtures = require('../../lib/test/fixtures');
 
 const Connection = require('../../lib/Connection');
 const MaxRequestSizeError = require('../../lib/errors/MaxRequestSizeError');
@@ -280,27 +280,6 @@ describe('Connection', () => {
       expect(socketMock.destroy).to.be.calledOnceWithExactly(writeError);
 
       expect(errorHandlerSpy).to.be.calledOnceWithExactly(writeError);
-    });
-  });
-
-  it('should write flush response with flush acknowledgment', function it() {
-    requestHandlerMock.withArgs(fixtures.flush.request.object)
-      .resolves(fixtures.flush.response.object);
-
-    this.sinon.stub(connection, 'writeAndFlush');
-
-    socketMock.emit('data', fixtures.flush.request.bufferWithDelimiter);
-
-    setImmediate(() => {
-      expect(socketMock.cork).to.be.calledOnceWithExactly();
-
-      expect(socketMock.write).to.be.calledOnceWithExactly(fixtures.flush.response.delimiter);
-
-      expect(connection.writeAndFlush).to.be.calledOnceWithExactly(fixtures.flush.response.buffer);
-
-      expect(socketMock.uncork).to.be.calledOnceWithExactly();
-
-      expect(errorHandlerSpy).to.not.be.called();
     });
   });
 
