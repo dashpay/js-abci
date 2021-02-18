@@ -110,8 +110,8 @@ describe('abciServer', function describe() {
     expect(deliverTx).to.have.property('code', 0);
   });
 
-  it('should close server', async () => {
-    await server.close();
+  it('should close server', (done) => {
+    server.close(done);
   });
 
   afterEach(async () => {
