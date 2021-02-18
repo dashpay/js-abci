@@ -103,7 +103,7 @@ describe('abciServer', function describe() {
 
   it('should broadcast transaction', async () => {
     const { check_tx: checkTx, deliver_tx: deliverTx } = await client.broadcastTxCommit({
-      tx: `0x${Buffer.alloc(10e3).toString('hex')}`,
+      tx: `0x${Buffer.alloc(10e3).fill(1).toString('hex')}`,
     });
 
     expect(checkTx).to.have.property('code', 0);
