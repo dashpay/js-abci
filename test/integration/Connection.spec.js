@@ -1,5 +1,7 @@
 const { DuplexMock } = require('stream-mock');
 
+const { varint } = require('protocol-buffers-encodings');
+
 const fixtures = require('../../lib/test/fixtures');
 
 const Connection = require('../../lib/Connection');
@@ -180,7 +182,34 @@ describe('Connection', () => {
     });
   });
 
-  it('should destroy socket and emit UnableToParseRequestError on request parse error', () => {
+  it('should destroy socket and emit UnableToParseRequestError on request parse error', function it() {
+    const error = new Error('something wrong');
+
+    this.sinon.stub(varint, 'decode').throws(error);
+
+    const invalidRequest = Buffer.alloc(64).fill('b');
+
+    socketMock.emit('data', invalidRequest);
+
+    setImmediate(() => {
+      expect(requestHandlerMock).to.not.be.called();
+      expect(socketMock.write).to.not.be.called();
+
+      expect(socketMock.destroy).to.be.calledOnce();
+      expect(socketMock.destroy.getCall(0).args).to.have.lengthOf(1);
+
+      const [maxSizeError] = socketMock.destroy.getCall(0).args;
+
+      expect(maxSizeError).to.be.instanceOf(UnableToParseRequestError);
+      expect(maxSizeError.getError()).to.equal(error);
+
+      expect(maxSizeError.getRequestBuffer().toString()).to.equal(invalidRequest.toString());
+
+      expect(errorHandlerSpy).to.be.calledOnce();
+    });
+  });
+
+  it('should destroy socket and emit UnableToParseRequestError on request message decode error', () => {
     const invalidRequest = Buffer.alloc(64).fill('b');
 
     socketMock.emit('data', invalidRequest);
