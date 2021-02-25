@@ -158,6 +158,18 @@ describe('Connection', () => {
     });
   });
 
+  it('should wait for more data if request length is not enough to parse', () => {
+    const requestPart = Buffer.from([158]);
+
+    socketMock.emit('data', requestPart);
+
+    setImmediate(() => {
+      expect(requestHandlerMock).to.not.be.called();
+
+      expect(connection.isReading).to.be.false();
+    });
+  });
+
   it('should wait for more data if request is not buffered completely', () => {
     const firstRequestPart = fixtures.info.request.bufferWithDelimiter.slice(0, 5);
     const secondRequestPart = fixtures.info.request.bufferWithDelimiter.slice(5);
