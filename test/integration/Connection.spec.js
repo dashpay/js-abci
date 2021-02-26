@@ -158,19 +158,7 @@ describe('Connection', () => {
     });
   });
 
-  it('should wait for more data if request length is not enough to parse', () => {
-    const requestPart = Buffer.from([158]);
-
-    socketMock.emit('data', requestPart);
-
-    setImmediate(() => {
-      expect(requestHandlerMock).to.not.be.called();
-
-      expect(connection.isReading).to.be.false();
-    });
-  });
-
-  it('should wait for more data if request is not buffered completely', () => {
+  it('should wait for more data if request is not buffered completely to decode message', () => {
     const firstRequestPart = fixtures.info.request.bufferWithDelimiter.slice(0, 5);
     const secondRequestPart = fixtures.info.request.bufferWithDelimiter.slice(5);
 
@@ -194,12 +182,12 @@ describe('Connection', () => {
     });
   });
 
-  it('should destroy socket and emit UnableToParseRequestError on request parse error', function it() {
+  it('should wait for more data if request is not buffered completely to parse the request size', function it() {
     const error = new Error('something wrong');
 
     this.sinon.stub(varint, 'decode').throws(error);
 
-    const invalidRequest = Buffer.alloc(64).fill('b');
+    const invalidRequest = Buffer.from([158]);
 
     socketMock.emit('data', invalidRequest);
 
@@ -207,17 +195,7 @@ describe('Connection', () => {
       expect(requestHandlerMock).to.not.be.called();
       expect(socketMock.write).to.not.be.called();
 
-      expect(socketMock.destroy).to.be.calledOnce();
-      expect(socketMock.destroy.getCall(0).args).to.have.lengthOf(1);
-
-      const [maxSizeError] = socketMock.destroy.getCall(0).args;
-
-      expect(maxSizeError).to.be.instanceOf(UnableToParseRequestError);
-      expect(maxSizeError.getError()).to.equal(error);
-
-      expect(maxSizeError.getRequestBuffer().toString()).to.equal(invalidRequest.toString());
-
-      expect(errorHandlerSpy).to.be.calledOnce();
+      expect(errorHandlerSpy).to.not.be.called();
     });
   });
 
@@ -240,7 +218,7 @@ describe('Connection', () => {
       expect(maxSizeError.getError()).to.have.property('message', 'index out of range: 4 + 98 > 49');
 
       expect(maxSizeError.getRequestBuffer().toString()).to.equal(
-        'b'.repeat(50),
+        'b'.repeat(64),
       );
 
       expect(errorHandlerSpy).to.be.calledOnce();
