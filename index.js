@@ -1,4 +1,2 @@
-'use strict'
-
-module.exports = require('./src/server.js')
-module.exports.createServer = require('./src/server.js')
+module.exports = require('./lib/createServer.js');
+module.exports.createServer = require('./lib/createServer.js');
