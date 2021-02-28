@@ -2104,6 +2104,9 @@ export namespace tendermint {
 
             /** ResponseInfo lastBlockAppHash */
             lastBlockAppHash?: (Uint8Array|null);
+
+            /** ResponseInfo lastCoreChainLockedHeight */
+            lastCoreChainLockedHeight?: (number|null);
         }
 
         /** Represents a ResponseInfo. */
@@ -2129,6 +2132,9 @@ export namespace tendermint {
 
             /** ResponseInfo lastBlockAppHash. */
             public lastBlockAppHash: Uint8Array;
+
+            /** ResponseInfo lastCoreChainLockedHeight. */
+            public lastCoreChainLockedHeight: number;
 
             /**
              * Creates a new ResponseInfo instance using the specified properties.
@@ -2314,6 +2320,9 @@ export namespace tendermint {
 
             /** ResponseInitChain validatorSetUpdate */
             validatorSetUpdate?: (tendermint.abci.IValidatorSetUpdate|null);
+
+            /** ResponseInitChain nextCoreChainLockUpdate */
+            nextCoreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
         }
 
         /** Represents a ResponseInitChain. */
@@ -2333,6 +2342,9 @@ export namespace tendermint {
 
             /** ResponseInitChain validatorSetUpdate. */
             public validatorSetUpdate?: (tendermint.abci.IValidatorSetUpdate|null);
+
+            /** ResponseInitChain nextCoreChainLockUpdate. */
+            public nextCoreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
 
             /**
              * Creates a new ResponseInitChain instance using the specified properties.
@@ -4311,6 +4323,9 @@ export namespace tendermint {
 
             /** ValidatorSetUpdate thresholdPublicKey */
             thresholdPublicKey?: (tendermint.crypto.IPublicKey|null);
+
+            /** ValidatorSetUpdate quorumHash */
+            quorumHash?: (Uint8Array|null);
         }
 
         /** Represents a ValidatorSetUpdate. */
@@ -4327,6 +4342,9 @@ export namespace tendermint {
 
             /** ValidatorSetUpdate thresholdPublicKey. */
             public thresholdPublicKey?: (tendermint.crypto.IPublicKey|null);
+
+            /** ValidatorSetUpdate quorumHash. */
+            public quorumHash: Uint8Array;
 
             /**
              * Creates a new ValidatorSetUpdate instance using the specified properties.
@@ -4484,6 +4502,96 @@ export namespace tendermint {
 
             /**
              * Converts this ThresholdPublicKeyUpdate to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of a QuorumHashUpdate. */
+        interface IQuorumHashUpdate {
+
+            /** QuorumHashUpdate quorumHash */
+            quorumHash?: (Uint8Array|null);
+        }
+
+        /** Represents a QuorumHashUpdate. */
+        class QuorumHashUpdate implements IQuorumHashUpdate {
+
+            /**
+             * Constructs a new QuorumHashUpdate.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: tendermint.abci.IQuorumHashUpdate);
+
+            /** QuorumHashUpdate quorumHash. */
+            public quorumHash: Uint8Array;
+
+            /**
+             * Creates a new QuorumHashUpdate instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns QuorumHashUpdate instance
+             */
+            public static create(properties?: tendermint.abci.IQuorumHashUpdate): tendermint.abci.QuorumHashUpdate;
+
+            /**
+             * Encodes the specified QuorumHashUpdate message. Does not implicitly {@link tendermint.abci.QuorumHashUpdate.verify|verify} messages.
+             * @param message QuorumHashUpdate message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: tendermint.abci.IQuorumHashUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified QuorumHashUpdate message, length delimited. Does not implicitly {@link tendermint.abci.QuorumHashUpdate.verify|verify} messages.
+             * @param message QuorumHashUpdate message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: tendermint.abci.IQuorumHashUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a QuorumHashUpdate message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns QuorumHashUpdate
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tendermint.abci.QuorumHashUpdate;
+
+            /**
+             * Decodes a QuorumHashUpdate message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns QuorumHashUpdate
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tendermint.abci.QuorumHashUpdate;
+
+            /**
+             * Verifies a QuorumHashUpdate message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a QuorumHashUpdate message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns QuorumHashUpdate
+             */
+            public static fromObject(object: { [k: string]: any }): tendermint.abci.QuorumHashUpdate;
+
+            /**
+             * Creates a plain object from a QuorumHashUpdate message. Also converts values to other types if specified.
+             * @param message QuorumHashUpdate
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: tendermint.abci.QuorumHashUpdate, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this QuorumHashUpdate to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
@@ -4723,6 +4831,9 @@ export namespace tendermint {
 
             /** Snapshot metadata */
             metadata?: (Uint8Array|null);
+
+            /** Snapshot coreChainLockedHeight */
+            coreChainLockedHeight?: (number|null);
         }
 
         /** Represents a Snapshot. */
@@ -4748,6 +4859,9 @@ export namespace tendermint {
 
             /** Snapshot metadata. */
             public metadata: Uint8Array;
+
+            /** Snapshot coreChainLockedHeight. */
+            public coreChainLockedHeight: number;
 
             /**
              * Creates a new Snapshot instance using the specified properties.
@@ -7468,6 +7582,9 @@ export namespace tendermint {
 
             /** ValidatorSet thresholdPublicKey */
             thresholdPublicKey?: (tendermint.crypto.IPublicKey|null);
+
+            /** ValidatorSet quorumHash */
+            quorumHash?: (Uint8Array|null);
         }
 
         /** Represents a ValidatorSet. */
@@ -7490,6 +7607,9 @@ export namespace tendermint {
 
             /** ValidatorSet thresholdPublicKey. */
             public thresholdPublicKey?: (tendermint.crypto.IPublicKey|null);
+
+            /** ValidatorSet quorumHash. */
+            public quorumHash: Uint8Array;
 
             /**
              * Creates a new ValidatorSet instance using the specified properties.
