@@ -39,11 +39,11 @@ jobs:
       - name: Install NPM dependencies
         run: npm ci
 
-      - name: Download Tenderdash Docker image
-        run: docker pull dashpay/tenderdash
-
       - name: Run ESLinter
         run: npm run lint
+
+      - name: Download Tenderdash Docker image
+        run: docker pull dashpay/tenderdash
 
       - name: Run tests
         run: npm run test
