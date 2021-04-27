@@ -3723,6 +3723,12 @@ export namespace tendermint {
 
             /** LastCommitInfo votes */
             votes?: (tendermint.abci.IVoteInfo[]|null);
+
+            /** LastCommitInfo blockSignature */
+            blockSignature?: (Uint8Array|null);
+
+            /** LastCommitInfo stateSignature */
+            stateSignature?: (Uint8Array|null);
         }
 
         /** Represents a LastCommitInfo. */
@@ -3739,6 +3745,12 @@ export namespace tendermint {
 
             /** LastCommitInfo votes. */
             public votes: tendermint.abci.IVoteInfo[];
+
+            /** LastCommitInfo blockSignature. */
+            public blockSignature: Uint8Array;
+
+            /** LastCommitInfo stateSignature. */
+            public stateSignature: Uint8Array;
 
             /**
              * Creates a new LastCommitInfo instance using the specified properties.

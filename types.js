@@ -9656,6 +9656,8 @@ $root.tendermint = (function() {
              * @interface ILastCommitInfo
              * @property {number|null} [round] LastCommitInfo round
              * @property {Array.<tendermint.abci.IVoteInfo>|null} [votes] LastCommitInfo votes
+             * @property {Uint8Array|null} [blockSignature] LastCommitInfo blockSignature
+             * @property {Uint8Array|null} [stateSignature] LastCommitInfo stateSignature
              */
 
             /**
@@ -9691,6 +9693,22 @@ $root.tendermint = (function() {
             LastCommitInfo.prototype.votes = $util.emptyArray;
 
             /**
+             * LastCommitInfo blockSignature.
+             * @member {Uint8Array} blockSignature
+             * @memberof tendermint.abci.LastCommitInfo
+             * @instance
+             */
+            LastCommitInfo.prototype.blockSignature = $util.newBuffer([]);
+
+            /**
+             * LastCommitInfo stateSignature.
+             * @member {Uint8Array} stateSignature
+             * @memberof tendermint.abci.LastCommitInfo
+             * @instance
+             */
+            LastCommitInfo.prototype.stateSignature = $util.newBuffer([]);
+
+            /**
              * Creates a new LastCommitInfo instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.LastCommitInfo
@@ -9719,6 +9737,10 @@ $root.tendermint = (function() {
                 if (message.votes != null && message.votes.length)
                     for (var i = 0; i < message.votes.length; ++i)
                         $root.tendermint.abci.VoteInfo.encode(message.votes[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.blockSignature);
+                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.stateSignature);
                 return writer;
             };
 
@@ -9760,6 +9782,12 @@ $root.tendermint = (function() {
                         if (!(message.votes && message.votes.length))
                             message.votes = [];
                         message.votes.push($root.tendermint.abci.VoteInfo.decode(reader, reader.uint32()));
+                        break;
+                    case 3:
+                        message.blockSignature = reader.bytes();
+                        break;
+                    case 4:
+                        message.stateSignature = reader.bytes();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -9808,6 +9836,12 @@ $root.tendermint = (function() {
                             return "votes." + error;
                     }
                 }
+                if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
+                    if (!(message.blockSignature && typeof message.blockSignature.length === "number" || $util.isString(message.blockSignature)))
+                        return "blockSignature: buffer expected";
+                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
+                    if (!(message.stateSignature && typeof message.stateSignature.length === "number" || $util.isString(message.stateSignature)))
+                        return "stateSignature: buffer expected";
                 return null;
             };
 
@@ -9835,6 +9869,16 @@ $root.tendermint = (function() {
                         message.votes[i] = $root.tendermint.abci.VoteInfo.fromObject(object.votes[i]);
                     }
                 }
+                if (object.blockSignature != null)
+                    if (typeof object.blockSignature === "string")
+                        $util.base64.decode(object.blockSignature, message.blockSignature = $util.newBuffer($util.base64.length(object.blockSignature)), 0);
+                    else if (object.blockSignature.length)
+                        message.blockSignature = object.blockSignature;
+                if (object.stateSignature != null)
+                    if (typeof object.stateSignature === "string")
+                        $util.base64.decode(object.stateSignature, message.stateSignature = $util.newBuffer($util.base64.length(object.stateSignature)), 0);
+                    else if (object.stateSignature.length)
+                        message.stateSignature = object.stateSignature;
                 return message;
             };
 
@@ -9853,8 +9897,23 @@ $root.tendermint = (function() {
                 var object = {};
                 if (options.arrays || options.defaults)
                     object.votes = [];
-                if (options.defaults)
+                if (options.defaults) {
                     object.round = 0;
+                    if (options.bytes === String)
+                        object.blockSignature = "";
+                    else {
+                        object.blockSignature = [];
+                        if (options.bytes !== Array)
+                            object.blockSignature = $util.newBuffer(object.blockSignature);
+                    }
+                    if (options.bytes === String)
+                        object.stateSignature = "";
+                    else {
+                        object.stateSignature = [];
+                        if (options.bytes !== Array)
+                            object.stateSignature = $util.newBuffer(object.stateSignature);
+                    }
+                }
                 if (message.round != null && message.hasOwnProperty("round"))
                     object.round = message.round;
                 if (message.votes && message.votes.length) {
@@ -9862,6 +9921,10 @@ $root.tendermint = (function() {
                     for (var j = 0; j < message.votes.length; ++j)
                         object.votes[j] = $root.tendermint.abci.VoteInfo.toObject(message.votes[j], options);
                 }
+                if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
+                    object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
+                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
+                    object.stateSignature = options.bytes === String ? $util.base64.encode(message.stateSignature, 0, message.stateSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.stateSignature) : message.stateSignature;
                 return object;
             };
 
