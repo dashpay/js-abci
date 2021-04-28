@@ -9656,6 +9656,7 @@ $root.tendermint = (function() {
              * @interface ILastCommitInfo
              * @property {number|null} [round] LastCommitInfo round
              * @property {Array.<tendermint.abci.IVoteInfo>|null} [votes] LastCommitInfo votes
+             * @property {Uint8Array|null} [quorumHash] LastCommitInfo quorumHash
              * @property {Uint8Array|null} [blockSignature] LastCommitInfo blockSignature
              * @property {Uint8Array|null} [stateSignature] LastCommitInfo stateSignature
              */
@@ -9691,6 +9692,14 @@ $root.tendermint = (function() {
              * @instance
              */
             LastCommitInfo.prototype.votes = $util.emptyArray;
+
+            /**
+             * LastCommitInfo quorumHash.
+             * @member {Uint8Array} quorumHash
+             * @memberof tendermint.abci.LastCommitInfo
+             * @instance
+             */
+            LastCommitInfo.prototype.quorumHash = $util.newBuffer([]);
 
             /**
              * LastCommitInfo blockSignature.
@@ -9737,10 +9746,12 @@ $root.tendermint = (function() {
                 if (message.votes != null && message.votes.length)
                     for (var i = 0; i < message.votes.length; ++i)
                         $root.tendermint.abci.VoteInfo.encode(message.votes[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.quorumHash);
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.blockSignature);
+                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.blockSignature);
                 if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.stateSignature);
+                    writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.stateSignature);
                 return writer;
             };
 
@@ -9784,9 +9795,12 @@ $root.tendermint = (function() {
                         message.votes.push($root.tendermint.abci.VoteInfo.decode(reader, reader.uint32()));
                         break;
                     case 3:
-                        message.blockSignature = reader.bytes();
+                        message.quorumHash = reader.bytes();
                         break;
                     case 4:
+                        message.blockSignature = reader.bytes();
+                        break;
+                    case 5:
                         message.stateSignature = reader.bytes();
                         break;
                     default:
@@ -9836,6 +9850,9 @@ $root.tendermint = (function() {
                             return "votes." + error;
                     }
                 }
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    if (!(message.quorumHash && typeof message.quorumHash.length === "number" || $util.isString(message.quorumHash)))
+                        return "quorumHash: buffer expected";
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     if (!(message.blockSignature && typeof message.blockSignature.length === "number" || $util.isString(message.blockSignature)))
                         return "blockSignature: buffer expected";
@@ -9869,6 +9886,11 @@ $root.tendermint = (function() {
                         message.votes[i] = $root.tendermint.abci.VoteInfo.fromObject(object.votes[i]);
                     }
                 }
+                if (object.quorumHash != null)
+                    if (typeof object.quorumHash === "string")
+                        $util.base64.decode(object.quorumHash, message.quorumHash = $util.newBuffer($util.base64.length(object.quorumHash)), 0);
+                    else if (object.quorumHash.length)
+                        message.quorumHash = object.quorumHash;
                 if (object.blockSignature != null)
                     if (typeof object.blockSignature === "string")
                         $util.base64.decode(object.blockSignature, message.blockSignature = $util.newBuffer($util.base64.length(object.blockSignature)), 0);
@@ -9900,6 +9922,13 @@ $root.tendermint = (function() {
                 if (options.defaults) {
                     object.round = 0;
                     if (options.bytes === String)
+                        object.quorumHash = "";
+                    else {
+                        object.quorumHash = [];
+                        if (options.bytes !== Array)
+                            object.quorumHash = $util.newBuffer(object.quorumHash);
+                    }
+                    if (options.bytes === String)
                         object.blockSignature = "";
                     else {
                         object.blockSignature = [];
@@ -9921,6 +9950,8 @@ $root.tendermint = (function() {
                     for (var j = 0; j < message.votes.length; ++j)
                         object.votes[j] = $root.tendermint.abci.VoteInfo.toObject(message.votes[j], options);
                 }
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
                 if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
@@ -17228,6 +17259,7 @@ $root.tendermint = (function() {
              * @property {tendermint.types.IBlockID|null} [blockId] Commit blockId
              * @property {tendermint.types.IStateID|null} [stateId] Commit stateId
              * @property {Array.<tendermint.types.ICommitSig>|null} [signatures] Commit signatures
+             * @property {Uint8Array|null} [quorumHash] Commit quorumHash
              * @property {Uint8Array|null} [thresholdBlockSignature] Commit thresholdBlockSignature
              * @property {Uint8Array|null} [thresholdStateSignature] Commit thresholdStateSignature
              */
@@ -17289,6 +17321,14 @@ $root.tendermint = (function() {
             Commit.prototype.signatures = $util.emptyArray;
 
             /**
+             * Commit quorumHash.
+             * @member {Uint8Array} quorumHash
+             * @memberof tendermint.types.Commit
+             * @instance
+             */
+            Commit.prototype.quorumHash = $util.newBuffer([]);
+
+            /**
              * Commit thresholdBlockSignature.
              * @member {Uint8Array} thresholdBlockSignature
              * @memberof tendermint.types.Commit
@@ -17339,10 +17379,12 @@ $root.tendermint = (function() {
                         $root.tendermint.types.CommitSig.encode(message.signatures[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.stateId != null && message.hasOwnProperty("stateId"))
                     $root.tendermint.types.StateID.encode(message.stateId, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.quorumHash);
                 if (message.thresholdBlockSignature != null && message.hasOwnProperty("thresholdBlockSignature"))
-                    writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.thresholdBlockSignature);
+                    writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.thresholdBlockSignature);
                 if (message.thresholdStateSignature != null && message.hasOwnProperty("thresholdStateSignature"))
-                    writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.thresholdStateSignature);
+                    writer.uint32(/* id 8, wireType 2 =*/66).bytes(message.thresholdStateSignature);
                 return writer;
             };
 
@@ -17395,9 +17437,12 @@ $root.tendermint = (function() {
                         message.signatures.push($root.tendermint.types.CommitSig.decode(reader, reader.uint32()));
                         break;
                     case 6:
-                        message.thresholdBlockSignature = reader.bytes();
+                        message.quorumHash = reader.bytes();
                         break;
                     case 7:
+                        message.thresholdBlockSignature = reader.bytes();
+                        break;
+                    case 8:
                         message.thresholdStateSignature = reader.bytes();
                         break;
                     default:
@@ -17460,6 +17505,9 @@ $root.tendermint = (function() {
                             return "signatures." + error;
                     }
                 }
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    if (!(message.quorumHash && typeof message.quorumHash.length === "number" || $util.isString(message.quorumHash)))
+                        return "quorumHash: buffer expected";
                 if (message.thresholdBlockSignature != null && message.hasOwnProperty("thresholdBlockSignature"))
                     if (!(message.thresholdBlockSignature && typeof message.thresholdBlockSignature.length === "number" || $util.isString(message.thresholdBlockSignature)))
                         return "thresholdBlockSignature: buffer expected";
@@ -17512,6 +17560,11 @@ $root.tendermint = (function() {
                         message.signatures[i] = $root.tendermint.types.CommitSig.fromObject(object.signatures[i]);
                     }
                 }
+                if (object.quorumHash != null)
+                    if (typeof object.quorumHash === "string")
+                        $util.base64.decode(object.quorumHash, message.quorumHash = $util.newBuffer($util.base64.length(object.quorumHash)), 0);
+                    else if (object.quorumHash.length)
+                        message.quorumHash = object.quorumHash;
                 if (object.thresholdBlockSignature != null)
                     if (typeof object.thresholdBlockSignature === "string")
                         $util.base64.decode(object.thresholdBlockSignature, message.thresholdBlockSignature = $util.newBuffer($util.base64.length(object.thresholdBlockSignature)), 0);
@@ -17550,6 +17603,13 @@ $root.tendermint = (function() {
                     object.blockId = null;
                     object.stateId = null;
                     if (options.bytes === String)
+                        object.quorumHash = "";
+                    else {
+                        object.quorumHash = [];
+                        if (options.bytes !== Array)
+                            object.quorumHash = $util.newBuffer(object.quorumHash);
+                    }
+                    if (options.bytes === String)
                         object.thresholdBlockSignature = "";
                     else {
                         object.thresholdBlockSignature = [];
@@ -17580,6 +17640,8 @@ $root.tendermint = (function() {
                 }
                 if (message.stateId != null && message.hasOwnProperty("stateId"))
                     object.stateId = $root.tendermint.types.StateID.toObject(message.stateId, options);
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 if (message.thresholdBlockSignature != null && message.hasOwnProperty("thresholdBlockSignature"))
                     object.thresholdBlockSignature = options.bytes === String ? $util.base64.encode(message.thresholdBlockSignature, 0, message.thresholdBlockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.thresholdBlockSignature) : message.thresholdBlockSignature;
                 if (message.thresholdStateSignature != null && message.hasOwnProperty("thresholdStateSignature"))
@@ -19349,6 +19411,7 @@ $root.tendermint = (function() {
              * @property {tendermint.types.IValidator|null} [proposer] ValidatorSet proposer
              * @property {number|Long|null} [totalVotingPower] ValidatorSet totalVotingPower
              * @property {tendermint.crypto.IPublicKey|null} [thresholdPublicKey] ValidatorSet thresholdPublicKey
+             * @property {number|null} [quorumType] ValidatorSet quorumType
              * @property {Uint8Array|null} [quorumHash] ValidatorSet quorumHash
              */
 
@@ -19401,6 +19464,14 @@ $root.tendermint = (function() {
             ValidatorSet.prototype.thresholdPublicKey = null;
 
             /**
+             * ValidatorSet quorumType.
+             * @member {number} quorumType
+             * @memberof tendermint.types.ValidatorSet
+             * @instance
+             */
+            ValidatorSet.prototype.quorumType = 0;
+
+            /**
              * ValidatorSet quorumHash.
              * @member {Uint8Array} quorumHash
              * @memberof tendermint.types.ValidatorSet
@@ -19441,8 +19512,10 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 3, wireType 0 =*/24).int64(message.totalVotingPower);
                 if (message.thresholdPublicKey != null && message.hasOwnProperty("thresholdPublicKey"))
                     $root.tendermint.crypto.PublicKey.encode(message.thresholdPublicKey, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.quorumType != null && message.hasOwnProperty("quorumType"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).int32(message.quorumType);
                 if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.quorumHash);
+                    writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.quorumHash);
                 return writer;
             };
 
@@ -19492,6 +19565,9 @@ $root.tendermint = (function() {
                         message.thresholdPublicKey = $root.tendermint.crypto.PublicKey.decode(reader, reader.uint32());
                         break;
                     case 5:
+                        message.quorumType = reader.int32();
+                        break;
+                    case 6:
                         message.quorumHash = reader.bytes();
                         break;
                     default:
@@ -19551,6 +19627,9 @@ $root.tendermint = (function() {
                     if (error)
                         return "thresholdPublicKey." + error;
                 }
+                if (message.quorumType != null && message.hasOwnProperty("quorumType"))
+                    if (!$util.isInteger(message.quorumType))
+                        return "quorumType: integer expected";
                 if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
                     if (!(message.quorumHash && typeof message.quorumHash.length === "number" || $util.isString(message.quorumHash)))
                         return "quorumHash: buffer expected";
@@ -19598,6 +19677,8 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.types.ValidatorSet.thresholdPublicKey: object expected");
                     message.thresholdPublicKey = $root.tendermint.crypto.PublicKey.fromObject(object.thresholdPublicKey);
                 }
+                if (object.quorumType != null)
+                    message.quorumType = object.quorumType | 0;
                 if (object.quorumHash != null)
                     if (typeof object.quorumHash === "string")
                         $util.base64.decode(object.quorumHash, message.quorumHash = $util.newBuffer($util.base64.length(object.quorumHash)), 0);
@@ -19629,6 +19710,7 @@ $root.tendermint = (function() {
                     } else
                         object.totalVotingPower = options.longs === String ? "0" : 0;
                     object.thresholdPublicKey = null;
+                    object.quorumType = 0;
                     if (options.bytes === String)
                         object.quorumHash = "";
                     else {
@@ -19651,6 +19733,8 @@ $root.tendermint = (function() {
                         object.totalVotingPower = options.longs === String ? $util.Long.prototype.toString.call(message.totalVotingPower) : options.longs === Number ? new $util.LongBits(message.totalVotingPower.low >>> 0, message.totalVotingPower.high >>> 0).toNumber() : message.totalVotingPower;
                 if (message.thresholdPublicKey != null && message.hasOwnProperty("thresholdPublicKey"))
                     object.thresholdPublicKey = $root.tendermint.crypto.PublicKey.toObject(message.thresholdPublicKey, options);
+                if (message.quorumType != null && message.hasOwnProperty("quorumType"))
+                    object.quorumType = message.quorumType;
                 if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
                     object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 return object;

@@ -3724,6 +3724,9 @@ export namespace tendermint {
             /** LastCommitInfo votes */
             votes?: (tendermint.abci.IVoteInfo[]|null);
 
+            /** LastCommitInfo quorumHash */
+            quorumHash?: (Uint8Array|null);
+
             /** LastCommitInfo blockSignature */
             blockSignature?: (Uint8Array|null);
 
@@ -3745,6 +3748,9 @@ export namespace tendermint {
 
             /** LastCommitInfo votes. */
             public votes: tendermint.abci.IVoteInfo[];
+
+            /** LastCommitInfo quorumHash. */
+            public quorumHash: Uint8Array;
 
             /** LastCommitInfo blockSignature. */
             public blockSignature: Uint8Array;
@@ -6818,6 +6824,9 @@ export namespace tendermint {
             /** Commit signatures */
             signatures?: (tendermint.types.ICommitSig[]|null);
 
+            /** Commit quorumHash */
+            quorumHash?: (Uint8Array|null);
+
             /** Commit thresholdBlockSignature */
             thresholdBlockSignature?: (Uint8Array|null);
 
@@ -6848,6 +6857,9 @@ export namespace tendermint {
 
             /** Commit signatures. */
             public signatures: tendermint.types.ICommitSig[];
+
+            /** Commit quorumHash. */
+            public quorumHash: Uint8Array;
 
             /** Commit thresholdBlockSignature. */
             public thresholdBlockSignature: Uint8Array;
@@ -7595,6 +7607,9 @@ export namespace tendermint {
             /** ValidatorSet thresholdPublicKey */
             thresholdPublicKey?: (tendermint.crypto.IPublicKey|null);
 
+            /** ValidatorSet quorumType */
+            quorumType?: (number|null);
+
             /** ValidatorSet quorumHash */
             quorumHash?: (Uint8Array|null);
         }
@@ -7619,6 +7634,9 @@ export namespace tendermint {
 
             /** ValidatorSet thresholdPublicKey. */
             public thresholdPublicKey?: (tendermint.crypto.IPublicKey|null);
+
+            /** ValidatorSet quorumType. */
+            public quorumType: number;
 
             /** ValidatorSet quorumHash. */
             public quorumHash: Uint8Array;
