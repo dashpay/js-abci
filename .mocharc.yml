@@ -1,3 +1,3 @@
 exit: true
 file:
-  - ./src/test/bootstrap.js
+  - ./lib/test/bootstrap.js
