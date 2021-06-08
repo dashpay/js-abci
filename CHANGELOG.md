@@ -1,3 +1,13 @@
+# [0.19.0](https://github.com/tendermint/js-abci/compare/v0.18.5...v0.19.0) (2021-06-08)
+
+
+### Features
+
+* reimplemented server for better reliability ([#6](https://github.com/tendermint/js-abci/issues/6))
+* update protos for tenderdash signing branch ([#3](https://github.com/tendermint/js-abci/issues/3))
+
+
+
 ## [0.18.5](https://github.com/tendermint/js-abci/compare/v0.18.3...v0.18.5) (2021-02-16)
 
 
