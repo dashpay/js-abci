@@ -566,14 +566,17 @@ export namespace tendermint {
             /** RequestInitChain consensusParams */
             consensusParams?: (tendermint.abci.IConsensusParams|null);
 
+            /** RequestInitChain validatorSet */
+            validatorSet?: (tendermint.abci.IValidatorSetUpdate|null);
+
             /** RequestInitChain appStateBytes */
             appStateBytes?: (Uint8Array|null);
 
             /** RequestInitChain initialHeight */
             initialHeight?: (number|Long|null);
 
-            /** RequestInitChain validatorSet */
-            validatorSet?: (tendermint.abci.IValidatorSetUpdate|null);
+            /** RequestInitChain initialCoreHeight */
+            initialCoreHeight?: (number|null);
         }
 
         /** Represents a RequestInitChain. */
@@ -594,14 +597,17 @@ export namespace tendermint {
             /** RequestInitChain consensusParams. */
             public consensusParams?: (tendermint.abci.IConsensusParams|null);
 
+            /** RequestInitChain validatorSet. */
+            public validatorSet?: (tendermint.abci.IValidatorSetUpdate|null);
+
             /** RequestInitChain appStateBytes. */
             public appStateBytes: Uint8Array;
 
             /** RequestInitChain initialHeight. */
             public initialHeight: (number|Long);
 
-            /** RequestInitChain validatorSet. */
-            public validatorSet?: (tendermint.abci.IValidatorSetUpdate|null);
+            /** RequestInitChain initialCoreHeight. */
+            public initialCoreHeight: number;
 
             /**
              * Creates a new RequestInitChain instance using the specified properties.
@@ -3721,9 +3727,6 @@ export namespace tendermint {
             /** LastCommitInfo round */
             round?: (number|null);
 
-            /** LastCommitInfo votes */
-            votes?: (tendermint.abci.IVoteInfo[]|null);
-
             /** LastCommitInfo quorumHash */
             quorumHash?: (Uint8Array|null);
 
@@ -3745,9 +3748,6 @@ export namespace tendermint {
 
             /** LastCommitInfo round. */
             public round: number;
-
-            /** LastCommitInfo votes. */
-            public votes: tendermint.abci.IVoteInfo[];
 
             /** LastCommitInfo quorumHash. */
             public quorumHash: Uint8Array;
@@ -5915,6 +5915,7 @@ export namespace tendermint {
             SIGNED_MSG_TYPE_UNKNOWN = 0,
             SIGNED_MSG_TYPE_PREVOTE = 1,
             SIGNED_MSG_TYPE_PRECOMMIT = 2,
+            SIGNED_MSG_TYPE_COMMIT = 3,
             SIGNED_MSG_TYPE_PROPOSAL = 32
         }
 
@@ -6821,9 +6822,6 @@ export namespace tendermint {
             /** Commit stateId */
             stateId?: (tendermint.types.IStateID|null);
 
-            /** Commit signatures */
-            signatures?: (tendermint.types.ICommitSig[]|null);
-
             /** Commit quorumHash */
             quorumHash?: (Uint8Array|null);
 
@@ -6854,9 +6852,6 @@ export namespace tendermint {
 
             /** Commit stateId. */
             public stateId?: (tendermint.types.IStateID|null);
-
-            /** Commit signatures. */
-            public signatures: tendermint.types.ICommitSig[];
 
             /** Commit quorumHash. */
             public quorumHash: Uint8Array;
@@ -6933,114 +6928,6 @@ export namespace tendermint {
 
             /**
              * Converts this Commit to JSON.
-             * @returns JSON object
-             */
-            public toJSON(): { [k: string]: any };
-        }
-
-        /** Properties of a CommitSig. */
-        interface ICommitSig {
-
-            /** CommitSig blockIdFlag */
-            blockIdFlag?: (tendermint.types.BlockIDFlag|null);
-
-            /** CommitSig validatorProTxHash */
-            validatorProTxHash?: (Uint8Array|null);
-
-            /** CommitSig blockSignature */
-            blockSignature?: (Uint8Array|null);
-
-            /** CommitSig stateSignature */
-            stateSignature?: (Uint8Array|null);
-        }
-
-        /** Represents a CommitSig. */
-        class CommitSig implements ICommitSig {
-
-            /**
-             * Constructs a new CommitSig.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: tendermint.types.ICommitSig);
-
-            /** CommitSig blockIdFlag. */
-            public blockIdFlag: tendermint.types.BlockIDFlag;
-
-            /** CommitSig validatorProTxHash. */
-            public validatorProTxHash: Uint8Array;
-
-            /** CommitSig blockSignature. */
-            public blockSignature: Uint8Array;
-
-            /** CommitSig stateSignature. */
-            public stateSignature: Uint8Array;
-
-            /**
-             * Creates a new CommitSig instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns CommitSig instance
-             */
-            public static create(properties?: tendermint.types.ICommitSig): tendermint.types.CommitSig;
-
-            /**
-             * Encodes the specified CommitSig message. Does not implicitly {@link tendermint.types.CommitSig.verify|verify} messages.
-             * @param message CommitSig message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: tendermint.types.ICommitSig, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Encodes the specified CommitSig message, length delimited. Does not implicitly {@link tendermint.types.CommitSig.verify|verify} messages.
-             * @param message CommitSig message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encodeDelimited(message: tendermint.types.ICommitSig, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes a CommitSig message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns CommitSig
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tendermint.types.CommitSig;
-
-            /**
-             * Decodes a CommitSig message from the specified reader or buffer, length delimited.
-             * @param reader Reader or buffer to decode from
-             * @returns CommitSig
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tendermint.types.CommitSig;
-
-            /**
-             * Verifies a CommitSig message.
-             * @param message Plain object to verify
-             * @returns `null` if valid, otherwise the reason why it is not
-             */
-            public static verify(message: { [k: string]: any }): (string|null);
-
-            /**
-             * Creates a CommitSig message from a plain object. Also converts values to their respective internal types.
-             * @param object Plain object
-             * @returns CommitSig
-             */
-            public static fromObject(object: { [k: string]: any }): tendermint.types.CommitSig;
-
-            /**
-             * Creates a plain object from a CommitSig message. Also converts values to other types if specified.
-             * @param message CommitSig
-             * @param [options] Conversion options
-             * @returns Plain object
-             */
-            public static toObject(message: tendermint.types.CommitSig, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-            /**
-             * Converts this CommitSig to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
@@ -7612,6 +7499,9 @@ export namespace tendermint {
 
             /** ValidatorSet quorumHash */
             quorumHash?: (Uint8Array|null);
+
+            /** ValidatorSet hasPublicKeys */
+            hasPublicKeys?: (boolean|null);
         }
 
         /** Represents a ValidatorSet. */
@@ -7640,6 +7530,9 @@ export namespace tendermint {
 
             /** ValidatorSet quorumHash. */
             public quorumHash: Uint8Array;
+
+            /** ValidatorSet hasPublicKeys. */
+            public hasPublicKeys: boolean;
 
             /**
              * Creates a new ValidatorSet instance using the specified properties.
@@ -7715,9 +7608,6 @@ export namespace tendermint {
         /** Properties of a Validator. */
         interface IValidator {
 
-            /** Validator address */
-            address?: (Uint8Array|null);
-
             /** Validator pubKey */
             pubKey?: (tendermint.crypto.IPublicKey|null);
 
@@ -7739,9 +7629,6 @@ export namespace tendermint {
              * @param [properties] Properties to set
              */
             constructor(properties?: tendermint.types.IValidator);
-
-            /** Validator address. */
-            public address: Uint8Array;
 
             /** Validator pubKey. */
             public pubKey?: (tendermint.crypto.IPublicKey|null);
