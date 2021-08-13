@@ -6350,6 +6350,9 @@ export namespace tendermint {
 
             /** Header proposerProTxHash */
             proposerProTxHash?: (Uint8Array|null);
+
+            /** Header proposedAppVersion */
+            proposedAppVersion?: (number|Long|null);
         }
 
         /** Represents a Header. */
@@ -6405,6 +6408,9 @@ export namespace tendermint {
 
             /** Header proposerProTxHash. */
             public proposerProTxHash: Uint8Array;
+
+            /** Header proposedAppVersion. */
+            public proposedAppVersion: (number|Long);
 
             /**
              * Creates a new Header instance using the specified properties.
