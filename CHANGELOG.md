@@ -1,3 +1,13 @@
+# [0.21.0](https://github.com/tendermint/js-abci/compare/v0.19.0...v0.21.0) (2021-10-14)
+
+
+### Features
+
+* update to Tenderdash v0.5.7 ([#9](https://github.com/dashevo/js-abci/issues/9))
+* add proposed_app_version to header ([#15](https://github.com/dashevo/js-abci/issues/15))
+
+
+
 # [0.19.0](https://github.com/tendermint/js-abci/compare/v0.18.5...v0.19.0) (2021-06-08)
 
 
