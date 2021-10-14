@@ -4,6 +4,7 @@
 ### Features
 
 * update to Tenderdash v0.5.7 ([#9](https://github.com/dashevo/js-abci/issues/9))
+* add proposed_app_version to header ([#15](https://github.com/dashevo/js-abci/issues/15))
 
 
 
