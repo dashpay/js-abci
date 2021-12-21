@@ -349,9 +349,10 @@ message Validator {
 
 // ValidatorUpdate
 message ValidatorUpdate {
-  tendermint.crypto.PublicKey pub_key     = 1 [(gogoproto.nullable) = true];
-  int64                       power       = 2;
-  bytes                       pro_tx_hash = 3;
+  tendermint.crypto.PublicKey pub_key      = 1 [(gogoproto.nullable) = true];
+  int64                       power        = 2;
+  bytes                       pro_tx_hash  = 3;
+  string                      node_address = 4 [(gogoproto.nullable) = true];  // address of the Validator, correct URI
 }
 
 message ValidatorSetUpdate {
@@ -388,9 +389,9 @@ message Evidence {
   int64 height = 3;
   // The corresponding time where the offense occurred
   google.protobuf.Timestamp time = 4 [
-                                     (gogoproto.nullable) = false,
-                                     (gogoproto.stdtime)  = true
-                                     ];
+    (gogoproto.nullable) = false,
+    (gogoproto.stdtime)  = true
+  ];
   // Total voting power of the validator set in case the ABCI application does
   // not store historical validators.
   // https://github.com/tendermint/tendermint/issues/4581
