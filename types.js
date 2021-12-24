@@ -10956,6 +10956,7 @@ $root.tendermint = (function() {
              * @property {tendermint.crypto.IPublicKey|null} [pubKey] ValidatorUpdate pubKey
              * @property {number|Long|null} [power] ValidatorUpdate power
              * @property {Uint8Array|null} [proTxHash] ValidatorUpdate proTxHash
+             * @property {string|null} [nodeAddress] ValidatorUpdate nodeAddress
              */
 
             /**
@@ -10998,6 +10999,14 @@ $root.tendermint = (function() {
             ValidatorUpdate.prototype.proTxHash = $util.newBuffer([]);
 
             /**
+             * ValidatorUpdate nodeAddress.
+             * @member {string} nodeAddress
+             * @memberof tendermint.abci.ValidatorUpdate
+             * @instance
+             */
+            ValidatorUpdate.prototype.nodeAddress = "";
+
+            /**
              * Creates a new ValidatorUpdate instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.ValidatorUpdate
@@ -11027,6 +11036,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 2, wireType 0 =*/16).int64(message.power);
                 if (message.proTxHash != null && Object.hasOwnProperty.call(message, "proTxHash"))
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.proTxHash);
+                if (message.nodeAddress != null && Object.hasOwnProperty.call(message, "nodeAddress"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.nodeAddress);
                 return writer;
             };
 
@@ -11069,6 +11080,9 @@ $root.tendermint = (function() {
                         break;
                     case 3:
                         message.proTxHash = reader.bytes();
+                        break;
+                    case 4:
+                        message.nodeAddress = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -11116,6 +11130,9 @@ $root.tendermint = (function() {
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     if (!(message.proTxHash && typeof message.proTxHash.length === "number" || $util.isString(message.proTxHash)))
                         return "proTxHash: buffer expected";
+                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
+                    if (!$util.isString(message.nodeAddress))
+                        return "nodeAddress: string expected";
                 return null;
             };
 
@@ -11150,6 +11167,8 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.proTxHash, message.proTxHash = $util.newBuffer($util.base64.length(object.proTxHash)), 0);
                     else if (object.proTxHash.length >= 0)
                         message.proTxHash = object.proTxHash;
+                if (object.nodeAddress != null)
+                    message.nodeAddress = String(object.nodeAddress);
                 return message;
             };
 
@@ -11180,6 +11199,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proTxHash = $util.newBuffer(object.proTxHash);
                     }
+                    object.nodeAddress = "";
                 }
                 if (message.pubKey != null && message.hasOwnProperty("pubKey"))
                     object.pubKey = $root.tendermint.crypto.PublicKey.toObject(message.pubKey, options);
@@ -11190,6 +11210,8 @@ $root.tendermint = (function() {
                         object.power = options.longs === String ? $util.Long.prototype.toString.call(message.power) : options.longs === Number ? new $util.LongBits(message.power.low >>> 0, message.power.high >>> 0).toNumber() : message.power;
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     object.proTxHash = options.bytes === String ? $util.base64.encode(message.proTxHash, 0, message.proTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proTxHash) : message.proTxHash;
+                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
+                    object.nodeAddress = message.nodeAddress;
                 return object;
             };
 
