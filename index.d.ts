@@ -2110,9 +2110,6 @@ export namespace tendermint {
 
             /** ResponseInfo lastBlockAppHash */
             lastBlockAppHash?: (Uint8Array|null);
-
-            /** ResponseInfo lastCoreChainLockedHeight */
-            lastCoreChainLockedHeight?: (number|null);
         }
 
         /** Represents a ResponseInfo. */
@@ -2138,9 +2135,6 @@ export namespace tendermint {
 
             /** ResponseInfo lastBlockAppHash. */
             public lastBlockAppHash: Uint8Array;
-
-            /** ResponseInfo lastCoreChainLockedHeight. */
-            public lastCoreChainLockedHeight: number;
 
             /**
              * Creates a new ResponseInfo instance using the specified properties.
@@ -2329,6 +2323,9 @@ export namespace tendermint {
 
             /** ResponseInitChain nextCoreChainLockUpdate */
             nextCoreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
+
+            /** ResponseInitChain initialCoreHeight */
+            initialCoreHeight?: (number|null);
         }
 
         /** Represents a ResponseInitChain. */
@@ -2351,6 +2348,9 @@ export namespace tendermint {
 
             /** ResponseInitChain nextCoreChainLockUpdate. */
             public nextCoreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
+
+            /** ResponseInitChain initialCoreHeight. */
+            public initialCoreHeight: number;
 
             /**
              * Creates a new ResponseInitChain instance using the specified properties.
@@ -4242,9 +4242,6 @@ export namespace tendermint {
 
             /** ValidatorUpdate proTxHash */
             proTxHash?: (Uint8Array|null);
-
-            /** ValidatorUpdate nodeAddress */
-            nodeAddress?: (string|null);
         }
 
         /** Represents a ValidatorUpdate. */
@@ -4264,9 +4261,6 @@ export namespace tendermint {
 
             /** ValidatorUpdate proTxHash. */
             public proTxHash: Uint8Array;
-
-            /** ValidatorUpdate nodeAddress. */
-            public nodeAddress: string;
 
             /**
              * Creates a new ValidatorUpdate instance using the specified properties.
