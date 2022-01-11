@@ -4242,6 +4242,9 @@ export namespace tendermint {
 
             /** ValidatorUpdate proTxHash */
             proTxHash?: (Uint8Array|null);
+
+            /** ValidatorUpdate nodeAddress */
+            nodeAddress?: (string|null);
         }
 
         /** Represents a ValidatorUpdate. */
@@ -4261,6 +4264,9 @@ export namespace tendermint {
 
             /** ValidatorUpdate proTxHash. */
             public proTxHash: Uint8Array;
+
+            /** ValidatorUpdate nodeAddress. */
+            public nodeAddress: string;
 
             /**
              * Creates a new ValidatorUpdate instance using the specified properties.
