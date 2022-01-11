@@ -5401,7 +5401,6 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [appVersion] ResponseInfo appVersion
              * @property {number|Long|null} [lastBlockHeight] ResponseInfo lastBlockHeight
              * @property {Uint8Array|null} [lastBlockAppHash] ResponseInfo lastBlockAppHash
-             * @property {number|null} [lastCoreChainLockedHeight] ResponseInfo lastCoreChainLockedHeight
              */
 
             /**
@@ -5460,14 +5459,6 @@ $root.tendermint = (function() {
             ResponseInfo.prototype.lastBlockAppHash = $util.newBuffer([]);
 
             /**
-             * ResponseInfo lastCoreChainLockedHeight.
-             * @member {number} lastCoreChainLockedHeight
-             * @memberof tendermint.abci.ResponseInfo
-             * @instance
-             */
-            ResponseInfo.prototype.lastCoreChainLockedHeight = 0;
-
-            /**
              * Creates a new ResponseInfo instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.ResponseInfo
@@ -5501,8 +5492,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 4, wireType 0 =*/32).int64(message.lastBlockHeight);
                 if (message.lastBlockAppHash != null && Object.hasOwnProperty.call(message, "lastBlockAppHash"))
                     writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.lastBlockAppHash);
-                if (message.lastCoreChainLockedHeight != null && Object.hasOwnProperty.call(message, "lastCoreChainLockedHeight"))
-                    writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.lastCoreChainLockedHeight);
                 return writer;
             };
 
@@ -5551,9 +5540,6 @@ $root.tendermint = (function() {
                         break;
                     case 5:
                         message.lastBlockAppHash = reader.bytes();
-                        break;
-                    case 100:
-                        message.lastCoreChainLockedHeight = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -5605,9 +5591,6 @@ $root.tendermint = (function() {
                 if (message.lastBlockAppHash != null && message.hasOwnProperty("lastBlockAppHash"))
                     if (!(message.lastBlockAppHash && typeof message.lastBlockAppHash.length === "number" || $util.isString(message.lastBlockAppHash)))
                         return "lastBlockAppHash: buffer expected";
-                if (message.lastCoreChainLockedHeight != null && message.hasOwnProperty("lastCoreChainLockedHeight"))
-                    if (!$util.isInteger(message.lastCoreChainLockedHeight))
-                        return "lastCoreChainLockedHeight: integer expected";
                 return null;
             };
 
@@ -5650,8 +5633,6 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.lastBlockAppHash, message.lastBlockAppHash = $util.newBuffer($util.base64.length(object.lastBlockAppHash)), 0);
                     else if (object.lastBlockAppHash.length >= 0)
                         message.lastBlockAppHash = object.lastBlockAppHash;
-                if (object.lastCoreChainLockedHeight != null)
-                    message.lastCoreChainLockedHeight = object.lastCoreChainLockedHeight >>> 0;
                 return message;
             };
 
@@ -5688,7 +5669,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.lastBlockAppHash = $util.newBuffer(object.lastBlockAppHash);
                     }
-                    object.lastCoreChainLockedHeight = 0;
                 }
                 if (message.data != null && message.hasOwnProperty("data"))
                     object.data = message.data;
@@ -5706,8 +5686,6 @@ $root.tendermint = (function() {
                         object.lastBlockHeight = options.longs === String ? $util.Long.prototype.toString.call(message.lastBlockHeight) : options.longs === Number ? new $util.LongBits(message.lastBlockHeight.low >>> 0, message.lastBlockHeight.high >>> 0).toNumber() : message.lastBlockHeight;
                 if (message.lastBlockAppHash != null && message.hasOwnProperty("lastBlockAppHash"))
                     object.lastBlockAppHash = options.bytes === String ? $util.base64.encode(message.lastBlockAppHash, 0, message.lastBlockAppHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.lastBlockAppHash) : message.lastBlockAppHash;
-                if (message.lastCoreChainLockedHeight != null && message.hasOwnProperty("lastCoreChainLockedHeight"))
-                    object.lastCoreChainLockedHeight = message.lastCoreChainLockedHeight;
                 return object;
             };
 
@@ -5967,6 +5945,7 @@ $root.tendermint = (function() {
              * @property {Uint8Array|null} [appHash] ResponseInitChain appHash
              * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSetUpdate] ResponseInitChain validatorSetUpdate
              * @property {tendermint.types.ICoreChainLock|null} [nextCoreChainLockUpdate] ResponseInitChain nextCoreChainLockUpdate
+             * @property {number|null} [initialCoreHeight] ResponseInitChain initialCoreHeight
              */
 
             /**
@@ -6017,6 +5996,14 @@ $root.tendermint = (function() {
             ResponseInitChain.prototype.nextCoreChainLockUpdate = null;
 
             /**
+             * ResponseInitChain initialCoreHeight.
+             * @member {number} initialCoreHeight
+             * @memberof tendermint.abci.ResponseInitChain
+             * @instance
+             */
+            ResponseInitChain.prototype.initialCoreHeight = 0;
+
+            /**
              * Creates a new ResponseInitChain instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.ResponseInitChain
@@ -6048,6 +6035,8 @@ $root.tendermint = (function() {
                     $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
                 if (message.nextCoreChainLockUpdate != null && Object.hasOwnProperty.call(message, "nextCoreChainLockUpdate"))
                     $root.tendermint.types.CoreChainLock.encode(message.nextCoreChainLockUpdate, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
+                if (message.initialCoreHeight != null && Object.hasOwnProperty.call(message, "initialCoreHeight"))
+                    writer.uint32(/* id 102, wireType 0 =*/816).uint32(message.initialCoreHeight);
                 return writer;
             };
 
@@ -6093,6 +6082,9 @@ $root.tendermint = (function() {
                         break;
                     case 101:
                         message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
+                        break;
+                    case 102:
+                        message.initialCoreHeight = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -6147,6 +6139,9 @@ $root.tendermint = (function() {
                     if (error)
                         return "nextCoreChainLockUpdate." + error;
                 }
+                if (message.initialCoreHeight != null && message.hasOwnProperty("initialCoreHeight"))
+                    if (!$util.isInteger(message.initialCoreHeight))
+                        return "initialCoreHeight: integer expected";
                 return null;
             };
 
@@ -6182,6 +6177,8 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.ResponseInitChain.nextCoreChainLockUpdate: object expected");
                     message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.nextCoreChainLockUpdate);
                 }
+                if (object.initialCoreHeight != null)
+                    message.initialCoreHeight = object.initialCoreHeight >>> 0;
                 return message;
             };
 
@@ -6209,6 +6206,7 @@ $root.tendermint = (function() {
                     }
                     object.validatorSetUpdate = null;
                     object.nextCoreChainLockUpdate = null;
+                    object.initialCoreHeight = 0;
                 }
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams"))
                     object.consensusParams = $root.tendermint.abci.ConsensusParams.toObject(message.consensusParams, options);
@@ -6218,6 +6216,8 @@ $root.tendermint = (function() {
                     object.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.toObject(message.validatorSetUpdate, options);
                 if (message.nextCoreChainLockUpdate != null && message.hasOwnProperty("nextCoreChainLockUpdate"))
                     object.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.nextCoreChainLockUpdate, options);
+                if (message.initialCoreHeight != null && message.hasOwnProperty("initialCoreHeight"))
+                    object.initialCoreHeight = message.initialCoreHeight;
                 return object;
             };
 
@@ -10956,7 +10956,6 @@ $root.tendermint = (function() {
              * @property {tendermint.crypto.IPublicKey|null} [pubKey] ValidatorUpdate pubKey
              * @property {number|Long|null} [power] ValidatorUpdate power
              * @property {Uint8Array|null} [proTxHash] ValidatorUpdate proTxHash
-             * @property {string|null} [nodeAddress] ValidatorUpdate nodeAddress
              */
 
             /**
@@ -10999,14 +10998,6 @@ $root.tendermint = (function() {
             ValidatorUpdate.prototype.proTxHash = $util.newBuffer([]);
 
             /**
-             * ValidatorUpdate nodeAddress.
-             * @member {string} nodeAddress
-             * @memberof tendermint.abci.ValidatorUpdate
-             * @instance
-             */
-            ValidatorUpdate.prototype.nodeAddress = "";
-
-            /**
              * Creates a new ValidatorUpdate instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.ValidatorUpdate
@@ -11036,8 +11027,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 2, wireType 0 =*/16).int64(message.power);
                 if (message.proTxHash != null && Object.hasOwnProperty.call(message, "proTxHash"))
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.proTxHash);
-                if (message.nodeAddress != null && Object.hasOwnProperty.call(message, "nodeAddress"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.nodeAddress);
                 return writer;
             };
 
@@ -11080,9 +11069,6 @@ $root.tendermint = (function() {
                         break;
                     case 3:
                         message.proTxHash = reader.bytes();
-                        break;
-                    case 4:
-                        message.nodeAddress = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -11130,9 +11116,6 @@ $root.tendermint = (function() {
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     if (!(message.proTxHash && typeof message.proTxHash.length === "number" || $util.isString(message.proTxHash)))
                         return "proTxHash: buffer expected";
-                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
-                    if (!$util.isString(message.nodeAddress))
-                        return "nodeAddress: string expected";
                 return null;
             };
 
@@ -11167,8 +11150,6 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.proTxHash, message.proTxHash = $util.newBuffer($util.base64.length(object.proTxHash)), 0);
                     else if (object.proTxHash.length >= 0)
                         message.proTxHash = object.proTxHash;
-                if (object.nodeAddress != null)
-                    message.nodeAddress = String(object.nodeAddress);
                 return message;
             };
 
@@ -11199,7 +11180,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proTxHash = $util.newBuffer(object.proTxHash);
                     }
-                    object.nodeAddress = "";
                 }
                 if (message.pubKey != null && message.hasOwnProperty("pubKey"))
                     object.pubKey = $root.tendermint.crypto.PublicKey.toObject(message.pubKey, options);
@@ -11210,8 +11190,6 @@ $root.tendermint = (function() {
                         object.power = options.longs === String ? $util.Long.prototype.toString.call(message.power) : options.longs === Number ? new $util.LongBits(message.power.low >>> 0, message.power.high >>> 0).toNumber() : message.power;
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     object.proTxHash = options.bytes === String ? $util.base64.encode(message.proTxHash, 0, message.proTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proTxHash) : message.proTxHash;
-                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
-                    object.nodeAddress = message.nodeAddress;
                 return object;
             };
 
