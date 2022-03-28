@@ -36,7 +36,6 @@ $root.tendermint = (function() {
              * @property {tendermint.abci.IRequestEcho|null} [echo] Request echo
              * @property {tendermint.abci.IRequestFlush|null} [flush] Request flush
              * @property {tendermint.abci.IRequestInfo|null} [info] Request info
-             * @property {tendermint.abci.IRequestSetOption|null} [setOption] Request setOption
              * @property {tendermint.abci.IRequestInitChain|null} [initChain] Request initChain
              * @property {tendermint.abci.IRequestQuery|null} [query] Request query
              * @property {tendermint.abci.IRequestBeginBlock|null} [beginBlock] Request beginBlock
@@ -88,14 +87,6 @@ $root.tendermint = (function() {
              * @instance
              */
             Request.prototype.info = null;
-
-            /**
-             * Request setOption.
-             * @member {tendermint.abci.IRequestSetOption|null|undefined} setOption
-             * @memberof tendermint.abci.Request
-             * @instance
-             */
-            Request.prototype.setOption = null;
 
             /**
              * Request initChain.
@@ -190,12 +181,12 @@ $root.tendermint = (function() {
 
             /**
              * Request value.
-             * @member {"echo"|"flush"|"info"|"setOption"|"initChain"|"query"|"beginBlock"|"checkTx"|"deliverTx"|"endBlock"|"commit"|"listSnapshots"|"offerSnapshot"|"loadSnapshotChunk"|"applySnapshotChunk"|undefined} value
+             * @member {"echo"|"flush"|"info"|"initChain"|"query"|"beginBlock"|"checkTx"|"deliverTx"|"endBlock"|"commit"|"listSnapshots"|"offerSnapshot"|"loadSnapshotChunk"|"applySnapshotChunk"|undefined} value
              * @memberof tendermint.abci.Request
              * @instance
              */
             Object.defineProperty(Request.prototype, "value", {
-                get: $util.oneOfGetter($oneOfFields = ["echo", "flush", "info", "setOption", "initChain", "query", "beginBlock", "checkTx", "deliverTx", "endBlock", "commit", "listSnapshots", "offerSnapshot", "loadSnapshotChunk", "applySnapshotChunk"]),
+                get: $util.oneOfGetter($oneOfFields = ["echo", "flush", "info", "initChain", "query", "beginBlock", "checkTx", "deliverTx", "endBlock", "commit", "listSnapshots", "offerSnapshot", "loadSnapshotChunk", "applySnapshotChunk"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
 
@@ -229,30 +220,28 @@ $root.tendermint = (function() {
                     $root.tendermint.abci.RequestFlush.encode(message.flush, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                 if (message.info != null && Object.hasOwnProperty.call(message, "info"))
                     $root.tendermint.abci.RequestInfo.encode(message.info, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                if (message.setOption != null && Object.hasOwnProperty.call(message, "setOption"))
-                    $root.tendermint.abci.RequestSetOption.encode(message.setOption, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.initChain != null && Object.hasOwnProperty.call(message, "initChain"))
-                    $root.tendermint.abci.RequestInitChain.encode(message.initChain, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    $root.tendermint.abci.RequestInitChain.encode(message.initChain, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.query != null && Object.hasOwnProperty.call(message, "query"))
-                    $root.tendermint.abci.RequestQuery.encode(message.query, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    $root.tendermint.abci.RequestQuery.encode(message.query, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 if (message.beginBlock != null && Object.hasOwnProperty.call(message, "beginBlock"))
-                    $root.tendermint.abci.RequestBeginBlock.encode(message.beginBlock, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    $root.tendermint.abci.RequestBeginBlock.encode(message.beginBlock, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 if (message.checkTx != null && Object.hasOwnProperty.call(message, "checkTx"))
-                    $root.tendermint.abci.RequestCheckTx.encode(message.checkTx, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    $root.tendermint.abci.RequestCheckTx.encode(message.checkTx, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 if (message.deliverTx != null && Object.hasOwnProperty.call(message, "deliverTx"))
-                    $root.tendermint.abci.RequestDeliverTx.encode(message.deliverTx, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                    $root.tendermint.abci.RequestDeliverTx.encode(message.deliverTx, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                 if (message.endBlock != null && Object.hasOwnProperty.call(message, "endBlock"))
-                    $root.tendermint.abci.RequestEndBlock.encode(message.endBlock, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                    $root.tendermint.abci.RequestEndBlock.encode(message.endBlock, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
                 if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
-                    $root.tendermint.abci.RequestCommit.encode(message.commit, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
+                    $root.tendermint.abci.RequestCommit.encode(message.commit, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
                 if (message.listSnapshots != null && Object.hasOwnProperty.call(message, "listSnapshots"))
-                    $root.tendermint.abci.RequestListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+                    $root.tendermint.abci.RequestListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
                 if (message.offerSnapshot != null && Object.hasOwnProperty.call(message, "offerSnapshot"))
-                    $root.tendermint.abci.RequestOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
+                    $root.tendermint.abci.RequestOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
                 if (message.loadSnapshotChunk != null && Object.hasOwnProperty.call(message, "loadSnapshotChunk"))
-                    $root.tendermint.abci.RequestLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
+                    $root.tendermint.abci.RequestLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
                 if (message.applySnapshotChunk != null && Object.hasOwnProperty.call(message, "applySnapshotChunk"))
-                    $root.tendermint.abci.RequestApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
+                    $root.tendermint.abci.RequestApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
                 return writer;
             };
 
@@ -297,39 +286,36 @@ $root.tendermint = (function() {
                         message.info = $root.tendermint.abci.RequestInfo.decode(reader, reader.uint32());
                         break;
                     case 4:
-                        message.setOption = $root.tendermint.abci.RequestSetOption.decode(reader, reader.uint32());
-                        break;
-                    case 5:
                         message.initChain = $root.tendermint.abci.RequestInitChain.decode(reader, reader.uint32());
                         break;
-                    case 6:
+                    case 5:
                         message.query = $root.tendermint.abci.RequestQuery.decode(reader, reader.uint32());
                         break;
-                    case 7:
+                    case 6:
                         message.beginBlock = $root.tendermint.abci.RequestBeginBlock.decode(reader, reader.uint32());
                         break;
-                    case 8:
+                    case 7:
                         message.checkTx = $root.tendermint.abci.RequestCheckTx.decode(reader, reader.uint32());
                         break;
-                    case 9:
+                    case 8:
                         message.deliverTx = $root.tendermint.abci.RequestDeliverTx.decode(reader, reader.uint32());
                         break;
-                    case 10:
+                    case 9:
                         message.endBlock = $root.tendermint.abci.RequestEndBlock.decode(reader, reader.uint32());
                         break;
-                    case 11:
+                    case 10:
                         message.commit = $root.tendermint.abci.RequestCommit.decode(reader, reader.uint32());
                         break;
-                    case 12:
+                    case 11:
                         message.listSnapshots = $root.tendermint.abci.RequestListSnapshots.decode(reader, reader.uint32());
                         break;
-                    case 13:
+                    case 12:
                         message.offerSnapshot = $root.tendermint.abci.RequestOfferSnapshot.decode(reader, reader.uint32());
                         break;
-                    case 14:
+                    case 13:
                         message.loadSnapshotChunk = $root.tendermint.abci.RequestLoadSnapshotChunk.decode(reader, reader.uint32());
                         break;
-                    case 15:
+                    case 14:
                         message.applySnapshotChunk = $root.tendermint.abci.RequestApplySnapshotChunk.decode(reader, reader.uint32());
                         break;
                     default:
@@ -394,16 +380,6 @@ $root.tendermint = (function() {
                         var error = $root.tendermint.abci.RequestInfo.verify(message.info);
                         if (error)
                             return "info." + error;
-                    }
-                }
-                if (message.setOption != null && message.hasOwnProperty("setOption")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.RequestSetOption.verify(message.setOption);
-                        if (error)
-                            return "setOption." + error;
                     }
                 }
                 if (message.initChain != null && message.hasOwnProperty("initChain")) {
@@ -546,11 +522,6 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.Request.info: object expected");
                     message.info = $root.tendermint.abci.RequestInfo.fromObject(object.info);
                 }
-                if (object.setOption != null) {
-                    if (typeof object.setOption !== "object")
-                        throw TypeError(".tendermint.abci.Request.setOption: object expected");
-                    message.setOption = $root.tendermint.abci.RequestSetOption.fromObject(object.setOption);
-                }
                 if (object.initChain != null) {
                     if (typeof object.initChain !== "object")
                         throw TypeError(".tendermint.abci.Request.initChain: object expected");
@@ -636,11 +607,6 @@ $root.tendermint = (function() {
                     object.info = $root.tendermint.abci.RequestInfo.toObject(message.info, options);
                     if (options.oneofs)
                         object.value = "info";
-                }
-                if (message.setOption != null && message.hasOwnProperty("setOption")) {
-                    object.setOption = $root.tendermint.abci.RequestSetOption.toObject(message.setOption, options);
-                    if (options.oneofs)
-                        object.value = "setOption";
                 }
                 if (message.initChain != null && message.hasOwnProperty("initChain")) {
                     object.initChain = $root.tendermint.abci.RequestInitChain.toObject(message.initChain, options);
@@ -1070,6 +1036,7 @@ $root.tendermint = (function() {
              * @property {string|null} [version] RequestInfo version
              * @property {number|Long|null} [blockVersion] RequestInfo blockVersion
              * @property {number|Long|null} [p2pVersion] RequestInfo p2pVersion
+             * @property {string|null} [abciVersion] RequestInfo abciVersion
              */
 
             /**
@@ -1112,6 +1079,14 @@ $root.tendermint = (function() {
             RequestInfo.prototype.p2pVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
             /**
+             * RequestInfo abciVersion.
+             * @member {string} abciVersion
+             * @memberof tendermint.abci.RequestInfo
+             * @instance
+             */
+            RequestInfo.prototype.abciVersion = "";
+
+            /**
              * Creates a new RequestInfo instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.RequestInfo
@@ -1141,6 +1116,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.blockVersion);
                 if (message.p2pVersion != null && Object.hasOwnProperty.call(message, "p2pVersion"))
                     writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.p2pVersion);
+                if (message.abciVersion != null && Object.hasOwnProperty.call(message, "abciVersion"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.abciVersion);
                 return writer;
             };
 
@@ -1183,6 +1160,9 @@ $root.tendermint = (function() {
                         break;
                     case 3:
                         message.p2pVersion = reader.uint64();
+                        break;
+                    case 4:
+                        message.abciVersion = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -1228,6 +1208,9 @@ $root.tendermint = (function() {
                 if (message.p2pVersion != null && message.hasOwnProperty("p2pVersion"))
                     if (!$util.isInteger(message.p2pVersion) && !(message.p2pVersion && $util.isInteger(message.p2pVersion.low) && $util.isInteger(message.p2pVersion.high)))
                         return "p2pVersion: integer|Long expected";
+                if (message.abciVersion != null && message.hasOwnProperty("abciVersion"))
+                    if (!$util.isString(message.abciVersion))
+                        return "abciVersion: string expected";
                 return null;
             };
 
@@ -1263,6 +1246,8 @@ $root.tendermint = (function() {
                         message.p2pVersion = object.p2pVersion;
                     else if (typeof object.p2pVersion === "object")
                         message.p2pVersion = new $util.LongBits(object.p2pVersion.low >>> 0, object.p2pVersion.high >>> 0).toNumber(true);
+                if (object.abciVersion != null)
+                    message.abciVersion = String(object.abciVersion);
                 return message;
             };
 
@@ -1291,6 +1276,7 @@ $root.tendermint = (function() {
                         object.p2pVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.p2pVersion = options.longs === String ? "0" : 0;
+                    object.abciVersion = "";
                 }
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = message.version;
@@ -1304,6 +1290,8 @@ $root.tendermint = (function() {
                         object.p2pVersion = options.longs === String ? String(message.p2pVersion) : message.p2pVersion;
                     else
                         object.p2pVersion = options.longs === String ? $util.Long.prototype.toString.call(message.p2pVersion) : options.longs === Number ? new $util.LongBits(message.p2pVersion.low >>> 0, message.p2pVersion.high >>> 0).toNumber(true) : message.p2pVersion;
+                if (message.abciVersion != null && message.hasOwnProperty("abciVersion"))
+                    object.abciVersion = message.abciVersion;
                 return object;
             };
 
@@ -1321,216 +1309,6 @@ $root.tendermint = (function() {
             return RequestInfo;
         })();
 
-        abci.RequestSetOption = (function() {
-
-            /**
-             * Properties of a RequestSetOption.
-             * @memberof tendermint.abci
-             * @interface IRequestSetOption
-             * @property {string|null} [key] RequestSetOption key
-             * @property {string|null} [value] RequestSetOption value
-             */
-
-            /**
-             * Constructs a new RequestSetOption.
-             * @memberof tendermint.abci
-             * @classdesc Represents a RequestSetOption.
-             * @implements IRequestSetOption
-             * @constructor
-             * @param {tendermint.abci.IRequestSetOption=} [properties] Properties to set
-             */
-            function RequestSetOption(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * RequestSetOption key.
-             * @member {string} key
-             * @memberof tendermint.abci.RequestSetOption
-             * @instance
-             */
-            RequestSetOption.prototype.key = "";
-
-            /**
-             * RequestSetOption value.
-             * @member {string} value
-             * @memberof tendermint.abci.RequestSetOption
-             * @instance
-             */
-            RequestSetOption.prototype.value = "";
-
-            /**
-             * Creates a new RequestSetOption instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {tendermint.abci.IRequestSetOption=} [properties] Properties to set
-             * @returns {tendermint.abci.RequestSetOption} RequestSetOption instance
-             */
-            RequestSetOption.create = function create(properties) {
-                return new RequestSetOption(properties);
-            };
-
-            /**
-             * Encodes the specified RequestSetOption message. Does not implicitly {@link tendermint.abci.RequestSetOption.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {tendermint.abci.IRequestSetOption} message RequestSetOption message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestSetOption.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.key != null && Object.hasOwnProperty.call(message, "key"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.key);
-                if (message.value != null && Object.hasOwnProperty.call(message, "value"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.value);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified RequestSetOption message, length delimited. Does not implicitly {@link tendermint.abci.RequestSetOption.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {tendermint.abci.IRequestSetOption} message RequestSetOption message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestSetOption.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a RequestSetOption message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.RequestSetOption} RequestSetOption
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestSetOption.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestSetOption();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.key = reader.string();
-                        break;
-                    case 2:
-                        message.value = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a RequestSetOption message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.RequestSetOption} RequestSetOption
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestSetOption.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a RequestSetOption message.
-             * @function verify
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RequestSetOption.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.key != null && message.hasOwnProperty("key"))
-                    if (!$util.isString(message.key))
-                        return "key: string expected";
-                if (message.value != null && message.hasOwnProperty("value"))
-                    if (!$util.isString(message.value))
-                        return "value: string expected";
-                return null;
-            };
-
-            /**
-             * Creates a RequestSetOption message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.RequestSetOption} RequestSetOption
-             */
-            RequestSetOption.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.RequestSetOption)
-                    return object;
-                var message = new $root.tendermint.abci.RequestSetOption();
-                if (object.key != null)
-                    message.key = String(object.key);
-                if (object.value != null)
-                    message.value = String(object.value);
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a RequestSetOption message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {tendermint.abci.RequestSetOption} message RequestSetOption
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RequestSetOption.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.key = "";
-                    object.value = "";
-                }
-                if (message.key != null && message.hasOwnProperty("key"))
-                    object.key = message.key;
-                if (message.value != null && message.hasOwnProperty("value"))
-                    object.value = message.value;
-                return object;
-            };
-
-            /**
-             * Converts this RequestSetOption to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.RequestSetOption
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RequestSetOption.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return RequestSetOption;
-        })();
-
         abci.RequestInitChain = (function() {
 
             /**
@@ -1539,7 +1317,7 @@ $root.tendermint = (function() {
              * @interface IRequestInitChain
              * @property {google.protobuf.ITimestamp|null} [time] RequestInitChain time
              * @property {string|null} [chainId] RequestInitChain chainId
-             * @property {tendermint.abci.IConsensusParams|null} [consensusParams] RequestInitChain consensusParams
+             * @property {tendermint.types.IConsensusParams|null} [consensusParams] RequestInitChain consensusParams
              * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSet] RequestInitChain validatorSet
              * @property {Uint8Array|null} [appStateBytes] RequestInitChain appStateBytes
              * @property {number|Long|null} [initialHeight] RequestInitChain initialHeight
@@ -1579,7 +1357,7 @@ $root.tendermint = (function() {
 
             /**
              * RequestInitChain consensusParams.
-             * @member {tendermint.abci.IConsensusParams|null|undefined} consensusParams
+             * @member {tendermint.types.IConsensusParams|null|undefined} consensusParams
              * @memberof tendermint.abci.RequestInitChain
              * @instance
              */
@@ -1646,7 +1424,7 @@ $root.tendermint = (function() {
                 if (message.chainId != null && Object.hasOwnProperty.call(message, "chainId"))
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.chainId);
                 if (message.consensusParams != null && Object.hasOwnProperty.call(message, "consensusParams"))
-                    $root.tendermint.abci.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.validatorSet != null && Object.hasOwnProperty.call(message, "validatorSet"))
                     $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSet, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.appStateBytes != null && Object.hasOwnProperty.call(message, "appStateBytes"))
@@ -1696,7 +1474,7 @@ $root.tendermint = (function() {
                         message.chainId = reader.string();
                         break;
                     case 3:
-                        message.consensusParams = $root.tendermint.abci.ConsensusParams.decode(reader, reader.uint32());
+                        message.consensusParams = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
                     case 4:
                         message.validatorSet = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
@@ -1754,7 +1532,7 @@ $root.tendermint = (function() {
                     if (!$util.isString(message.chainId))
                         return "chainId: string expected";
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams")) {
-                    var error = $root.tendermint.abci.ConsensusParams.verify(message.consensusParams);
+                    var error = $root.tendermint.types.ConsensusParams.verify(message.consensusParams);
                     if (error)
                         return "consensusParams." + error;
                 }
@@ -1797,7 +1575,7 @@ $root.tendermint = (function() {
                 if (object.consensusParams != null) {
                     if (typeof object.consensusParams !== "object")
                         throw TypeError(".tendermint.abci.RequestInitChain.consensusParams: object expected");
-                    message.consensusParams = $root.tendermint.abci.ConsensusParams.fromObject(object.consensusParams);
+                    message.consensusParams = $root.tendermint.types.ConsensusParams.fromObject(object.consensusParams);
                 }
                 if (object.validatorSet != null) {
                     if (typeof object.validatorSet !== "object")
@@ -1860,7 +1638,7 @@ $root.tendermint = (function() {
                 if (message.chainId != null && message.hasOwnProperty("chainId"))
                     object.chainId = message.chainId;
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams"))
-                    object.consensusParams = $root.tendermint.abci.ConsensusParams.toObject(message.consensusParams, options);
+                    object.consensusParams = $root.tendermint.types.ConsensusParams.toObject(message.consensusParams, options);
                 if (message.validatorSet != null && message.hasOwnProperty("validatorSet"))
                     object.validatorSet = $root.tendermint.abci.ValidatorSetUpdate.toObject(message.validatorSet, options);
                 if (message.appStateBytes != null && message.hasOwnProperty("appStateBytes"))
@@ -4145,7 +3923,6 @@ $root.tendermint = (function() {
              * @property {tendermint.abci.IResponseEcho|null} [echo] Response echo
              * @property {tendermint.abci.IResponseFlush|null} [flush] Response flush
              * @property {tendermint.abci.IResponseInfo|null} [info] Response info
-             * @property {tendermint.abci.IResponseSetOption|null} [setOption] Response setOption
              * @property {tendermint.abci.IResponseInitChain|null} [initChain] Response initChain
              * @property {tendermint.abci.IResponseQuery|null} [query] Response query
              * @property {tendermint.abci.IResponseBeginBlock|null} [beginBlock] Response beginBlock
@@ -4205,14 +3982,6 @@ $root.tendermint = (function() {
              * @instance
              */
             Response.prototype.info = null;
-
-            /**
-             * Response setOption.
-             * @member {tendermint.abci.IResponseSetOption|null|undefined} setOption
-             * @memberof tendermint.abci.Response
-             * @instance
-             */
-            Response.prototype.setOption = null;
 
             /**
              * Response initChain.
@@ -4307,12 +4076,12 @@ $root.tendermint = (function() {
 
             /**
              * Response value.
-             * @member {"exception"|"echo"|"flush"|"info"|"setOption"|"initChain"|"query"|"beginBlock"|"checkTx"|"deliverTx"|"endBlock"|"commit"|"listSnapshots"|"offerSnapshot"|"loadSnapshotChunk"|"applySnapshotChunk"|undefined} value
+             * @member {"exception"|"echo"|"flush"|"info"|"initChain"|"query"|"beginBlock"|"checkTx"|"deliverTx"|"endBlock"|"commit"|"listSnapshots"|"offerSnapshot"|"loadSnapshotChunk"|"applySnapshotChunk"|undefined} value
              * @memberof tendermint.abci.Response
              * @instance
              */
             Object.defineProperty(Response.prototype, "value", {
-                get: $util.oneOfGetter($oneOfFields = ["exception", "echo", "flush", "info", "setOption", "initChain", "query", "beginBlock", "checkTx", "deliverTx", "endBlock", "commit", "listSnapshots", "offerSnapshot", "loadSnapshotChunk", "applySnapshotChunk"]),
+                get: $util.oneOfGetter($oneOfFields = ["exception", "echo", "flush", "info", "initChain", "query", "beginBlock", "checkTx", "deliverTx", "endBlock", "commit", "listSnapshots", "offerSnapshot", "loadSnapshotChunk", "applySnapshotChunk"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
 
@@ -4348,30 +4117,28 @@ $root.tendermint = (function() {
                     $root.tendermint.abci.ResponseFlush.encode(message.flush, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.info != null && Object.hasOwnProperty.call(message, "info"))
                     $root.tendermint.abci.ResponseInfo.encode(message.info, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                if (message.setOption != null && Object.hasOwnProperty.call(message, "setOption"))
-                    $root.tendermint.abci.ResponseSetOption.encode(message.setOption, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 if (message.initChain != null && Object.hasOwnProperty.call(message, "initChain"))
-                    $root.tendermint.abci.ResponseInitChain.encode(message.initChain, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    $root.tendermint.abci.ResponseInitChain.encode(message.initChain, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 if (message.query != null && Object.hasOwnProperty.call(message, "query"))
-                    $root.tendermint.abci.ResponseQuery.encode(message.query, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    $root.tendermint.abci.ResponseQuery.encode(message.query, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 if (message.beginBlock != null && Object.hasOwnProperty.call(message, "beginBlock"))
-                    $root.tendermint.abci.ResponseBeginBlock.encode(message.beginBlock, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    $root.tendermint.abci.ResponseBeginBlock.encode(message.beginBlock, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 if (message.checkTx != null && Object.hasOwnProperty.call(message, "checkTx"))
-                    $root.tendermint.abci.ResponseCheckTx.encode(message.checkTx, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+                    $root.tendermint.abci.ResponseCheckTx.encode(message.checkTx, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                 if (message.deliverTx != null && Object.hasOwnProperty.call(message, "deliverTx"))
-                    $root.tendermint.abci.ResponseDeliverTx.encode(message.deliverTx, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                    $root.tendermint.abci.ResponseDeliverTx.encode(message.deliverTx, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
                 if (message.endBlock != null && Object.hasOwnProperty.call(message, "endBlock"))
-                    $root.tendermint.abci.ResponseEndBlock.encode(message.endBlock, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
+                    $root.tendermint.abci.ResponseEndBlock.encode(message.endBlock, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
                 if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
-                    $root.tendermint.abci.ResponseCommit.encode(message.commit, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+                    $root.tendermint.abci.ResponseCommit.encode(message.commit, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
                 if (message.listSnapshots != null && Object.hasOwnProperty.call(message, "listSnapshots"))
-                    $root.tendermint.abci.ResponseListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
+                    $root.tendermint.abci.ResponseListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
                 if (message.offerSnapshot != null && Object.hasOwnProperty.call(message, "offerSnapshot"))
-                    $root.tendermint.abci.ResponseOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
+                    $root.tendermint.abci.ResponseOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
                 if (message.loadSnapshotChunk != null && Object.hasOwnProperty.call(message, "loadSnapshotChunk"))
-                    $root.tendermint.abci.ResponseLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
+                    $root.tendermint.abci.ResponseLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
                 if (message.applySnapshotChunk != null && Object.hasOwnProperty.call(message, "applySnapshotChunk"))
-                    $root.tendermint.abci.ResponseApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
+                    $root.tendermint.abci.ResponseApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
                 return writer;
             };
 
@@ -4419,39 +4186,36 @@ $root.tendermint = (function() {
                         message.info = $root.tendermint.abci.ResponseInfo.decode(reader, reader.uint32());
                         break;
                     case 5:
-                        message.setOption = $root.tendermint.abci.ResponseSetOption.decode(reader, reader.uint32());
-                        break;
-                    case 6:
                         message.initChain = $root.tendermint.abci.ResponseInitChain.decode(reader, reader.uint32());
                         break;
-                    case 7:
+                    case 6:
                         message.query = $root.tendermint.abci.ResponseQuery.decode(reader, reader.uint32());
                         break;
-                    case 8:
+                    case 7:
                         message.beginBlock = $root.tendermint.abci.ResponseBeginBlock.decode(reader, reader.uint32());
                         break;
-                    case 9:
+                    case 8:
                         message.checkTx = $root.tendermint.abci.ResponseCheckTx.decode(reader, reader.uint32());
                         break;
-                    case 10:
+                    case 9:
                         message.deliverTx = $root.tendermint.abci.ResponseDeliverTx.decode(reader, reader.uint32());
                         break;
-                    case 11:
+                    case 10:
                         message.endBlock = $root.tendermint.abci.ResponseEndBlock.decode(reader, reader.uint32());
                         break;
-                    case 12:
+                    case 11:
                         message.commit = $root.tendermint.abci.ResponseCommit.decode(reader, reader.uint32());
                         break;
-                    case 13:
+                    case 12:
                         message.listSnapshots = $root.tendermint.abci.ResponseListSnapshots.decode(reader, reader.uint32());
                         break;
-                    case 14:
+                    case 13:
                         message.offerSnapshot = $root.tendermint.abci.ResponseOfferSnapshot.decode(reader, reader.uint32());
                         break;
-                    case 15:
+                    case 14:
                         message.loadSnapshotChunk = $root.tendermint.abci.ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
                         break;
-                    case 16:
+                    case 15:
                         message.applySnapshotChunk = $root.tendermint.abci.ResponseApplySnapshotChunk.decode(reader, reader.uint32());
                         break;
                     default:
@@ -4526,16 +4290,6 @@ $root.tendermint = (function() {
                         var error = $root.tendermint.abci.ResponseInfo.verify(message.info);
                         if (error)
                             return "info." + error;
-                    }
-                }
-                if (message.setOption != null && message.hasOwnProperty("setOption")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.ResponseSetOption.verify(message.setOption);
-                        if (error)
-                            return "setOption." + error;
                     }
                 }
                 if (message.initChain != null && message.hasOwnProperty("initChain")) {
@@ -4683,11 +4437,6 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.Response.info: object expected");
                     message.info = $root.tendermint.abci.ResponseInfo.fromObject(object.info);
                 }
-                if (object.setOption != null) {
-                    if (typeof object.setOption !== "object")
-                        throw TypeError(".tendermint.abci.Response.setOption: object expected");
-                    message.setOption = $root.tendermint.abci.ResponseSetOption.fromObject(object.setOption);
-                }
                 if (object.initChain != null) {
                     if (typeof object.initChain !== "object")
                         throw TypeError(".tendermint.abci.Response.initChain: object expected");
@@ -4778,11 +4527,6 @@ $root.tendermint = (function() {
                     object.info = $root.tendermint.abci.ResponseInfo.toObject(message.info, options);
                     if (options.oneofs)
                         object.value = "info";
-                }
-                if (message.setOption != null && message.hasOwnProperty("setOption")) {
-                    object.setOption = $root.tendermint.abci.ResponseSetOption.toObject(message.setOption, options);
-                    if (options.oneofs)
-                        object.value = "setOption";
                 }
                 if (message.initChain != null && message.hasOwnProperty("initChain")) {
                     object.initChain = $root.tendermint.abci.ResponseInitChain.toObject(message.initChain, options);
@@ -5703,245 +5447,13 @@ $root.tendermint = (function() {
             return ResponseInfo;
         })();
 
-        abci.ResponseSetOption = (function() {
-
-            /**
-             * Properties of a ResponseSetOption.
-             * @memberof tendermint.abci
-             * @interface IResponseSetOption
-             * @property {number|null} [code] ResponseSetOption code
-             * @property {string|null} [log] ResponseSetOption log
-             * @property {string|null} [info] ResponseSetOption info
-             */
-
-            /**
-             * Constructs a new ResponseSetOption.
-             * @memberof tendermint.abci
-             * @classdesc Represents a ResponseSetOption.
-             * @implements IResponseSetOption
-             * @constructor
-             * @param {tendermint.abci.IResponseSetOption=} [properties] Properties to set
-             */
-            function ResponseSetOption(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * ResponseSetOption code.
-             * @member {number} code
-             * @memberof tendermint.abci.ResponseSetOption
-             * @instance
-             */
-            ResponseSetOption.prototype.code = 0;
-
-            /**
-             * ResponseSetOption log.
-             * @member {string} log
-             * @memberof tendermint.abci.ResponseSetOption
-             * @instance
-             */
-            ResponseSetOption.prototype.log = "";
-
-            /**
-             * ResponseSetOption info.
-             * @member {string} info
-             * @memberof tendermint.abci.ResponseSetOption
-             * @instance
-             */
-            ResponseSetOption.prototype.info = "";
-
-            /**
-             * Creates a new ResponseSetOption instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {tendermint.abci.IResponseSetOption=} [properties] Properties to set
-             * @returns {tendermint.abci.ResponseSetOption} ResponseSetOption instance
-             */
-            ResponseSetOption.create = function create(properties) {
-                return new ResponseSetOption(properties);
-            };
-
-            /**
-             * Encodes the specified ResponseSetOption message. Does not implicitly {@link tendermint.abci.ResponseSetOption.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {tendermint.abci.IResponseSetOption} message ResponseSetOption message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseSetOption.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.code != null && Object.hasOwnProperty.call(message, "code"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.code);
-                if (message.log != null && Object.hasOwnProperty.call(message, "log"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.log);
-                if (message.info != null && Object.hasOwnProperty.call(message, "info"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.info);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified ResponseSetOption message, length delimited. Does not implicitly {@link tendermint.abci.ResponseSetOption.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {tendermint.abci.IResponseSetOption} message ResponseSetOption message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseSetOption.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a ResponseSetOption message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ResponseSetOption} ResponseSetOption
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseSetOption.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseSetOption();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.code = reader.uint32();
-                        break;
-                    case 3:
-                        message.log = reader.string();
-                        break;
-                    case 4:
-                        message.info = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a ResponseSetOption message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ResponseSetOption} ResponseSetOption
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseSetOption.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a ResponseSetOption message.
-             * @function verify
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            ResponseSetOption.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.code != null && message.hasOwnProperty("code"))
-                    if (!$util.isInteger(message.code))
-                        return "code: integer expected";
-                if (message.log != null && message.hasOwnProperty("log"))
-                    if (!$util.isString(message.log))
-                        return "log: string expected";
-                if (message.info != null && message.hasOwnProperty("info"))
-                    if (!$util.isString(message.info))
-                        return "info: string expected";
-                return null;
-            };
-
-            /**
-             * Creates a ResponseSetOption message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ResponseSetOption} ResponseSetOption
-             */
-            ResponseSetOption.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ResponseSetOption)
-                    return object;
-                var message = new $root.tendermint.abci.ResponseSetOption();
-                if (object.code != null)
-                    message.code = object.code >>> 0;
-                if (object.log != null)
-                    message.log = String(object.log);
-                if (object.info != null)
-                    message.info = String(object.info);
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a ResponseSetOption message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {tendermint.abci.ResponseSetOption} message ResponseSetOption
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            ResponseSetOption.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.code = 0;
-                    object.log = "";
-                    object.info = "";
-                }
-                if (message.code != null && message.hasOwnProperty("code"))
-                    object.code = message.code;
-                if (message.log != null && message.hasOwnProperty("log"))
-                    object.log = message.log;
-                if (message.info != null && message.hasOwnProperty("info"))
-                    object.info = message.info;
-                return object;
-            };
-
-            /**
-             * Converts this ResponseSetOption to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.ResponseSetOption
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            ResponseSetOption.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return ResponseSetOption;
-        })();
-
         abci.ResponseInitChain = (function() {
 
             /**
              * Properties of a ResponseInitChain.
              * @memberof tendermint.abci
              * @interface IResponseInitChain
-             * @property {tendermint.abci.IConsensusParams|null} [consensusParams] ResponseInitChain consensusParams
+             * @property {tendermint.types.IConsensusParams|null} [consensusParams] ResponseInitChain consensusParams
              * @property {Uint8Array|null} [appHash] ResponseInitChain appHash
              * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSetUpdate] ResponseInitChain validatorSetUpdate
              * @property {tendermint.types.ICoreChainLock|null} [nextCoreChainLockUpdate] ResponseInitChain nextCoreChainLockUpdate
@@ -5965,7 +5477,7 @@ $root.tendermint = (function() {
 
             /**
              * ResponseInitChain consensusParams.
-             * @member {tendermint.abci.IConsensusParams|null|undefined} consensusParams
+             * @member {tendermint.types.IConsensusParams|null|undefined} consensusParams
              * @memberof tendermint.abci.ResponseInitChain
              * @instance
              */
@@ -6028,7 +5540,7 @@ $root.tendermint = (function() {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.consensusParams != null && Object.hasOwnProperty.call(message, "consensusParams"))
-                    $root.tendermint.abci.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                 if (message.appHash != null && Object.hasOwnProperty.call(message, "appHash"))
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.appHash);
                 if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
@@ -6072,7 +5584,7 @@ $root.tendermint = (function() {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.consensusParams = $root.tendermint.abci.ConsensusParams.decode(reader, reader.uint32());
+                        message.consensusParams = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
                     case 3:
                         message.appHash = reader.bytes();
@@ -6122,7 +5634,7 @@ $root.tendermint = (function() {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams")) {
-                    var error = $root.tendermint.abci.ConsensusParams.verify(message.consensusParams);
+                    var error = $root.tendermint.types.ConsensusParams.verify(message.consensusParams);
                     if (error)
                         return "consensusParams." + error;
                 }
@@ -6160,7 +5672,7 @@ $root.tendermint = (function() {
                 if (object.consensusParams != null) {
                     if (typeof object.consensusParams !== "object")
                         throw TypeError(".tendermint.abci.ResponseInitChain.consensusParams: object expected");
-                    message.consensusParams = $root.tendermint.abci.ConsensusParams.fromObject(object.consensusParams);
+                    message.consensusParams = $root.tendermint.types.ConsensusParams.fromObject(object.consensusParams);
                 }
                 if (object.appHash != null)
                     if (typeof object.appHash === "string")
@@ -6209,7 +5721,7 @@ $root.tendermint = (function() {
                     object.initialCoreHeight = 0;
                 }
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams"))
-                    object.consensusParams = $root.tendermint.abci.ConsensusParams.toObject(message.consensusParams, options);
+                    object.consensusParams = $root.tendermint.types.ConsensusParams.toObject(message.consensusParams, options);
                 if (message.appHash != null && message.hasOwnProperty("appHash"))
                     object.appHash = options.bytes === String ? $util.base64.encode(message.appHash, 0, message.appHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.appHash) : message.appHash;
                 if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate"))
@@ -6872,6 +6384,9 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [gasUsed] ResponseCheckTx gasUsed
              * @property {Array.<tendermint.abci.IEvent>|null} [events] ResponseCheckTx events
              * @property {string|null} [codespace] ResponseCheckTx codespace
+             * @property {string|null} [sender] ResponseCheckTx sender
+             * @property {number|Long|null} [priority] ResponseCheckTx priority
+             * @property {string|null} [mempoolError] ResponseCheckTx mempoolError
              */
 
             /**
@@ -6955,6 +6470,30 @@ $root.tendermint = (function() {
             ResponseCheckTx.prototype.codespace = "";
 
             /**
+             * ResponseCheckTx sender.
+             * @member {string} sender
+             * @memberof tendermint.abci.ResponseCheckTx
+             * @instance
+             */
+            ResponseCheckTx.prototype.sender = "";
+
+            /**
+             * ResponseCheckTx priority.
+             * @member {number|Long} priority
+             * @memberof tendermint.abci.ResponseCheckTx
+             * @instance
+             */
+            ResponseCheckTx.prototype.priority = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * ResponseCheckTx mempoolError.
+             * @member {string} mempoolError
+             * @memberof tendermint.abci.ResponseCheckTx
+             * @instance
+             */
+            ResponseCheckTx.prototype.mempoolError = "";
+
+            /**
              * Creates a new ResponseCheckTx instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.ResponseCheckTx
@@ -6995,6 +6534,12 @@ $root.tendermint = (function() {
                         $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 if (message.codespace != null && Object.hasOwnProperty.call(message, "codespace"))
                     writer.uint32(/* id 8, wireType 2 =*/66).string(message.codespace);
+                if (message.sender != null && Object.hasOwnProperty.call(message, "sender"))
+                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.sender);
+                if (message.priority != null && Object.hasOwnProperty.call(message, "priority"))
+                    writer.uint32(/* id 10, wireType 0 =*/80).int64(message.priority);
+                if (message.mempoolError != null && Object.hasOwnProperty.call(message, "mempoolError"))
+                    writer.uint32(/* id 11, wireType 2 =*/90).string(message.mempoolError);
                 return writer;
             };
 
@@ -7054,6 +6599,15 @@ $root.tendermint = (function() {
                         break;
                     case 8:
                         message.codespace = reader.string();
+                        break;
+                    case 9:
+                        message.sender = reader.string();
+                        break;
+                    case 10:
+                        message.priority = reader.int64();
+                        break;
+                    case 11:
+                        message.mempoolError = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -7120,6 +6674,15 @@ $root.tendermint = (function() {
                 if (message.codespace != null && message.hasOwnProperty("codespace"))
                     if (!$util.isString(message.codespace))
                         return "codespace: string expected";
+                if (message.sender != null && message.hasOwnProperty("sender"))
+                    if (!$util.isString(message.sender))
+                        return "sender: string expected";
+                if (message.priority != null && message.hasOwnProperty("priority"))
+                    if (!$util.isInteger(message.priority) && !(message.priority && $util.isInteger(message.priority.low) && $util.isInteger(message.priority.high)))
+                        return "priority: integer|Long expected";
+                if (message.mempoolError != null && message.hasOwnProperty("mempoolError"))
+                    if (!$util.isString(message.mempoolError))
+                        return "mempoolError: string expected";
                 return null;
             };
 
@@ -7176,6 +6739,19 @@ $root.tendermint = (function() {
                 }
                 if (object.codespace != null)
                     message.codespace = String(object.codespace);
+                if (object.sender != null)
+                    message.sender = String(object.sender);
+                if (object.priority != null)
+                    if ($util.Long)
+                        (message.priority = $util.Long.fromValue(object.priority)).unsigned = false;
+                    else if (typeof object.priority === "string")
+                        message.priority = parseInt(object.priority, 10);
+                    else if (typeof object.priority === "number")
+                        message.priority = object.priority;
+                    else if (typeof object.priority === "object")
+                        message.priority = new $util.LongBits(object.priority.low >>> 0, object.priority.high >>> 0).toNumber();
+                if (object.mempoolError != null)
+                    message.mempoolError = String(object.mempoolError);
                 return message;
             };
 
@@ -7216,6 +6792,13 @@ $root.tendermint = (function() {
                     } else
                         object.gasUsed = options.longs === String ? "0" : 0;
                     object.codespace = "";
+                    object.sender = "";
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.priority = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.priority = options.longs === String ? "0" : 0;
+                    object.mempoolError = "";
                 }
                 if (message.code != null && message.hasOwnProperty("code"))
                     object.code = message.code;
@@ -7242,6 +6825,15 @@ $root.tendermint = (function() {
                 }
                 if (message.codespace != null && message.hasOwnProperty("codespace"))
                     object.codespace = message.codespace;
+                if (message.sender != null && message.hasOwnProperty("sender"))
+                    object.sender = message.sender;
+                if (message.priority != null && message.hasOwnProperty("priority"))
+                    if (typeof message.priority === "number")
+                        object.priority = options.longs === String ? String(message.priority) : message.priority;
+                    else
+                        object.priority = options.longs === String ? $util.Long.prototype.toString.call(message.priority) : options.longs === Number ? new $util.LongBits(message.priority.low >>> 0, message.priority.high >>> 0).toNumber() : message.priority;
+                if (message.mempoolError != null && message.hasOwnProperty("mempoolError"))
+                    object.mempoolError = message.mempoolError;
                 return object;
             };
 
@@ -7666,7 +7258,7 @@ $root.tendermint = (function() {
              * Properties of a ResponseEndBlock.
              * @memberof tendermint.abci
              * @interface IResponseEndBlock
-             * @property {tendermint.abci.IConsensusParams|null} [consensusParamUpdates] ResponseEndBlock consensusParamUpdates
+             * @property {tendermint.types.IConsensusParams|null} [consensusParamUpdates] ResponseEndBlock consensusParamUpdates
              * @property {Array.<tendermint.abci.IEvent>|null} [events] ResponseEndBlock events
              * @property {tendermint.types.ICoreChainLock|null} [nextCoreChainLockUpdate] ResponseEndBlock nextCoreChainLockUpdate
              * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSetUpdate] ResponseEndBlock validatorSetUpdate
@@ -7690,7 +7282,7 @@ $root.tendermint = (function() {
 
             /**
              * ResponseEndBlock consensusParamUpdates.
-             * @member {tendermint.abci.IConsensusParams|null|undefined} consensusParamUpdates
+             * @member {tendermint.types.IConsensusParams|null|undefined} consensusParamUpdates
              * @memberof tendermint.abci.ResponseEndBlock
              * @instance
              */
@@ -7745,7 +7337,7 @@ $root.tendermint = (function() {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.consensusParamUpdates != null && Object.hasOwnProperty.call(message, "consensusParamUpdates"))
-                    $root.tendermint.abci.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                 if (message.events != null && message.events.length)
                     for (var i = 0; i < message.events.length; ++i)
                         $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
@@ -7788,7 +7380,7 @@ $root.tendermint = (function() {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 2:
-                        message.consensusParamUpdates = $root.tendermint.abci.ConsensusParams.decode(reader, reader.uint32());
+                        message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
                     case 3:
                         if (!(message.events && message.events.length))
@@ -7837,7 +7429,7 @@ $root.tendermint = (function() {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
                 if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates")) {
-                    var error = $root.tendermint.abci.ConsensusParams.verify(message.consensusParamUpdates);
+                    var error = $root.tendermint.types.ConsensusParams.verify(message.consensusParamUpdates);
                     if (error)
                         return "consensusParamUpdates." + error;
                 }
@@ -7878,7 +7470,7 @@ $root.tendermint = (function() {
                 if (object.consensusParamUpdates != null) {
                     if (typeof object.consensusParamUpdates !== "object")
                         throw TypeError(".tendermint.abci.ResponseEndBlock.consensusParamUpdates: object expected");
-                    message.consensusParamUpdates = $root.tendermint.abci.ConsensusParams.fromObject(object.consensusParamUpdates);
+                    message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.fromObject(object.consensusParamUpdates);
                 }
                 if (object.events) {
                     if (!Array.isArray(object.events))
@@ -7924,7 +7516,7 @@ $root.tendermint = (function() {
                     object.validatorSetUpdate = null;
                 }
                 if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates"))
-                    object.consensusParamUpdates = $root.tendermint.abci.ConsensusParams.toObject(message.consensusParamUpdates, options);
+                    object.consensusParamUpdates = $root.tendermint.types.ConsensusParams.toObject(message.consensusParamUpdates, options);
                 if (message.events && message.events.length) {
                     object.events = [];
                     for (var j = 0; j < message.events.length; ++j)
@@ -9158,518 +8750,6 @@ $root.tendermint = (function() {
             return ResponseApplySnapshotChunk;
         })();
 
-        abci.ConsensusParams = (function() {
-
-            /**
-             * Properties of a ConsensusParams.
-             * @memberof tendermint.abci
-             * @interface IConsensusParams
-             * @property {tendermint.abci.IBlockParams|null} [block] ConsensusParams block
-             * @property {tendermint.types.IEvidenceParams|null} [evidence] ConsensusParams evidence
-             * @property {tendermint.types.IValidatorParams|null} [validator] ConsensusParams validator
-             * @property {tendermint.types.IVersionParams|null} [version] ConsensusParams version
-             */
-
-            /**
-             * Constructs a new ConsensusParams.
-             * @memberof tendermint.abci
-             * @classdesc Represents a ConsensusParams.
-             * @implements IConsensusParams
-             * @constructor
-             * @param {tendermint.abci.IConsensusParams=} [properties] Properties to set
-             */
-            function ConsensusParams(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * ConsensusParams block.
-             * @member {tendermint.abci.IBlockParams|null|undefined} block
-             * @memberof tendermint.abci.ConsensusParams
-             * @instance
-             */
-            ConsensusParams.prototype.block = null;
-
-            /**
-             * ConsensusParams evidence.
-             * @member {tendermint.types.IEvidenceParams|null|undefined} evidence
-             * @memberof tendermint.abci.ConsensusParams
-             * @instance
-             */
-            ConsensusParams.prototype.evidence = null;
-
-            /**
-             * ConsensusParams validator.
-             * @member {tendermint.types.IValidatorParams|null|undefined} validator
-             * @memberof tendermint.abci.ConsensusParams
-             * @instance
-             */
-            ConsensusParams.prototype.validator = null;
-
-            /**
-             * ConsensusParams version.
-             * @member {tendermint.types.IVersionParams|null|undefined} version
-             * @memberof tendermint.abci.ConsensusParams
-             * @instance
-             */
-            ConsensusParams.prototype.version = null;
-
-            /**
-             * Creates a new ConsensusParams instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.ConsensusParams
-             * @static
-             * @param {tendermint.abci.IConsensusParams=} [properties] Properties to set
-             * @returns {tendermint.abci.ConsensusParams} ConsensusParams instance
-             */
-            ConsensusParams.create = function create(properties) {
-                return new ConsensusParams(properties);
-            };
-
-            /**
-             * Encodes the specified ConsensusParams message. Does not implicitly {@link tendermint.abci.ConsensusParams.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.ConsensusParams
-             * @static
-             * @param {tendermint.abci.IConsensusParams} message ConsensusParams message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ConsensusParams.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.block != null && Object.hasOwnProperty.call(message, "block"))
-                    $root.tendermint.abci.BlockParams.encode(message.block, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                if (message.evidence != null && Object.hasOwnProperty.call(message, "evidence"))
-                    $root.tendermint.types.EvidenceParams.encode(message.evidence, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                if (message.validator != null && Object.hasOwnProperty.call(message, "validator"))
-                    $root.tendermint.types.ValidatorParams.encode(message.validator, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                if (message.version != null && Object.hasOwnProperty.call(message, "version"))
-                    $root.tendermint.types.VersionParams.encode(message.version, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified ConsensusParams message, length delimited. Does not implicitly {@link tendermint.abci.ConsensusParams.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.ConsensusParams
-             * @static
-             * @param {tendermint.abci.IConsensusParams} message ConsensusParams message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ConsensusParams.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a ConsensusParams message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.ConsensusParams
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ConsensusParams} ConsensusParams
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ConsensusParams.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ConsensusParams();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.block = $root.tendermint.abci.BlockParams.decode(reader, reader.uint32());
-                        break;
-                    case 2:
-                        message.evidence = $root.tendermint.types.EvidenceParams.decode(reader, reader.uint32());
-                        break;
-                    case 3:
-                        message.validator = $root.tendermint.types.ValidatorParams.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        message.version = $root.tendermint.types.VersionParams.decode(reader, reader.uint32());
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a ConsensusParams message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.ConsensusParams
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ConsensusParams} ConsensusParams
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ConsensusParams.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a ConsensusParams message.
-             * @function verify
-             * @memberof tendermint.abci.ConsensusParams
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            ConsensusParams.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.block != null && message.hasOwnProperty("block")) {
-                    var error = $root.tendermint.abci.BlockParams.verify(message.block);
-                    if (error)
-                        return "block." + error;
-                }
-                if (message.evidence != null && message.hasOwnProperty("evidence")) {
-                    var error = $root.tendermint.types.EvidenceParams.verify(message.evidence);
-                    if (error)
-                        return "evidence." + error;
-                }
-                if (message.validator != null && message.hasOwnProperty("validator")) {
-                    var error = $root.tendermint.types.ValidatorParams.verify(message.validator);
-                    if (error)
-                        return "validator." + error;
-                }
-                if (message.version != null && message.hasOwnProperty("version")) {
-                    var error = $root.tendermint.types.VersionParams.verify(message.version);
-                    if (error)
-                        return "version." + error;
-                }
-                return null;
-            };
-
-            /**
-             * Creates a ConsensusParams message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.ConsensusParams
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ConsensusParams} ConsensusParams
-             */
-            ConsensusParams.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ConsensusParams)
-                    return object;
-                var message = new $root.tendermint.abci.ConsensusParams();
-                if (object.block != null) {
-                    if (typeof object.block !== "object")
-                        throw TypeError(".tendermint.abci.ConsensusParams.block: object expected");
-                    message.block = $root.tendermint.abci.BlockParams.fromObject(object.block);
-                }
-                if (object.evidence != null) {
-                    if (typeof object.evidence !== "object")
-                        throw TypeError(".tendermint.abci.ConsensusParams.evidence: object expected");
-                    message.evidence = $root.tendermint.types.EvidenceParams.fromObject(object.evidence);
-                }
-                if (object.validator != null) {
-                    if (typeof object.validator !== "object")
-                        throw TypeError(".tendermint.abci.ConsensusParams.validator: object expected");
-                    message.validator = $root.tendermint.types.ValidatorParams.fromObject(object.validator);
-                }
-                if (object.version != null) {
-                    if (typeof object.version !== "object")
-                        throw TypeError(".tendermint.abci.ConsensusParams.version: object expected");
-                    message.version = $root.tendermint.types.VersionParams.fromObject(object.version);
-                }
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a ConsensusParams message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.ConsensusParams
-             * @static
-             * @param {tendermint.abci.ConsensusParams} message ConsensusParams
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            ConsensusParams.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.block = null;
-                    object.evidence = null;
-                    object.validator = null;
-                    object.version = null;
-                }
-                if (message.block != null && message.hasOwnProperty("block"))
-                    object.block = $root.tendermint.abci.BlockParams.toObject(message.block, options);
-                if (message.evidence != null && message.hasOwnProperty("evidence"))
-                    object.evidence = $root.tendermint.types.EvidenceParams.toObject(message.evidence, options);
-                if (message.validator != null && message.hasOwnProperty("validator"))
-                    object.validator = $root.tendermint.types.ValidatorParams.toObject(message.validator, options);
-                if (message.version != null && message.hasOwnProperty("version"))
-                    object.version = $root.tendermint.types.VersionParams.toObject(message.version, options);
-                return object;
-            };
-
-            /**
-             * Converts this ConsensusParams to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.ConsensusParams
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            ConsensusParams.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return ConsensusParams;
-        })();
-
-        abci.BlockParams = (function() {
-
-            /**
-             * Properties of a BlockParams.
-             * @memberof tendermint.abci
-             * @interface IBlockParams
-             * @property {number|Long|null} [maxBytes] BlockParams maxBytes
-             * @property {number|Long|null} [maxGas] BlockParams maxGas
-             */
-
-            /**
-             * Constructs a new BlockParams.
-             * @memberof tendermint.abci
-             * @classdesc Represents a BlockParams.
-             * @implements IBlockParams
-             * @constructor
-             * @param {tendermint.abci.IBlockParams=} [properties] Properties to set
-             */
-            function BlockParams(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * BlockParams maxBytes.
-             * @member {number|Long} maxBytes
-             * @memberof tendermint.abci.BlockParams
-             * @instance
-             */
-            BlockParams.prototype.maxBytes = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * BlockParams maxGas.
-             * @member {number|Long} maxGas
-             * @memberof tendermint.abci.BlockParams
-             * @instance
-             */
-            BlockParams.prototype.maxGas = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * Creates a new BlockParams instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.BlockParams
-             * @static
-             * @param {tendermint.abci.IBlockParams=} [properties] Properties to set
-             * @returns {tendermint.abci.BlockParams} BlockParams instance
-             */
-            BlockParams.create = function create(properties) {
-                return new BlockParams(properties);
-            };
-
-            /**
-             * Encodes the specified BlockParams message. Does not implicitly {@link tendermint.abci.BlockParams.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.BlockParams
-             * @static
-             * @param {tendermint.abci.IBlockParams} message BlockParams message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            BlockParams.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.maxBytes != null && Object.hasOwnProperty.call(message, "maxBytes"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.maxBytes);
-                if (message.maxGas != null && Object.hasOwnProperty.call(message, "maxGas"))
-                    writer.uint32(/* id 2, wireType 0 =*/16).int64(message.maxGas);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified BlockParams message, length delimited. Does not implicitly {@link tendermint.abci.BlockParams.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.BlockParams
-             * @static
-             * @param {tendermint.abci.IBlockParams} message BlockParams message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            BlockParams.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a BlockParams message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.BlockParams
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.BlockParams} BlockParams
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            BlockParams.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.BlockParams();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.maxBytes = reader.int64();
-                        break;
-                    case 2:
-                        message.maxGas = reader.int64();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a BlockParams message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.BlockParams
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.BlockParams} BlockParams
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            BlockParams.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a BlockParams message.
-             * @function verify
-             * @memberof tendermint.abci.BlockParams
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            BlockParams.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.maxBytes != null && message.hasOwnProperty("maxBytes"))
-                    if (!$util.isInteger(message.maxBytes) && !(message.maxBytes && $util.isInteger(message.maxBytes.low) && $util.isInteger(message.maxBytes.high)))
-                        return "maxBytes: integer|Long expected";
-                if (message.maxGas != null && message.hasOwnProperty("maxGas"))
-                    if (!$util.isInteger(message.maxGas) && !(message.maxGas && $util.isInteger(message.maxGas.low) && $util.isInteger(message.maxGas.high)))
-                        return "maxGas: integer|Long expected";
-                return null;
-            };
-
-            /**
-             * Creates a BlockParams message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.BlockParams
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.BlockParams} BlockParams
-             */
-            BlockParams.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.BlockParams)
-                    return object;
-                var message = new $root.tendermint.abci.BlockParams();
-                if (object.maxBytes != null)
-                    if ($util.Long)
-                        (message.maxBytes = $util.Long.fromValue(object.maxBytes)).unsigned = false;
-                    else if (typeof object.maxBytes === "string")
-                        message.maxBytes = parseInt(object.maxBytes, 10);
-                    else if (typeof object.maxBytes === "number")
-                        message.maxBytes = object.maxBytes;
-                    else if (typeof object.maxBytes === "object")
-                        message.maxBytes = new $util.LongBits(object.maxBytes.low >>> 0, object.maxBytes.high >>> 0).toNumber();
-                if (object.maxGas != null)
-                    if ($util.Long)
-                        (message.maxGas = $util.Long.fromValue(object.maxGas)).unsigned = false;
-                    else if (typeof object.maxGas === "string")
-                        message.maxGas = parseInt(object.maxGas, 10);
-                    else if (typeof object.maxGas === "number")
-                        message.maxGas = object.maxGas;
-                    else if (typeof object.maxGas === "object")
-                        message.maxGas = new $util.LongBits(object.maxGas.low >>> 0, object.maxGas.high >>> 0).toNumber();
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a BlockParams message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.BlockParams
-             * @static
-             * @param {tendermint.abci.BlockParams} message BlockParams
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            BlockParams.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxBytes = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxBytes = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxGas = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxGas = options.longs === String ? "0" : 0;
-                }
-                if (message.maxBytes != null && message.hasOwnProperty("maxBytes"))
-                    if (typeof message.maxBytes === "number")
-                        object.maxBytes = options.longs === String ? String(message.maxBytes) : message.maxBytes;
-                    else
-                        object.maxBytes = options.longs === String ? $util.Long.prototype.toString.call(message.maxBytes) : options.longs === Number ? new $util.LongBits(message.maxBytes.low >>> 0, message.maxBytes.high >>> 0).toNumber() : message.maxBytes;
-                if (message.maxGas != null && message.hasOwnProperty("maxGas"))
-                    if (typeof message.maxGas === "number")
-                        object.maxGas = options.longs === String ? String(message.maxGas) : message.maxGas;
-                    else
-                        object.maxGas = options.longs === String ? $util.Long.prototype.toString.call(message.maxGas) : options.longs === Number ? new $util.LongBits(message.maxGas.low >>> 0, message.maxGas.high >>> 0).toNumber() : message.maxGas;
-                return object;
-            };
-
-            /**
-             * Converts this BlockParams to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.BlockParams
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            BlockParams.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return BlockParams;
-        })();
-
         abci.LastCommitInfo = (function() {
 
             /**
@@ -10188,8 +9268,8 @@ $root.tendermint = (function() {
              * Properties of an EventAttribute.
              * @memberof tendermint.abci
              * @interface IEventAttribute
-             * @property {Uint8Array|null} [key] EventAttribute key
-             * @property {Uint8Array|null} [value] EventAttribute value
+             * @property {string|null} [key] EventAttribute key
+             * @property {string|null} [value] EventAttribute value
              * @property {boolean|null} [index] EventAttribute index
              */
 
@@ -10210,19 +9290,19 @@ $root.tendermint = (function() {
 
             /**
              * EventAttribute key.
-             * @member {Uint8Array} key
+             * @member {string} key
              * @memberof tendermint.abci.EventAttribute
              * @instance
              */
-            EventAttribute.prototype.key = $util.newBuffer([]);
+            EventAttribute.prototype.key = "";
 
             /**
              * EventAttribute value.
-             * @member {Uint8Array} value
+             * @member {string} value
              * @memberof tendermint.abci.EventAttribute
              * @instance
              */
-            EventAttribute.prototype.value = $util.newBuffer([]);
+            EventAttribute.prototype.value = "";
 
             /**
              * EventAttribute index.
@@ -10257,9 +9337,9 @@ $root.tendermint = (function() {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.key != null && Object.hasOwnProperty.call(message, "key"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.key);
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.key);
                 if (message.value != null && Object.hasOwnProperty.call(message, "value"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.value);
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.value);
                 if (message.index != null && Object.hasOwnProperty.call(message, "index"))
                     writer.uint32(/* id 3, wireType 0 =*/24).bool(message.index);
                 return writer;
@@ -10297,10 +9377,10 @@ $root.tendermint = (function() {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.key = reader.bytes();
+                        message.key = reader.string();
                         break;
                     case 2:
-                        message.value = reader.bytes();
+                        message.value = reader.string();
                         break;
                     case 3:
                         message.index = reader.bool();
@@ -10341,11 +9421,11 @@ $root.tendermint = (function() {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
                 if (message.key != null && message.hasOwnProperty("key"))
-                    if (!(message.key && typeof message.key.length === "number" || $util.isString(message.key)))
-                        return "key: buffer expected";
+                    if (!$util.isString(message.key))
+                        return "key: string expected";
                 if (message.value != null && message.hasOwnProperty("value"))
-                    if (!(message.value && typeof message.value.length === "number" || $util.isString(message.value)))
-                        return "value: buffer expected";
+                    if (!$util.isString(message.value))
+                        return "value: string expected";
                 if (message.index != null && message.hasOwnProperty("index"))
                     if (typeof message.index !== "boolean")
                         return "index: boolean expected";
@@ -10365,15 +9445,9 @@ $root.tendermint = (function() {
                     return object;
                 var message = new $root.tendermint.abci.EventAttribute();
                 if (object.key != null)
-                    if (typeof object.key === "string")
-                        $util.base64.decode(object.key, message.key = $util.newBuffer($util.base64.length(object.key)), 0);
-                    else if (object.key.length >= 0)
-                        message.key = object.key;
+                    message.key = String(object.key);
                 if (object.value != null)
-                    if (typeof object.value === "string")
-                        $util.base64.decode(object.value, message.value = $util.newBuffer($util.base64.length(object.value)), 0);
-                    else if (object.value.length >= 0)
-                        message.value = object.value;
+                    message.value = String(object.value);
                 if (object.index != null)
                     message.index = Boolean(object.index);
                 return message;
@@ -10393,26 +9467,14 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if (options.bytes === String)
-                        object.key = "";
-                    else {
-                        object.key = [];
-                        if (options.bytes !== Array)
-                            object.key = $util.newBuffer(object.key);
-                    }
-                    if (options.bytes === String)
-                        object.value = "";
-                    else {
-                        object.value = [];
-                        if (options.bytes !== Array)
-                            object.value = $util.newBuffer(object.value);
-                    }
+                    object.key = "";
+                    object.value = "";
                     object.index = false;
                 }
                 if (message.key != null && message.hasOwnProperty("key"))
-                    object.key = options.bytes === String ? $util.base64.encode(message.key, 0, message.key.length) : options.bytes === Array ? Array.prototype.slice.call(message.key) : message.key;
+                    object.key = message.key;
                 if (message.value != null && message.hasOwnProperty("value"))
-                    object.value = options.bytes === String ? $util.base64.encode(message.value, 0, message.value.length) : options.bytes === Array ? Array.prototype.slice.call(message.value) : message.value;
+                    object.value = message.value;
                 if (message.index != null && message.hasOwnProperty("index"))
                     object.index = message.index;
                 return object;
@@ -12910,39 +11972,6 @@ $root.tendermint = (function() {
              */
 
             /**
-             * Callback as used by {@link tendermint.abci.ABCIApplication#setOption}.
-             * @memberof tendermint.abci.ABCIApplication
-             * @typedef SetOptionCallback
-             * @type {function}
-             * @param {Error|null} error Error, if any
-             * @param {tendermint.abci.ResponseSetOption} [response] ResponseSetOption
-             */
-
-            /**
-             * Calls SetOption.
-             * @function setOption
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestSetOption} request RequestSetOption message or plain object
-             * @param {tendermint.abci.ABCIApplication.SetOptionCallback} callback Node-style callback called with the error, if any, and ResponseSetOption
-             * @returns {undefined}
-             * @variation 1
-             */
-            Object.defineProperty(ABCIApplication.prototype.setOption = function setOption(request, callback) {
-                return this.rpcCall(setOption, $root.tendermint.abci.RequestSetOption, $root.tendermint.abci.ResponseSetOption, request, callback);
-            }, "name", { value: "SetOption" });
-
-            /**
-             * Calls SetOption.
-             * @function setOption
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestSetOption} request RequestSetOption message or plain object
-             * @returns {Promise<tendermint.abci.ResponseSetOption>} Promise
-             * @variation 2
-             */
-
-            /**
              * Callback as used by {@link tendermint.abci.ABCIApplication#deliverTx}.
              * @memberof tendermint.abci.ABCIApplication
              * @typedef DeliverTxCallback
@@ -14638,7 +13667,7 @@ $root.tendermint = (function() {
                 if (message.secp256k1 != null && Object.hasOwnProperty.call(message, "secp256k1"))
                     writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.secp256k1);
                 if (message.bls12381 != null && Object.hasOwnProperty.call(message, "bls12381"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.bls12381);
+                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.bls12381);
                 return writer;
             };
 
@@ -14679,7 +13708,7 @@ $root.tendermint = (function() {
                     case 2:
                         message.secp256k1 = reader.bytes();
                         break;
-                    case 3:
+                    case 4:
                         message.bls12381 = reader.bytes();
                         break;
                     default:
@@ -15561,6 +14590,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types
              * @interface IStateID
              * @property {Uint8Array|null} [lastAppHash] StateID lastAppHash
+             * @property {number|Long|null} [height] StateID height
              */
 
             /**
@@ -15585,6 +14615,14 @@ $root.tendermint = (function() {
              * @instance
              */
             StateID.prototype.lastAppHash = $util.newBuffer([]);
+
+            /**
+             * StateID height.
+             * @member {number|Long} height
+             * @memberof tendermint.types.StateID
+             * @instance
+             */
+            StateID.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
             /**
              * Creates a new StateID instance using the specified properties.
@@ -15612,6 +14650,8 @@ $root.tendermint = (function() {
                     writer = $Writer.create();
                 if (message.lastAppHash != null && Object.hasOwnProperty.call(message, "lastAppHash"))
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.lastAppHash);
+                if (message.height != null && Object.hasOwnProperty.call(message, "height"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).int64(message.height);
                 return writer;
             };
 
@@ -15648,6 +14688,9 @@ $root.tendermint = (function() {
                     switch (tag >>> 3) {
                     case 1:
                         message.lastAppHash = reader.bytes();
+                        break;
+                    case 2:
+                        message.height = reader.int64();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -15687,6 +14730,9 @@ $root.tendermint = (function() {
                 if (message.lastAppHash != null && message.hasOwnProperty("lastAppHash"))
                     if (!(message.lastAppHash && typeof message.lastAppHash.length === "number" || $util.isString(message.lastAppHash)))
                         return "lastAppHash: buffer expected";
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
+                        return "height: integer|Long expected";
                 return null;
             };
 
@@ -15707,6 +14753,15 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.lastAppHash, message.lastAppHash = $util.newBuffer($util.base64.length(object.lastAppHash)), 0);
                     else if (object.lastAppHash.length >= 0)
                         message.lastAppHash = object.lastAppHash;
+                if (object.height != null)
+                    if ($util.Long)
+                        (message.height = $util.Long.fromValue(object.height)).unsigned = false;
+                    else if (typeof object.height === "string")
+                        message.height = parseInt(object.height, 10);
+                    else if (typeof object.height === "number")
+                        message.height = object.height;
+                    else if (typeof object.height === "object")
+                        message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
                 return message;
             };
 
@@ -15723,7 +14778,7 @@ $root.tendermint = (function() {
                 if (!options)
                     options = {};
                 var object = {};
-                if (options.defaults)
+                if (options.defaults) {
                     if (options.bytes === String)
                         object.lastAppHash = "";
                     else {
@@ -15731,8 +14786,19 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.lastAppHash = $util.newBuffer(object.lastAppHash);
                     }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.height = options.longs === String ? "0" : 0;
+                }
                 if (message.lastAppHash != null && message.hasOwnProperty("lastAppHash"))
                     object.lastAppHash = options.bytes === String ? $util.base64.encode(message.lastAppHash, 0, message.lastAppHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.lastAppHash) : message.lastAppHash;
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (typeof message.height === "number")
+                        object.height = options.longs === String ? String(message.height) : message.height;
+                    else
+                        object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
                 return object;
             };
 
@@ -16858,7 +15924,6 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [height] Vote height
              * @property {number|null} [round] Vote round
              * @property {tendermint.types.IBlockID|null} [blockId] Vote blockId
-             * @property {tendermint.types.IStateID|null} [stateId] Vote stateId
              * @property {Uint8Array|null} [validatorProTxHash] Vote validatorProTxHash
              * @property {number|null} [validatorIndex] Vote validatorIndex
              * @property {Uint8Array|null} [blockSignature] Vote blockSignature
@@ -16911,14 +15976,6 @@ $root.tendermint = (function() {
              * @instance
              */
             Vote.prototype.blockId = null;
-
-            /**
-             * Vote stateId.
-             * @member {tendermint.types.IStateID|null|undefined} stateId
-             * @memberof tendermint.types.Vote
-             * @instance
-             */
-            Vote.prototype.stateId = null;
 
             /**
              * Vote validatorProTxHash.
@@ -16990,8 +16047,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 7, wireType 0 =*/56).int32(message.validatorIndex);
                 if (message.blockSignature != null && Object.hasOwnProperty.call(message, "blockSignature"))
                     writer.uint32(/* id 8, wireType 2 =*/66).bytes(message.blockSignature);
-                if (message.stateId != null && Object.hasOwnProperty.call(message, "stateId"))
-                    $root.tendermint.types.StateID.encode(message.stateId, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
                 if (message.stateSignature != null && Object.hasOwnProperty.call(message, "stateSignature"))
                     writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.stateSignature);
                 return writer;
@@ -17039,9 +16094,6 @@ $root.tendermint = (function() {
                         break;
                     case 4:
                         message.blockId = $root.tendermint.types.BlockID.decode(reader, reader.uint32());
-                        break;
-                    case 9:
-                        message.stateId = $root.tendermint.types.StateID.decode(reader, reader.uint32());
                         break;
                     case 6:
                         message.validatorProTxHash = reader.bytes();
@@ -17112,11 +16164,6 @@ $root.tendermint = (function() {
                     if (error)
                         return "blockId." + error;
                 }
-                if (message.stateId != null && message.hasOwnProperty("stateId")) {
-                    var error = $root.tendermint.types.StateID.verify(message.stateId);
-                    if (error)
-                        return "stateId." + error;
-                }
                 if (message.validatorProTxHash != null && message.hasOwnProperty("validatorProTxHash"))
                     if (!(message.validatorProTxHash && typeof message.validatorProTxHash.length === "number" || $util.isString(message.validatorProTxHash)))
                         return "validatorProTxHash: buffer expected";
@@ -17182,11 +16229,6 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.types.Vote.blockId: object expected");
                     message.blockId = $root.tendermint.types.BlockID.fromObject(object.blockId);
                 }
-                if (object.stateId != null) {
-                    if (typeof object.stateId !== "object")
-                        throw TypeError(".tendermint.types.Vote.stateId: object expected");
-                    message.stateId = $root.tendermint.types.StateID.fromObject(object.stateId);
-                }
                 if (object.validatorProTxHash != null)
                     if (typeof object.validatorProTxHash === "string")
                         $util.base64.decode(object.validatorProTxHash, message.validatorProTxHash = $util.newBuffer($util.base64.length(object.validatorProTxHash)), 0);
@@ -17244,7 +16286,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.blockSignature = $util.newBuffer(object.blockSignature);
                     }
-                    object.stateId = null;
                     if (options.bytes === String)
                         object.stateSignature = "";
                     else {
@@ -17270,8 +16311,6 @@ $root.tendermint = (function() {
                     object.validatorIndex = message.validatorIndex;
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
-                if (message.stateId != null && message.hasOwnProperty("stateId"))
-                    object.stateId = $root.tendermint.types.StateID.toObject(message.stateId, options);
                 if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
                     object.stateSignature = options.bytes === String ? $util.base64.encode(message.stateSignature, 0, message.stateSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.stateSignature) : message.stateSignature;
                 return object;
@@ -17408,13 +16447,13 @@ $root.tendermint = (function() {
                 if (message.blockId != null && Object.hasOwnProperty.call(message, "blockId"))
                     $root.tendermint.types.BlockID.encode(message.blockId, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.stateId != null && Object.hasOwnProperty.call(message, "stateId"))
-                    $root.tendermint.types.StateID.encode(message.stateId, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    $root.tendermint.types.StateID.encode(message.stateId, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
                 if (message.quorumHash != null && Object.hasOwnProperty.call(message, "quorumHash"))
-                    writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.quorumHash);
+                    writer.uint32(/* id 101, wireType 2 =*/810).bytes(message.quorumHash);
                 if (message.thresholdBlockSignature != null && Object.hasOwnProperty.call(message, "thresholdBlockSignature"))
-                    writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.thresholdBlockSignature);
+                    writer.uint32(/* id 102, wireType 2 =*/818).bytes(message.thresholdBlockSignature);
                 if (message.thresholdStateSignature != null && Object.hasOwnProperty.call(message, "thresholdStateSignature"))
-                    writer.uint32(/* id 8, wireType 2 =*/66).bytes(message.thresholdStateSignature);
+                    writer.uint32(/* id 103, wireType 2 =*/826).bytes(message.thresholdStateSignature);
                 return writer;
             };
 
@@ -17458,16 +16497,16 @@ $root.tendermint = (function() {
                     case 3:
                         message.blockId = $root.tendermint.types.BlockID.decode(reader, reader.uint32());
                         break;
-                    case 4:
+                    case 100:
                         message.stateId = $root.tendermint.types.StateID.decode(reader, reader.uint32());
                         break;
-                    case 6:
+                    case 101:
                         message.quorumHash = reader.bytes();
                         break;
-                    case 7:
+                    case 102:
                         message.thresholdBlockSignature = reader.bytes();
                         break;
-                    case 8:
+                    case 103:
                         message.thresholdStateSignature = reader.bytes();
                         break;
                     default:
@@ -18512,7 +17551,6 @@ $root.tendermint = (function() {
              * @memberof tendermint.types
              * @interface IBlockMeta
              * @property {tendermint.types.IBlockID|null} [blockId] BlockMeta blockId
-             * @property {tendermint.types.IStateID|null} [stateId] BlockMeta stateId
              * @property {number|Long|null} [blockSize] BlockMeta blockSize
              * @property {tendermint.types.IHeader|null} [header] BlockMeta header
              * @property {number|Long|null} [numTxs] BlockMeta numTxs
@@ -18541,14 +17579,6 @@ $root.tendermint = (function() {
              * @instance
              */
             BlockMeta.prototype.blockId = null;
-
-            /**
-             * BlockMeta stateId.
-             * @member {tendermint.types.IStateID|null|undefined} stateId
-             * @memberof tendermint.types.BlockMeta
-             * @instance
-             */
-            BlockMeta.prototype.stateId = null;
 
             /**
              * BlockMeta blockSize.
@@ -18616,8 +17646,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 4, wireType 0 =*/32).int64(message.numTxs);
                 if (message.hasCoreChainLock != null && Object.hasOwnProperty.call(message, "hasCoreChainLock"))
                     writer.uint32(/* id 100, wireType 0 =*/800).bool(message.hasCoreChainLock);
-                if (message.stateId != null && Object.hasOwnProperty.call(message, "stateId"))
-                    $root.tendermint.types.StateID.encode(message.stateId, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
                 return writer;
             };
 
@@ -18654,9 +17682,6 @@ $root.tendermint = (function() {
                     switch (tag >>> 3) {
                     case 1:
                         message.blockId = $root.tendermint.types.BlockID.decode(reader, reader.uint32());
-                        break;
-                    case 101:
-                        message.stateId = $root.tendermint.types.StateID.decode(reader, reader.uint32());
                         break;
                     case 2:
                         message.blockSize = reader.int64();
@@ -18710,11 +17735,6 @@ $root.tendermint = (function() {
                     if (error)
                         return "blockId." + error;
                 }
-                if (message.stateId != null && message.hasOwnProperty("stateId")) {
-                    var error = $root.tendermint.types.StateID.verify(message.stateId);
-                    if (error)
-                        return "stateId." + error;
-                }
                 if (message.blockSize != null && message.hasOwnProperty("blockSize"))
                     if (!$util.isInteger(message.blockSize) && !(message.blockSize && $util.isInteger(message.blockSize.low) && $util.isInteger(message.blockSize.high)))
                         return "blockSize: integer|Long expected";
@@ -18748,11 +17768,6 @@ $root.tendermint = (function() {
                     if (typeof object.blockId !== "object")
                         throw TypeError(".tendermint.types.BlockMeta.blockId: object expected");
                     message.blockId = $root.tendermint.types.BlockID.fromObject(object.blockId);
-                }
-                if (object.stateId != null) {
-                    if (typeof object.stateId !== "object")
-                        throw TypeError(".tendermint.types.BlockMeta.stateId: object expected");
-                    message.stateId = $root.tendermint.types.StateID.fromObject(object.stateId);
                 }
                 if (object.blockSize != null)
                     if ($util.Long)
@@ -18809,7 +17824,6 @@ $root.tendermint = (function() {
                     } else
                         object.numTxs = options.longs === String ? "0" : 0;
                     object.hasCoreChainLock = false;
-                    object.stateId = null;
                 }
                 if (message.blockId != null && message.hasOwnProperty("blockId"))
                     object.blockId = $root.tendermint.types.BlockID.toObject(message.blockId, options);
@@ -18827,8 +17841,6 @@ $root.tendermint = (function() {
                         object.numTxs = options.longs === String ? $util.Long.prototype.toString.call(message.numTxs) : options.longs === Number ? new $util.LongBits(message.numTxs.low >>> 0, message.numTxs.high >>> 0).toNumber() : message.numTxs;
                 if (message.hasCoreChainLock != null && message.hasOwnProperty("hasCoreChainLock"))
                     object.hasCoreChainLock = message.hasCoreChainLock;
-                if (message.stateId != null && message.hasOwnProperty("stateId"))
-                    object.stateId = $root.tendermint.types.StateID.toObject(message.stateId, options);
                 return object;
             };
 
@@ -19486,6 +18498,7 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [votingPower] Validator votingPower
              * @property {number|Long|null} [proposerPriority] Validator proposerPriority
              * @property {Uint8Array|null} [proTxHash] Validator proTxHash
+             * @property {string|null} [nodeAddress] Validator nodeAddress
              */
 
             /**
@@ -19536,6 +18549,14 @@ $root.tendermint = (function() {
             Validator.prototype.proTxHash = $util.newBuffer([]);
 
             /**
+             * Validator nodeAddress.
+             * @member {string} nodeAddress
+             * @memberof tendermint.types.Validator
+             * @instance
+             */
+            Validator.prototype.nodeAddress = "";
+
+            /**
              * Creates a new Validator instance using the specified properties.
              * @function create
              * @memberof tendermint.types.Validator
@@ -19567,6 +18588,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 4, wireType 0 =*/32).int64(message.proposerPriority);
                 if (message.proTxHash != null && Object.hasOwnProperty.call(message, "proTxHash"))
                     writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.proTxHash);
+                if (message.nodeAddress != null && Object.hasOwnProperty.call(message, "nodeAddress"))
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.nodeAddress);
                 return writer;
             };
 
@@ -19612,6 +18635,9 @@ $root.tendermint = (function() {
                         break;
                     case 5:
                         message.proTxHash = reader.bytes();
+                        break;
+                    case 6:
+                        message.nodeAddress = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -19662,6 +18688,9 @@ $root.tendermint = (function() {
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     if (!(message.proTxHash && typeof message.proTxHash.length === "number" || $util.isString(message.proTxHash)))
                         return "proTxHash: buffer expected";
+                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
+                    if (!$util.isString(message.nodeAddress))
+                        return "nodeAddress: string expected";
                 return null;
             };
 
@@ -19705,6 +18734,8 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.proTxHash, message.proTxHash = $util.newBuffer($util.base64.length(object.proTxHash)), 0);
                     else if (object.proTxHash.length >= 0)
                         message.proTxHash = object.proTxHash;
+                if (object.nodeAddress != null)
+                    message.nodeAddress = String(object.nodeAddress);
                 return message;
             };
 
@@ -19740,6 +18771,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proTxHash = $util.newBuffer(object.proTxHash);
                     }
+                    object.nodeAddress = "";
                 }
                 if (message.pubKey != null && message.hasOwnProperty("pubKey"))
                     object.pubKey = $root.tendermint.crypto.PublicKey.toObject(message.pubKey, options);
@@ -19755,6 +18787,8 @@ $root.tendermint = (function() {
                         object.proposerPriority = options.longs === String ? $util.Long.prototype.toString.call(message.proposerPriority) : options.longs === Number ? new $util.LongBits(message.proposerPriority.low >>> 0, message.proposerPriority.high >>> 0).toNumber() : message.proposerPriority;
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     object.proTxHash = options.bytes === String ? $util.base64.encode(message.proTxHash, 0, message.proTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proTxHash) : message.proTxHash;
+                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
+                    object.nodeAddress = message.nodeAddress;
                 return object;
             };
 
