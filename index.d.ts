@@ -7526,9 +7526,6 @@ export namespace tendermint {
 
             /** BlockParams maxGas */
             maxGas?: (number|Long|null);
-
-            /** BlockParams timeIotaMs */
-            timeIotaMs?: (number|Long|null);
         }
 
         /** Represents a BlockParams. */
@@ -7545,9 +7542,6 @@ export namespace tendermint {
 
             /** BlockParams maxGas. */
             public maxGas: (number|Long);
-
-            /** BlockParams timeIotaMs. */
-            public timeIotaMs: (number|Long);
 
             /**
              * Creates a new BlockParams instance using the specified properties.
@@ -8001,102 +7995,6 @@ export namespace tendermint {
 
     /** Namespace version. */
     namespace version {
-
-        /** Properties of an App. */
-        interface IApp {
-
-            /** App protocol */
-            protocol?: (number|Long|null);
-
-            /** App software */
-            software?: (string|null);
-        }
-
-        /** Represents an App. */
-        class App implements IApp {
-
-            /**
-             * Constructs a new App.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: tendermint.version.IApp);
-
-            /** App protocol. */
-            public protocol: (number|Long);
-
-            /** App software. */
-            public software: string;
-
-            /**
-             * Creates a new App instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns App instance
-             */
-            public static create(properties?: tendermint.version.IApp): tendermint.version.App;
-
-            /**
-             * Encodes the specified App message. Does not implicitly {@link tendermint.version.App.verify|verify} messages.
-             * @param message App message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: tendermint.version.IApp, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Encodes the specified App message, length delimited. Does not implicitly {@link tendermint.version.App.verify|verify} messages.
-             * @param message App message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encodeDelimited(message: tendermint.version.IApp, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes an App message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns App
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tendermint.version.App;
-
-            /**
-             * Decodes an App message from the specified reader or buffer, length delimited.
-             * @param reader Reader or buffer to decode from
-             * @returns App
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tendermint.version.App;
-
-            /**
-             * Verifies an App message.
-             * @param message Plain object to verify
-             * @returns `null` if valid, otherwise the reason why it is not
-             */
-            public static verify(message: { [k: string]: any }): (string|null);
-
-            /**
-             * Creates an App message from a plain object. Also converts values to their respective internal types.
-             * @param object Plain object
-             * @returns App
-             */
-            public static fromObject(object: { [k: string]: any }): tendermint.version.App;
-
-            /**
-             * Creates a plain object from an App message. Also converts values to other types if specified.
-             * @param message App
-             * @param [options] Conversion options
-             * @returns Plain object
-             */
-            public static toObject(message: tendermint.version.App, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-            /**
-             * Converts this App to JSON.
-             * @returns JSON object
-             */
-            public toJSON(): { [k: string]: any };
-        }
 
         /** Properties of a Consensus. */
         interface IConsensus {

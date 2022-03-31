@@ -19317,7 +19317,6 @@ $root.tendermint = (function() {
              * @interface IBlockParams
              * @property {number|Long|null} [maxBytes] BlockParams maxBytes
              * @property {number|Long|null} [maxGas] BlockParams maxGas
-             * @property {number|Long|null} [timeIotaMs] BlockParams timeIotaMs
              */
 
             /**
@@ -19352,14 +19351,6 @@ $root.tendermint = (function() {
             BlockParams.prototype.maxGas = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
             /**
-             * BlockParams timeIotaMs.
-             * @member {number|Long} timeIotaMs
-             * @memberof tendermint.types.BlockParams
-             * @instance
-             */
-            BlockParams.prototype.timeIotaMs = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
              * Creates a new BlockParams instance using the specified properties.
              * @function create
              * @memberof tendermint.types.BlockParams
@@ -19387,8 +19378,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 1, wireType 0 =*/8).int64(message.maxBytes);
                 if (message.maxGas != null && Object.hasOwnProperty.call(message, "maxGas"))
                     writer.uint32(/* id 2, wireType 0 =*/16).int64(message.maxGas);
-                if (message.timeIotaMs != null && Object.hasOwnProperty.call(message, "timeIotaMs"))
-                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.timeIotaMs);
                 return writer;
             };
 
@@ -19428,9 +19417,6 @@ $root.tendermint = (function() {
                         break;
                     case 2:
                         message.maxGas = reader.int64();
-                        break;
-                    case 3:
-                        message.timeIotaMs = reader.int64();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -19473,9 +19459,6 @@ $root.tendermint = (function() {
                 if (message.maxGas != null && message.hasOwnProperty("maxGas"))
                     if (!$util.isInteger(message.maxGas) && !(message.maxGas && $util.isInteger(message.maxGas.low) && $util.isInteger(message.maxGas.high)))
                         return "maxGas: integer|Long expected";
-                if (message.timeIotaMs != null && message.hasOwnProperty("timeIotaMs"))
-                    if (!$util.isInteger(message.timeIotaMs) && !(message.timeIotaMs && $util.isInteger(message.timeIotaMs.low) && $util.isInteger(message.timeIotaMs.high)))
-                        return "timeIotaMs: integer|Long expected";
                 return null;
             };
 
@@ -19509,15 +19492,6 @@ $root.tendermint = (function() {
                         message.maxGas = object.maxGas;
                     else if (typeof object.maxGas === "object")
                         message.maxGas = new $util.LongBits(object.maxGas.low >>> 0, object.maxGas.high >>> 0).toNumber();
-                if (object.timeIotaMs != null)
-                    if ($util.Long)
-                        (message.timeIotaMs = $util.Long.fromValue(object.timeIotaMs)).unsigned = false;
-                    else if (typeof object.timeIotaMs === "string")
-                        message.timeIotaMs = parseInt(object.timeIotaMs, 10);
-                    else if (typeof object.timeIotaMs === "number")
-                        message.timeIotaMs = object.timeIotaMs;
-                    else if (typeof object.timeIotaMs === "object")
-                        message.timeIotaMs = new $util.LongBits(object.timeIotaMs.low >>> 0, object.timeIotaMs.high >>> 0).toNumber();
                 return message;
             };
 
@@ -19545,11 +19519,6 @@ $root.tendermint = (function() {
                         object.maxGas = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.maxGas = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.timeIotaMs = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.timeIotaMs = options.longs === String ? "0" : 0;
                 }
                 if (message.maxBytes != null && message.hasOwnProperty("maxBytes"))
                     if (typeof message.maxBytes === "number")
@@ -19561,11 +19530,6 @@ $root.tendermint = (function() {
                         object.maxGas = options.longs === String ? String(message.maxGas) : message.maxGas;
                     else
                         object.maxGas = options.longs === String ? $util.Long.prototype.toString.call(message.maxGas) : options.longs === Number ? new $util.LongBits(message.maxGas.low >>> 0, message.maxGas.high >>> 0).toNumber() : message.maxGas;
-                if (message.timeIotaMs != null && message.hasOwnProperty("timeIotaMs"))
-                    if (typeof message.timeIotaMs === "number")
-                        object.timeIotaMs = options.longs === String ? String(message.timeIotaMs) : message.timeIotaMs;
-                    else
-                        object.timeIotaMs = options.longs === String ? $util.Long.prototype.toString.call(message.timeIotaMs) : options.longs === Number ? new $util.LongBits(message.timeIotaMs.low >>> 0, message.timeIotaMs.high >>> 0).toNumber() : message.timeIotaMs;
                 return object;
             };
 
@@ -20501,230 +20465,6 @@ $root.tendermint = (function() {
          * @namespace
          */
         var version = {};
-
-        version.App = (function() {
-
-            /**
-             * Properties of an App.
-             * @memberof tendermint.version
-             * @interface IApp
-             * @property {number|Long|null} [protocol] App protocol
-             * @property {string|null} [software] App software
-             */
-
-            /**
-             * Constructs a new App.
-             * @memberof tendermint.version
-             * @classdesc Represents an App.
-             * @implements IApp
-             * @constructor
-             * @param {tendermint.version.IApp=} [properties] Properties to set
-             */
-            function App(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * App protocol.
-             * @member {number|Long} protocol
-             * @memberof tendermint.version.App
-             * @instance
-             */
-            App.prototype.protocol = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-            /**
-             * App software.
-             * @member {string} software
-             * @memberof tendermint.version.App
-             * @instance
-             */
-            App.prototype.software = "";
-
-            /**
-             * Creates a new App instance using the specified properties.
-             * @function create
-             * @memberof tendermint.version.App
-             * @static
-             * @param {tendermint.version.IApp=} [properties] Properties to set
-             * @returns {tendermint.version.App} App instance
-             */
-            App.create = function create(properties) {
-                return new App(properties);
-            };
-
-            /**
-             * Encodes the specified App message. Does not implicitly {@link tendermint.version.App.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.version.App
-             * @static
-             * @param {tendermint.version.IApp} message App message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            App.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.protocol != null && Object.hasOwnProperty.call(message, "protocol"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.protocol);
-                if (message.software != null && Object.hasOwnProperty.call(message, "software"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.software);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified App message, length delimited. Does not implicitly {@link tendermint.version.App.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.version.App
-             * @static
-             * @param {tendermint.version.IApp} message App message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            App.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes an App message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.version.App
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.version.App} App
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            App.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.version.App();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.protocol = reader.uint64();
-                        break;
-                    case 2:
-                        message.software = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes an App message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.version.App
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.version.App} App
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            App.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies an App message.
-             * @function verify
-             * @memberof tendermint.version.App
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            App.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.protocol != null && message.hasOwnProperty("protocol"))
-                    if (!$util.isInteger(message.protocol) && !(message.protocol && $util.isInteger(message.protocol.low) && $util.isInteger(message.protocol.high)))
-                        return "protocol: integer|Long expected";
-                if (message.software != null && message.hasOwnProperty("software"))
-                    if (!$util.isString(message.software))
-                        return "software: string expected";
-                return null;
-            };
-
-            /**
-             * Creates an App message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.version.App
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.version.App} App
-             */
-            App.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.version.App)
-                    return object;
-                var message = new $root.tendermint.version.App();
-                if (object.protocol != null)
-                    if ($util.Long)
-                        (message.protocol = $util.Long.fromValue(object.protocol)).unsigned = true;
-                    else if (typeof object.protocol === "string")
-                        message.protocol = parseInt(object.protocol, 10);
-                    else if (typeof object.protocol === "number")
-                        message.protocol = object.protocol;
-                    else if (typeof object.protocol === "object")
-                        message.protocol = new $util.LongBits(object.protocol.low >>> 0, object.protocol.high >>> 0).toNumber(true);
-                if (object.software != null)
-                    message.software = String(object.software);
-                return message;
-            };
-
-            /**
-             * Creates a plain object from an App message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.version.App
-             * @static
-             * @param {tendermint.version.App} message App
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            App.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.protocol = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.protocol = options.longs === String ? "0" : 0;
-                    object.software = "";
-                }
-                if (message.protocol != null && message.hasOwnProperty("protocol"))
-                    if (typeof message.protocol === "number")
-                        object.protocol = options.longs === String ? String(message.protocol) : message.protocol;
-                    else
-                        object.protocol = options.longs === String ? $util.Long.prototype.toString.call(message.protocol) : options.longs === Number ? new $util.LongBits(message.protocol.low >>> 0, message.protocol.high >>> 0).toNumber(true) : message.protocol;
-                if (message.software != null && message.hasOwnProperty("software"))
-                    object.software = message.software;
-                return object;
-            };
-
-            /**
-             * Converts this App to JSON.
-             * @function toJSON
-             * @memberof tendermint.version.App
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            App.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return App;
-        })();
 
         version.Consensus = (function() {
 
