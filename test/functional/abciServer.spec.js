@@ -24,7 +24,7 @@ describe('abciServer', function describe() {
     // Start Tenderdash
     docker = new Docker();
 
-    const dockerImage = 'dashpay/tenderdash';
+    const dockerImage = 'dashpay/tenderdash:0.8-dev';
 
     const extraHosts = [];
     if (os.platform() === 'linux') {
