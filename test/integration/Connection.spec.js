@@ -202,7 +202,10 @@ describe('Connection', () => {
   it('should destroy socket and emit UnableToParseRequestError on request message decode error', () => {
     const invalidRequest = Buffer.alloc(64).fill('b');
 
-    socketMock.emit('data', invalidRequest);
+    const length = Buffer.alloc(4);
+    length.writeInt32LE(invalidRequest.length, 0);
+
+    socketMock.emit('data', Buffer.concat([length, invalidRequest]));
 
     setImmediate(() => {
       expect(requestHandlerMock).to.not.be.called();
@@ -215,10 +218,10 @@ describe('Connection', () => {
 
       expect(maxSizeError).to.be.instanceOf(UnableToParseRequestError);
       expect(maxSizeError.getError()).to.be.instanceOf(Error);
-      expect(maxSizeError.getError()).to.have.property('message', 'index out of range: 4 + 98 > 49');
+      expect(maxSizeError.getError()).to.have.property('message', 'index out of range: 8 + 98 > 64');
 
       expect(maxSizeError.getRequestBuffer().toString()).to.equal(
-        'b'.repeat(64),
+        Buffer.concat([length, invalidRequest]).toString(),
       );
 
       expect(errorHandlerSpy).to.be.calledOnce();
@@ -228,7 +231,10 @@ describe('Connection', () => {
   it('should not handle requests if stream is destroyed', () => {
     const invalidRequest = Buffer.alloc(64).fill('b');
 
-    socketMock.emit('data', invalidRequest);
+    const length = Buffer.alloc(4);
+    length.writeInt32LE(invalidRequest.length, 0);
+
+    socketMock.emit('data', Buffer.concat([length, invalidRequest]));
 
     expect(socketMock.destroyed).to.be.true();
 
