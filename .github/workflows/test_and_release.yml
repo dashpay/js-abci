@@ -37,7 +37,7 @@ jobs:
         run: npm run lint
 
       - name: Download Tenderdash Docker image
-        run: docker pull dashpay/tenderdash
+        run: docker pull dashpay/tenderdash:0.8-dev
 
       - name: Run tests
         run: npm run test
