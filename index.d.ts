@@ -1610,8 +1610,8 @@ export namespace tendermint {
             /** RequestPrepareProposal proposerProTxHash */
             proposerProTxHash?: (Uint8Array|null);
 
-            /** RequestPrepareProposal proposedAppVersion */
-            proposedAppVersion?: (number|Long|null);
+            /** RequestPrepareProposal version */
+            version?: (tendermint.version.IConsensus|null);
         }
 
         /** Represents a RequestPrepareProposal. */
@@ -1650,8 +1650,8 @@ export namespace tendermint {
             /** RequestPrepareProposal proposerProTxHash. */
             public proposerProTxHash: Uint8Array;
 
-            /** RequestPrepareProposal proposedAppVersion. */
-            public proposedAppVersion: (number|Long);
+            /** RequestPrepareProposal version. */
+            public version?: (tendermint.version.IConsensus|null);
 
             /**
              * Creates a new RequestPrepareProposal instance using the specified properties.
@@ -2090,8 +2090,8 @@ export namespace tendermint {
             /** RequestFinalizeBlock proposerProTxHash */
             proposerProTxHash?: (Uint8Array|null);
 
-            /** RequestFinalizeBlock proposedAppVersion */
-            proposedAppVersion?: (number|Long|null);
+            /** RequestFinalizeBlock version */
+            version?: (tendermint.version.IConsensus|null);
         }
 
         /** Represents a RequestFinalizeBlock. */
@@ -2130,8 +2130,8 @@ export namespace tendermint {
             /** RequestFinalizeBlock proposerProTxHash. */
             public proposerProTxHash: Uint8Array;
 
-            /** RequestFinalizeBlock proposedAppVersion. */
-            public proposedAppVersion: (number|Long);
+            /** RequestFinalizeBlock version. */
+            public version?: (tendermint.version.IConsensus|null);
 
             /**
              * Creates a new RequestFinalizeBlock instance using the specified properties.
