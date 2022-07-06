@@ -4098,6 +4098,7 @@ $root.tendermint = (function() {
              * @property {Uint8Array|null} [nextValidatorsHash] RequestPrepareProposal nextValidatorsHash
              * @property {number|null} [coreChainLockedHeight] RequestPrepareProposal coreChainLockedHeight
              * @property {Uint8Array|null} [proposerProTxHash] RequestPrepareProposal proposerProTxHash
+             * @property {number|Long|null} [proposedAppVersion] RequestPrepareProposal proposedAppVersion
              * @property {tendermint.version.IConsensus|null} [version] RequestPrepareProposal version
              */
 
@@ -4191,6 +4192,14 @@ $root.tendermint = (function() {
             RequestPrepareProposal.prototype.proposerProTxHash = $util.newBuffer([]);
 
             /**
+             * RequestPrepareProposal proposedAppVersion.
+             * @member {number|Long} proposedAppVersion
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.proposedAppVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+            /**
              * RequestPrepareProposal version.
              * @member {tendermint.version.IConsensus|null|undefined} version
              * @memberof tendermint.abci.RequestPrepareProposal
@@ -4242,8 +4251,10 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
                 if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
                     writer.uint32(/* id 101, wireType 2 =*/810).bytes(message.proposerProTxHash);
+                if (message.proposedAppVersion != null && Object.hasOwnProperty.call(message, "proposedAppVersion"))
+                    writer.uint32(/* id 102, wireType 0 =*/816).uint64(message.proposedAppVersion);
                 if (message.version != null && Object.hasOwnProperty.call(message, "version"))
-                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 102, wireType 2 =*/818).fork()).ldelim();
+                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 103, wireType 2 =*/826).fork()).ldelim();
                 return writer;
             };
 
@@ -4310,6 +4321,9 @@ $root.tendermint = (function() {
                         message.proposerProTxHash = reader.bytes();
                         break;
                     case 102:
+                        message.proposedAppVersion = reader.uint64();
+                        break;
+                    case 103:
                         message.version = $root.tendermint.version.Consensus.decode(reader, reader.uint32());
                         break;
                     default:
@@ -4388,6 +4402,9 @@ $root.tendermint = (function() {
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
                     if (!(message.proposerProTxHash && typeof message.proposerProTxHash.length === "number" || $util.isString(message.proposerProTxHash)))
                         return "proposerProTxHash: buffer expected";
+                if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
+                    if (!$util.isInteger(message.proposedAppVersion) && !(message.proposedAppVersion && $util.isInteger(message.proposedAppVersion.low) && $util.isInteger(message.proposedAppVersion.high)))
+                        return "proposedAppVersion: integer|Long expected";
                 if (message.version != null && message.hasOwnProperty("version")) {
                     var error = $root.tendermint.version.Consensus.verify(message.version);
                     if (error)
@@ -4468,6 +4485,15 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.proposerProTxHash, message.proposerProTxHash = $util.newBuffer($util.base64.length(object.proposerProTxHash)), 0);
                     else if (object.proposerProTxHash.length >= 0)
                         message.proposerProTxHash = object.proposerProTxHash;
+                if (object.proposedAppVersion != null)
+                    if ($util.Long)
+                        (message.proposedAppVersion = $util.Long.fromValue(object.proposedAppVersion)).unsigned = true;
+                    else if (typeof object.proposedAppVersion === "string")
+                        message.proposedAppVersion = parseInt(object.proposedAppVersion, 10);
+                    else if (typeof object.proposedAppVersion === "number")
+                        message.proposedAppVersion = object.proposedAppVersion;
+                    else if (typeof object.proposedAppVersion === "object")
+                        message.proposedAppVersion = new $util.LongBits(object.proposedAppVersion.low >>> 0, object.proposedAppVersion.high >>> 0).toNumber(true);
                 if (object.version != null) {
                     if (typeof object.version !== "object")
                         throw TypeError(".tendermint.abci.RequestPrepareProposal.version: object expected");
@@ -4521,6 +4547,11 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proposerProTxHash = $util.newBuffer(object.proposerProTxHash);
                     }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, true);
+                        object.proposedAppVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.proposedAppVersion = options.longs === String ? "0" : 0;
                     object.version = null;
                 }
                 if (message.maxTxBytes != null && message.hasOwnProperty("maxTxBytes"))
@@ -4553,6 +4584,11 @@ $root.tendermint = (function() {
                     object.coreChainLockedHeight = message.coreChainLockedHeight;
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
                     object.proposerProTxHash = options.bytes === String ? $util.base64.encode(message.proposerProTxHash, 0, message.proposerProTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proposerProTxHash) : message.proposerProTxHash;
+                if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
+                    if (typeof message.proposedAppVersion === "number")
+                        object.proposedAppVersion = options.longs === String ? String(message.proposedAppVersion) : message.proposedAppVersion;
+                    else
+                        object.proposedAppVersion = options.longs === String ? $util.Long.prototype.toString.call(message.proposedAppVersion) : options.longs === Number ? new $util.LongBits(message.proposedAppVersion.low >>> 0, message.proposedAppVersion.high >>> 0).toNumber(true) : message.proposedAppVersion;
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = $root.tendermint.version.Consensus.toObject(message.version, options);
                 return object;
@@ -5563,6 +5599,7 @@ $root.tendermint = (function() {
              * @property {Uint8Array|null} [nextValidatorsHash] RequestFinalizeBlock nextValidatorsHash
              * @property {number|null} [coreChainLockedHeight] RequestFinalizeBlock coreChainLockedHeight
              * @property {Uint8Array|null} [proposerProTxHash] RequestFinalizeBlock proposerProTxHash
+             * @property {number|Long|null} [proposedAppVersion] RequestFinalizeBlock proposedAppVersion
              * @property {tendermint.version.IConsensus|null} [version] RequestFinalizeBlock version
              */
 
@@ -5656,6 +5693,14 @@ $root.tendermint = (function() {
             RequestFinalizeBlock.prototype.proposerProTxHash = $util.newBuffer([]);
 
             /**
+             * RequestFinalizeBlock proposedAppVersion.
+             * @member {number|Long} proposedAppVersion
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.proposedAppVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+            /**
              * RequestFinalizeBlock version.
              * @member {tendermint.version.IConsensus|null|undefined} version
              * @memberof tendermint.abci.RequestFinalizeBlock
@@ -5707,8 +5752,10 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
                 if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
                     writer.uint32(/* id 101, wireType 2 =*/810).bytes(message.proposerProTxHash);
+                if (message.proposedAppVersion != null && Object.hasOwnProperty.call(message, "proposedAppVersion"))
+                    writer.uint32(/* id 102, wireType 0 =*/816).uint64(message.proposedAppVersion);
                 if (message.version != null && Object.hasOwnProperty.call(message, "version"))
-                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 102, wireType 2 =*/818).fork()).ldelim();
+                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 103, wireType 2 =*/826).fork()).ldelim();
                 return writer;
             };
 
@@ -5775,6 +5822,9 @@ $root.tendermint = (function() {
                         message.proposerProTxHash = reader.bytes();
                         break;
                     case 102:
+                        message.proposedAppVersion = reader.uint64();
+                        break;
+                    case 103:
                         message.version = $root.tendermint.version.Consensus.decode(reader, reader.uint32());
                         break;
                     default:
@@ -5853,6 +5903,9 @@ $root.tendermint = (function() {
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
                     if (!(message.proposerProTxHash && typeof message.proposerProTxHash.length === "number" || $util.isString(message.proposerProTxHash)))
                         return "proposerProTxHash: buffer expected";
+                if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
+                    if (!$util.isInteger(message.proposedAppVersion) && !(message.proposedAppVersion && $util.isInteger(message.proposedAppVersion.low) && $util.isInteger(message.proposedAppVersion.high)))
+                        return "proposedAppVersion: integer|Long expected";
                 if (message.version != null && message.hasOwnProperty("version")) {
                     var error = $root.tendermint.version.Consensus.verify(message.version);
                     if (error)
@@ -5929,6 +5982,15 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.proposerProTxHash, message.proposerProTxHash = $util.newBuffer($util.base64.length(object.proposerProTxHash)), 0);
                     else if (object.proposerProTxHash.length >= 0)
                         message.proposerProTxHash = object.proposerProTxHash;
+                if (object.proposedAppVersion != null)
+                    if ($util.Long)
+                        (message.proposedAppVersion = $util.Long.fromValue(object.proposedAppVersion)).unsigned = true;
+                    else if (typeof object.proposedAppVersion === "string")
+                        message.proposedAppVersion = parseInt(object.proposedAppVersion, 10);
+                    else if (typeof object.proposedAppVersion === "number")
+                        message.proposedAppVersion = object.proposedAppVersion;
+                    else if (typeof object.proposedAppVersion === "object")
+                        message.proposedAppVersion = new $util.LongBits(object.proposedAppVersion.low >>> 0, object.proposedAppVersion.high >>> 0).toNumber(true);
                 if (object.version != null) {
                     if (typeof object.version !== "object")
                         throw TypeError(".tendermint.abci.RequestFinalizeBlock.version: object expected");
@@ -5984,6 +6046,11 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proposerProTxHash = $util.newBuffer(object.proposerProTxHash);
                     }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, true);
+                        object.proposedAppVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.proposedAppVersion = options.longs === String ? "0" : 0;
                     object.version = null;
                 }
                 if (message.txs && message.txs.length) {
@@ -6013,6 +6080,11 @@ $root.tendermint = (function() {
                     object.coreChainLockedHeight = message.coreChainLockedHeight;
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
                     object.proposerProTxHash = options.bytes === String ? $util.base64.encode(message.proposerProTxHash, 0, message.proposerProTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proposerProTxHash) : message.proposerProTxHash;
+                if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
+                    if (typeof message.proposedAppVersion === "number")
+                        object.proposedAppVersion = options.longs === String ? String(message.proposedAppVersion) : message.proposedAppVersion;
+                    else
+                        object.proposedAppVersion = options.longs === String ? $util.Long.prototype.toString.call(message.proposedAppVersion) : options.longs === Number ? new $util.LongBits(message.proposedAppVersion.low >>> 0, message.proposedAppVersion.high >>> 0).toNumber(true) : message.proposedAppVersion;
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = $root.tendermint.version.Consensus.toObject(message.version, options);
                 return object;
