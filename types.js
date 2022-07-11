@@ -1238,7 +1238,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestInfo
              * @instance
              */
-            RequestInfo.prototype.blockVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            RequestInfo.prototype.blockVersion = 0;
 
             /**
              * RequestInfo p2pVersion.
@@ -1246,7 +1246,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestInfo
              * @instance
              */
-            RequestInfo.prototype.p2pVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            RequestInfo.prototype.p2pVersion = 0;
 
             /**
              * RequestInfo abciVersion.
@@ -1436,16 +1436,8 @@ $root.tendermint = (function() {
                 var object = {};
                 if (options.defaults) {
                     object.version = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.blockVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.blockVersion = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.p2pVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.p2pVersion = options.longs === String ? "0" : 0;
+                    object.blockVersion = 0;
+                    object.p2pVersion = 0;
                     object.abciVersion = "";
                 }
                 if (message.version != null && message.hasOwnProperty("version"))
@@ -1555,7 +1547,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestInitChain
              * @instance
              */
-            RequestInitChain.prototype.initialHeight = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestInitChain.prototype.initialHeight = 0;
 
             /**
              * RequestInitChain initialCoreHeight.
@@ -1796,11 +1788,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.appStateBytes = $util.newBuffer(object.appStateBytes);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.initialHeight = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.initialHeight = options.longs === String ? "0" : 0;
+                    object.initialHeight = 0;
                     object.initialCoreHeight = 0;
                 }
                 if (message.time != null && message.hasOwnProperty("time"))
@@ -1886,7 +1874,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestQuery
              * @instance
              */
-            RequestQuery.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestQuery.prototype.height = 0;
 
             /**
              * RequestQuery prove.
@@ -2079,11 +2067,7 @@ $root.tendermint = (function() {
                             object.data = $util.newBuffer(object.data);
                     }
                     object.path = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.prove = false;
                 }
                 if (message.data != null && message.hasOwnProperty("data"))
@@ -2881,7 +2865,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestEndBlock
              * @instance
              */
-            RequestEndBlock.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestEndBlock.prototype.height = 0;
 
             /**
              * Creates a new RequestEndBlock instance using the specified properties.
@@ -3025,11 +3009,7 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults)
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                 if (message.height != null && message.hasOwnProperty("height"))
                     if (typeof message.height === "number")
                         object.height = options.longs === String ? String(message.height) : message.height;
@@ -3628,7 +3608,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestLoadSnapshotChunk
              * @instance
              */
-            RequestLoadSnapshotChunk.prototype.height = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            RequestLoadSnapshotChunk.prototype.height = 0;
 
             /**
              * RequestLoadSnapshotChunk format.
@@ -3808,11 +3788,7 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.format = 0;
                     object.chunk = 0;
                 }
@@ -4125,7 +4101,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestPrepareProposal
              * @instance
              */
-            RequestPrepareProposal.prototype.maxTxBytes = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestPrepareProposal.prototype.maxTxBytes = 0;
 
             /**
              * RequestPrepareProposal txs.
@@ -4157,7 +4133,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestPrepareProposal
              * @instance
              */
-            RequestPrepareProposal.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestPrepareProposal.prototype.height = 0;
 
             /**
              * RequestPrepareProposal time.
@@ -4197,7 +4173,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestPrepareProposal
              * @instance
              */
-            RequestPrepareProposal.prototype.proposedAppVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            RequestPrepareProposal.prototype.proposedAppVersion = 0;
 
             /**
              * RequestPrepareProposal version.
@@ -4520,17 +4496,9 @@ $root.tendermint = (function() {
                     object.byzantineValidators = [];
                 }
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxTxBytes = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxTxBytes = options.longs === String ? "0" : 0;
+                    object.maxTxBytes = 0;
                     object.localLastCommit = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.time = null;
                     if (options.bytes === String)
                         object.nextValidatorsHash = "";
@@ -4547,11 +4515,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proposerProTxHash = $util.newBuffer(object.proposerProTxHash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.proposedAppVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.proposedAppVersion = options.longs === String ? "0" : 0;
+                    object.proposedAppVersion = 0;
                     object.version = null;
                 }
                 if (message.maxTxBytes != null && message.hasOwnProperty("maxTxBytes"))
@@ -4679,7 +4643,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestProcessProposal
              * @instance
              */
-            RequestProcessProposal.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestProcessProposal.prototype.height = 0;
 
             /**
              * RequestProcessProposal time.
@@ -4980,11 +4944,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.hash = $util.newBuffer(object.hash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.time = null;
                     if (options.bytes === String)
                         object.nextValidatorsHash = "";
@@ -5082,7 +5042,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestExtendVote
              * @instance
              */
-            RequestExtendVote.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestExtendVote.prototype.height = 0;
 
             /**
              * Creates a new RequestExtendVote instance using the specified properties.
@@ -5246,11 +5206,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.hash = $util.newBuffer(object.hash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                 }
                 if (message.hash != null && message.hasOwnProperty("hash"))
                     object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
@@ -5326,7 +5282,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestVerifyVoteExtension
              * @instance
              */
-            RequestVerifyVoteExtension.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestVerifyVoteExtension.prototype.height = 0;
 
             /**
              * RequestVerifyVoteExtension voteExtensions.
@@ -5547,11 +5503,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.validatorProTxHash = $util.newBuffer(object.validatorProTxHash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                 }
                 if (message.hash != null && message.hasOwnProperty("hash"))
                     object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
@@ -5658,7 +5610,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestFinalizeBlock
              * @instance
              */
-            RequestFinalizeBlock.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            RequestFinalizeBlock.prototype.height = 0;
 
             /**
              * RequestFinalizeBlock time.
@@ -5698,7 +5650,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.RequestFinalizeBlock
              * @instance
              */
-            RequestFinalizeBlock.prototype.proposedAppVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            RequestFinalizeBlock.prototype.proposedAppVersion = 0;
 
             /**
              * RequestFinalizeBlock version.
@@ -6025,11 +5977,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.hash = $util.newBuffer(object.hash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.time = null;
                     if (options.bytes === String)
                         object.nextValidatorsHash = "";
@@ -6046,11 +5994,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proposerProTxHash = $util.newBuffer(object.proposerProTxHash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.proposedAppVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.proposedAppVersion = options.longs === String ? "0" : 0;
+                    object.proposedAppVersion = 0;
                     object.version = null;
                 }
                 if (message.txs && message.txs.length) {
@@ -7545,7 +7489,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseInfo
              * @instance
              */
-            ResponseInfo.prototype.appVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            ResponseInfo.prototype.appVersion = 0;
 
             /**
              * ResponseInfo lastBlockHeight.
@@ -7553,7 +7497,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseInfo
              * @instance
              */
-            ResponseInfo.prototype.lastBlockHeight = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseInfo.prototype.lastBlockHeight = 0;
 
             /**
              * ResponseInfo lastBlockAppHash.
@@ -7757,16 +7701,8 @@ $root.tendermint = (function() {
                 if (options.defaults) {
                     object.data = "";
                     object.version = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.appVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.appVersion = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.lastBlockHeight = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.lastBlockHeight = options.longs === String ? "0" : 0;
+                    object.appVersion = 0;
+                    object.lastBlockHeight = 0;
                     if (options.bytes === String)
                         object.lastBlockAppHash = "";
                     else {
@@ -8170,7 +8106,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseQuery
              * @instance
              */
-            ResponseQuery.prototype.index = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseQuery.prototype.index = 0;
 
             /**
              * ResponseQuery key.
@@ -8202,7 +8138,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseQuery
              * @instance
              */
-            ResponseQuery.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseQuery.prototype.height = 0;
 
             /**
              * ResponseQuery codespace.
@@ -8455,11 +8391,7 @@ $root.tendermint = (function() {
                     object.code = 0;
                     object.log = "";
                     object.info = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.index = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.index = options.longs === String ? "0" : 0;
+                    object.index = 0;
                     if (options.bytes === String)
                         object.key = "";
                     else {
@@ -8475,11 +8407,7 @@ $root.tendermint = (function() {
                             object.value = $util.newBuffer(object.value);
                     }
                     object.proofOps = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.codespace = "";
                 }
                 if (message.code != null && message.hasOwnProperty("code"))
@@ -8804,7 +8732,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseCheckTx
              * @instance
              */
-            ResponseCheckTx.prototype.gasWanted = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseCheckTx.prototype.gasWanted = 0;
 
             /**
              * ResponseCheckTx gasUsed.
@@ -8812,7 +8740,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseCheckTx
              * @instance
              */
-            ResponseCheckTx.prototype.gasUsed = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseCheckTx.prototype.gasUsed = 0;
 
             /**
              * ResponseCheckTx events.
@@ -8844,7 +8772,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseCheckTx
              * @instance
              */
-            ResponseCheckTx.prototype.priority = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseCheckTx.prototype.priority = 0;
 
             /**
              * ResponseCheckTx mempoolError.
@@ -9142,23 +9070,11 @@ $root.tendermint = (function() {
                     }
                     object.log = "";
                     object.info = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.gasWanted = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.gasWanted = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.gasUsed = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.gasUsed = options.longs === String ? "0" : 0;
+                    object.gasWanted = 0;
+                    object.gasUsed = 0;
                     object.codespace = "";
                     object.sender = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.priority = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.priority = options.longs === String ? "0" : 0;
+                    object.priority = 0;
                     object.mempoolError = "";
                 }
                 if (message.code != null && message.hasOwnProperty("code"))
@@ -9282,7 +9198,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseDeliverTx
              * @instance
              */
-            ResponseDeliverTx.prototype.gasWanted = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseDeliverTx.prototype.gasWanted = 0;
 
             /**
              * ResponseDeliverTx gasUsed.
@@ -9290,7 +9206,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseDeliverTx
              * @instance
              */
-            ResponseDeliverTx.prototype.gasUsed = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseDeliverTx.prototype.gasUsed = 0;
 
             /**
              * ResponseDeliverTx events.
@@ -9559,16 +9475,8 @@ $root.tendermint = (function() {
                     }
                     object.log = "";
                     object.info = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.gasWanted = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.gasWanted = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.gasUsed = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.gasUsed = options.longs === String ? "0" : 0;
+                    object.gasWanted = 0;
+                    object.gasUsed = 0;
                     object.codespace = "";
                 }
                 if (message.code != null && message.hasOwnProperty("code"))
@@ -9943,7 +9851,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseCommit
              * @instance
              */
-            ResponseCommit.prototype.retainHeight = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseCommit.prototype.retainHeight = 0;
 
             /**
              * Creates a new ResponseCommit instance using the specified properties.
@@ -10107,11 +10015,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.data = $util.newBuffer(object.data);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.retainHeight = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.retainHeight = options.longs === String ? "0" : 0;
+                    object.retainHeight = 0;
                 }
                 if (message.data != null && message.hasOwnProperty("data"))
                     object.data = options.bytes === String ? $util.base64.encode(message.data, 0, message.data.length) : options.bytes === Array ? Array.prototype.slice.call(message.data) : message.data;
@@ -12565,7 +12469,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ResponseFinalizeBlock
              * @instance
              */
-            ResponseFinalizeBlock.prototype.retainHeight = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseFinalizeBlock.prototype.retainHeight = 0;
 
             /**
              * ResponseFinalizeBlock nextCoreChainLockUpdate.
@@ -12849,11 +12753,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.appHash = $util.newBuffer(object.appHash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.retainHeight = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.retainHeight = options.longs === String ? "0" : 0;
+                    object.retainHeight = 0;
                     object.nextCoreChainLockUpdate = null;
                     object.validatorSetUpdate = null;
                 }
@@ -14080,7 +13980,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ExecTxResult
              * @instance
              */
-            ExecTxResult.prototype.gasWanted = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ExecTxResult.prototype.gasWanted = 0;
 
             /**
              * ExecTxResult gasUsed.
@@ -14088,7 +13988,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ExecTxResult
              * @instance
              */
-            ExecTxResult.prototype.gasUsed = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ExecTxResult.prototype.gasUsed = 0;
 
             /**
              * ExecTxResult events.
@@ -14357,16 +14257,8 @@ $root.tendermint = (function() {
                     }
                     object.log = "";
                     object.info = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.gasWanted = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.gasWanted = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.gasUsed = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.gasUsed = options.longs === String ? "0" : 0;
+                    object.gasWanted = 0;
+                    object.gasUsed = 0;
                     object.codespace = "";
                 }
                 if (message.code != null && message.hasOwnProperty("code"))
@@ -14444,7 +14336,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.TxResult
              * @instance
              */
-            TxResult.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            TxResult.prototype.height = 0;
 
             /**
              * TxResult index.
@@ -14650,11 +14542,7 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.index = 0;
                     if (options.bytes === String)
                         object.tx = "";
@@ -14984,7 +14872,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.Validator
              * @instance
              */
-            Validator.prototype.power = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Validator.prototype.power = 0;
 
             /**
              * Validator proTxHash.
@@ -15149,11 +15037,7 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.power = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.power = options.longs === String ? "0" : 0;
+                    object.power = 0;
                     if (options.bytes === String)
                         object.proTxHash = "";
                     else {
@@ -15227,7 +15111,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.ValidatorUpdate
              * @instance
              */
-            ValidatorUpdate.prototype.power = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ValidatorUpdate.prototype.power = 0;
 
             /**
              * ValidatorUpdate proTxHash.
@@ -15426,11 +15310,7 @@ $root.tendermint = (function() {
                 var object = {};
                 if (options.defaults) {
                     object.pubKey = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.power = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.power = options.longs === String ? "0" : 0;
+                    object.power = 0;
                     if (options.bytes === String)
                         object.proTxHash = "";
                     else {
@@ -16651,7 +16531,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.Misbehavior
              * @instance
              */
-            Misbehavior.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Misbehavior.prototype.height = 0;
 
             /**
              * Misbehavior time.
@@ -16667,7 +16547,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.Misbehavior
              * @instance
              */
-            Misbehavior.prototype.totalVotingPower = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Misbehavior.prototype.totalVotingPower = 0;
 
             /**
              * Creates a new Misbehavior instance using the specified properties.
@@ -16888,17 +16768,9 @@ $root.tendermint = (function() {
                 if (options.defaults) {
                     object.type = options.enums === String ? "UNKNOWN" : 0;
                     object.validator = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.time = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.totalVotingPower = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.totalVotingPower = options.longs === String ? "0" : 0;
+                    object.totalVotingPower = 0;
                 }
                 if (message.type != null && message.hasOwnProperty("type"))
                     object.type = options.enums === String ? $root.tendermint.abci.MisbehaviorType[message.type] : message.type;
@@ -16968,7 +16840,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci.Snapshot
              * @instance
              */
-            Snapshot.prototype.height = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            Snapshot.prototype.height = 0;
 
             /**
              * Snapshot format.
@@ -17208,11 +17080,7 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.format = 0;
                     object.chunks = 0;
                     if (options.bytes === String)
@@ -17872,7 +17740,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.crypto.Proof
              * @instance
              */
-            Proof.prototype.total = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Proof.prototype.total = 0;
 
             /**
              * Proof index.
@@ -17880,7 +17748,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.crypto.Proof
              * @instance
              */
-            Proof.prototype.index = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Proof.prototype.index = 0;
 
             /**
              * Proof leafHash.
@@ -18097,16 +17965,8 @@ $root.tendermint = (function() {
                 if (options.arrays || options.defaults)
                     object.aunts = [];
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.total = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.total = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.index = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.index = options.longs === String ? "0" : 0;
+                    object.total = 0;
+                    object.index = 0;
                     if (options.bytes === String)
                         object.leafHash = "";
                     else {
@@ -20638,7 +20498,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.StateID
              * @instance
              */
-            StateID.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            StateID.prototype.height = 0;
 
             /**
              * Creates a new StateID instance using the specified properties.
@@ -20802,11 +20662,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.lastAppHash = $util.newBuffer(object.lastAppHash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                 }
                 if (message.lastAppHash != null && message.hasOwnProperty("lastAppHash"))
                     object.lastAppHash = options.bytes === String ? $util.base64.encode(message.lastAppHash, 0, message.lastAppHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.lastAppHash) : message.lastAppHash;
@@ -20893,7 +20749,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.Header
              * @instance
              */
-            Header.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Header.prototype.height = 0;
 
             /**
              * Header coreChainLockedHeight.
@@ -20997,7 +20853,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.Header
              * @instance
              */
-            Header.prototype.proposedAppVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            Header.prototype.proposedAppVersion = 0;
 
             /**
              * Creates a new Header instance using the specified properties.
@@ -21342,11 +21198,7 @@ $root.tendermint = (function() {
                 if (options.defaults) {
                     object.version = null;
                     object.chainId = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.time = null;
                     object.lastBlockId = null;
                     if (options.bytes === String)
@@ -21413,11 +21265,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proposerProTxHash = $util.newBuffer(object.proposerProTxHash);
                     }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.proposedAppVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.proposedAppVersion = options.longs === String ? "0" : 0;
+                    object.proposedAppVersion = 0;
                 }
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = $root.tendermint.version.Consensus.toObject(message.version, options);
@@ -21727,7 +21575,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.Vote
              * @instance
              */
-            Vote.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Vote.prototype.height = 0;
 
             /**
              * Vote round.
@@ -22069,11 +21917,7 @@ $root.tendermint = (function() {
                     object.voteExtensions = [];
                 if (options.defaults) {
                     object.type = options.enums === String ? "SIGNED_MSG_TYPE_UNKNOWN" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.round = 0;
                     object.blockId = null;
                     if (options.bytes === String)
@@ -22178,7 +22022,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.Commit
              * @instance
              */
-            Commit.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Commit.prototype.height = 0;
 
             /**
              * Commit round.
@@ -22486,11 +22330,7 @@ $root.tendermint = (function() {
                 if (options.arrays || options.defaults)
                     object.thresholdVoteExtensions = [];
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.round = 0;
                     object.blockId = null;
                     object.stateId = null;
@@ -22600,7 +22440,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.Proposal
              * @instance
              */
-            Proposal.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Proposal.prototype.height = 0;
 
             /**
              * Proposal coreChainLockedHeight.
@@ -22904,11 +22744,7 @@ $root.tendermint = (function() {
                 var object = {};
                 if (options.defaults) {
                     object.type = options.enums === String ? "SIGNED_MSG_TYPE_UNKNOWN" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
+                    object.height = 0;
                     object.round = 0;
                     object.polRound = 0;
                     object.blockId = null;
@@ -23440,7 +23276,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.BlockMeta
              * @instance
              */
-            BlockMeta.prototype.blockSize = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            BlockMeta.prototype.blockSize = 0;
 
             /**
              * BlockMeta header.
@@ -23456,7 +23292,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.BlockMeta
              * @instance
              */
-            BlockMeta.prototype.numTxs = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            BlockMeta.prototype.numTxs = 0;
 
             /**
              * BlockMeta hasCoreChainLock.
@@ -23666,17 +23502,9 @@ $root.tendermint = (function() {
                 var object = {};
                 if (options.defaults) {
                     object.blockId = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.blockSize = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.blockSize = options.longs === String ? "0" : 0;
+                    object.blockSize = 0;
                     object.header = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.numTxs = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.numTxs = options.longs === String ? "0" : 0;
+                    object.numTxs = 0;
                     object.hasCoreChainLock = false;
                 }
                 if (message.blockId != null && message.hasOwnProperty("blockId"))
@@ -24020,7 +23848,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.ValidatorSet
              * @instance
              */
-            ValidatorSet.prototype.totalVotingPower = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ValidatorSet.prototype.totalVotingPower = 0;
 
             /**
              * ValidatorSet thresholdPublicKey.
@@ -24289,11 +24117,7 @@ $root.tendermint = (function() {
                     object.validators = [];
                 if (options.defaults) {
                     object.proposer = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.totalVotingPower = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.totalVotingPower = options.longs === String ? "0" : 0;
+                    object.totalVotingPower = 0;
                     object.thresholdPublicKey = null;
                     object.quorumType = 0;
                     if (options.bytes === String)
@@ -24384,7 +24208,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.Validator
              * @instance
              */
-            Validator.prototype.votingPower = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Validator.prototype.votingPower = 0;
 
             /**
              * Validator proposerPriority.
@@ -24392,7 +24216,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.Validator
              * @instance
              */
-            Validator.prototype.proposerPriority = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Validator.prototype.proposerPriority = 0;
 
             /**
              * Validator proTxHash.
@@ -24608,16 +24432,8 @@ $root.tendermint = (function() {
                 var object = {};
                 if (options.defaults) {
                     object.pubKey = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.votingPower = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.votingPower = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.proposerPriority = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.proposerPriority = options.longs === String ? "0" : 0;
+                    object.votingPower = 0;
+                    object.proposerPriority = 0;
                     if (options.bytes === String)
                         object.proTxHash = "";
                     else {
@@ -24699,7 +24515,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.SimpleValidator
              * @instance
              */
-            SimpleValidator.prototype.votingPower = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            SimpleValidator.prototype.votingPower = 0;
 
             /**
              * Creates a new SimpleValidator instance using the specified properties.
@@ -24859,11 +24675,7 @@ $root.tendermint = (function() {
                 var object = {};
                 if (options.defaults) {
                     object.pubKey = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.votingPower = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.votingPower = options.longs === String ? "0" : 0;
+                    object.votingPower = 0;
                 }
                 if (message.pubKey != null && message.hasOwnProperty("pubKey"))
                     object.pubKey = $root.tendermint.crypto.PublicKey.toObject(message.pubKey, options);
@@ -25248,7 +25060,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.BlockParams
              * @instance
              */
-            BlockParams.prototype.maxBytes = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            BlockParams.prototype.maxBytes = 0;
 
             /**
              * BlockParams maxGas.
@@ -25256,7 +25068,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.BlockParams
              * @instance
              */
-            BlockParams.prototype.maxGas = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            BlockParams.prototype.maxGas = 0;
 
             /**
              * Creates a new BlockParams instance using the specified properties.
@@ -25417,16 +25229,8 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxBytes = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxBytes = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxGas = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxGas = options.longs === String ? "0" : 0;
+                    object.maxBytes = 0;
+                    object.maxGas = 0;
                 }
                 if (message.maxBytes != null && message.hasOwnProperty("maxBytes"))
                     if (typeof message.maxBytes === "number")
@@ -25487,7 +25291,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.EvidenceParams
              * @instance
              */
-            EvidenceParams.prototype.maxAgeNumBlocks = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            EvidenceParams.prototype.maxAgeNumBlocks = 0;
 
             /**
              * EvidenceParams maxAgeDuration.
@@ -25503,7 +25307,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.EvidenceParams
              * @instance
              */
-            EvidenceParams.prototype.maxBytes = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            EvidenceParams.prototype.maxBytes = 0;
 
             /**
              * Creates a new EvidenceParams instance using the specified properties.
@@ -25679,17 +25483,9 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxAgeNumBlocks = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxAgeNumBlocks = options.longs === String ? "0" : 0;
+                    object.maxAgeNumBlocks = 0;
                     object.maxAgeDuration = null;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxBytes = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxBytes = options.longs === String ? "0" : 0;
+                    object.maxBytes = 0;
                 }
                 if (message.maxAgeNumBlocks != null && message.hasOwnProperty("maxAgeNumBlocks"))
                     if (typeof message.maxAgeNumBlocks === "number")
@@ -25953,7 +25749,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.VersionParams
              * @instance
              */
-            VersionParams.prototype.appVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            VersionParams.prototype.appVersion = 0;
 
             /**
              * Creates a new VersionParams instance using the specified properties.
@@ -26097,11 +25893,7 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults)
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.appVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.appVersion = options.longs === String ? "0" : 0;
+                    object.appVersion = 0;
                 if (message.appVersion != null && message.hasOwnProperty("appVersion"))
                     if (typeof message.appVersion === "number")
                         object.appVersion = options.longs === String ? String(message.appVersion) : message.appVersion;
@@ -26155,7 +25947,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.HashedParams
              * @instance
              */
-            HashedParams.prototype.blockMaxBytes = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            HashedParams.prototype.blockMaxBytes = 0;
 
             /**
              * HashedParams blockMaxGas.
@@ -26163,7 +25955,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.types.HashedParams
              * @instance
              */
-            HashedParams.prototype.blockMaxGas = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            HashedParams.prototype.blockMaxGas = 0;
 
             /**
              * Creates a new HashedParams instance using the specified properties.
@@ -26324,16 +26116,8 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.blockMaxBytes = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.blockMaxBytes = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.blockMaxGas = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.blockMaxGas = options.longs === String ? "0" : 0;
+                    object.blockMaxBytes = 0;
+                    object.blockMaxGas = 0;
                 }
                 if (message.blockMaxBytes != null && message.hasOwnProperty("blockMaxBytes"))
                     if (typeof message.blockMaxBytes === "number")
@@ -26948,7 +26732,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.version.Consensus
              * @instance
              */
-            Consensus.prototype.block = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            Consensus.prototype.block = 0;
 
             /**
              * Consensus app.
@@ -26956,7 +26740,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.version.Consensus
              * @instance
              */
-            Consensus.prototype.app = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            Consensus.prototype.app = 0;
 
             /**
              * Creates a new Consensus instance using the specified properties.
@@ -27117,16 +26901,8 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.block = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.block = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.app = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.app = options.longs === String ? "0" : 0;
+                    object.block = 0;
+                    object.app = 0;
                 }
                 if (message.block != null && message.hasOwnProperty("block"))
                     if (typeof message.block === "number")
@@ -27417,6 +27193,7 @@ $root.google = (function() {
              * @property {google.protobuf.IFileOptions|null} [options] FileDescriptorProto options
              * @property {google.protobuf.ISourceCodeInfo|null} [sourceCodeInfo] FileDescriptorProto sourceCodeInfo
              * @property {string|null} [syntax] FileDescriptorProto syntax
+             * @property {string|null} [edition] FileDescriptorProto edition
              */
 
             /**
@@ -27538,6 +27315,14 @@ $root.google = (function() {
             FileDescriptorProto.prototype.syntax = "";
 
             /**
+             * FileDescriptorProto edition.
+             * @member {string} edition
+             * @memberof google.protobuf.FileDescriptorProto
+             * @instance
+             */
+            FileDescriptorProto.prototype.edition = "";
+
+            /**
              * Creates a new FileDescriptorProto instance using the specified properties.
              * @function create
              * @memberof google.protobuf.FileDescriptorProto
@@ -27592,6 +27377,8 @@ $root.google = (function() {
                         writer.uint32(/* id 11, wireType 0 =*/88).int32(message.weakDependency[i]);
                 if (message.syntax != null && Object.hasOwnProperty.call(message, "syntax"))
                     writer.uint32(/* id 12, wireType 2 =*/98).string(message.syntax);
+                if (message.edition != null && Object.hasOwnProperty.call(message, "edition"))
+                    writer.uint32(/* id 13, wireType 2 =*/106).string(message.edition);
                 return writer;
             };
 
@@ -27685,6 +27472,9 @@ $root.google = (function() {
                         break;
                     case 12:
                         message.syntax = reader.string();
+                        break;
+                    case 13:
+                        message.edition = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -27797,6 +27587,9 @@ $root.google = (function() {
                 if (message.syntax != null && message.hasOwnProperty("syntax"))
                     if (!$util.isString(message.syntax))
                         return "syntax: string expected";
+                if (message.edition != null && message.hasOwnProperty("edition"))
+                    if (!$util.isString(message.edition))
+                        return "edition: string expected";
                 return null;
             };
 
@@ -27889,6 +27682,8 @@ $root.google = (function() {
                 }
                 if (object.syntax != null)
                     message.syntax = String(object.syntax);
+                if (object.edition != null)
+                    message.edition = String(object.edition);
                 return message;
             };
 
@@ -27920,6 +27715,7 @@ $root.google = (function() {
                     object.options = null;
                     object.sourceCodeInfo = null;
                     object.syntax = "";
+                    object.edition = "";
                 }
                 if (message.name != null && message.hasOwnProperty("name"))
                     object.name = message.name;
@@ -27966,6 +27762,8 @@ $root.google = (function() {
                 }
                 if (message.syntax != null && message.hasOwnProperty("syntax"))
                     object.syntax = message.syntax;
+                if (message.edition != null && message.hasOwnProperty("edition"))
+                    object.edition = message.edition;
                 return object;
             };
 
@@ -28544,6 +28342,7 @@ $root.google = (function() {
                  * @interface IExtensionRange
                  * @property {number|null} [start] ExtensionRange start
                  * @property {number|null} [end] ExtensionRange end
+                 * @property {google.protobuf.IExtensionRangeOptions|null} [options] ExtensionRange options
                  */
 
                 /**
@@ -28578,6 +28377,14 @@ $root.google = (function() {
                 ExtensionRange.prototype.end = 0;
 
                 /**
+                 * ExtensionRange options.
+                 * @member {google.protobuf.IExtensionRangeOptions|null|undefined} options
+                 * @memberof google.protobuf.DescriptorProto.ExtensionRange
+                 * @instance
+                 */
+                ExtensionRange.prototype.options = null;
+
+                /**
                  * Creates a new ExtensionRange instance using the specified properties.
                  * @function create
                  * @memberof google.protobuf.DescriptorProto.ExtensionRange
@@ -28605,6 +28412,8 @@ $root.google = (function() {
                         writer.uint32(/* id 1, wireType 0 =*/8).int32(message.start);
                     if (message.end != null && Object.hasOwnProperty.call(message, "end"))
                         writer.uint32(/* id 2, wireType 0 =*/16).int32(message.end);
+                    if (message.options != null && Object.hasOwnProperty.call(message, "options"))
+                        $root.google.protobuf.ExtensionRangeOptions.encode(message.options, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                     return writer;
                 };
 
@@ -28644,6 +28453,9 @@ $root.google = (function() {
                             break;
                         case 2:
                             message.end = reader.int32();
+                            break;
+                        case 3:
+                            message.options = $root.google.protobuf.ExtensionRangeOptions.decode(reader, reader.uint32());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -28686,6 +28498,11 @@ $root.google = (function() {
                     if (message.end != null && message.hasOwnProperty("end"))
                         if (!$util.isInteger(message.end))
                             return "end: integer expected";
+                    if (message.options != null && message.hasOwnProperty("options")) {
+                        var error = $root.google.protobuf.ExtensionRangeOptions.verify(message.options);
+                        if (error)
+                            return "options." + error;
+                    }
                     return null;
                 };
 
@@ -28705,6 +28522,11 @@ $root.google = (function() {
                         message.start = object.start | 0;
                     if (object.end != null)
                         message.end = object.end | 0;
+                    if (object.options != null) {
+                        if (typeof object.options !== "object")
+                            throw TypeError(".google.protobuf.DescriptorProto.ExtensionRange.options: object expected");
+                        message.options = $root.google.protobuf.ExtensionRangeOptions.fromObject(object.options);
+                    }
                     return message;
                 };
 
@@ -28724,11 +28546,14 @@ $root.google = (function() {
                     if (options.defaults) {
                         object.start = 0;
                         object.end = 0;
+                        object.options = null;
                     }
                     if (message.start != null && message.hasOwnProperty("start"))
                         object.start = message.start;
                     if (message.end != null && message.hasOwnProperty("end"))
                         object.end = message.end;
+                    if (message.options != null && message.hasOwnProperty("options"))
+                        object.options = $root.google.protobuf.ExtensionRangeOptions.toObject(message.options, options);
                     return object;
                 };
 
@@ -28959,6 +28784,214 @@ $root.google = (function() {
             return DescriptorProto;
         })();
 
+        protobuf.ExtensionRangeOptions = (function() {
+
+            /**
+             * Properties of an ExtensionRangeOptions.
+             * @memberof google.protobuf
+             * @interface IExtensionRangeOptions
+             * @property {Array.<google.protobuf.IUninterpretedOption>|null} [uninterpretedOption] ExtensionRangeOptions uninterpretedOption
+             */
+
+            /**
+             * Constructs a new ExtensionRangeOptions.
+             * @memberof google.protobuf
+             * @classdesc Represents an ExtensionRangeOptions.
+             * @implements IExtensionRangeOptions
+             * @constructor
+             * @param {google.protobuf.IExtensionRangeOptions=} [properties] Properties to set
+             */
+            function ExtensionRangeOptions(properties) {
+                this.uninterpretedOption = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ExtensionRangeOptions uninterpretedOption.
+             * @member {Array.<google.protobuf.IUninterpretedOption>} uninterpretedOption
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @instance
+             */
+            ExtensionRangeOptions.prototype.uninterpretedOption = $util.emptyArray;
+
+            /**
+             * Creates a new ExtensionRangeOptions instance using the specified properties.
+             * @function create
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @static
+             * @param {google.protobuf.IExtensionRangeOptions=} [properties] Properties to set
+             * @returns {google.protobuf.ExtensionRangeOptions} ExtensionRangeOptions instance
+             */
+            ExtensionRangeOptions.create = function create(properties) {
+                return new ExtensionRangeOptions(properties);
+            };
+
+            /**
+             * Encodes the specified ExtensionRangeOptions message. Does not implicitly {@link google.protobuf.ExtensionRangeOptions.verify|verify} messages.
+             * @function encode
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @static
+             * @param {google.protobuf.IExtensionRangeOptions} message ExtensionRangeOptions message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ExtensionRangeOptions.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.uninterpretedOption != null && message.uninterpretedOption.length)
+                    for (var i = 0; i < message.uninterpretedOption.length; ++i)
+                        $root.google.protobuf.UninterpretedOption.encode(message.uninterpretedOption[i], writer.uint32(/* id 999, wireType 2 =*/7994).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ExtensionRangeOptions message, length delimited. Does not implicitly {@link google.protobuf.ExtensionRangeOptions.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @static
+             * @param {google.protobuf.IExtensionRangeOptions} message ExtensionRangeOptions message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ExtensionRangeOptions.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an ExtensionRangeOptions message from the specified reader or buffer.
+             * @function decode
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {google.protobuf.ExtensionRangeOptions} ExtensionRangeOptions
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExtensionRangeOptions.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.google.protobuf.ExtensionRangeOptions();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 999:
+                        if (!(message.uninterpretedOption && message.uninterpretedOption.length))
+                            message.uninterpretedOption = [];
+                        message.uninterpretedOption.push($root.google.protobuf.UninterpretedOption.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an ExtensionRangeOptions message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {google.protobuf.ExtensionRangeOptions} ExtensionRangeOptions
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExtensionRangeOptions.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an ExtensionRangeOptions message.
+             * @function verify
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ExtensionRangeOptions.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.uninterpretedOption != null && message.hasOwnProperty("uninterpretedOption")) {
+                    if (!Array.isArray(message.uninterpretedOption))
+                        return "uninterpretedOption: array expected";
+                    for (var i = 0; i < message.uninterpretedOption.length; ++i) {
+                        var error = $root.google.protobuf.UninterpretedOption.verify(message.uninterpretedOption[i]);
+                        if (error)
+                            return "uninterpretedOption." + error;
+                    }
+                }
+                return null;
+            };
+
+            /**
+             * Creates an ExtensionRangeOptions message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {google.protobuf.ExtensionRangeOptions} ExtensionRangeOptions
+             */
+            ExtensionRangeOptions.fromObject = function fromObject(object) {
+                if (object instanceof $root.google.protobuf.ExtensionRangeOptions)
+                    return object;
+                var message = new $root.google.protobuf.ExtensionRangeOptions();
+                if (object.uninterpretedOption) {
+                    if (!Array.isArray(object.uninterpretedOption))
+                        throw TypeError(".google.protobuf.ExtensionRangeOptions.uninterpretedOption: array expected");
+                    message.uninterpretedOption = [];
+                    for (var i = 0; i < object.uninterpretedOption.length; ++i) {
+                        if (typeof object.uninterpretedOption[i] !== "object")
+                            throw TypeError(".google.protobuf.ExtensionRangeOptions.uninterpretedOption: object expected");
+                        message.uninterpretedOption[i] = $root.google.protobuf.UninterpretedOption.fromObject(object.uninterpretedOption[i]);
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an ExtensionRangeOptions message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @static
+             * @param {google.protobuf.ExtensionRangeOptions} message ExtensionRangeOptions
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ExtensionRangeOptions.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.uninterpretedOption = [];
+                if (message.uninterpretedOption && message.uninterpretedOption.length) {
+                    object.uninterpretedOption = [];
+                    for (var j = 0; j < message.uninterpretedOption.length; ++j)
+                        object.uninterpretedOption[j] = $root.google.protobuf.UninterpretedOption.toObject(message.uninterpretedOption[j], options);
+                }
+                return object;
+            };
+
+            /**
+             * Converts this ExtensionRangeOptions to JSON.
+             * @function toJSON
+             * @memberof google.protobuf.ExtensionRangeOptions
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ExtensionRangeOptions.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ExtensionRangeOptions;
+        })();
+
         protobuf.FieldDescriptorProto = (function() {
 
             /**
@@ -28975,6 +29008,7 @@ $root.google = (function() {
              * @property {number|null} [oneofIndex] FieldDescriptorProto oneofIndex
              * @property {string|null} [jsonName] FieldDescriptorProto jsonName
              * @property {google.protobuf.IFieldOptions|null} [options] FieldDescriptorProto options
+             * @property {boolean|null} [proto3Optional] FieldDescriptorProto proto3Optional
              */
 
             /**
@@ -29073,6 +29107,14 @@ $root.google = (function() {
             FieldDescriptorProto.prototype.options = null;
 
             /**
+             * FieldDescriptorProto proto3Optional.
+             * @member {boolean} proto3Optional
+             * @memberof google.protobuf.FieldDescriptorProto
+             * @instance
+             */
+            FieldDescriptorProto.prototype.proto3Optional = false;
+
+            /**
              * Creates a new FieldDescriptorProto instance using the specified properties.
              * @function create
              * @memberof google.protobuf.FieldDescriptorProto
@@ -29116,6 +29158,8 @@ $root.google = (function() {
                     writer.uint32(/* id 9, wireType 0 =*/72).int32(message.oneofIndex);
                 if (message.jsonName != null && Object.hasOwnProperty.call(message, "jsonName"))
                     writer.uint32(/* id 10, wireType 2 =*/82).string(message.jsonName);
+                if (message.proto3Optional != null && Object.hasOwnProperty.call(message, "proto3Optional"))
+                    writer.uint32(/* id 17, wireType 0 =*/136).bool(message.proto3Optional);
                 return writer;
             };
 
@@ -29179,6 +29223,9 @@ $root.google = (function() {
                         break;
                     case 8:
                         message.options = $root.google.protobuf.FieldOptions.decode(reader, reader.uint32());
+                        break;
+                    case 17:
+                        message.proto3Optional = reader.bool();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -29274,6 +29321,9 @@ $root.google = (function() {
                     if (error)
                         return "options." + error;
                 }
+                if (message.proto3Optional != null && message.hasOwnProperty("proto3Optional"))
+                    if (typeof message.proto3Optional !== "boolean")
+                        return "proto3Optional: boolean expected";
                 return null;
             };
 
@@ -29396,6 +29446,8 @@ $root.google = (function() {
                         throw TypeError(".google.protobuf.FieldDescriptorProto.options: object expected");
                     message.options = $root.google.protobuf.FieldOptions.fromObject(object.options);
                 }
+                if (object.proto3Optional != null)
+                    message.proto3Optional = Boolean(object.proto3Optional);
                 return message;
             };
 
@@ -29423,6 +29475,7 @@ $root.google = (function() {
                     object.options = null;
                     object.oneofIndex = 0;
                     object.jsonName = "";
+                    object.proto3Optional = false;
                 }
                 if (message.name != null && message.hasOwnProperty("name"))
                     object.name = message.name;
@@ -29444,6 +29497,8 @@ $root.google = (function() {
                     object.oneofIndex = message.oneofIndex;
                 if (message.jsonName != null && message.hasOwnProperty("jsonName"))
                     object.jsonName = message.jsonName;
+                if (message.proto3Optional != null && message.hasOwnProperty("proto3Optional"))
+                    object.proto3Optional = message.proto3Optional;
                 return object;
             };
 
@@ -29747,6 +29802,8 @@ $root.google = (function() {
              * @property {string|null} [name] EnumDescriptorProto name
              * @property {Array.<google.protobuf.IEnumValueDescriptorProto>|null} [value] EnumDescriptorProto value
              * @property {google.protobuf.IEnumOptions|null} [options] EnumDescriptorProto options
+             * @property {Array.<google.protobuf.EnumDescriptorProto.IEnumReservedRange>|null} [reservedRange] EnumDescriptorProto reservedRange
+             * @property {Array.<string>|null} [reservedName] EnumDescriptorProto reservedName
              */
 
             /**
@@ -29759,6 +29816,8 @@ $root.google = (function() {
              */
             function EnumDescriptorProto(properties) {
                 this.value = [];
+                this.reservedRange = [];
+                this.reservedName = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -29788,6 +29847,22 @@ $root.google = (function() {
              * @instance
              */
             EnumDescriptorProto.prototype.options = null;
+
+            /**
+             * EnumDescriptorProto reservedRange.
+             * @member {Array.<google.protobuf.EnumDescriptorProto.IEnumReservedRange>} reservedRange
+             * @memberof google.protobuf.EnumDescriptorProto
+             * @instance
+             */
+            EnumDescriptorProto.prototype.reservedRange = $util.emptyArray;
+
+            /**
+             * EnumDescriptorProto reservedName.
+             * @member {Array.<string>} reservedName
+             * @memberof google.protobuf.EnumDescriptorProto
+             * @instance
+             */
+            EnumDescriptorProto.prototype.reservedName = $util.emptyArray;
 
             /**
              * Creates a new EnumDescriptorProto instance using the specified properties.
@@ -29820,6 +29895,12 @@ $root.google = (function() {
                         $root.google.protobuf.EnumValueDescriptorProto.encode(message.value[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                 if (message.options != null && Object.hasOwnProperty.call(message, "options"))
                     $root.google.protobuf.EnumOptions.encode(message.options, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.reservedRange != null && message.reservedRange.length)
+                    for (var i = 0; i < message.reservedRange.length; ++i)
+                        $root.google.protobuf.EnumDescriptorProto.EnumReservedRange.encode(message.reservedRange[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.reservedName != null && message.reservedName.length)
+                    for (var i = 0; i < message.reservedName.length; ++i)
+                        writer.uint32(/* id 5, wireType 2 =*/42).string(message.reservedName[i]);
                 return writer;
             };
 
@@ -29864,6 +29945,16 @@ $root.google = (function() {
                         break;
                     case 3:
                         message.options = $root.google.protobuf.EnumOptions.decode(reader, reader.uint32());
+                        break;
+                    case 4:
+                        if (!(message.reservedRange && message.reservedRange.length))
+                            message.reservedRange = [];
+                        message.reservedRange.push($root.google.protobuf.EnumDescriptorProto.EnumReservedRange.decode(reader, reader.uint32()));
+                        break;
+                    case 5:
+                        if (!(message.reservedName && message.reservedName.length))
+                            message.reservedName = [];
+                        message.reservedName.push(reader.string());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -29917,6 +30008,22 @@ $root.google = (function() {
                     if (error)
                         return "options." + error;
                 }
+                if (message.reservedRange != null && message.hasOwnProperty("reservedRange")) {
+                    if (!Array.isArray(message.reservedRange))
+                        return "reservedRange: array expected";
+                    for (var i = 0; i < message.reservedRange.length; ++i) {
+                        var error = $root.google.protobuf.EnumDescriptorProto.EnumReservedRange.verify(message.reservedRange[i]);
+                        if (error)
+                            return "reservedRange." + error;
+                    }
+                }
+                if (message.reservedName != null && message.hasOwnProperty("reservedName")) {
+                    if (!Array.isArray(message.reservedName))
+                        return "reservedName: array expected";
+                    for (var i = 0; i < message.reservedName.length; ++i)
+                        if (!$util.isString(message.reservedName[i]))
+                            return "reservedName: string[] expected";
+                }
                 return null;
             };
 
@@ -29949,6 +30056,23 @@ $root.google = (function() {
                         throw TypeError(".google.protobuf.EnumDescriptorProto.options: object expected");
                     message.options = $root.google.protobuf.EnumOptions.fromObject(object.options);
                 }
+                if (object.reservedRange) {
+                    if (!Array.isArray(object.reservedRange))
+                        throw TypeError(".google.protobuf.EnumDescriptorProto.reservedRange: array expected");
+                    message.reservedRange = [];
+                    for (var i = 0; i < object.reservedRange.length; ++i) {
+                        if (typeof object.reservedRange[i] !== "object")
+                            throw TypeError(".google.protobuf.EnumDescriptorProto.reservedRange: object expected");
+                        message.reservedRange[i] = $root.google.protobuf.EnumDescriptorProto.EnumReservedRange.fromObject(object.reservedRange[i]);
+                    }
+                }
+                if (object.reservedName) {
+                    if (!Array.isArray(object.reservedName))
+                        throw TypeError(".google.protobuf.EnumDescriptorProto.reservedName: array expected");
+                    message.reservedName = [];
+                    for (var i = 0; i < object.reservedName.length; ++i)
+                        message.reservedName[i] = String(object.reservedName[i]);
+                }
                 return message;
             };
 
@@ -29965,8 +30089,11 @@ $root.google = (function() {
                 if (!options)
                     options = {};
                 var object = {};
-                if (options.arrays || options.defaults)
+                if (options.arrays || options.defaults) {
                     object.value = [];
+                    object.reservedRange = [];
+                    object.reservedName = [];
+                }
                 if (options.defaults) {
                     object.name = "";
                     object.options = null;
@@ -29980,6 +30107,16 @@ $root.google = (function() {
                 }
                 if (message.options != null && message.hasOwnProperty("options"))
                     object.options = $root.google.protobuf.EnumOptions.toObject(message.options, options);
+                if (message.reservedRange && message.reservedRange.length) {
+                    object.reservedRange = [];
+                    for (var j = 0; j < message.reservedRange.length; ++j)
+                        object.reservedRange[j] = $root.google.protobuf.EnumDescriptorProto.EnumReservedRange.toObject(message.reservedRange[j], options);
+                }
+                if (message.reservedName && message.reservedName.length) {
+                    object.reservedName = [];
+                    for (var j = 0; j < message.reservedName.length; ++j)
+                        object.reservedName[j] = message.reservedName[j];
+                }
                 return object;
             };
 
@@ -29993,6 +30130,216 @@ $root.google = (function() {
             EnumDescriptorProto.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
+
+            EnumDescriptorProto.EnumReservedRange = (function() {
+
+                /**
+                 * Properties of an EnumReservedRange.
+                 * @memberof google.protobuf.EnumDescriptorProto
+                 * @interface IEnumReservedRange
+                 * @property {number|null} [start] EnumReservedRange start
+                 * @property {number|null} [end] EnumReservedRange end
+                 */
+
+                /**
+                 * Constructs a new EnumReservedRange.
+                 * @memberof google.protobuf.EnumDescriptorProto
+                 * @classdesc Represents an EnumReservedRange.
+                 * @implements IEnumReservedRange
+                 * @constructor
+                 * @param {google.protobuf.EnumDescriptorProto.IEnumReservedRange=} [properties] Properties to set
+                 */
+                function EnumReservedRange(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * EnumReservedRange start.
+                 * @member {number} start
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @instance
+                 */
+                EnumReservedRange.prototype.start = 0;
+
+                /**
+                 * EnumReservedRange end.
+                 * @member {number} end
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @instance
+                 */
+                EnumReservedRange.prototype.end = 0;
+
+                /**
+                 * Creates a new EnumReservedRange instance using the specified properties.
+                 * @function create
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @static
+                 * @param {google.protobuf.EnumDescriptorProto.IEnumReservedRange=} [properties] Properties to set
+                 * @returns {google.protobuf.EnumDescriptorProto.EnumReservedRange} EnumReservedRange instance
+                 */
+                EnumReservedRange.create = function create(properties) {
+                    return new EnumReservedRange(properties);
+                };
+
+                /**
+                 * Encodes the specified EnumReservedRange message. Does not implicitly {@link google.protobuf.EnumDescriptorProto.EnumReservedRange.verify|verify} messages.
+                 * @function encode
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @static
+                 * @param {google.protobuf.EnumDescriptorProto.IEnumReservedRange} message EnumReservedRange message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                EnumReservedRange.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.start != null && Object.hasOwnProperty.call(message, "start"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.start);
+                    if (message.end != null && Object.hasOwnProperty.call(message, "end"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).int32(message.end);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified EnumReservedRange message, length delimited. Does not implicitly {@link google.protobuf.EnumDescriptorProto.EnumReservedRange.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @static
+                 * @param {google.protobuf.EnumDescriptorProto.IEnumReservedRange} message EnumReservedRange message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                EnumReservedRange.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an EnumReservedRange message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {google.protobuf.EnumDescriptorProto.EnumReservedRange} EnumReservedRange
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                EnumReservedRange.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.google.protobuf.EnumDescriptorProto.EnumReservedRange();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.start = reader.int32();
+                            break;
+                        case 2:
+                            message.end = reader.int32();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an EnumReservedRange message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {google.protobuf.EnumDescriptorProto.EnumReservedRange} EnumReservedRange
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                EnumReservedRange.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an EnumReservedRange message.
+                 * @function verify
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                EnumReservedRange.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.start != null && message.hasOwnProperty("start"))
+                        if (!$util.isInteger(message.start))
+                            return "start: integer expected";
+                    if (message.end != null && message.hasOwnProperty("end"))
+                        if (!$util.isInteger(message.end))
+                            return "end: integer expected";
+                    return null;
+                };
+
+                /**
+                 * Creates an EnumReservedRange message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {google.protobuf.EnumDescriptorProto.EnumReservedRange} EnumReservedRange
+                 */
+                EnumReservedRange.fromObject = function fromObject(object) {
+                    if (object instanceof $root.google.protobuf.EnumDescriptorProto.EnumReservedRange)
+                        return object;
+                    var message = new $root.google.protobuf.EnumDescriptorProto.EnumReservedRange();
+                    if (object.start != null)
+                        message.start = object.start | 0;
+                    if (object.end != null)
+                        message.end = object.end | 0;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an EnumReservedRange message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @static
+                 * @param {google.protobuf.EnumDescriptorProto.EnumReservedRange} message EnumReservedRange
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                EnumReservedRange.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.start = 0;
+                        object.end = 0;
+                    }
+                    if (message.start != null && message.hasOwnProperty("start"))
+                        object.start = message.start;
+                    if (message.end != null && message.hasOwnProperty("end"))
+                        object.end = message.end;
+                    return object;
+                };
+
+                /**
+                 * Converts this EnumReservedRange to JSON.
+                 * @function toJSON
+                 * @memberof google.protobuf.EnumDescriptorProto.EnumReservedRange
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                EnumReservedRange.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return EnumReservedRange;
+            })();
 
             return EnumDescriptorProto;
         })();
@@ -30812,10 +31159,16 @@ $root.google = (function() {
              * @property {boolean|null} [ccGenericServices] FileOptions ccGenericServices
              * @property {boolean|null} [javaGenericServices] FileOptions javaGenericServices
              * @property {boolean|null} [pyGenericServices] FileOptions pyGenericServices
+             * @property {boolean|null} [phpGenericServices] FileOptions phpGenericServices
              * @property {boolean|null} [deprecated] FileOptions deprecated
              * @property {boolean|null} [ccEnableArenas] FileOptions ccEnableArenas
              * @property {string|null} [objcClassPrefix] FileOptions objcClassPrefix
              * @property {string|null} [csharpNamespace] FileOptions csharpNamespace
+             * @property {string|null} [swiftPrefix] FileOptions swiftPrefix
+             * @property {string|null} [phpClassPrefix] FileOptions phpClassPrefix
+             * @property {string|null} [phpNamespace] FileOptions phpNamespace
+             * @property {string|null} [phpMetadataNamespace] FileOptions phpMetadataNamespace
+             * @property {string|null} [rubyPackage] FileOptions rubyPackage
              * @property {Array.<google.protobuf.IUninterpretedOption>|null} [uninterpretedOption] FileOptions uninterpretedOption
              * @property {boolean|null} [".gogoproto.goprotoGettersAll"] FileOptions .gogoproto.goprotoGettersAll
              * @property {boolean|null} [".gogoproto.goprotoEnumPrefixAll"] FileOptions .gogoproto.goprotoEnumPrefixAll
@@ -30948,6 +31301,14 @@ $root.google = (function() {
             FileOptions.prototype.pyGenericServices = false;
 
             /**
+             * FileOptions phpGenericServices.
+             * @member {boolean} phpGenericServices
+             * @memberof google.protobuf.FileOptions
+             * @instance
+             */
+            FileOptions.prototype.phpGenericServices = false;
+
+            /**
              * FileOptions deprecated.
              * @member {boolean} deprecated
              * @memberof google.protobuf.FileOptions
@@ -30961,7 +31322,7 @@ $root.google = (function() {
              * @memberof google.protobuf.FileOptions
              * @instance
              */
-            FileOptions.prototype.ccEnableArenas = false;
+            FileOptions.prototype.ccEnableArenas = true;
 
             /**
              * FileOptions objcClassPrefix.
@@ -30978,6 +31339,46 @@ $root.google = (function() {
              * @instance
              */
             FileOptions.prototype.csharpNamespace = "";
+
+            /**
+             * FileOptions swiftPrefix.
+             * @member {string} swiftPrefix
+             * @memberof google.protobuf.FileOptions
+             * @instance
+             */
+            FileOptions.prototype.swiftPrefix = "";
+
+            /**
+             * FileOptions phpClassPrefix.
+             * @member {string} phpClassPrefix
+             * @memberof google.protobuf.FileOptions
+             * @instance
+             */
+            FileOptions.prototype.phpClassPrefix = "";
+
+            /**
+             * FileOptions phpNamespace.
+             * @member {string} phpNamespace
+             * @memberof google.protobuf.FileOptions
+             * @instance
+             */
+            FileOptions.prototype.phpNamespace = "";
+
+            /**
+             * FileOptions phpMetadataNamespace.
+             * @member {string} phpMetadataNamespace
+             * @memberof google.protobuf.FileOptions
+             * @instance
+             */
+            FileOptions.prototype.phpMetadataNamespace = "";
+
+            /**
+             * FileOptions rubyPackage.
+             * @member {string} rubyPackage
+             * @memberof google.protobuf.FileOptions
+             * @instance
+             */
+            FileOptions.prototype.rubyPackage = "";
 
             /**
              * FileOptions uninterpretedOption.
@@ -31295,6 +31696,18 @@ $root.google = (function() {
                     writer.uint32(/* id 36, wireType 2 =*/290).string(message.objcClassPrefix);
                 if (message.csharpNamespace != null && Object.hasOwnProperty.call(message, "csharpNamespace"))
                     writer.uint32(/* id 37, wireType 2 =*/298).string(message.csharpNamespace);
+                if (message.swiftPrefix != null && Object.hasOwnProperty.call(message, "swiftPrefix"))
+                    writer.uint32(/* id 39, wireType 2 =*/314).string(message.swiftPrefix);
+                if (message.phpClassPrefix != null && Object.hasOwnProperty.call(message, "phpClassPrefix"))
+                    writer.uint32(/* id 40, wireType 2 =*/322).string(message.phpClassPrefix);
+                if (message.phpNamespace != null && Object.hasOwnProperty.call(message, "phpNamespace"))
+                    writer.uint32(/* id 41, wireType 2 =*/330).string(message.phpNamespace);
+                if (message.phpGenericServices != null && Object.hasOwnProperty.call(message, "phpGenericServices"))
+                    writer.uint32(/* id 42, wireType 0 =*/336).bool(message.phpGenericServices);
+                if (message.phpMetadataNamespace != null && Object.hasOwnProperty.call(message, "phpMetadataNamespace"))
+                    writer.uint32(/* id 44, wireType 2 =*/354).string(message.phpMetadataNamespace);
+                if (message.rubyPackage != null && Object.hasOwnProperty.call(message, "rubyPackage"))
+                    writer.uint32(/* id 45, wireType 2 =*/362).string(message.rubyPackage);
                 if (message.uninterpretedOption != null && message.uninterpretedOption.length)
                     for (var i = 0; i < message.uninterpretedOption.length; ++i)
                         $root.google.protobuf.UninterpretedOption.encode(message.uninterpretedOption[i], writer.uint32(/* id 999, wireType 2 =*/7994).fork()).ldelim();
@@ -31426,6 +31839,9 @@ $root.google = (function() {
                     case 18:
                         message.pyGenericServices = reader.bool();
                         break;
+                    case 42:
+                        message.phpGenericServices = reader.bool();
+                        break;
                     case 23:
                         message.deprecated = reader.bool();
                         break;
@@ -31437,6 +31853,21 @@ $root.google = (function() {
                         break;
                     case 37:
                         message.csharpNamespace = reader.string();
+                        break;
+                    case 39:
+                        message.swiftPrefix = reader.string();
+                        break;
+                    case 40:
+                        message.phpClassPrefix = reader.string();
+                        break;
+                    case 41:
+                        message.phpNamespace = reader.string();
+                        break;
+                    case 44:
+                        message.phpMetadataNamespace = reader.string();
+                        break;
+                    case 45:
+                        message.rubyPackage = reader.string();
                         break;
                     case 999:
                         if (!(message.uninterpretedOption && message.uninterpretedOption.length))
@@ -31610,6 +32041,9 @@ $root.google = (function() {
                 if (message.pyGenericServices != null && message.hasOwnProperty("pyGenericServices"))
                     if (typeof message.pyGenericServices !== "boolean")
                         return "pyGenericServices: boolean expected";
+                if (message.phpGenericServices != null && message.hasOwnProperty("phpGenericServices"))
+                    if (typeof message.phpGenericServices !== "boolean")
+                        return "phpGenericServices: boolean expected";
                 if (message.deprecated != null && message.hasOwnProperty("deprecated"))
                     if (typeof message.deprecated !== "boolean")
                         return "deprecated: boolean expected";
@@ -31622,6 +32056,21 @@ $root.google = (function() {
                 if (message.csharpNamespace != null && message.hasOwnProperty("csharpNamespace"))
                     if (!$util.isString(message.csharpNamespace))
                         return "csharpNamespace: string expected";
+                if (message.swiftPrefix != null && message.hasOwnProperty("swiftPrefix"))
+                    if (!$util.isString(message.swiftPrefix))
+                        return "swiftPrefix: string expected";
+                if (message.phpClassPrefix != null && message.hasOwnProperty("phpClassPrefix"))
+                    if (!$util.isString(message.phpClassPrefix))
+                        return "phpClassPrefix: string expected";
+                if (message.phpNamespace != null && message.hasOwnProperty("phpNamespace"))
+                    if (!$util.isString(message.phpNamespace))
+                        return "phpNamespace: string expected";
+                if (message.phpMetadataNamespace != null && message.hasOwnProperty("phpMetadataNamespace"))
+                    if (!$util.isString(message.phpMetadataNamespace))
+                        return "phpMetadataNamespace: string expected";
+                if (message.rubyPackage != null && message.hasOwnProperty("rubyPackage"))
+                    if (!$util.isString(message.rubyPackage))
+                        return "rubyPackage: string expected";
                 if (message.uninterpretedOption != null && message.hasOwnProperty("uninterpretedOption")) {
                     if (!Array.isArray(message.uninterpretedOption))
                         return "uninterpretedOption: array expected";
@@ -31774,6 +32223,8 @@ $root.google = (function() {
                     message.javaGenericServices = Boolean(object.javaGenericServices);
                 if (object.pyGenericServices != null)
                     message.pyGenericServices = Boolean(object.pyGenericServices);
+                if (object.phpGenericServices != null)
+                    message.phpGenericServices = Boolean(object.phpGenericServices);
                 if (object.deprecated != null)
                     message.deprecated = Boolean(object.deprecated);
                 if (object.ccEnableArenas != null)
@@ -31782,6 +32233,16 @@ $root.google = (function() {
                     message.objcClassPrefix = String(object.objcClassPrefix);
                 if (object.csharpNamespace != null)
                     message.csharpNamespace = String(object.csharpNamespace);
+                if (object.swiftPrefix != null)
+                    message.swiftPrefix = String(object.swiftPrefix);
+                if (object.phpClassPrefix != null)
+                    message.phpClassPrefix = String(object.phpClassPrefix);
+                if (object.phpNamespace != null)
+                    message.phpNamespace = String(object.phpNamespace);
+                if (object.phpMetadataNamespace != null)
+                    message.phpMetadataNamespace = String(object.phpMetadataNamespace);
+                if (object.rubyPackage != null)
+                    message.rubyPackage = String(object.rubyPackage);
                 if (object.uninterpretedOption) {
                     if (!Array.isArray(object.uninterpretedOption))
                         throw TypeError(".google.protobuf.FileOptions.uninterpretedOption: array expected");
@@ -31886,9 +32347,15 @@ $root.google = (function() {
                     object.javaGenerateEqualsAndHash = false;
                     object.deprecated = false;
                     object.javaStringCheckUtf8 = false;
-                    object.ccEnableArenas = false;
+                    object.ccEnableArenas = true;
                     object.objcClassPrefix = "";
                     object.csharpNamespace = "";
+                    object.swiftPrefix = "";
+                    object.phpClassPrefix = "";
+                    object.phpNamespace = "";
+                    object.phpGenericServices = false;
+                    object.phpMetadataNamespace = "";
+                    object.rubyPackage = "";
                     object[".gogoproto.goprotoGettersAll"] = false;
                     object[".gogoproto.goprotoEnumPrefixAll"] = false;
                     object[".gogoproto.goprotoStringerAll"] = false;
@@ -31950,6 +32417,18 @@ $root.google = (function() {
                     object.objcClassPrefix = message.objcClassPrefix;
                 if (message.csharpNamespace != null && message.hasOwnProperty("csharpNamespace"))
                     object.csharpNamespace = message.csharpNamespace;
+                if (message.swiftPrefix != null && message.hasOwnProperty("swiftPrefix"))
+                    object.swiftPrefix = message.swiftPrefix;
+                if (message.phpClassPrefix != null && message.hasOwnProperty("phpClassPrefix"))
+                    object.phpClassPrefix = message.phpClassPrefix;
+                if (message.phpNamespace != null && message.hasOwnProperty("phpNamespace"))
+                    object.phpNamespace = message.phpNamespace;
+                if (message.phpGenericServices != null && message.hasOwnProperty("phpGenericServices"))
+                    object.phpGenericServices = message.phpGenericServices;
+                if (message.phpMetadataNamespace != null && message.hasOwnProperty("phpMetadataNamespace"))
+                    object.phpMetadataNamespace = message.phpMetadataNamespace;
+                if (message.rubyPackage != null && message.hasOwnProperty("rubyPackage"))
+                    object.rubyPackage = message.rubyPackage;
                 if (message.uninterpretedOption && message.uninterpretedOption.length) {
                     object.uninterpretedOption = [];
                     for (var j = 0; j < message.uninterpretedOption.length; ++j)
@@ -32932,6 +33411,7 @@ $root.google = (function() {
              * @property {boolean|null} [packed] FieldOptions packed
              * @property {google.protobuf.FieldOptions.JSType|null} [jstype] FieldOptions jstype
              * @property {boolean|null} [lazy] FieldOptions lazy
+             * @property {boolean|null} [unverifiedLazy] FieldOptions unverifiedLazy
              * @property {boolean|null} [deprecated] FieldOptions deprecated
              * @property {boolean|null} [weak] FieldOptions weak
              * @property {Array.<google.protobuf.IUninterpretedOption>|null} [uninterpretedOption] FieldOptions uninterpretedOption
@@ -32997,6 +33477,14 @@ $root.google = (function() {
              * @instance
              */
             FieldOptions.prototype.lazy = false;
+
+            /**
+             * FieldOptions unverifiedLazy.
+             * @member {boolean} unverifiedLazy
+             * @memberof google.protobuf.FieldOptions
+             * @instance
+             */
+            FieldOptions.prototype.unverifiedLazy = false;
 
             /**
              * FieldOptions deprecated.
@@ -33162,6 +33650,8 @@ $root.google = (function() {
                     writer.uint32(/* id 6, wireType 0 =*/48).int32(message.jstype);
                 if (message.weak != null && Object.hasOwnProperty.call(message, "weak"))
                     writer.uint32(/* id 10, wireType 0 =*/80).bool(message.weak);
+                if (message.unverifiedLazy != null && Object.hasOwnProperty.call(message, "unverifiedLazy"))
+                    writer.uint32(/* id 15, wireType 0 =*/120).bool(message.unverifiedLazy);
                 if (message.uninterpretedOption != null && message.uninterpretedOption.length)
                     for (var i = 0; i < message.uninterpretedOption.length; ++i)
                         $root.google.protobuf.UninterpretedOption.encode(message.uninterpretedOption[i], writer.uint32(/* id 999, wireType 2 =*/7994).fork()).ldelim();
@@ -33236,6 +33726,9 @@ $root.google = (function() {
                         break;
                     case 5:
                         message.lazy = reader.bool();
+                        break;
+                    case 15:
+                        message.unverifiedLazy = reader.bool();
                         break;
                     case 3:
                         message.deprecated = reader.bool();
@@ -33346,6 +33839,9 @@ $root.google = (function() {
                 if (message.lazy != null && message.hasOwnProperty("lazy"))
                     if (typeof message.lazy !== "boolean")
                         return "lazy: boolean expected";
+                if (message.unverifiedLazy != null && message.hasOwnProperty("unverifiedLazy"))
+                    if (typeof message.unverifiedLazy !== "boolean")
+                        return "unverifiedLazy: boolean expected";
                 if (message.deprecated != null && message.hasOwnProperty("deprecated"))
                     if (typeof message.deprecated !== "boolean")
                         return "deprecated: boolean expected";
@@ -33447,6 +33943,8 @@ $root.google = (function() {
                 }
                 if (object.lazy != null)
                     message.lazy = Boolean(object.lazy);
+                if (object.unverifiedLazy != null)
+                    message.unverifiedLazy = Boolean(object.unverifiedLazy);
                 if (object.deprecated != null)
                     message.deprecated = Boolean(object.deprecated);
                 if (object.weak != null)
@@ -33512,6 +34010,7 @@ $root.google = (function() {
                     object.lazy = false;
                     object.jstype = options.enums === String ? "JS_NORMAL" : 0;
                     object.weak = false;
+                    object.unverifiedLazy = false;
                     object[".gogoproto.nullable"] = false;
                     object[".gogoproto.embed"] = false;
                     object[".gogoproto.customtype"] = "";
@@ -33538,6 +34037,8 @@ $root.google = (function() {
                     object.jstype = options.enums === String ? $root.google.protobuf.FieldOptions.JSType[message.jstype] : message.jstype;
                 if (message.weak != null && message.hasOwnProperty("weak"))
                     object.weak = message.weak;
+                if (message.unverifiedLazy != null && message.hasOwnProperty("unverifiedLazy"))
+                    object.unverifiedLazy = message.unverifiedLazy;
                 if (message.uninterpretedOption && message.uninterpretedOption.length) {
                     object.uninterpretedOption = [];
                     for (var j = 0; j < message.uninterpretedOption.length; ++j)
@@ -34682,6 +35183,7 @@ $root.google = (function() {
              * @memberof google.protobuf
              * @interface IMethodOptions
              * @property {boolean|null} [deprecated] MethodOptions deprecated
+             * @property {google.protobuf.MethodOptions.IdempotencyLevel|null} [idempotencyLevel] MethodOptions idempotencyLevel
              * @property {Array.<google.protobuf.IUninterpretedOption>|null} [uninterpretedOption] MethodOptions uninterpretedOption
              */
 
@@ -34708,6 +35210,14 @@ $root.google = (function() {
              * @instance
              */
             MethodOptions.prototype.deprecated = false;
+
+            /**
+             * MethodOptions idempotencyLevel.
+             * @member {google.protobuf.MethodOptions.IdempotencyLevel} idempotencyLevel
+             * @memberof google.protobuf.MethodOptions
+             * @instance
+             */
+            MethodOptions.prototype.idempotencyLevel = 0;
 
             /**
              * MethodOptions uninterpretedOption.
@@ -34743,6 +35253,8 @@ $root.google = (function() {
                     writer = $Writer.create();
                 if (message.deprecated != null && Object.hasOwnProperty.call(message, "deprecated"))
                     writer.uint32(/* id 33, wireType 0 =*/264).bool(message.deprecated);
+                if (message.idempotencyLevel != null && Object.hasOwnProperty.call(message, "idempotencyLevel"))
+                    writer.uint32(/* id 34, wireType 0 =*/272).int32(message.idempotencyLevel);
                 if (message.uninterpretedOption != null && message.uninterpretedOption.length)
                     for (var i = 0; i < message.uninterpretedOption.length; ++i)
                         $root.google.protobuf.UninterpretedOption.encode(message.uninterpretedOption[i], writer.uint32(/* id 999, wireType 2 =*/7994).fork()).ldelim();
@@ -34782,6 +35294,9 @@ $root.google = (function() {
                     switch (tag >>> 3) {
                     case 33:
                         message.deprecated = reader.bool();
+                        break;
+                    case 34:
+                        message.idempotencyLevel = reader.int32();
                         break;
                     case 999:
                         if (!(message.uninterpretedOption && message.uninterpretedOption.length))
@@ -34826,6 +35341,15 @@ $root.google = (function() {
                 if (message.deprecated != null && message.hasOwnProperty("deprecated"))
                     if (typeof message.deprecated !== "boolean")
                         return "deprecated: boolean expected";
+                if (message.idempotencyLevel != null && message.hasOwnProperty("idempotencyLevel"))
+                    switch (message.idempotencyLevel) {
+                    default:
+                        return "idempotencyLevel: enum value expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                        break;
+                    }
                 if (message.uninterpretedOption != null && message.hasOwnProperty("uninterpretedOption")) {
                     if (!Array.isArray(message.uninterpretedOption))
                         return "uninterpretedOption: array expected";
@@ -34852,6 +35376,20 @@ $root.google = (function() {
                 var message = new $root.google.protobuf.MethodOptions();
                 if (object.deprecated != null)
                     message.deprecated = Boolean(object.deprecated);
+                switch (object.idempotencyLevel) {
+                case "IDEMPOTENCY_UNKNOWN":
+                case 0:
+                    message.idempotencyLevel = 0;
+                    break;
+                case "NO_SIDE_EFFECTS":
+                case 1:
+                    message.idempotencyLevel = 1;
+                    break;
+                case "IDEMPOTENT":
+                case 2:
+                    message.idempotencyLevel = 2;
+                    break;
+                }
                 if (object.uninterpretedOption) {
                     if (!Array.isArray(object.uninterpretedOption))
                         throw TypeError(".google.protobuf.MethodOptions.uninterpretedOption: array expected");
@@ -34880,10 +35418,14 @@ $root.google = (function() {
                 var object = {};
                 if (options.arrays || options.defaults)
                     object.uninterpretedOption = [];
-                if (options.defaults)
+                if (options.defaults) {
                     object.deprecated = false;
+                    object.idempotencyLevel = options.enums === String ? "IDEMPOTENCY_UNKNOWN" : 0;
+                }
                 if (message.deprecated != null && message.hasOwnProperty("deprecated"))
                     object.deprecated = message.deprecated;
+                if (message.idempotencyLevel != null && message.hasOwnProperty("idempotencyLevel"))
+                    object.idempotencyLevel = options.enums === String ? $root.google.protobuf.MethodOptions.IdempotencyLevel[message.idempotencyLevel] : message.idempotencyLevel;
                 if (message.uninterpretedOption && message.uninterpretedOption.length) {
                     object.uninterpretedOption = [];
                     for (var j = 0; j < message.uninterpretedOption.length; ++j)
@@ -34902,6 +35444,22 @@ $root.google = (function() {
             MethodOptions.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
+
+            /**
+             * IdempotencyLevel enum.
+             * @name google.protobuf.MethodOptions.IdempotencyLevel
+             * @enum {number}
+             * @property {number} IDEMPOTENCY_UNKNOWN=0 IDEMPOTENCY_UNKNOWN value
+             * @property {number} NO_SIDE_EFFECTS=1 NO_SIDE_EFFECTS value
+             * @property {number} IDEMPOTENT=2 IDEMPOTENT value
+             */
+            MethodOptions.IdempotencyLevel = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "IDEMPOTENCY_UNKNOWN"] = 0;
+                values[valuesById[1] = "NO_SIDE_EFFECTS"] = 1;
+                values[valuesById[2] = "IDEMPOTENT"] = 2;
+                return values;
+            })();
 
             return MethodOptions;
         })();
@@ -34959,7 +35517,7 @@ $root.google = (function() {
              * @memberof google.protobuf.UninterpretedOption
              * @instance
              */
-            UninterpretedOption.prototype.positiveIntValue = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+            UninterpretedOption.prototype.positiveIntValue = 0;
 
             /**
              * UninterpretedOption negativeIntValue.
@@ -34967,7 +35525,7 @@ $root.google = (function() {
              * @memberof google.protobuf.UninterpretedOption
              * @instance
              */
-            UninterpretedOption.prototype.negativeIntValue = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            UninterpretedOption.prototype.negativeIntValue = 0;
 
             /**
              * UninterpretedOption doubleValue.
@@ -35225,16 +35783,8 @@ $root.google = (function() {
                     object.name = [];
                 if (options.defaults) {
                     object.identifierValue = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.positiveIntValue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.positiveIntValue = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.negativeIntValue = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.negativeIntValue = options.longs === String ? "0" : 0;
+                    object.positiveIntValue = 0;
+                    object.negativeIntValue = 0;
                     object.doubleValue = 0;
                     if (options.bytes === String)
                         object.stringValue = "";
@@ -36563,7 +37113,7 @@ $root.google = (function() {
              * @memberof google.protobuf.Timestamp
              * @instance
              */
-            Timestamp.prototype.seconds = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Timestamp.prototype.seconds = 0;
 
             /**
              * Timestamp nanos.
@@ -36725,11 +37275,7 @@ $root.google = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.seconds = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.seconds = options.longs === String ? "0" : 0;
+                    object.seconds = 0;
                     object.nanos = 0;
                 }
                 if (message.seconds != null && message.hasOwnProperty("seconds"))
@@ -36787,7 +37333,7 @@ $root.google = (function() {
              * @memberof google.protobuf.Duration
              * @instance
              */
-            Duration.prototype.seconds = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            Duration.prototype.seconds = 0;
 
             /**
              * Duration nanos.
@@ -36949,11 +37495,7 @@ $root.google = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.seconds = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.seconds = options.longs === String ? "0" : 0;
+                    object.seconds = 0;
                     object.nanos = 0;
                 }
                 if (message.seconds != null && message.hasOwnProperty("seconds"))
