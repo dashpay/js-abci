@@ -35,7 +35,8 @@
     "sinon": "^9.2.4",
     "sinon-chai": "^3.5.0",
     "stream-mock": "^2.0.5",
-    "tendermint": "^5.0.2"
+    "tendermint": "^5.0.2",
+    "long": "^5.2.0"
   },
   "directories": {
     "example": "example",
