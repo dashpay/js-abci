@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "nyc mocha 'test/integration/*.spec.js' 'test/functional/*.spec.js'",
+    "test": "nyc mocha 'test/unit/*.spec.js' 'test/integration/*.spec.js' 'test/functional/*.spec.js'",
     "build": "pbjs -t static-module -w commonjs -o types.js -p proto proto/tendermint/abci/types.proto && pbts -o index.d.ts types.js"
   },
   "keywords": [
@@ -14,7 +14,7 @@
     "cosmos",
     "blockchain"
   ],
-  "author": "Matt Bell <mappum@gmail.com>",
+  "author": "Ivan Shumkov <shumkov@dash.org>",
   "license": "MIT",
   "dependencies": {
     "bl": "^1.2.3",
