@@ -9222,7 +9222,6 @@ $root.tendermint = (function() {
              * @property {Uint8Array|null} [appHash] ResponseProcessProposal appHash
              * @property {Array.<tendermint.abci.IExecTxResult>|null} [txResults] ResponseProcessProposal txResults
              * @property {tendermint.types.IConsensusParams|null} [consensusParamUpdates] ResponseProcessProposal consensusParamUpdates
-             * @property {tendermint.types.ICoreChainLock|null} [coreChainLockUpdate] ResponseProcessProposal coreChainLockUpdate
              * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSetUpdate] ResponseProcessProposal validatorSetUpdate
              */
 
@@ -9275,14 +9274,6 @@ $root.tendermint = (function() {
             ResponseProcessProposal.prototype.consensusParamUpdates = null;
 
             /**
-             * ResponseProcessProposal coreChainLockUpdate.
-             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLockUpdate
-             * @memberof tendermint.abci.ResponseProcessProposal
-             * @instance
-             */
-            ResponseProcessProposal.prototype.coreChainLockUpdate = null;
-
-            /**
              * ResponseProcessProposal validatorSetUpdate.
              * @member {tendermint.abci.IValidatorSetUpdate|null|undefined} validatorSetUpdate
              * @memberof tendermint.abci.ResponseProcessProposal
@@ -9323,10 +9314,8 @@ $root.tendermint = (function() {
                         $root.tendermint.abci.ExecTxResult.encode(message.txResults[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.consensusParamUpdates != null && Object.hasOwnProperty.call(message, "consensusParamUpdates"))
                     $root.tendermint.types.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
-                if (message.coreChainLockUpdate != null && Object.hasOwnProperty.call(message, "coreChainLockUpdate"))
-                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
                 if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
-                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
+                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
                 return writer;
             };
 
@@ -9376,9 +9365,6 @@ $root.tendermint = (function() {
                         message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
                     case 100:
-                        message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
-                        break;
-                    case 101:
                         message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
                         break;
                     default:
@@ -9442,11 +9428,6 @@ $root.tendermint = (function() {
                     if (error)
                         return "consensusParamUpdates." + error;
                 }
-                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate")) {
-                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLockUpdate);
-                    if (error)
-                        return "coreChainLockUpdate." + error;
-                }
                 if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate")) {
                     var error = $root.tendermint.abci.ValidatorSetUpdate.verify(message.validatorSetUpdate);
                     if (error)
@@ -9501,11 +9482,6 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.ResponseProcessProposal.consensusParamUpdates: object expected");
                     message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.fromObject(object.consensusParamUpdates);
                 }
-                if (object.coreChainLockUpdate != null) {
-                    if (typeof object.coreChainLockUpdate !== "object")
-                        throw TypeError(".tendermint.abci.ResponseProcessProposal.coreChainLockUpdate: object expected");
-                    message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLockUpdate);
-                }
                 if (object.validatorSetUpdate != null) {
                     if (typeof object.validatorSetUpdate !== "object")
                         throw TypeError(".tendermint.abci.ResponseProcessProposal.validatorSetUpdate: object expected");
@@ -9539,7 +9515,6 @@ $root.tendermint = (function() {
                             object.appHash = $util.newBuffer(object.appHash);
                     }
                     object.consensusParamUpdates = null;
-                    object.coreChainLockUpdate = null;
                     object.validatorSetUpdate = null;
                 }
                 if (message.status != null && message.hasOwnProperty("status"))
@@ -9553,8 +9528,6 @@ $root.tendermint = (function() {
                 }
                 if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates"))
                     object.consensusParamUpdates = $root.tendermint.types.ConsensusParams.toObject(message.consensusParamUpdates, options);
-                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
-                    object.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLockUpdate, options);
                 if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate"))
                     object.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.toObject(message.validatorSetUpdate, options);
                 return object;

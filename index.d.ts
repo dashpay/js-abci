@@ -3316,9 +3316,6 @@ export namespace tendermint {
             /** ResponseProcessProposal consensusParamUpdates */
             consensusParamUpdates?: (tendermint.types.IConsensusParams|null);
 
-            /** ResponseProcessProposal coreChainLockUpdate */
-            coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
-
             /** ResponseProcessProposal validatorSetUpdate */
             validatorSetUpdate?: (tendermint.abci.IValidatorSetUpdate|null);
         }
@@ -3343,9 +3340,6 @@ export namespace tendermint {
 
             /** ResponseProcessProposal consensusParamUpdates. */
             public consensusParamUpdates?: (tendermint.types.IConsensusParams|null);
-
-            /** ResponseProcessProposal coreChainLockUpdate. */
-            public coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
 
             /** ResponseProcessProposal validatorSetUpdate. */
             public validatorSetUpdate?: (tendermint.abci.IValidatorSetUpdate|null);
