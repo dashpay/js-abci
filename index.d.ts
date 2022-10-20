@@ -2666,6 +2666,9 @@ export namespace tendermint {
             /** ResponseCheckTx data */
             data?: (Uint8Array|null);
 
+            /** ResponseCheckTx info */
+            info?: (string|null);
+
             /** ResponseCheckTx gasWanted */
             gasWanted?: (number|Long|null);
 
@@ -2696,6 +2699,9 @@ export namespace tendermint {
 
             /** ResponseCheckTx data. */
             public data: Uint8Array;
+
+            /** ResponseCheckTx info. */
+            public info: string;
 
             /** ResponseCheckTx gasWanted. */
             public gasWanted: (number|Long);

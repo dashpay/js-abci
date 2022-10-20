@@ -7523,6 +7523,7 @@ $root.tendermint = (function() {
              * @interface IResponseCheckTx
              * @property {number|null} [code] ResponseCheckTx code
              * @property {Uint8Array|null} [data] ResponseCheckTx data
+             * @property {string|null} [info] ResponseCheckTx info
              * @property {number|Long|null} [gasWanted] ResponseCheckTx gasWanted
              * @property {string|null} [codespace] ResponseCheckTx codespace
              * @property {string|null} [sender] ResponseCheckTx sender
@@ -7560,6 +7561,14 @@ $root.tendermint = (function() {
              * @instance
              */
             ResponseCheckTx.prototype.data = $util.newBuffer([]);
+
+            /**
+             * ResponseCheckTx info.
+             * @member {string} info
+             * @memberof tendermint.abci.ResponseCheckTx
+             * @instance
+             */
+            ResponseCheckTx.prototype.info = "";
 
             /**
              * ResponseCheckTx gasWanted.
@@ -7629,6 +7638,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.code);
                 if (message.data != null && Object.hasOwnProperty.call(message, "data"))
                     writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.data);
+                if (message.info != null && Object.hasOwnProperty.call(message, "info"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.info);
                 if (message.gasWanted != null && Object.hasOwnProperty.call(message, "gasWanted"))
                     writer.uint32(/* id 5, wireType 0 =*/40).int64(message.gasWanted);
                 if (message.codespace != null && Object.hasOwnProperty.call(message, "codespace"))
@@ -7678,6 +7689,9 @@ $root.tendermint = (function() {
                         break;
                     case 2:
                         message.data = reader.bytes();
+                        break;
+                    case 4:
+                        message.info = reader.string();
                         break;
                     case 5:
                         message.gasWanted = reader.int64();
@@ -7735,6 +7749,9 @@ $root.tendermint = (function() {
                 if (message.data != null && message.hasOwnProperty("data"))
                     if (!(message.data && typeof message.data.length === "number" || $util.isString(message.data)))
                         return "data: buffer expected";
+                if (message.info != null && message.hasOwnProperty("info"))
+                    if (!$util.isString(message.info))
+                        return "info: string expected";
                 if (message.gasWanted != null && message.hasOwnProperty("gasWanted"))
                     if (!$util.isInteger(message.gasWanted) && !(message.gasWanted && $util.isInteger(message.gasWanted.low) && $util.isInteger(message.gasWanted.high)))
                         return "gasWanted: integer|Long expected";
@@ -7772,6 +7789,8 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.data, message.data = $util.newBuffer($util.base64.length(object.data)), 0);
                     else if (object.data.length >= 0)
                         message.data = object.data;
+                if (object.info != null)
+                    message.info = String(object.info);
                 if (object.gasWanted != null)
                     if ($util.Long)
                         (message.gasWanted = $util.Long.fromValue(object.gasWanted)).unsigned = false;
@@ -7821,6 +7840,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.data = $util.newBuffer(object.data);
                     }
+                    object.info = "";
                     if ($util.Long) {
                         var long = new $util.Long(0, 0, false);
                         object.gasWanted = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
@@ -7839,6 +7859,8 @@ $root.tendermint = (function() {
                     object.code = message.code;
                 if (message.data != null && message.hasOwnProperty("data"))
                     object.data = options.bytes === String ? $util.base64.encode(message.data, 0, message.data.length) : options.bytes === Array ? Array.prototype.slice.call(message.data) : message.data;
+                if (message.info != null && message.hasOwnProperty("info"))
+                    object.info = message.info;
                 if (message.gasWanted != null && message.hasOwnProperty("gasWanted"))
                     if (typeof message.gasWanted === "number")
                         object.gasWanted = options.longs === String ? String(message.gasWanted) : message.gasWanted;
