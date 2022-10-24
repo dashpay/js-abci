@@ -1369,6 +1369,9 @@ export namespace tendermint {
 
             /** RequestProcessProposal version */
             version?: (tendermint.version.IConsensus|null);
+
+            /** RequestProcessProposal coreChainLockUpdate */
+            coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
         }
 
         /** Represents a RequestProcessProposal. */
@@ -1412,6 +1415,9 @@ export namespace tendermint {
 
             /** RequestProcessProposal version. */
             public version?: (tendermint.version.IConsensus|null);
+
+            /** RequestProcessProposal coreChainLockUpdate. */
+            public coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
 
             /**
              * Creates a new RequestProcessProposal instance using the specified properties.

@@ -3637,6 +3637,7 @@ $root.tendermint = (function() {
              * @property {Uint8Array|null} [proposerProTxHash] RequestProcessProposal proposerProTxHash
              * @property {number|Long|null} [proposedAppVersion] RequestProcessProposal proposedAppVersion
              * @property {tendermint.version.IConsensus|null} [version] RequestProcessProposal version
+             * @property {tendermint.types.ICoreChainLock|null} [coreChainLockUpdate] RequestProcessProposal coreChainLockUpdate
              */
 
             /**
@@ -3745,6 +3746,14 @@ $root.tendermint = (function() {
             RequestProcessProposal.prototype.version = null;
 
             /**
+             * RequestProcessProposal coreChainLockUpdate.
+             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLockUpdate
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.coreChainLockUpdate = null;
+
+            /**
              * Creates a new RequestProcessProposal instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.RequestProcessProposal
@@ -3792,6 +3801,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 102, wireType 0 =*/816).uint64(message.proposedAppVersion);
                 if (message.version != null && Object.hasOwnProperty.call(message, "version"))
                     $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 103, wireType 2 =*/826).fork()).ldelim();
+                if (message.coreChainLockUpdate != null && Object.hasOwnProperty.call(message, "coreChainLockUpdate"))
+                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 104, wireType 2 =*/834).fork()).ldelim();
                 return writer;
             };
 
@@ -3862,6 +3873,9 @@ $root.tendermint = (function() {
                         break;
                     case 103:
                         message.version = $root.tendermint.version.Consensus.decode(reader, reader.uint32());
+                        break;
+                    case 104:
+                        message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -3946,6 +3960,11 @@ $root.tendermint = (function() {
                     var error = $root.tendermint.version.Consensus.verify(message.version);
                     if (error)
                         return "version." + error;
+                }
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate")) {
+                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLockUpdate);
+                    if (error)
+                        return "coreChainLockUpdate." + error;
                 }
                 return null;
             };
@@ -4032,6 +4051,11 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.RequestProcessProposal.version: object expected");
                     message.version = $root.tendermint.version.Consensus.fromObject(object.version);
                 }
+                if (object.coreChainLockUpdate != null) {
+                    if (typeof object.coreChainLockUpdate !== "object")
+                        throw TypeError(".tendermint.abci.RequestProcessProposal.coreChainLockUpdate: object expected");
+                    message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLockUpdate);
+                }
                 return message;
             };
 
@@ -4088,6 +4112,7 @@ $root.tendermint = (function() {
                     } else
                         object.proposedAppVersion = options.longs === String ? "0" : 0;
                     object.version = null;
+                    object.coreChainLockUpdate = null;
                 }
                 if (message.txs && message.txs.length) {
                     object.txs = [];
@@ -4123,6 +4148,8 @@ $root.tendermint = (function() {
                         object.proposedAppVersion = options.longs === String ? $util.Long.prototype.toString.call(message.proposedAppVersion) : options.longs === Number ? new $util.LongBits(message.proposedAppVersion.low >>> 0, message.proposedAppVersion.high >>> 0).toNumber(true) : message.proposedAppVersion;
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = $root.tendermint.version.Consensus.toObject(message.version, options);
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
+                    object.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLockUpdate, options);
                 return object;
             };
 
