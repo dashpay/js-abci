@@ -1208,6 +1208,9 @@ export namespace tendermint {
             /** RequestPrepareProposal nextValidatorsHash */
             nextValidatorsHash?: (Uint8Array|null);
 
+            /** RequestPrepareProposal round */
+            round?: (number|null);
+
             /** RequestPrepareProposal coreChainLockedHeight */
             coreChainLockedHeight?: (number|null);
 
@@ -1250,6 +1253,9 @@ export namespace tendermint {
 
             /** RequestPrepareProposal nextValidatorsHash. */
             public nextValidatorsHash: Uint8Array;
+
+            /** RequestPrepareProposal round. */
+            public round: number;
 
             /** RequestPrepareProposal coreChainLockedHeight. */
             public coreChainLockedHeight: number;
@@ -1352,6 +1358,9 @@ export namespace tendermint {
             /** RequestProcessProposal height */
             height?: (number|Long|null);
 
+            /** RequestProcessProposal round */
+            round?: (number|null);
+
             /** RequestProcessProposal time */
             time?: (google.protobuf.ITimestamp|null);
 
@@ -1397,6 +1406,9 @@ export namespace tendermint {
 
             /** RequestProcessProposal height. */
             public height: (number|Long);
+
+            /** RequestProcessProposal round. */
+            public round: number;
 
             /** RequestProcessProposal time. */
             public time?: (google.protobuf.ITimestamp|null);
@@ -1498,6 +1510,9 @@ export namespace tendermint {
 
             /** RequestExtendVote height */
             height?: (number|Long|null);
+
+            /** RequestExtendVote round */
+            round?: (number|null);
         }
 
         /** Represents a RequestExtendVote. */
@@ -1514,6 +1529,9 @@ export namespace tendermint {
 
             /** RequestExtendVote height. */
             public height: (number|Long);
+
+            /** RequestExtendVote round. */
+            public round: number;
 
             /**
              * Creates a new RequestExtendVote instance using the specified properties.
@@ -1598,6 +1616,9 @@ export namespace tendermint {
             /** RequestVerifyVoteExtension height */
             height?: (number|Long|null);
 
+            /** RequestVerifyVoteExtension round */
+            round?: (number|null);
+
             /** RequestVerifyVoteExtension voteExtensions */
             voteExtensions?: (tendermint.abci.IExtendVoteExtension[]|null);
         }
@@ -1619,6 +1640,9 @@ export namespace tendermint {
 
             /** RequestVerifyVoteExtension height. */
             public height: (number|Long);
+
+            /** RequestVerifyVoteExtension round. */
+            public round: number;
 
             /** RequestVerifyVoteExtension voteExtensions. */
             public voteExtensions: tendermint.abci.IExtendVoteExtension[];
@@ -1712,6 +1736,9 @@ export namespace tendermint {
             /** RequestFinalizeBlock height */
             height?: (number|Long|null);
 
+            /** RequestFinalizeBlock round */
+            round?: (number|null);
+
             /** RequestFinalizeBlock time */
             time?: (google.protobuf.ITimestamp|null);
 
@@ -1757,6 +1784,9 @@ export namespace tendermint {
 
             /** RequestFinalizeBlock height. */
             public height: (number|Long);
+
+            /** RequestFinalizeBlock round. */
+            public round: number;
 
             /** RequestFinalizeBlock time. */
             public time?: (google.protobuf.ITimestamp|null);

@@ -3108,6 +3108,7 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [height] RequestPrepareProposal height
              * @property {google.protobuf.ITimestamp|null} [time] RequestPrepareProposal time
              * @property {Uint8Array|null} [nextValidatorsHash] RequestPrepareProposal nextValidatorsHash
+             * @property {number|null} [round] RequestPrepareProposal round
              * @property {number|null} [coreChainLockedHeight] RequestPrepareProposal coreChainLockedHeight
              * @property {Uint8Array|null} [proposerProTxHash] RequestPrepareProposal proposerProTxHash
              * @property {number|Long|null} [proposedAppVersion] RequestPrepareProposal proposedAppVersion
@@ -3188,6 +3189,14 @@ $root.tendermint = (function() {
             RequestPrepareProposal.prototype.nextValidatorsHash = $util.newBuffer([]);
 
             /**
+             * RequestPrepareProposal round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.round = 0;
+
+            /**
              * RequestPrepareProposal coreChainLockedHeight.
              * @member {number} coreChainLockedHeight
              * @memberof tendermint.abci.RequestPrepareProposal
@@ -3259,6 +3268,8 @@ $root.tendermint = (function() {
                     $root.google.protobuf.Timestamp.encode(message.time, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 if (message.nextValidatorsHash != null && Object.hasOwnProperty.call(message, "nextValidatorsHash"))
                     writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.nextValidatorsHash);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.round);
                 if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
                     writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
                 if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
@@ -3325,6 +3336,9 @@ $root.tendermint = (function() {
                         break;
                     case 7:
                         message.nextValidatorsHash = reader.bytes();
+                        break;
+                    case 8:
+                        message.round = reader.int32();
                         break;
                     case 100:
                         message.coreChainLockedHeight = reader.uint32();
@@ -3408,6 +3422,9 @@ $root.tendermint = (function() {
                 if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
                     if (!(message.nextValidatorsHash && typeof message.nextValidatorsHash.length === "number" || $util.isString(message.nextValidatorsHash)))
                         return "nextValidatorsHash: buffer expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
                 if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
                     if (!$util.isInteger(message.coreChainLockedHeight))
                         return "coreChainLockedHeight: integer expected";
@@ -3490,6 +3507,8 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.nextValidatorsHash, message.nextValidatorsHash = $util.newBuffer($util.base64.length(object.nextValidatorsHash)), 0);
                     else if (object.nextValidatorsHash.length >= 0)
                         message.nextValidatorsHash = object.nextValidatorsHash;
+                if (object.round != null)
+                    message.round = object.round | 0;
                 if (object.coreChainLockedHeight != null)
                     message.coreChainLockedHeight = object.coreChainLockedHeight >>> 0;
                 if (object.proposerProTxHash != null)
@@ -3551,6 +3570,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.nextValidatorsHash = $util.newBuffer(object.nextValidatorsHash);
                     }
+                    object.round = 0;
                     object.coreChainLockedHeight = 0;
                     if (options.bytes === String)
                         object.proposerProTxHash = "";
@@ -3592,6 +3612,8 @@ $root.tendermint = (function() {
                     object.time = $root.google.protobuf.Timestamp.toObject(message.time, options);
                 if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
                     object.nextValidatorsHash = options.bytes === String ? $util.base64.encode(message.nextValidatorsHash, 0, message.nextValidatorsHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.nextValidatorsHash) : message.nextValidatorsHash;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
                 if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
                     object.coreChainLockedHeight = message.coreChainLockedHeight;
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
@@ -3631,6 +3653,7 @@ $root.tendermint = (function() {
              * @property {Array.<tendermint.abci.IMisbehavior>|null} [misbehavior] RequestProcessProposal misbehavior
              * @property {Uint8Array|null} [hash] RequestProcessProposal hash
              * @property {number|Long|null} [height] RequestProcessProposal height
+             * @property {number|null} [round] RequestProcessProposal round
              * @property {google.protobuf.ITimestamp|null} [time] RequestProcessProposal time
              * @property {Uint8Array|null} [nextValidatorsHash] RequestProcessProposal nextValidatorsHash
              * @property {number|null} [coreChainLockedHeight] RequestProcessProposal coreChainLockedHeight
@@ -3696,6 +3719,14 @@ $root.tendermint = (function() {
              * @instance
              */
             RequestProcessProposal.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * RequestProcessProposal round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.round = 0;
 
             /**
              * RequestProcessProposal time.
@@ -3793,6 +3824,8 @@ $root.tendermint = (function() {
                     $root.google.protobuf.Timestamp.encode(message.time, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 if (message.nextValidatorsHash != null && Object.hasOwnProperty.call(message, "nextValidatorsHash"))
                     writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.nextValidatorsHash);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.round);
                 if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
                     writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
                 if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
@@ -3855,6 +3888,9 @@ $root.tendermint = (function() {
                         break;
                     case 5:
                         message.height = reader.int64();
+                        break;
+                    case 8:
+                        message.round = reader.int32();
                         break;
                     case 6:
                         message.time = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
@@ -3939,6 +3975,9 @@ $root.tendermint = (function() {
                 if (message.height != null && message.hasOwnProperty("height"))
                     if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
                         return "height: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
                 if (message.time != null && message.hasOwnProperty("time")) {
                     var error = $root.google.protobuf.Timestamp.verify(message.time);
                     if (error)
@@ -4020,6 +4059,8 @@ $root.tendermint = (function() {
                         message.height = object.height;
                     else if (typeof object.height === "object")
                         message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
                 if (object.time != null) {
                     if (typeof object.time !== "object")
                         throw TypeError(".tendermint.abci.RequestProcessProposal.time: object expected");
@@ -4098,6 +4139,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.nextValidatorsHash = $util.newBuffer(object.nextValidatorsHash);
                     }
+                    object.round = 0;
                     object.coreChainLockedHeight = 0;
                     if (options.bytes === String)
                         object.proposerProTxHash = "";
@@ -4137,6 +4179,8 @@ $root.tendermint = (function() {
                     object.time = $root.google.protobuf.Timestamp.toObject(message.time, options);
                 if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
                     object.nextValidatorsHash = options.bytes === String ? $util.base64.encode(message.nextValidatorsHash, 0, message.nextValidatorsHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.nextValidatorsHash) : message.nextValidatorsHash;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
                 if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
                     object.coreChainLockedHeight = message.coreChainLockedHeight;
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
@@ -4175,6 +4219,7 @@ $root.tendermint = (function() {
              * @interface IRequestExtendVote
              * @property {Uint8Array|null} [hash] RequestExtendVote hash
              * @property {number|Long|null} [height] RequestExtendVote height
+             * @property {number|null} [round] RequestExtendVote round
              */
 
             /**
@@ -4209,6 +4254,14 @@ $root.tendermint = (function() {
             RequestExtendVote.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
             /**
+             * RequestExtendVote round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestExtendVote
+             * @instance
+             */
+            RequestExtendVote.prototype.round = 0;
+
+            /**
              * Creates a new RequestExtendVote instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.RequestExtendVote
@@ -4236,6 +4289,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.hash);
                 if (message.height != null && Object.hasOwnProperty.call(message, "height"))
                     writer.uint32(/* id 2, wireType 0 =*/16).int64(message.height);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).int32(message.round);
                 return writer;
             };
 
@@ -4275,6 +4330,9 @@ $root.tendermint = (function() {
                         break;
                     case 2:
                         message.height = reader.int64();
+                        break;
+                    case 3:
+                        message.round = reader.int32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -4317,6 +4375,9 @@ $root.tendermint = (function() {
                 if (message.height != null && message.hasOwnProperty("height"))
                     if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
                         return "height: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
                 return null;
             };
 
@@ -4346,6 +4407,8 @@ $root.tendermint = (function() {
                         message.height = object.height;
                     else if (typeof object.height === "object")
                         message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
                 return message;
             };
 
@@ -4375,6 +4438,7 @@ $root.tendermint = (function() {
                         object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.height = options.longs === String ? "0" : 0;
+                    object.round = 0;
                 }
                 if (message.hash != null && message.hasOwnProperty("hash"))
                     object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
@@ -4383,6 +4447,8 @@ $root.tendermint = (function() {
                         object.height = options.longs === String ? String(message.height) : message.height;
                     else
                         object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
                 return object;
             };
 
@@ -4409,6 +4475,7 @@ $root.tendermint = (function() {
              * @property {Uint8Array|null} [hash] RequestVerifyVoteExtension hash
              * @property {Uint8Array|null} [validatorProTxHash] RequestVerifyVoteExtension validatorProTxHash
              * @property {number|Long|null} [height] RequestVerifyVoteExtension height
+             * @property {number|null} [round] RequestVerifyVoteExtension round
              * @property {Array.<tendermint.abci.IExtendVoteExtension>|null} [voteExtensions] RequestVerifyVoteExtension voteExtensions
              */
 
@@ -4453,6 +4520,14 @@ $root.tendermint = (function() {
             RequestVerifyVoteExtension.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
             /**
+             * RequestVerifyVoteExtension round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @instance
+             */
+            RequestVerifyVoteExtension.prototype.round = 0;
+
+            /**
              * RequestVerifyVoteExtension voteExtensions.
              * @member {Array.<tendermint.abci.IExtendVoteExtension>} voteExtensions
              * @memberof tendermint.abci.RequestVerifyVoteExtension
@@ -4490,9 +4565,11 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.validatorProTxHash);
                 if (message.height != null && Object.hasOwnProperty.call(message, "height"))
                     writer.uint32(/* id 3, wireType 0 =*/24).int64(message.height);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 4, wireType 0 =*/32).int32(message.round);
                 if (message.voteExtensions != null && message.voteExtensions.length)
                     for (var i = 0; i < message.voteExtensions.length; ++i)
-                        $root.tendermint.abci.ExtendVoteExtension.encode(message.voteExtensions[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                        $root.tendermint.abci.ExtendVoteExtension.encode(message.voteExtensions[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 return writer;
             };
 
@@ -4537,6 +4614,9 @@ $root.tendermint = (function() {
                         message.height = reader.int64();
                         break;
                     case 4:
+                        message.round = reader.int32();
+                        break;
+                    case 5:
                         if (!(message.voteExtensions && message.voteExtensions.length))
                             message.voteExtensions = [];
                         message.voteExtensions.push($root.tendermint.abci.ExtendVoteExtension.decode(reader, reader.uint32()));
@@ -4585,6 +4665,9 @@ $root.tendermint = (function() {
                 if (message.height != null && message.hasOwnProperty("height"))
                     if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
                         return "height: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
                 if (message.voteExtensions != null && message.hasOwnProperty("voteExtensions")) {
                     if (!Array.isArray(message.voteExtensions))
                         return "voteExtensions: array expected";
@@ -4628,6 +4711,8 @@ $root.tendermint = (function() {
                         message.height = object.height;
                     else if (typeof object.height === "object")
                         message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
                 if (object.voteExtensions) {
                     if (!Array.isArray(object.voteExtensions))
                         throw TypeError(".tendermint.abci.RequestVerifyVoteExtension.voteExtensions: array expected");
@@ -4676,6 +4761,7 @@ $root.tendermint = (function() {
                         object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.height = options.longs === String ? "0" : 0;
+                    object.round = 0;
                 }
                 if (message.hash != null && message.hasOwnProperty("hash"))
                     object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
@@ -4686,6 +4772,8 @@ $root.tendermint = (function() {
                         object.height = options.longs === String ? String(message.height) : message.height;
                     else
                         object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
                 if (message.voteExtensions && message.voteExtensions.length) {
                     object.voteExtensions = [];
                     for (var j = 0; j < message.voteExtensions.length; ++j)
@@ -4719,6 +4807,7 @@ $root.tendermint = (function() {
              * @property {Array.<tendermint.abci.IMisbehavior>|null} [misbehavior] RequestFinalizeBlock misbehavior
              * @property {Uint8Array|null} [hash] RequestFinalizeBlock hash
              * @property {number|Long|null} [height] RequestFinalizeBlock height
+             * @property {number|null} [round] RequestFinalizeBlock round
              * @property {google.protobuf.ITimestamp|null} [time] RequestFinalizeBlock time
              * @property {Uint8Array|null} [nextValidatorsHash] RequestFinalizeBlock nextValidatorsHash
              * @property {number|null} [coreChainLockedHeight] RequestFinalizeBlock coreChainLockedHeight
@@ -4784,6 +4873,14 @@ $root.tendermint = (function() {
              * @instance
              */
             RequestFinalizeBlock.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * RequestFinalizeBlock round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.round = 0;
 
             /**
              * RequestFinalizeBlock time.
@@ -4881,6 +4978,8 @@ $root.tendermint = (function() {
                     $root.google.protobuf.Timestamp.encode(message.time, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 if (message.nextValidatorsHash != null && Object.hasOwnProperty.call(message, "nextValidatorsHash"))
                     writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.nextValidatorsHash);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.round);
                 if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
                     writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
                 if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
@@ -4943,6 +5042,9 @@ $root.tendermint = (function() {
                         break;
                     case 5:
                         message.height = reader.int64();
+                        break;
+                    case 8:
+                        message.round = reader.int32();
                         break;
                     case 6:
                         message.time = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
@@ -5027,6 +5129,9 @@ $root.tendermint = (function() {
                 if (message.height != null && message.hasOwnProperty("height"))
                     if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
                         return "height: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
                 if (message.time != null && message.hasOwnProperty("time")) {
                     var error = $root.google.protobuf.Timestamp.verify(message.time);
                     if (error)
@@ -5106,6 +5211,8 @@ $root.tendermint = (function() {
                         message.height = object.height;
                     else if (typeof object.height === "object")
                         message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
                 if (object.time != null) {
                     if (typeof object.time !== "object")
                         throw TypeError(".tendermint.abci.RequestFinalizeBlock.time: object expected");
@@ -5184,6 +5291,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.nextValidatorsHash = $util.newBuffer(object.nextValidatorsHash);
                     }
+                    object.round = 0;
                     object.coreChainLockedHeight = 0;
                     if (options.bytes === String)
                         object.proposerProTxHash = "";
@@ -5229,6 +5337,8 @@ $root.tendermint = (function() {
                     object.time = $root.google.protobuf.Timestamp.toObject(message.time, options);
                 if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
                     object.nextValidatorsHash = options.bytes === String ? $util.base64.encode(message.nextValidatorsHash, 0, message.nextValidatorsHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.nextValidatorsHash) : message.nextValidatorsHash;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
                 if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
                     object.coreChainLockedHeight = message.coreChainLockedHeight;
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
