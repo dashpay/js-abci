@@ -1724,8 +1724,8 @@ export namespace tendermint {
             /** RequestFinalizeBlock txs */
             txs?: (Uint8Array[]|null);
 
-            /** RequestFinalizeBlock decidedLastCommit */
-            decidedLastCommit?: (tendermint.abci.ICommitInfo|null);
+            /** RequestFinalizeBlock commit */
+            commit?: (tendermint.abci.ICommitInfo|null);
 
             /** RequestFinalizeBlock misbehavior */
             misbehavior?: (tendermint.abci.IMisbehavior[]|null);
@@ -1773,8 +1773,8 @@ export namespace tendermint {
             /** RequestFinalizeBlock txs. */
             public txs: Uint8Array[];
 
-            /** RequestFinalizeBlock decidedLastCommit. */
-            public decidedLastCommit?: (tendermint.abci.ICommitInfo|null);
+            /** RequestFinalizeBlock commit. */
+            public commit?: (tendermint.abci.ICommitInfo|null);
 
             /** RequestFinalizeBlock misbehavior. */
             public misbehavior: tendermint.abci.IMisbehavior[];

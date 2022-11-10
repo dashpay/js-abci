@@ -4803,7 +4803,7 @@ $root.tendermint = (function() {
              * @memberof tendermint.abci
              * @interface IRequestFinalizeBlock
              * @property {Array.<Uint8Array>|null} [txs] RequestFinalizeBlock txs
-             * @property {tendermint.abci.ICommitInfo|null} [decidedLastCommit] RequestFinalizeBlock decidedLastCommit
+             * @property {tendermint.abci.ICommitInfo|null} [commit] RequestFinalizeBlock commit
              * @property {Array.<tendermint.abci.IMisbehavior>|null} [misbehavior] RequestFinalizeBlock misbehavior
              * @property {Uint8Array|null} [hash] RequestFinalizeBlock hash
              * @property {number|Long|null} [height] RequestFinalizeBlock height
@@ -4843,12 +4843,12 @@ $root.tendermint = (function() {
             RequestFinalizeBlock.prototype.txs = $util.emptyArray;
 
             /**
-             * RequestFinalizeBlock decidedLastCommit.
-             * @member {tendermint.abci.ICommitInfo|null|undefined} decidedLastCommit
+             * RequestFinalizeBlock commit.
+             * @member {tendermint.abci.ICommitInfo|null|undefined} commit
              * @memberof tendermint.abci.RequestFinalizeBlock
              * @instance
              */
-            RequestFinalizeBlock.prototype.decidedLastCommit = null;
+            RequestFinalizeBlock.prototype.commit = null;
 
             /**
              * RequestFinalizeBlock misbehavior.
@@ -4965,8 +4965,8 @@ $root.tendermint = (function() {
                 if (message.txs != null && message.txs.length)
                     for (var i = 0; i < message.txs.length; ++i)
                         writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.txs[i]);
-                if (message.decidedLastCommit != null && Object.hasOwnProperty.call(message, "decidedLastCommit"))
-                    $root.tendermint.abci.CommitInfo.encode(message.decidedLastCommit, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
+                    $root.tendermint.abci.CommitInfo.encode(message.commit, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                 if (message.misbehavior != null && message.misbehavior.length)
                     for (var i = 0; i < message.misbehavior.length; ++i)
                         $root.tendermint.abci.Misbehavior.encode(message.misbehavior[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
@@ -5030,7 +5030,7 @@ $root.tendermint = (function() {
                         message.txs.push(reader.bytes());
                         break;
                     case 2:
-                        message.decidedLastCommit = $root.tendermint.abci.CommitInfo.decode(reader, reader.uint32());
+                        message.commit = $root.tendermint.abci.CommitInfo.decode(reader, reader.uint32());
                         break;
                     case 3:
                         if (!(message.misbehavior && message.misbehavior.length))
@@ -5109,10 +5109,10 @@ $root.tendermint = (function() {
                         if (!(message.txs[i] && typeof message.txs[i].length === "number" || $util.isString(message.txs[i])))
                             return "txs: buffer[] expected";
                 }
-                if (message.decidedLastCommit != null && message.hasOwnProperty("decidedLastCommit")) {
-                    var error = $root.tendermint.abci.CommitInfo.verify(message.decidedLastCommit);
+                if (message.commit != null && message.hasOwnProperty("commit")) {
+                    var error = $root.tendermint.abci.CommitInfo.verify(message.commit);
                     if (error)
-                        return "decidedLastCommit." + error;
+                        return "commit." + error;
                 }
                 if (message.misbehavior != null && message.hasOwnProperty("misbehavior")) {
                     if (!Array.isArray(message.misbehavior))
@@ -5182,10 +5182,10 @@ $root.tendermint = (function() {
                         else if (object.txs[i].length >= 0)
                             message.txs[i] = object.txs[i];
                 }
-                if (object.decidedLastCommit != null) {
-                    if (typeof object.decidedLastCommit !== "object")
-                        throw TypeError(".tendermint.abci.RequestFinalizeBlock.decidedLastCommit: object expected");
-                    message.decidedLastCommit = $root.tendermint.abci.CommitInfo.fromObject(object.decidedLastCommit);
+                if (object.commit != null) {
+                    if (typeof object.commit !== "object")
+                        throw TypeError(".tendermint.abci.RequestFinalizeBlock.commit: object expected");
+                    message.commit = $root.tendermint.abci.CommitInfo.fromObject(object.commit);
                 }
                 if (object.misbehavior) {
                     if (!Array.isArray(object.misbehavior))
@@ -5270,7 +5270,7 @@ $root.tendermint = (function() {
                     object.misbehavior = [];
                 }
                 if (options.defaults) {
-                    object.decidedLastCommit = null;
+                    object.commit = null;
                     if (options.bytes === String)
                         object.hash = "";
                     else {
@@ -5319,8 +5319,8 @@ $root.tendermint = (function() {
                     for (var j = 0; j < message.txs.length; ++j)
                         object.txs[j] = options.bytes === String ? $util.base64.encode(message.txs[j], 0, message.txs[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.txs[j]) : message.txs[j];
                 }
-                if (message.decidedLastCommit != null && message.hasOwnProperty("decidedLastCommit"))
-                    object.decidedLastCommit = $root.tendermint.abci.CommitInfo.toObject(message.decidedLastCommit, options);
+                if (message.commit != null && message.hasOwnProperty("commit"))
+                    object.commit = $root.tendermint.abci.CommitInfo.toObject(message.commit, options);
                 if (message.misbehavior && message.misbehavior.length) {
                     object.misbehavior = [];
                     for (var j = 0; j < message.misbehavior.length; ++j)
