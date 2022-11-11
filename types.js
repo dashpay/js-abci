@@ -10637,7 +10637,6 @@ $root.tendermint = (function() {
              * @property {number|null} [round] CommitInfo round
              * @property {Uint8Array|null} [quorumHash] CommitInfo quorumHash
              * @property {Uint8Array|null} [blockSignature] CommitInfo blockSignature
-             * @property {Uint8Array|null} [stateSignature] CommitInfo stateSignature
              * @property {Array.<tendermint.types.IVoteExtension>|null} [thresholdVoteExtensions] CommitInfo thresholdVoteExtensions
              */
 
@@ -10682,14 +10681,6 @@ $root.tendermint = (function() {
             CommitInfo.prototype.blockSignature = $util.newBuffer([]);
 
             /**
-             * CommitInfo stateSignature.
-             * @member {Uint8Array} stateSignature
-             * @memberof tendermint.abci.CommitInfo
-             * @instance
-             */
-            CommitInfo.prototype.stateSignature = $util.newBuffer([]);
-
-            /**
              * CommitInfo thresholdVoteExtensions.
              * @member {Array.<tendermint.types.IVoteExtension>} thresholdVoteExtensions
              * @memberof tendermint.abci.CommitInfo
@@ -10727,8 +10718,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.quorumHash);
                 if (message.blockSignature != null && Object.hasOwnProperty.call(message, "blockSignature"))
                     writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.blockSignature);
-                if (message.stateSignature != null && Object.hasOwnProperty.call(message, "stateSignature"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.stateSignature);
                 if (message.thresholdVoteExtensions != null && message.thresholdVoteExtensions.length)
                     for (var i = 0; i < message.thresholdVoteExtensions.length; ++i)
                         $root.tendermint.types.VoteExtension.encode(message.thresholdVoteExtensions[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
@@ -10774,9 +10763,6 @@ $root.tendermint = (function() {
                         break;
                     case 4:
                         message.blockSignature = reader.bytes();
-                        break;
-                    case 5:
-                        message.stateSignature = reader.bytes();
                         break;
                     case 6:
                         if (!(message.thresholdVoteExtensions && message.thresholdVoteExtensions.length))
@@ -10827,9 +10813,6 @@ $root.tendermint = (function() {
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     if (!(message.blockSignature && typeof message.blockSignature.length === "number" || $util.isString(message.blockSignature)))
                         return "blockSignature: buffer expected";
-                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    if (!(message.stateSignature && typeof message.stateSignature.length === "number" || $util.isString(message.stateSignature)))
-                        return "stateSignature: buffer expected";
                 if (message.thresholdVoteExtensions != null && message.hasOwnProperty("thresholdVoteExtensions")) {
                     if (!Array.isArray(message.thresholdVoteExtensions))
                         return "thresholdVoteExtensions: array expected";
@@ -10866,11 +10849,6 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.blockSignature, message.blockSignature = $util.newBuffer($util.base64.length(object.blockSignature)), 0);
                     else if (object.blockSignature.length >= 0)
                         message.blockSignature = object.blockSignature;
-                if (object.stateSignature != null)
-                    if (typeof object.stateSignature === "string")
-                        $util.base64.decode(object.stateSignature, message.stateSignature = $util.newBuffer($util.base64.length(object.stateSignature)), 0);
-                    else if (object.stateSignature.length >= 0)
-                        message.stateSignature = object.stateSignature;
                 if (object.thresholdVoteExtensions) {
                     if (!Array.isArray(object.thresholdVoteExtensions))
                         throw TypeError(".tendermint.abci.CommitInfo.thresholdVoteExtensions: array expected");
@@ -10915,13 +10893,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.blockSignature = $util.newBuffer(object.blockSignature);
                     }
-                    if (options.bytes === String)
-                        object.stateSignature = "";
-                    else {
-                        object.stateSignature = [];
-                        if (options.bytes !== Array)
-                            object.stateSignature = $util.newBuffer(object.stateSignature);
-                    }
                 }
                 if (message.round != null && message.hasOwnProperty("round"))
                     object.round = message.round;
@@ -10929,8 +10900,6 @@ $root.tendermint = (function() {
                     object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
-                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    object.stateSignature = options.bytes === String ? $util.base64.encode(message.stateSignature, 0, message.stateSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.stateSignature) : message.stateSignature;
                 if (message.thresholdVoteExtensions && message.thresholdVoteExtensions.length) {
                     object.thresholdVoteExtensions = [];
                     for (var j = 0; j < message.thresholdVoteExtensions.length; ++j)
@@ -10962,7 +10931,6 @@ $root.tendermint = (function() {
              * @property {number|null} [round] ExtendedCommitInfo round
              * @property {Uint8Array|null} [quorumHash] ExtendedCommitInfo quorumHash
              * @property {Uint8Array|null} [blockSignature] ExtendedCommitInfo blockSignature
-             * @property {Uint8Array|null} [stateSignature] ExtendedCommitInfo stateSignature
              * @property {Array.<tendermint.types.IVoteExtension>|null} [thresholdVoteExtensions] ExtendedCommitInfo thresholdVoteExtensions
              */
 
@@ -11007,14 +10975,6 @@ $root.tendermint = (function() {
             ExtendedCommitInfo.prototype.blockSignature = $util.newBuffer([]);
 
             /**
-             * ExtendedCommitInfo stateSignature.
-             * @member {Uint8Array} stateSignature
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @instance
-             */
-            ExtendedCommitInfo.prototype.stateSignature = $util.newBuffer([]);
-
-            /**
              * ExtendedCommitInfo thresholdVoteExtensions.
              * @member {Array.<tendermint.types.IVoteExtension>} thresholdVoteExtensions
              * @memberof tendermint.abci.ExtendedCommitInfo
@@ -11052,8 +11012,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.quorumHash);
                 if (message.blockSignature != null && Object.hasOwnProperty.call(message, "blockSignature"))
                     writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.blockSignature);
-                if (message.stateSignature != null && Object.hasOwnProperty.call(message, "stateSignature"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.stateSignature);
                 if (message.thresholdVoteExtensions != null && message.thresholdVoteExtensions.length)
                     for (var i = 0; i < message.thresholdVoteExtensions.length; ++i)
                         $root.tendermint.types.VoteExtension.encode(message.thresholdVoteExtensions[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
@@ -11099,9 +11057,6 @@ $root.tendermint = (function() {
                         break;
                     case 4:
                         message.blockSignature = reader.bytes();
-                        break;
-                    case 5:
-                        message.stateSignature = reader.bytes();
                         break;
                     case 6:
                         if (!(message.thresholdVoteExtensions && message.thresholdVoteExtensions.length))
@@ -11152,9 +11107,6 @@ $root.tendermint = (function() {
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     if (!(message.blockSignature && typeof message.blockSignature.length === "number" || $util.isString(message.blockSignature)))
                         return "blockSignature: buffer expected";
-                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    if (!(message.stateSignature && typeof message.stateSignature.length === "number" || $util.isString(message.stateSignature)))
-                        return "stateSignature: buffer expected";
                 if (message.thresholdVoteExtensions != null && message.hasOwnProperty("thresholdVoteExtensions")) {
                     if (!Array.isArray(message.thresholdVoteExtensions))
                         return "thresholdVoteExtensions: array expected";
@@ -11191,11 +11143,6 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.blockSignature, message.blockSignature = $util.newBuffer($util.base64.length(object.blockSignature)), 0);
                     else if (object.blockSignature.length >= 0)
                         message.blockSignature = object.blockSignature;
-                if (object.stateSignature != null)
-                    if (typeof object.stateSignature === "string")
-                        $util.base64.decode(object.stateSignature, message.stateSignature = $util.newBuffer($util.base64.length(object.stateSignature)), 0);
-                    else if (object.stateSignature.length >= 0)
-                        message.stateSignature = object.stateSignature;
                 if (object.thresholdVoteExtensions) {
                     if (!Array.isArray(object.thresholdVoteExtensions))
                         throw TypeError(".tendermint.abci.ExtendedCommitInfo.thresholdVoteExtensions: array expected");
@@ -11240,13 +11187,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.blockSignature = $util.newBuffer(object.blockSignature);
                     }
-                    if (options.bytes === String)
-                        object.stateSignature = "";
-                    else {
-                        object.stateSignature = [];
-                        if (options.bytes !== Array)
-                            object.stateSignature = $util.newBuffer(object.stateSignature);
-                    }
                 }
                 if (message.round != null && message.hasOwnProperty("round"))
                     object.round = message.round;
@@ -11254,8 +11194,6 @@ $root.tendermint = (function() {
                     object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
-                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    object.stateSignature = options.bytes === String ? $util.base64.encode(message.stateSignature, 0, message.stateSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.stateSignature) : message.stateSignature;
                 if (message.thresholdVoteExtensions && message.thresholdVoteExtensions.length) {
                     object.thresholdVoteExtensions = [];
                     for (var j = 0; j < message.thresholdVoteExtensions.length; ++j)

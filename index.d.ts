@@ -3861,9 +3861,6 @@ export namespace tendermint {
             /** CommitInfo blockSignature */
             blockSignature?: (Uint8Array|null);
 
-            /** CommitInfo stateSignature */
-            stateSignature?: (Uint8Array|null);
-
             /** CommitInfo thresholdVoteExtensions */
             thresholdVoteExtensions?: (tendermint.types.IVoteExtension[]|null);
         }
@@ -3885,9 +3882,6 @@ export namespace tendermint {
 
             /** CommitInfo blockSignature. */
             public blockSignature: Uint8Array;
-
-            /** CommitInfo stateSignature. */
-            public stateSignature: Uint8Array;
 
             /** CommitInfo thresholdVoteExtensions. */
             public thresholdVoteExtensions: tendermint.types.IVoteExtension[];
@@ -3975,9 +3969,6 @@ export namespace tendermint {
             /** ExtendedCommitInfo blockSignature */
             blockSignature?: (Uint8Array|null);
 
-            /** ExtendedCommitInfo stateSignature */
-            stateSignature?: (Uint8Array|null);
-
             /** ExtendedCommitInfo thresholdVoteExtensions */
             thresholdVoteExtensions?: (tendermint.types.IVoteExtension[]|null);
         }
@@ -3999,9 +3990,6 @@ export namespace tendermint {
 
             /** ExtendedCommitInfo blockSignature. */
             public blockSignature: Uint8Array;
-
-            /** ExtendedCommitInfo stateSignature. */
-            public stateSignature: Uint8Array;
 
             /** ExtendedCommitInfo thresholdVoteExtensions. */
             public thresholdVoteExtensions: tendermint.types.IVoteExtension[];
