@@ -1,7 +1,7 @@
 /*eslint-disable block-scoped-var, id-length, no-control-regex, no-magic-numbers, no-prototype-builtins, no-redeclare, no-shadow, no-var, sort-vars*/
 "use strict";
 
-var $protobuf = require("protobufjs/minimal");
+var $protobuf = require("@dashevo/protobufjs/minimal");
 
 // Common aliases
 var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
@@ -36,18 +36,18 @@ $root.tendermint = (function() {
              * @property {tendermint.abci.IRequestEcho|null} [echo] Request echo
              * @property {tendermint.abci.IRequestFlush|null} [flush] Request flush
              * @property {tendermint.abci.IRequestInfo|null} [info] Request info
-             * @property {tendermint.abci.IRequestSetOption|null} [setOption] Request setOption
              * @property {tendermint.abci.IRequestInitChain|null} [initChain] Request initChain
              * @property {tendermint.abci.IRequestQuery|null} [query] Request query
-             * @property {tendermint.abci.IRequestBeginBlock|null} [beginBlock] Request beginBlock
              * @property {tendermint.abci.IRequestCheckTx|null} [checkTx] Request checkTx
-             * @property {tendermint.abci.IRequestDeliverTx|null} [deliverTx] Request deliverTx
-             * @property {tendermint.abci.IRequestEndBlock|null} [endBlock] Request endBlock
-             * @property {tendermint.abci.IRequestCommit|null} [commit] Request commit
              * @property {tendermint.abci.IRequestListSnapshots|null} [listSnapshots] Request listSnapshots
              * @property {tendermint.abci.IRequestOfferSnapshot|null} [offerSnapshot] Request offerSnapshot
              * @property {tendermint.abci.IRequestLoadSnapshotChunk|null} [loadSnapshotChunk] Request loadSnapshotChunk
              * @property {tendermint.abci.IRequestApplySnapshotChunk|null} [applySnapshotChunk] Request applySnapshotChunk
+             * @property {tendermint.abci.IRequestPrepareProposal|null} [prepareProposal] Request prepareProposal
+             * @property {tendermint.abci.IRequestProcessProposal|null} [processProposal] Request processProposal
+             * @property {tendermint.abci.IRequestExtendVote|null} [extendVote] Request extendVote
+             * @property {tendermint.abci.IRequestVerifyVoteExtension|null} [verifyVoteExtension] Request verifyVoteExtension
+             * @property {tendermint.abci.IRequestFinalizeBlock|null} [finalizeBlock] Request finalizeBlock
              */
 
             /**
@@ -90,14 +90,6 @@ $root.tendermint = (function() {
             Request.prototype.info = null;
 
             /**
-             * Request setOption.
-             * @member {tendermint.abci.IRequestSetOption|null|undefined} setOption
-             * @memberof tendermint.abci.Request
-             * @instance
-             */
-            Request.prototype.setOption = null;
-
-            /**
              * Request initChain.
              * @member {tendermint.abci.IRequestInitChain|null|undefined} initChain
              * @memberof tendermint.abci.Request
@@ -114,44 +106,12 @@ $root.tendermint = (function() {
             Request.prototype.query = null;
 
             /**
-             * Request beginBlock.
-             * @member {tendermint.abci.IRequestBeginBlock|null|undefined} beginBlock
-             * @memberof tendermint.abci.Request
-             * @instance
-             */
-            Request.prototype.beginBlock = null;
-
-            /**
              * Request checkTx.
              * @member {tendermint.abci.IRequestCheckTx|null|undefined} checkTx
              * @memberof tendermint.abci.Request
              * @instance
              */
             Request.prototype.checkTx = null;
-
-            /**
-             * Request deliverTx.
-             * @member {tendermint.abci.IRequestDeliverTx|null|undefined} deliverTx
-             * @memberof tendermint.abci.Request
-             * @instance
-             */
-            Request.prototype.deliverTx = null;
-
-            /**
-             * Request endBlock.
-             * @member {tendermint.abci.IRequestEndBlock|null|undefined} endBlock
-             * @memberof tendermint.abci.Request
-             * @instance
-             */
-            Request.prototype.endBlock = null;
-
-            /**
-             * Request commit.
-             * @member {tendermint.abci.IRequestCommit|null|undefined} commit
-             * @memberof tendermint.abci.Request
-             * @instance
-             */
-            Request.prototype.commit = null;
 
             /**
              * Request listSnapshots.
@@ -185,17 +145,57 @@ $root.tendermint = (function() {
              */
             Request.prototype.applySnapshotChunk = null;
 
+            /**
+             * Request prepareProposal.
+             * @member {tendermint.abci.IRequestPrepareProposal|null|undefined} prepareProposal
+             * @memberof tendermint.abci.Request
+             * @instance
+             */
+            Request.prototype.prepareProposal = null;
+
+            /**
+             * Request processProposal.
+             * @member {tendermint.abci.IRequestProcessProposal|null|undefined} processProposal
+             * @memberof tendermint.abci.Request
+             * @instance
+             */
+            Request.prototype.processProposal = null;
+
+            /**
+             * Request extendVote.
+             * @member {tendermint.abci.IRequestExtendVote|null|undefined} extendVote
+             * @memberof tendermint.abci.Request
+             * @instance
+             */
+            Request.prototype.extendVote = null;
+
+            /**
+             * Request verifyVoteExtension.
+             * @member {tendermint.abci.IRequestVerifyVoteExtension|null|undefined} verifyVoteExtension
+             * @memberof tendermint.abci.Request
+             * @instance
+             */
+            Request.prototype.verifyVoteExtension = null;
+
+            /**
+             * Request finalizeBlock.
+             * @member {tendermint.abci.IRequestFinalizeBlock|null|undefined} finalizeBlock
+             * @memberof tendermint.abci.Request
+             * @instance
+             */
+            Request.prototype.finalizeBlock = null;
+
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
 
             /**
              * Request value.
-             * @member {"echo"|"flush"|"info"|"setOption"|"initChain"|"query"|"beginBlock"|"checkTx"|"deliverTx"|"endBlock"|"commit"|"listSnapshots"|"offerSnapshot"|"loadSnapshotChunk"|"applySnapshotChunk"|undefined} value
+             * @member {"echo"|"flush"|"info"|"initChain"|"query"|"checkTx"|"listSnapshots"|"offerSnapshot"|"loadSnapshotChunk"|"applySnapshotChunk"|"prepareProposal"|"processProposal"|"extendVote"|"verifyVoteExtension"|"finalizeBlock"|undefined} value
              * @memberof tendermint.abci.Request
              * @instance
              */
             Object.defineProperty(Request.prototype, "value", {
-                get: $util.oneOfGetter($oneOfFields = ["echo", "flush", "info", "setOption", "initChain", "query", "beginBlock", "checkTx", "deliverTx", "endBlock", "commit", "listSnapshots", "offerSnapshot", "loadSnapshotChunk", "applySnapshotChunk"]),
+                get: $util.oneOfGetter($oneOfFields = ["echo", "flush", "info", "initChain", "query", "checkTx", "listSnapshots", "offerSnapshot", "loadSnapshotChunk", "applySnapshotChunk", "prepareProposal", "processProposal", "extendVote", "verifyVoteExtension", "finalizeBlock"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
 
@@ -229,30 +229,30 @@ $root.tendermint = (function() {
                     $root.tendermint.abci.RequestFlush.encode(message.flush, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
                 if (message.info != null && Object.hasOwnProperty.call(message, "info"))
                     $root.tendermint.abci.RequestInfo.encode(message.info, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                if (message.setOption != null && Object.hasOwnProperty.call(message, "setOption"))
-                    $root.tendermint.abci.RequestSetOption.encode(message.setOption, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.initChain != null && Object.hasOwnProperty.call(message, "initChain"))
-                    $root.tendermint.abci.RequestInitChain.encode(message.initChain, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    $root.tendermint.abci.RequestInitChain.encode(message.initChain, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.query != null && Object.hasOwnProperty.call(message, "query"))
-                    $root.tendermint.abci.RequestQuery.encode(message.query, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
-                if (message.beginBlock != null && Object.hasOwnProperty.call(message, "beginBlock"))
-                    $root.tendermint.abci.RequestBeginBlock.encode(message.beginBlock, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    $root.tendermint.abci.RequestQuery.encode(message.query, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 if (message.checkTx != null && Object.hasOwnProperty.call(message, "checkTx"))
-                    $root.tendermint.abci.RequestCheckTx.encode(message.checkTx, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
-                if (message.deliverTx != null && Object.hasOwnProperty.call(message, "deliverTx"))
-                    $root.tendermint.abci.RequestDeliverTx.encode(message.deliverTx, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
-                if (message.endBlock != null && Object.hasOwnProperty.call(message, "endBlock"))
-                    $root.tendermint.abci.RequestEndBlock.encode(message.endBlock, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
-                if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
-                    $root.tendermint.abci.RequestCommit.encode(message.commit, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
+                    $root.tendermint.abci.RequestCheckTx.encode(message.checkTx, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 if (message.listSnapshots != null && Object.hasOwnProperty.call(message, "listSnapshots"))
-                    $root.tendermint.abci.RequestListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+                    $root.tendermint.abci.RequestListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
                 if (message.offerSnapshot != null && Object.hasOwnProperty.call(message, "offerSnapshot"))
-                    $root.tendermint.abci.RequestOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
+                    $root.tendermint.abci.RequestOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
                 if (message.loadSnapshotChunk != null && Object.hasOwnProperty.call(message, "loadSnapshotChunk"))
-                    $root.tendermint.abci.RequestLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
+                    $root.tendermint.abci.RequestLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
                 if (message.applySnapshotChunk != null && Object.hasOwnProperty.call(message, "applySnapshotChunk"))
-                    $root.tendermint.abci.RequestApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
+                    $root.tendermint.abci.RequestApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
+                if (message.prepareProposal != null && Object.hasOwnProperty.call(message, "prepareProposal"))
+                    $root.tendermint.abci.RequestPrepareProposal.encode(message.prepareProposal, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
+                if (message.processProposal != null && Object.hasOwnProperty.call(message, "processProposal"))
+                    $root.tendermint.abci.RequestProcessProposal.encode(message.processProposal, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
+                if (message.extendVote != null && Object.hasOwnProperty.call(message, "extendVote"))
+                    $root.tendermint.abci.RequestExtendVote.encode(message.extendVote, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
+                if (message.verifyVoteExtension != null && Object.hasOwnProperty.call(message, "verifyVoteExtension"))
+                    $root.tendermint.abci.RequestVerifyVoteExtension.encode(message.verifyVoteExtension, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
+                if (message.finalizeBlock != null && Object.hasOwnProperty.call(message, "finalizeBlock"))
+                    $root.tendermint.abci.RequestFinalizeBlock.encode(message.finalizeBlock, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
                 return writer;
             };
 
@@ -297,40 +297,40 @@ $root.tendermint = (function() {
                         message.info = $root.tendermint.abci.RequestInfo.decode(reader, reader.uint32());
                         break;
                     case 4:
-                        message.setOption = $root.tendermint.abci.RequestSetOption.decode(reader, reader.uint32());
-                        break;
-                    case 5:
                         message.initChain = $root.tendermint.abci.RequestInitChain.decode(reader, reader.uint32());
                         break;
-                    case 6:
+                    case 5:
                         message.query = $root.tendermint.abci.RequestQuery.decode(reader, reader.uint32());
                         break;
                     case 7:
-                        message.beginBlock = $root.tendermint.abci.RequestBeginBlock.decode(reader, reader.uint32());
-                        break;
-                    case 8:
                         message.checkTx = $root.tendermint.abci.RequestCheckTx.decode(reader, reader.uint32());
                         break;
-                    case 9:
-                        message.deliverTx = $root.tendermint.abci.RequestDeliverTx.decode(reader, reader.uint32());
-                        break;
-                    case 10:
-                        message.endBlock = $root.tendermint.abci.RequestEndBlock.decode(reader, reader.uint32());
-                        break;
                     case 11:
-                        message.commit = $root.tendermint.abci.RequestCommit.decode(reader, reader.uint32());
-                        break;
-                    case 12:
                         message.listSnapshots = $root.tendermint.abci.RequestListSnapshots.decode(reader, reader.uint32());
                         break;
-                    case 13:
+                    case 12:
                         message.offerSnapshot = $root.tendermint.abci.RequestOfferSnapshot.decode(reader, reader.uint32());
                         break;
-                    case 14:
+                    case 13:
                         message.loadSnapshotChunk = $root.tendermint.abci.RequestLoadSnapshotChunk.decode(reader, reader.uint32());
                         break;
-                    case 15:
+                    case 14:
                         message.applySnapshotChunk = $root.tendermint.abci.RequestApplySnapshotChunk.decode(reader, reader.uint32());
+                        break;
+                    case 15:
+                        message.prepareProposal = $root.tendermint.abci.RequestPrepareProposal.decode(reader, reader.uint32());
+                        break;
+                    case 16:
+                        message.processProposal = $root.tendermint.abci.RequestProcessProposal.decode(reader, reader.uint32());
+                        break;
+                    case 17:
+                        message.extendVote = $root.tendermint.abci.RequestExtendVote.decode(reader, reader.uint32());
+                        break;
+                    case 18:
+                        message.verifyVoteExtension = $root.tendermint.abci.RequestVerifyVoteExtension.decode(reader, reader.uint32());
+                        break;
+                    case 19:
+                        message.finalizeBlock = $root.tendermint.abci.RequestFinalizeBlock.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -396,16 +396,6 @@ $root.tendermint = (function() {
                             return "info." + error;
                     }
                 }
-                if (message.setOption != null && message.hasOwnProperty("setOption")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.RequestSetOption.verify(message.setOption);
-                        if (error)
-                            return "setOption." + error;
-                    }
-                }
                 if (message.initChain != null && message.hasOwnProperty("initChain")) {
                     if (properties.value === 1)
                         return "value: multiple values";
@@ -426,16 +416,6 @@ $root.tendermint = (function() {
                             return "query." + error;
                     }
                 }
-                if (message.beginBlock != null && message.hasOwnProperty("beginBlock")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.RequestBeginBlock.verify(message.beginBlock);
-                        if (error)
-                            return "beginBlock." + error;
-                    }
-                }
                 if (message.checkTx != null && message.hasOwnProperty("checkTx")) {
                     if (properties.value === 1)
                         return "value: multiple values";
@@ -444,36 +424,6 @@ $root.tendermint = (function() {
                         var error = $root.tendermint.abci.RequestCheckTx.verify(message.checkTx);
                         if (error)
                             return "checkTx." + error;
-                    }
-                }
-                if (message.deliverTx != null && message.hasOwnProperty("deliverTx")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.RequestDeliverTx.verify(message.deliverTx);
-                        if (error)
-                            return "deliverTx." + error;
-                    }
-                }
-                if (message.endBlock != null && message.hasOwnProperty("endBlock")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.RequestEndBlock.verify(message.endBlock);
-                        if (error)
-                            return "endBlock." + error;
-                    }
-                }
-                if (message.commit != null && message.hasOwnProperty("commit")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.RequestCommit.verify(message.commit);
-                        if (error)
-                            return "commit." + error;
                     }
                 }
                 if (message.listSnapshots != null && message.hasOwnProperty("listSnapshots")) {
@@ -516,6 +466,56 @@ $root.tendermint = (function() {
                             return "applySnapshotChunk." + error;
                     }
                 }
+                if (message.prepareProposal != null && message.hasOwnProperty("prepareProposal")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.RequestPrepareProposal.verify(message.prepareProposal);
+                        if (error)
+                            return "prepareProposal." + error;
+                    }
+                }
+                if (message.processProposal != null && message.hasOwnProperty("processProposal")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.RequestProcessProposal.verify(message.processProposal);
+                        if (error)
+                            return "processProposal." + error;
+                    }
+                }
+                if (message.extendVote != null && message.hasOwnProperty("extendVote")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.RequestExtendVote.verify(message.extendVote);
+                        if (error)
+                            return "extendVote." + error;
+                    }
+                }
+                if (message.verifyVoteExtension != null && message.hasOwnProperty("verifyVoteExtension")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.RequestVerifyVoteExtension.verify(message.verifyVoteExtension);
+                        if (error)
+                            return "verifyVoteExtension." + error;
+                    }
+                }
+                if (message.finalizeBlock != null && message.hasOwnProperty("finalizeBlock")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.RequestFinalizeBlock.verify(message.finalizeBlock);
+                        if (error)
+                            return "finalizeBlock." + error;
+                    }
+                }
                 return null;
             };
 
@@ -546,11 +546,6 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.Request.info: object expected");
                     message.info = $root.tendermint.abci.RequestInfo.fromObject(object.info);
                 }
-                if (object.setOption != null) {
-                    if (typeof object.setOption !== "object")
-                        throw TypeError(".tendermint.abci.Request.setOption: object expected");
-                    message.setOption = $root.tendermint.abci.RequestSetOption.fromObject(object.setOption);
-                }
                 if (object.initChain != null) {
                     if (typeof object.initChain !== "object")
                         throw TypeError(".tendermint.abci.Request.initChain: object expected");
@@ -561,30 +556,10 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.Request.query: object expected");
                     message.query = $root.tendermint.abci.RequestQuery.fromObject(object.query);
                 }
-                if (object.beginBlock != null) {
-                    if (typeof object.beginBlock !== "object")
-                        throw TypeError(".tendermint.abci.Request.beginBlock: object expected");
-                    message.beginBlock = $root.tendermint.abci.RequestBeginBlock.fromObject(object.beginBlock);
-                }
                 if (object.checkTx != null) {
                     if (typeof object.checkTx !== "object")
                         throw TypeError(".tendermint.abci.Request.checkTx: object expected");
                     message.checkTx = $root.tendermint.abci.RequestCheckTx.fromObject(object.checkTx);
-                }
-                if (object.deliverTx != null) {
-                    if (typeof object.deliverTx !== "object")
-                        throw TypeError(".tendermint.abci.Request.deliverTx: object expected");
-                    message.deliverTx = $root.tendermint.abci.RequestDeliverTx.fromObject(object.deliverTx);
-                }
-                if (object.endBlock != null) {
-                    if (typeof object.endBlock !== "object")
-                        throw TypeError(".tendermint.abci.Request.endBlock: object expected");
-                    message.endBlock = $root.tendermint.abci.RequestEndBlock.fromObject(object.endBlock);
-                }
-                if (object.commit != null) {
-                    if (typeof object.commit !== "object")
-                        throw TypeError(".tendermint.abci.Request.commit: object expected");
-                    message.commit = $root.tendermint.abci.RequestCommit.fromObject(object.commit);
                 }
                 if (object.listSnapshots != null) {
                     if (typeof object.listSnapshots !== "object")
@@ -605,6 +580,31 @@ $root.tendermint = (function() {
                     if (typeof object.applySnapshotChunk !== "object")
                         throw TypeError(".tendermint.abci.Request.applySnapshotChunk: object expected");
                     message.applySnapshotChunk = $root.tendermint.abci.RequestApplySnapshotChunk.fromObject(object.applySnapshotChunk);
+                }
+                if (object.prepareProposal != null) {
+                    if (typeof object.prepareProposal !== "object")
+                        throw TypeError(".tendermint.abci.Request.prepareProposal: object expected");
+                    message.prepareProposal = $root.tendermint.abci.RequestPrepareProposal.fromObject(object.prepareProposal);
+                }
+                if (object.processProposal != null) {
+                    if (typeof object.processProposal !== "object")
+                        throw TypeError(".tendermint.abci.Request.processProposal: object expected");
+                    message.processProposal = $root.tendermint.abci.RequestProcessProposal.fromObject(object.processProposal);
+                }
+                if (object.extendVote != null) {
+                    if (typeof object.extendVote !== "object")
+                        throw TypeError(".tendermint.abci.Request.extendVote: object expected");
+                    message.extendVote = $root.tendermint.abci.RequestExtendVote.fromObject(object.extendVote);
+                }
+                if (object.verifyVoteExtension != null) {
+                    if (typeof object.verifyVoteExtension !== "object")
+                        throw TypeError(".tendermint.abci.Request.verifyVoteExtension: object expected");
+                    message.verifyVoteExtension = $root.tendermint.abci.RequestVerifyVoteExtension.fromObject(object.verifyVoteExtension);
+                }
+                if (object.finalizeBlock != null) {
+                    if (typeof object.finalizeBlock !== "object")
+                        throw TypeError(".tendermint.abci.Request.finalizeBlock: object expected");
+                    message.finalizeBlock = $root.tendermint.abci.RequestFinalizeBlock.fromObject(object.finalizeBlock);
                 }
                 return message;
             };
@@ -637,11 +637,6 @@ $root.tendermint = (function() {
                     if (options.oneofs)
                         object.value = "info";
                 }
-                if (message.setOption != null && message.hasOwnProperty("setOption")) {
-                    object.setOption = $root.tendermint.abci.RequestSetOption.toObject(message.setOption, options);
-                    if (options.oneofs)
-                        object.value = "setOption";
-                }
                 if (message.initChain != null && message.hasOwnProperty("initChain")) {
                     object.initChain = $root.tendermint.abci.RequestInitChain.toObject(message.initChain, options);
                     if (options.oneofs)
@@ -652,30 +647,10 @@ $root.tendermint = (function() {
                     if (options.oneofs)
                         object.value = "query";
                 }
-                if (message.beginBlock != null && message.hasOwnProperty("beginBlock")) {
-                    object.beginBlock = $root.tendermint.abci.RequestBeginBlock.toObject(message.beginBlock, options);
-                    if (options.oneofs)
-                        object.value = "beginBlock";
-                }
                 if (message.checkTx != null && message.hasOwnProperty("checkTx")) {
                     object.checkTx = $root.tendermint.abci.RequestCheckTx.toObject(message.checkTx, options);
                     if (options.oneofs)
                         object.value = "checkTx";
-                }
-                if (message.deliverTx != null && message.hasOwnProperty("deliverTx")) {
-                    object.deliverTx = $root.tendermint.abci.RequestDeliverTx.toObject(message.deliverTx, options);
-                    if (options.oneofs)
-                        object.value = "deliverTx";
-                }
-                if (message.endBlock != null && message.hasOwnProperty("endBlock")) {
-                    object.endBlock = $root.tendermint.abci.RequestEndBlock.toObject(message.endBlock, options);
-                    if (options.oneofs)
-                        object.value = "endBlock";
-                }
-                if (message.commit != null && message.hasOwnProperty("commit")) {
-                    object.commit = $root.tendermint.abci.RequestCommit.toObject(message.commit, options);
-                    if (options.oneofs)
-                        object.value = "commit";
                 }
                 if (message.listSnapshots != null && message.hasOwnProperty("listSnapshots")) {
                     object.listSnapshots = $root.tendermint.abci.RequestListSnapshots.toObject(message.listSnapshots, options);
@@ -696,6 +671,31 @@ $root.tendermint = (function() {
                     object.applySnapshotChunk = $root.tendermint.abci.RequestApplySnapshotChunk.toObject(message.applySnapshotChunk, options);
                     if (options.oneofs)
                         object.value = "applySnapshotChunk";
+                }
+                if (message.prepareProposal != null && message.hasOwnProperty("prepareProposal")) {
+                    object.prepareProposal = $root.tendermint.abci.RequestPrepareProposal.toObject(message.prepareProposal, options);
+                    if (options.oneofs)
+                        object.value = "prepareProposal";
+                }
+                if (message.processProposal != null && message.hasOwnProperty("processProposal")) {
+                    object.processProposal = $root.tendermint.abci.RequestProcessProposal.toObject(message.processProposal, options);
+                    if (options.oneofs)
+                        object.value = "processProposal";
+                }
+                if (message.extendVote != null && message.hasOwnProperty("extendVote")) {
+                    object.extendVote = $root.tendermint.abci.RequestExtendVote.toObject(message.extendVote, options);
+                    if (options.oneofs)
+                        object.value = "extendVote";
+                }
+                if (message.verifyVoteExtension != null && message.hasOwnProperty("verifyVoteExtension")) {
+                    object.verifyVoteExtension = $root.tendermint.abci.RequestVerifyVoteExtension.toObject(message.verifyVoteExtension, options);
+                    if (options.oneofs)
+                        object.value = "verifyVoteExtension";
+                }
+                if (message.finalizeBlock != null && message.hasOwnProperty("finalizeBlock")) {
+                    object.finalizeBlock = $root.tendermint.abci.RequestFinalizeBlock.toObject(message.finalizeBlock, options);
+                    if (options.oneofs)
+                        object.value = "finalizeBlock";
                 }
                 return object;
             };
@@ -1070,6 +1070,7 @@ $root.tendermint = (function() {
              * @property {string|null} [version] RequestInfo version
              * @property {number|Long|null} [blockVersion] RequestInfo blockVersion
              * @property {number|Long|null} [p2pVersion] RequestInfo p2pVersion
+             * @property {string|null} [abciVersion] RequestInfo abciVersion
              */
 
             /**
@@ -1112,6 +1113,14 @@ $root.tendermint = (function() {
             RequestInfo.prototype.p2pVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
             /**
+             * RequestInfo abciVersion.
+             * @member {string} abciVersion
+             * @memberof tendermint.abci.RequestInfo
+             * @instance
+             */
+            RequestInfo.prototype.abciVersion = "";
+
+            /**
              * Creates a new RequestInfo instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.RequestInfo
@@ -1141,6 +1150,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.blockVersion);
                 if (message.p2pVersion != null && Object.hasOwnProperty.call(message, "p2pVersion"))
                     writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.p2pVersion);
+                if (message.abciVersion != null && Object.hasOwnProperty.call(message, "abciVersion"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.abciVersion);
                 return writer;
             };
 
@@ -1183,6 +1194,9 @@ $root.tendermint = (function() {
                         break;
                     case 3:
                         message.p2pVersion = reader.uint64();
+                        break;
+                    case 4:
+                        message.abciVersion = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -1228,6 +1242,9 @@ $root.tendermint = (function() {
                 if (message.p2pVersion != null && message.hasOwnProperty("p2pVersion"))
                     if (!$util.isInteger(message.p2pVersion) && !(message.p2pVersion && $util.isInteger(message.p2pVersion.low) && $util.isInteger(message.p2pVersion.high)))
                         return "p2pVersion: integer|Long expected";
+                if (message.abciVersion != null && message.hasOwnProperty("abciVersion"))
+                    if (!$util.isString(message.abciVersion))
+                        return "abciVersion: string expected";
                 return null;
             };
 
@@ -1263,6 +1280,8 @@ $root.tendermint = (function() {
                         message.p2pVersion = object.p2pVersion;
                     else if (typeof object.p2pVersion === "object")
                         message.p2pVersion = new $util.LongBits(object.p2pVersion.low >>> 0, object.p2pVersion.high >>> 0).toNumber(true);
+                if (object.abciVersion != null)
+                    message.abciVersion = String(object.abciVersion);
                 return message;
             };
 
@@ -1291,6 +1310,7 @@ $root.tendermint = (function() {
                         object.p2pVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.p2pVersion = options.longs === String ? "0" : 0;
+                    object.abciVersion = "";
                 }
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = message.version;
@@ -1304,6 +1324,8 @@ $root.tendermint = (function() {
                         object.p2pVersion = options.longs === String ? String(message.p2pVersion) : message.p2pVersion;
                     else
                         object.p2pVersion = options.longs === String ? $util.Long.prototype.toString.call(message.p2pVersion) : options.longs === Number ? new $util.LongBits(message.p2pVersion.low >>> 0, message.p2pVersion.high >>> 0).toNumber(true) : message.p2pVersion;
+                if (message.abciVersion != null && message.hasOwnProperty("abciVersion"))
+                    object.abciVersion = message.abciVersion;
                 return object;
             };
 
@@ -1321,216 +1343,6 @@ $root.tendermint = (function() {
             return RequestInfo;
         })();
 
-        abci.RequestSetOption = (function() {
-
-            /**
-             * Properties of a RequestSetOption.
-             * @memberof tendermint.abci
-             * @interface IRequestSetOption
-             * @property {string|null} [key] RequestSetOption key
-             * @property {string|null} [value] RequestSetOption value
-             */
-
-            /**
-             * Constructs a new RequestSetOption.
-             * @memberof tendermint.abci
-             * @classdesc Represents a RequestSetOption.
-             * @implements IRequestSetOption
-             * @constructor
-             * @param {tendermint.abci.IRequestSetOption=} [properties] Properties to set
-             */
-            function RequestSetOption(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * RequestSetOption key.
-             * @member {string} key
-             * @memberof tendermint.abci.RequestSetOption
-             * @instance
-             */
-            RequestSetOption.prototype.key = "";
-
-            /**
-             * RequestSetOption value.
-             * @member {string} value
-             * @memberof tendermint.abci.RequestSetOption
-             * @instance
-             */
-            RequestSetOption.prototype.value = "";
-
-            /**
-             * Creates a new RequestSetOption instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {tendermint.abci.IRequestSetOption=} [properties] Properties to set
-             * @returns {tendermint.abci.RequestSetOption} RequestSetOption instance
-             */
-            RequestSetOption.create = function create(properties) {
-                return new RequestSetOption(properties);
-            };
-
-            /**
-             * Encodes the specified RequestSetOption message. Does not implicitly {@link tendermint.abci.RequestSetOption.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {tendermint.abci.IRequestSetOption} message RequestSetOption message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestSetOption.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.key != null && Object.hasOwnProperty.call(message, "key"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.key);
-                if (message.value != null && Object.hasOwnProperty.call(message, "value"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.value);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified RequestSetOption message, length delimited. Does not implicitly {@link tendermint.abci.RequestSetOption.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {tendermint.abci.IRequestSetOption} message RequestSetOption message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestSetOption.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a RequestSetOption message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.RequestSetOption} RequestSetOption
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestSetOption.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestSetOption();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.key = reader.string();
-                        break;
-                    case 2:
-                        message.value = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a RequestSetOption message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.RequestSetOption} RequestSetOption
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestSetOption.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a RequestSetOption message.
-             * @function verify
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RequestSetOption.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.key != null && message.hasOwnProperty("key"))
-                    if (!$util.isString(message.key))
-                        return "key: string expected";
-                if (message.value != null && message.hasOwnProperty("value"))
-                    if (!$util.isString(message.value))
-                        return "value: string expected";
-                return null;
-            };
-
-            /**
-             * Creates a RequestSetOption message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.RequestSetOption} RequestSetOption
-             */
-            RequestSetOption.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.RequestSetOption)
-                    return object;
-                var message = new $root.tendermint.abci.RequestSetOption();
-                if (object.key != null)
-                    message.key = String(object.key);
-                if (object.value != null)
-                    message.value = String(object.value);
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a RequestSetOption message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.RequestSetOption
-             * @static
-             * @param {tendermint.abci.RequestSetOption} message RequestSetOption
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RequestSetOption.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.key = "";
-                    object.value = "";
-                }
-                if (message.key != null && message.hasOwnProperty("key"))
-                    object.key = message.key;
-                if (message.value != null && message.hasOwnProperty("value"))
-                    object.value = message.value;
-                return object;
-            };
-
-            /**
-             * Converts this RequestSetOption to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.RequestSetOption
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RequestSetOption.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return RequestSetOption;
-        })();
-
         abci.RequestInitChain = (function() {
 
             /**
@@ -1539,7 +1351,7 @@ $root.tendermint = (function() {
              * @interface IRequestInitChain
              * @property {google.protobuf.ITimestamp|null} [time] RequestInitChain time
              * @property {string|null} [chainId] RequestInitChain chainId
-             * @property {tendermint.abci.IConsensusParams|null} [consensusParams] RequestInitChain consensusParams
+             * @property {tendermint.types.IConsensusParams|null} [consensusParams] RequestInitChain consensusParams
              * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSet] RequestInitChain validatorSet
              * @property {Uint8Array|null} [appStateBytes] RequestInitChain appStateBytes
              * @property {number|Long|null} [initialHeight] RequestInitChain initialHeight
@@ -1579,7 +1391,7 @@ $root.tendermint = (function() {
 
             /**
              * RequestInitChain consensusParams.
-             * @member {tendermint.abci.IConsensusParams|null|undefined} consensusParams
+             * @member {tendermint.types.IConsensusParams|null|undefined} consensusParams
              * @memberof tendermint.abci.RequestInitChain
              * @instance
              */
@@ -1646,7 +1458,7 @@ $root.tendermint = (function() {
                 if (message.chainId != null && Object.hasOwnProperty.call(message, "chainId"))
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.chainId);
                 if (message.consensusParams != null && Object.hasOwnProperty.call(message, "consensusParams"))
-                    $root.tendermint.abci.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.validatorSet != null && Object.hasOwnProperty.call(message, "validatorSet"))
                     $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSet, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.appStateBytes != null && Object.hasOwnProperty.call(message, "appStateBytes"))
@@ -1696,7 +1508,7 @@ $root.tendermint = (function() {
                         message.chainId = reader.string();
                         break;
                     case 3:
-                        message.consensusParams = $root.tendermint.abci.ConsensusParams.decode(reader, reader.uint32());
+                        message.consensusParams = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
                     case 4:
                         message.validatorSet = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
@@ -1754,7 +1566,7 @@ $root.tendermint = (function() {
                     if (!$util.isString(message.chainId))
                         return "chainId: string expected";
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams")) {
-                    var error = $root.tendermint.abci.ConsensusParams.verify(message.consensusParams);
+                    var error = $root.tendermint.types.ConsensusParams.verify(message.consensusParams);
                     if (error)
                         return "consensusParams." + error;
                 }
@@ -1797,7 +1609,7 @@ $root.tendermint = (function() {
                 if (object.consensusParams != null) {
                     if (typeof object.consensusParams !== "object")
                         throw TypeError(".tendermint.abci.RequestInitChain.consensusParams: object expected");
-                    message.consensusParams = $root.tendermint.abci.ConsensusParams.fromObject(object.consensusParams);
+                    message.consensusParams = $root.tendermint.types.ConsensusParams.fromObject(object.consensusParams);
                 }
                 if (object.validatorSet != null) {
                     if (typeof object.validatorSet !== "object")
@@ -1860,7 +1672,7 @@ $root.tendermint = (function() {
                 if (message.chainId != null && message.hasOwnProperty("chainId"))
                     object.chainId = message.chainId;
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams"))
-                    object.consensusParams = $root.tendermint.abci.ConsensusParams.toObject(message.consensusParams, options);
+                    object.consensusParams = $root.tendermint.types.ConsensusParams.toObject(message.consensusParams, options);
                 if (message.validatorSet != null && message.hasOwnProperty("validatorSet"))
                     object.validatorSet = $root.tendermint.abci.ValidatorSetUpdate.toObject(message.validatorSet, options);
                 if (message.appStateBytes != null && message.hasOwnProperty("appStateBytes"))
@@ -2166,301 +1978,6 @@ $root.tendermint = (function() {
             return RequestQuery;
         })();
 
-        abci.RequestBeginBlock = (function() {
-
-            /**
-             * Properties of a RequestBeginBlock.
-             * @memberof tendermint.abci
-             * @interface IRequestBeginBlock
-             * @property {Uint8Array|null} [hash] RequestBeginBlock hash
-             * @property {tendermint.types.IHeader|null} [header] RequestBeginBlock header
-             * @property {tendermint.abci.ILastCommitInfo|null} [lastCommitInfo] RequestBeginBlock lastCommitInfo
-             * @property {Array.<tendermint.abci.IEvidence>|null} [byzantineValidators] RequestBeginBlock byzantineValidators
-             */
-
-            /**
-             * Constructs a new RequestBeginBlock.
-             * @memberof tendermint.abci
-             * @classdesc Represents a RequestBeginBlock.
-             * @implements IRequestBeginBlock
-             * @constructor
-             * @param {tendermint.abci.IRequestBeginBlock=} [properties] Properties to set
-             */
-            function RequestBeginBlock(properties) {
-                this.byzantineValidators = [];
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * RequestBeginBlock hash.
-             * @member {Uint8Array} hash
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @instance
-             */
-            RequestBeginBlock.prototype.hash = $util.newBuffer([]);
-
-            /**
-             * RequestBeginBlock header.
-             * @member {tendermint.types.IHeader|null|undefined} header
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @instance
-             */
-            RequestBeginBlock.prototype.header = null;
-
-            /**
-             * RequestBeginBlock lastCommitInfo.
-             * @member {tendermint.abci.ILastCommitInfo|null|undefined} lastCommitInfo
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @instance
-             */
-            RequestBeginBlock.prototype.lastCommitInfo = null;
-
-            /**
-             * RequestBeginBlock byzantineValidators.
-             * @member {Array.<tendermint.abci.IEvidence>} byzantineValidators
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @instance
-             */
-            RequestBeginBlock.prototype.byzantineValidators = $util.emptyArray;
-
-            /**
-             * Creates a new RequestBeginBlock instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @static
-             * @param {tendermint.abci.IRequestBeginBlock=} [properties] Properties to set
-             * @returns {tendermint.abci.RequestBeginBlock} RequestBeginBlock instance
-             */
-            RequestBeginBlock.create = function create(properties) {
-                return new RequestBeginBlock(properties);
-            };
-
-            /**
-             * Encodes the specified RequestBeginBlock message. Does not implicitly {@link tendermint.abci.RequestBeginBlock.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @static
-             * @param {tendermint.abci.IRequestBeginBlock} message RequestBeginBlock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestBeginBlock.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.hash != null && Object.hasOwnProperty.call(message, "hash"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.hash);
-                if (message.header != null && Object.hasOwnProperty.call(message, "header"))
-                    $root.tendermint.types.Header.encode(message.header, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                if (message.lastCommitInfo != null && Object.hasOwnProperty.call(message, "lastCommitInfo"))
-                    $root.tendermint.abci.LastCommitInfo.encode(message.lastCommitInfo, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                if (message.byzantineValidators != null && message.byzantineValidators.length)
-                    for (var i = 0; i < message.byzantineValidators.length; ++i)
-                        $root.tendermint.abci.Evidence.encode(message.byzantineValidators[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified RequestBeginBlock message, length delimited. Does not implicitly {@link tendermint.abci.RequestBeginBlock.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @static
-             * @param {tendermint.abci.IRequestBeginBlock} message RequestBeginBlock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestBeginBlock.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a RequestBeginBlock message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.RequestBeginBlock} RequestBeginBlock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestBeginBlock.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestBeginBlock();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.hash = reader.bytes();
-                        break;
-                    case 2:
-                        message.header = $root.tendermint.types.Header.decode(reader, reader.uint32());
-                        break;
-                    case 3:
-                        message.lastCommitInfo = $root.tendermint.abci.LastCommitInfo.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        if (!(message.byzantineValidators && message.byzantineValidators.length))
-                            message.byzantineValidators = [];
-                        message.byzantineValidators.push($root.tendermint.abci.Evidence.decode(reader, reader.uint32()));
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a RequestBeginBlock message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.RequestBeginBlock} RequestBeginBlock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestBeginBlock.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a RequestBeginBlock message.
-             * @function verify
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RequestBeginBlock.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.hash != null && message.hasOwnProperty("hash"))
-                    if (!(message.hash && typeof message.hash.length === "number" || $util.isString(message.hash)))
-                        return "hash: buffer expected";
-                if (message.header != null && message.hasOwnProperty("header")) {
-                    var error = $root.tendermint.types.Header.verify(message.header);
-                    if (error)
-                        return "header." + error;
-                }
-                if (message.lastCommitInfo != null && message.hasOwnProperty("lastCommitInfo")) {
-                    var error = $root.tendermint.abci.LastCommitInfo.verify(message.lastCommitInfo);
-                    if (error)
-                        return "lastCommitInfo." + error;
-                }
-                if (message.byzantineValidators != null && message.hasOwnProperty("byzantineValidators")) {
-                    if (!Array.isArray(message.byzantineValidators))
-                        return "byzantineValidators: array expected";
-                    for (var i = 0; i < message.byzantineValidators.length; ++i) {
-                        var error = $root.tendermint.abci.Evidence.verify(message.byzantineValidators[i]);
-                        if (error)
-                            return "byzantineValidators." + error;
-                    }
-                }
-                return null;
-            };
-
-            /**
-             * Creates a RequestBeginBlock message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.RequestBeginBlock} RequestBeginBlock
-             */
-            RequestBeginBlock.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.RequestBeginBlock)
-                    return object;
-                var message = new $root.tendermint.abci.RequestBeginBlock();
-                if (object.hash != null)
-                    if (typeof object.hash === "string")
-                        $util.base64.decode(object.hash, message.hash = $util.newBuffer($util.base64.length(object.hash)), 0);
-                    else if (object.hash.length >= 0)
-                        message.hash = object.hash;
-                if (object.header != null) {
-                    if (typeof object.header !== "object")
-                        throw TypeError(".tendermint.abci.RequestBeginBlock.header: object expected");
-                    message.header = $root.tendermint.types.Header.fromObject(object.header);
-                }
-                if (object.lastCommitInfo != null) {
-                    if (typeof object.lastCommitInfo !== "object")
-                        throw TypeError(".tendermint.abci.RequestBeginBlock.lastCommitInfo: object expected");
-                    message.lastCommitInfo = $root.tendermint.abci.LastCommitInfo.fromObject(object.lastCommitInfo);
-                }
-                if (object.byzantineValidators) {
-                    if (!Array.isArray(object.byzantineValidators))
-                        throw TypeError(".tendermint.abci.RequestBeginBlock.byzantineValidators: array expected");
-                    message.byzantineValidators = [];
-                    for (var i = 0; i < object.byzantineValidators.length; ++i) {
-                        if (typeof object.byzantineValidators[i] !== "object")
-                            throw TypeError(".tendermint.abci.RequestBeginBlock.byzantineValidators: object expected");
-                        message.byzantineValidators[i] = $root.tendermint.abci.Evidence.fromObject(object.byzantineValidators[i]);
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a RequestBeginBlock message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @static
-             * @param {tendermint.abci.RequestBeginBlock} message RequestBeginBlock
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RequestBeginBlock.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.arrays || options.defaults)
-                    object.byzantineValidators = [];
-                if (options.defaults) {
-                    if (options.bytes === String)
-                        object.hash = "";
-                    else {
-                        object.hash = [];
-                        if (options.bytes !== Array)
-                            object.hash = $util.newBuffer(object.hash);
-                    }
-                    object.header = null;
-                    object.lastCommitInfo = null;
-                }
-                if (message.hash != null && message.hasOwnProperty("hash"))
-                    object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
-                if (message.header != null && message.hasOwnProperty("header"))
-                    object.header = $root.tendermint.types.Header.toObject(message.header, options);
-                if (message.lastCommitInfo != null && message.hasOwnProperty("lastCommitInfo"))
-                    object.lastCommitInfo = $root.tendermint.abci.LastCommitInfo.toObject(message.lastCommitInfo, options);
-                if (message.byzantineValidators && message.byzantineValidators.length) {
-                    object.byzantineValidators = [];
-                    for (var j = 0; j < message.byzantineValidators.length; ++j)
-                        object.byzantineValidators[j] = $root.tendermint.abci.Evidence.toObject(message.byzantineValidators[j], options);
-                }
-                return object;
-            };
-
-            /**
-             * Converts this RequestBeginBlock to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.RequestBeginBlock
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RequestBeginBlock.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return RequestBeginBlock;
-        })();
-
         /**
          * CheckTxType enum.
          * @name tendermint.abci.CheckTxType
@@ -2705,563 +2222,6 @@ $root.tendermint = (function() {
             };
 
             return RequestCheckTx;
-        })();
-
-        abci.RequestDeliverTx = (function() {
-
-            /**
-             * Properties of a RequestDeliverTx.
-             * @memberof tendermint.abci
-             * @interface IRequestDeliverTx
-             * @property {Uint8Array|null} [tx] RequestDeliverTx tx
-             */
-
-            /**
-             * Constructs a new RequestDeliverTx.
-             * @memberof tendermint.abci
-             * @classdesc Represents a RequestDeliverTx.
-             * @implements IRequestDeliverTx
-             * @constructor
-             * @param {tendermint.abci.IRequestDeliverTx=} [properties] Properties to set
-             */
-            function RequestDeliverTx(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * RequestDeliverTx tx.
-             * @member {Uint8Array} tx
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @instance
-             */
-            RequestDeliverTx.prototype.tx = $util.newBuffer([]);
-
-            /**
-             * Creates a new RequestDeliverTx instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @static
-             * @param {tendermint.abci.IRequestDeliverTx=} [properties] Properties to set
-             * @returns {tendermint.abci.RequestDeliverTx} RequestDeliverTx instance
-             */
-            RequestDeliverTx.create = function create(properties) {
-                return new RequestDeliverTx(properties);
-            };
-
-            /**
-             * Encodes the specified RequestDeliverTx message. Does not implicitly {@link tendermint.abci.RequestDeliverTx.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @static
-             * @param {tendermint.abci.IRequestDeliverTx} message RequestDeliverTx message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestDeliverTx.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.tx != null && Object.hasOwnProperty.call(message, "tx"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.tx);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified RequestDeliverTx message, length delimited. Does not implicitly {@link tendermint.abci.RequestDeliverTx.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @static
-             * @param {tendermint.abci.IRequestDeliverTx} message RequestDeliverTx message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestDeliverTx.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a RequestDeliverTx message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.RequestDeliverTx} RequestDeliverTx
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestDeliverTx.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestDeliverTx();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.tx = reader.bytes();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a RequestDeliverTx message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.RequestDeliverTx} RequestDeliverTx
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestDeliverTx.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a RequestDeliverTx message.
-             * @function verify
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RequestDeliverTx.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.tx != null && message.hasOwnProperty("tx"))
-                    if (!(message.tx && typeof message.tx.length === "number" || $util.isString(message.tx)))
-                        return "tx: buffer expected";
-                return null;
-            };
-
-            /**
-             * Creates a RequestDeliverTx message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.RequestDeliverTx} RequestDeliverTx
-             */
-            RequestDeliverTx.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.RequestDeliverTx)
-                    return object;
-                var message = new $root.tendermint.abci.RequestDeliverTx();
-                if (object.tx != null)
-                    if (typeof object.tx === "string")
-                        $util.base64.decode(object.tx, message.tx = $util.newBuffer($util.base64.length(object.tx)), 0);
-                    else if (object.tx.length >= 0)
-                        message.tx = object.tx;
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a RequestDeliverTx message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @static
-             * @param {tendermint.abci.RequestDeliverTx} message RequestDeliverTx
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RequestDeliverTx.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults)
-                    if (options.bytes === String)
-                        object.tx = "";
-                    else {
-                        object.tx = [];
-                        if (options.bytes !== Array)
-                            object.tx = $util.newBuffer(object.tx);
-                    }
-                if (message.tx != null && message.hasOwnProperty("tx"))
-                    object.tx = options.bytes === String ? $util.base64.encode(message.tx, 0, message.tx.length) : options.bytes === Array ? Array.prototype.slice.call(message.tx) : message.tx;
-                return object;
-            };
-
-            /**
-             * Converts this RequestDeliverTx to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.RequestDeliverTx
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RequestDeliverTx.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return RequestDeliverTx;
-        })();
-
-        abci.RequestEndBlock = (function() {
-
-            /**
-             * Properties of a RequestEndBlock.
-             * @memberof tendermint.abci
-             * @interface IRequestEndBlock
-             * @property {number|Long|null} [height] RequestEndBlock height
-             */
-
-            /**
-             * Constructs a new RequestEndBlock.
-             * @memberof tendermint.abci
-             * @classdesc Represents a RequestEndBlock.
-             * @implements IRequestEndBlock
-             * @constructor
-             * @param {tendermint.abci.IRequestEndBlock=} [properties] Properties to set
-             */
-            function RequestEndBlock(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * RequestEndBlock height.
-             * @member {number|Long} height
-             * @memberof tendermint.abci.RequestEndBlock
-             * @instance
-             */
-            RequestEndBlock.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * Creates a new RequestEndBlock instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.RequestEndBlock
-             * @static
-             * @param {tendermint.abci.IRequestEndBlock=} [properties] Properties to set
-             * @returns {tendermint.abci.RequestEndBlock} RequestEndBlock instance
-             */
-            RequestEndBlock.create = function create(properties) {
-                return new RequestEndBlock(properties);
-            };
-
-            /**
-             * Encodes the specified RequestEndBlock message. Does not implicitly {@link tendermint.abci.RequestEndBlock.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.RequestEndBlock
-             * @static
-             * @param {tendermint.abci.IRequestEndBlock} message RequestEndBlock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestEndBlock.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.height != null && Object.hasOwnProperty.call(message, "height"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.height);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified RequestEndBlock message, length delimited. Does not implicitly {@link tendermint.abci.RequestEndBlock.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.RequestEndBlock
-             * @static
-             * @param {tendermint.abci.IRequestEndBlock} message RequestEndBlock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestEndBlock.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a RequestEndBlock message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.RequestEndBlock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.RequestEndBlock} RequestEndBlock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestEndBlock.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestEndBlock();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.height = reader.int64();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a RequestEndBlock message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.RequestEndBlock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.RequestEndBlock} RequestEndBlock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestEndBlock.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a RequestEndBlock message.
-             * @function verify
-             * @memberof tendermint.abci.RequestEndBlock
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RequestEndBlock.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.height != null && message.hasOwnProperty("height"))
-                    if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
-                        return "height: integer|Long expected";
-                return null;
-            };
-
-            /**
-             * Creates a RequestEndBlock message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.RequestEndBlock
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.RequestEndBlock} RequestEndBlock
-             */
-            RequestEndBlock.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.RequestEndBlock)
-                    return object;
-                var message = new $root.tendermint.abci.RequestEndBlock();
-                if (object.height != null)
-                    if ($util.Long)
-                        (message.height = $util.Long.fromValue(object.height)).unsigned = false;
-                    else if (typeof object.height === "string")
-                        message.height = parseInt(object.height, 10);
-                    else if (typeof object.height === "number")
-                        message.height = object.height;
-                    else if (typeof object.height === "object")
-                        message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a RequestEndBlock message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.RequestEndBlock
-             * @static
-             * @param {tendermint.abci.RequestEndBlock} message RequestEndBlock
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RequestEndBlock.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults)
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.height = options.longs === String ? "0" : 0;
-                if (message.height != null && message.hasOwnProperty("height"))
-                    if (typeof message.height === "number")
-                        object.height = options.longs === String ? String(message.height) : message.height;
-                    else
-                        object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
-                return object;
-            };
-
-            /**
-             * Converts this RequestEndBlock to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.RequestEndBlock
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RequestEndBlock.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return RequestEndBlock;
-        })();
-
-        abci.RequestCommit = (function() {
-
-            /**
-             * Properties of a RequestCommit.
-             * @memberof tendermint.abci
-             * @interface IRequestCommit
-             */
-
-            /**
-             * Constructs a new RequestCommit.
-             * @memberof tendermint.abci
-             * @classdesc Represents a RequestCommit.
-             * @implements IRequestCommit
-             * @constructor
-             * @param {tendermint.abci.IRequestCommit=} [properties] Properties to set
-             */
-            function RequestCommit(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * Creates a new RequestCommit instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.RequestCommit
-             * @static
-             * @param {tendermint.abci.IRequestCommit=} [properties] Properties to set
-             * @returns {tendermint.abci.RequestCommit} RequestCommit instance
-             */
-            RequestCommit.create = function create(properties) {
-                return new RequestCommit(properties);
-            };
-
-            /**
-             * Encodes the specified RequestCommit message. Does not implicitly {@link tendermint.abci.RequestCommit.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.RequestCommit
-             * @static
-             * @param {tendermint.abci.IRequestCommit} message RequestCommit message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestCommit.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified RequestCommit message, length delimited. Does not implicitly {@link tendermint.abci.RequestCommit.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.RequestCommit
-             * @static
-             * @param {tendermint.abci.IRequestCommit} message RequestCommit message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            RequestCommit.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a RequestCommit message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.RequestCommit
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.RequestCommit} RequestCommit
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestCommit.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestCommit();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a RequestCommit message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.RequestCommit
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.RequestCommit} RequestCommit
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            RequestCommit.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a RequestCommit message.
-             * @function verify
-             * @memberof tendermint.abci.RequestCommit
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            RequestCommit.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                return null;
-            };
-
-            /**
-             * Creates a RequestCommit message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.RequestCommit
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.RequestCommit} RequestCommit
-             */
-            RequestCommit.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.RequestCommit)
-                    return object;
-                return new $root.tendermint.abci.RequestCommit();
-            };
-
-            /**
-             * Creates a plain object from a RequestCommit message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.RequestCommit
-             * @static
-             * @param {tendermint.abci.RequestCommit} message RequestCommit
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            RequestCommit.toObject = function toObject() {
-                return {};
-            };
-
-            /**
-             * Converts this RequestCommit to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.RequestCommit
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            RequestCommit.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return RequestCommit;
         })();
 
         abci.RequestListSnapshots = (function() {
@@ -4135,6 +3095,2087 @@ $root.tendermint = (function() {
             return RequestApplySnapshotChunk;
         })();
 
+        abci.RequestPrepareProposal = (function() {
+
+            /**
+             * Properties of a RequestPrepareProposal.
+             * @memberof tendermint.abci
+             * @interface IRequestPrepareProposal
+             * @property {number|Long|null} [maxTxBytes] RequestPrepareProposal maxTxBytes
+             * @property {Array.<Uint8Array>|null} [txs] RequestPrepareProposal txs
+             * @property {tendermint.abci.IExtendedCommitInfo|null} [localLastCommit] RequestPrepareProposal localLastCommit
+             * @property {Array.<tendermint.abci.IMisbehavior>|null} [misbehavior] RequestPrepareProposal misbehavior
+             * @property {number|Long|null} [height] RequestPrepareProposal height
+             * @property {google.protobuf.ITimestamp|null} [time] RequestPrepareProposal time
+             * @property {Uint8Array|null} [nextValidatorsHash] RequestPrepareProposal nextValidatorsHash
+             * @property {number|null} [round] RequestPrepareProposal round
+             * @property {number|null} [coreChainLockedHeight] RequestPrepareProposal coreChainLockedHeight
+             * @property {Uint8Array|null} [proposerProTxHash] RequestPrepareProposal proposerProTxHash
+             * @property {number|Long|null} [proposedAppVersion] RequestPrepareProposal proposedAppVersion
+             * @property {tendermint.version.IConsensus|null} [version] RequestPrepareProposal version
+             */
+
+            /**
+             * Constructs a new RequestPrepareProposal.
+             * @memberof tendermint.abci
+             * @classdesc Represents a RequestPrepareProposal.
+             * @implements IRequestPrepareProposal
+             * @constructor
+             * @param {tendermint.abci.IRequestPrepareProposal=} [properties] Properties to set
+             */
+            function RequestPrepareProposal(properties) {
+                this.txs = [];
+                this.misbehavior = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * RequestPrepareProposal maxTxBytes.
+             * @member {number|Long} maxTxBytes
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.maxTxBytes = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * RequestPrepareProposal txs.
+             * @member {Array.<Uint8Array>} txs
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.txs = $util.emptyArray;
+
+            /**
+             * RequestPrepareProposal localLastCommit.
+             * @member {tendermint.abci.IExtendedCommitInfo|null|undefined} localLastCommit
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.localLastCommit = null;
+
+            /**
+             * RequestPrepareProposal misbehavior.
+             * @member {Array.<tendermint.abci.IMisbehavior>} misbehavior
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.misbehavior = $util.emptyArray;
+
+            /**
+             * RequestPrepareProposal height.
+             * @member {number|Long} height
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * RequestPrepareProposal time.
+             * @member {google.protobuf.ITimestamp|null|undefined} time
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.time = null;
+
+            /**
+             * RequestPrepareProposal nextValidatorsHash.
+             * @member {Uint8Array} nextValidatorsHash
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.nextValidatorsHash = $util.newBuffer([]);
+
+            /**
+             * RequestPrepareProposal round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.round = 0;
+
+            /**
+             * RequestPrepareProposal coreChainLockedHeight.
+             * @member {number} coreChainLockedHeight
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.coreChainLockedHeight = 0;
+
+            /**
+             * RequestPrepareProposal proposerProTxHash.
+             * @member {Uint8Array} proposerProTxHash
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.proposerProTxHash = $util.newBuffer([]);
+
+            /**
+             * RequestPrepareProposal proposedAppVersion.
+             * @member {number|Long} proposedAppVersion
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.proposedAppVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+            /**
+             * RequestPrepareProposal version.
+             * @member {tendermint.version.IConsensus|null|undefined} version
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.version = null;
+
+            /**
+             * Creates a new RequestPrepareProposal instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @static
+             * @param {tendermint.abci.IRequestPrepareProposal=} [properties] Properties to set
+             * @returns {tendermint.abci.RequestPrepareProposal} RequestPrepareProposal instance
+             */
+            RequestPrepareProposal.create = function create(properties) {
+                return new RequestPrepareProposal(properties);
+            };
+
+            /**
+             * Encodes the specified RequestPrepareProposal message. Does not implicitly {@link tendermint.abci.RequestPrepareProposal.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @static
+             * @param {tendermint.abci.IRequestPrepareProposal} message RequestPrepareProposal message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestPrepareProposal.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.maxTxBytes != null && Object.hasOwnProperty.call(message, "maxTxBytes"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.maxTxBytes);
+                if (message.txs != null && message.txs.length)
+                    for (var i = 0; i < message.txs.length; ++i)
+                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.txs[i]);
+                if (message.localLastCommit != null && Object.hasOwnProperty.call(message, "localLastCommit"))
+                    $root.tendermint.abci.ExtendedCommitInfo.encode(message.localLastCommit, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.misbehavior != null && message.misbehavior.length)
+                    for (var i = 0; i < message.misbehavior.length; ++i)
+                        $root.tendermint.abci.Misbehavior.encode(message.misbehavior[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.height != null && Object.hasOwnProperty.call(message, "height"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).int64(message.height);
+                if (message.time != null && Object.hasOwnProperty.call(message, "time"))
+                    $root.google.protobuf.Timestamp.encode(message.time, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                if (message.nextValidatorsHash != null && Object.hasOwnProperty.call(message, "nextValidatorsHash"))
+                    writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.nextValidatorsHash);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.round);
+                if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
+                    writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
+                if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
+                    writer.uint32(/* id 101, wireType 2 =*/810).bytes(message.proposerProTxHash);
+                if (message.proposedAppVersion != null && Object.hasOwnProperty.call(message, "proposedAppVersion"))
+                    writer.uint32(/* id 102, wireType 0 =*/816).uint64(message.proposedAppVersion);
+                if (message.version != null && Object.hasOwnProperty.call(message, "version"))
+                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 103, wireType 2 =*/826).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified RequestPrepareProposal message, length delimited. Does not implicitly {@link tendermint.abci.RequestPrepareProposal.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @static
+             * @param {tendermint.abci.IRequestPrepareProposal} message RequestPrepareProposal message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestPrepareProposal.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a RequestPrepareProposal message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.RequestPrepareProposal} RequestPrepareProposal
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestPrepareProposal.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestPrepareProposal();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.maxTxBytes = reader.int64();
+                        break;
+                    case 2:
+                        if (!(message.txs && message.txs.length))
+                            message.txs = [];
+                        message.txs.push(reader.bytes());
+                        break;
+                    case 3:
+                        message.localLastCommit = $root.tendermint.abci.ExtendedCommitInfo.decode(reader, reader.uint32());
+                        break;
+                    case 4:
+                        if (!(message.misbehavior && message.misbehavior.length))
+                            message.misbehavior = [];
+                        message.misbehavior.push($root.tendermint.abci.Misbehavior.decode(reader, reader.uint32()));
+                        break;
+                    case 5:
+                        message.height = reader.int64();
+                        break;
+                    case 6:
+                        message.time = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                        break;
+                    case 7:
+                        message.nextValidatorsHash = reader.bytes();
+                        break;
+                    case 8:
+                        message.round = reader.int32();
+                        break;
+                    case 100:
+                        message.coreChainLockedHeight = reader.uint32();
+                        break;
+                    case 101:
+                        message.proposerProTxHash = reader.bytes();
+                        break;
+                    case 102:
+                        message.proposedAppVersion = reader.uint64();
+                        break;
+                    case 103:
+                        message.version = $root.tendermint.version.Consensus.decode(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a RequestPrepareProposal message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.RequestPrepareProposal} RequestPrepareProposal
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestPrepareProposal.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a RequestPrepareProposal message.
+             * @function verify
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RequestPrepareProposal.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.maxTxBytes != null && message.hasOwnProperty("maxTxBytes"))
+                    if (!$util.isInteger(message.maxTxBytes) && !(message.maxTxBytes && $util.isInteger(message.maxTxBytes.low) && $util.isInteger(message.maxTxBytes.high)))
+                        return "maxTxBytes: integer|Long expected";
+                if (message.txs != null && message.hasOwnProperty("txs")) {
+                    if (!Array.isArray(message.txs))
+                        return "txs: array expected";
+                    for (var i = 0; i < message.txs.length; ++i)
+                        if (!(message.txs[i] && typeof message.txs[i].length === "number" || $util.isString(message.txs[i])))
+                            return "txs: buffer[] expected";
+                }
+                if (message.localLastCommit != null && message.hasOwnProperty("localLastCommit")) {
+                    var error = $root.tendermint.abci.ExtendedCommitInfo.verify(message.localLastCommit);
+                    if (error)
+                        return "localLastCommit." + error;
+                }
+                if (message.misbehavior != null && message.hasOwnProperty("misbehavior")) {
+                    if (!Array.isArray(message.misbehavior))
+                        return "misbehavior: array expected";
+                    for (var i = 0; i < message.misbehavior.length; ++i) {
+                        var error = $root.tendermint.abci.Misbehavior.verify(message.misbehavior[i]);
+                        if (error)
+                            return "misbehavior." + error;
+                    }
+                }
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
+                        return "height: integer|Long expected";
+                if (message.time != null && message.hasOwnProperty("time")) {
+                    var error = $root.google.protobuf.Timestamp.verify(message.time);
+                    if (error)
+                        return "time." + error;
+                }
+                if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
+                    if (!(message.nextValidatorsHash && typeof message.nextValidatorsHash.length === "number" || $util.isString(message.nextValidatorsHash)))
+                        return "nextValidatorsHash: buffer expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
+                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
+                    if (!$util.isInteger(message.coreChainLockedHeight))
+                        return "coreChainLockedHeight: integer expected";
+                if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
+                    if (!(message.proposerProTxHash && typeof message.proposerProTxHash.length === "number" || $util.isString(message.proposerProTxHash)))
+                        return "proposerProTxHash: buffer expected";
+                if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
+                    if (!$util.isInteger(message.proposedAppVersion) && !(message.proposedAppVersion && $util.isInteger(message.proposedAppVersion.low) && $util.isInteger(message.proposedAppVersion.high)))
+                        return "proposedAppVersion: integer|Long expected";
+                if (message.version != null && message.hasOwnProperty("version")) {
+                    var error = $root.tendermint.version.Consensus.verify(message.version);
+                    if (error)
+                        return "version." + error;
+                }
+                return null;
+            };
+
+            /**
+             * Creates a RequestPrepareProposal message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.RequestPrepareProposal} RequestPrepareProposal
+             */
+            RequestPrepareProposal.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.RequestPrepareProposal)
+                    return object;
+                var message = new $root.tendermint.abci.RequestPrepareProposal();
+                if (object.maxTxBytes != null)
+                    if ($util.Long)
+                        (message.maxTxBytes = $util.Long.fromValue(object.maxTxBytes)).unsigned = false;
+                    else if (typeof object.maxTxBytes === "string")
+                        message.maxTxBytes = parseInt(object.maxTxBytes, 10);
+                    else if (typeof object.maxTxBytes === "number")
+                        message.maxTxBytes = object.maxTxBytes;
+                    else if (typeof object.maxTxBytes === "object")
+                        message.maxTxBytes = new $util.LongBits(object.maxTxBytes.low >>> 0, object.maxTxBytes.high >>> 0).toNumber();
+                if (object.txs) {
+                    if (!Array.isArray(object.txs))
+                        throw TypeError(".tendermint.abci.RequestPrepareProposal.txs: array expected");
+                    message.txs = [];
+                    for (var i = 0; i < object.txs.length; ++i)
+                        if (typeof object.txs[i] === "string")
+                            $util.base64.decode(object.txs[i], message.txs[i] = $util.newBuffer($util.base64.length(object.txs[i])), 0);
+                        else if (object.txs[i].length >= 0)
+                            message.txs[i] = object.txs[i];
+                }
+                if (object.localLastCommit != null) {
+                    if (typeof object.localLastCommit !== "object")
+                        throw TypeError(".tendermint.abci.RequestPrepareProposal.localLastCommit: object expected");
+                    message.localLastCommit = $root.tendermint.abci.ExtendedCommitInfo.fromObject(object.localLastCommit);
+                }
+                if (object.misbehavior) {
+                    if (!Array.isArray(object.misbehavior))
+                        throw TypeError(".tendermint.abci.RequestPrepareProposal.misbehavior: array expected");
+                    message.misbehavior = [];
+                    for (var i = 0; i < object.misbehavior.length; ++i) {
+                        if (typeof object.misbehavior[i] !== "object")
+                            throw TypeError(".tendermint.abci.RequestPrepareProposal.misbehavior: object expected");
+                        message.misbehavior[i] = $root.tendermint.abci.Misbehavior.fromObject(object.misbehavior[i]);
+                    }
+                }
+                if (object.height != null)
+                    if ($util.Long)
+                        (message.height = $util.Long.fromValue(object.height)).unsigned = false;
+                    else if (typeof object.height === "string")
+                        message.height = parseInt(object.height, 10);
+                    else if (typeof object.height === "number")
+                        message.height = object.height;
+                    else if (typeof object.height === "object")
+                        message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.time != null) {
+                    if (typeof object.time !== "object")
+                        throw TypeError(".tendermint.abci.RequestPrepareProposal.time: object expected");
+                    message.time = $root.google.protobuf.Timestamp.fromObject(object.time);
+                }
+                if (object.nextValidatorsHash != null)
+                    if (typeof object.nextValidatorsHash === "string")
+                        $util.base64.decode(object.nextValidatorsHash, message.nextValidatorsHash = $util.newBuffer($util.base64.length(object.nextValidatorsHash)), 0);
+                    else if (object.nextValidatorsHash.length >= 0)
+                        message.nextValidatorsHash = object.nextValidatorsHash;
+                if (object.round != null)
+                    message.round = object.round | 0;
+                if (object.coreChainLockedHeight != null)
+                    message.coreChainLockedHeight = object.coreChainLockedHeight >>> 0;
+                if (object.proposerProTxHash != null)
+                    if (typeof object.proposerProTxHash === "string")
+                        $util.base64.decode(object.proposerProTxHash, message.proposerProTxHash = $util.newBuffer($util.base64.length(object.proposerProTxHash)), 0);
+                    else if (object.proposerProTxHash.length >= 0)
+                        message.proposerProTxHash = object.proposerProTxHash;
+                if (object.proposedAppVersion != null)
+                    if ($util.Long)
+                        (message.proposedAppVersion = $util.Long.fromValue(object.proposedAppVersion)).unsigned = true;
+                    else if (typeof object.proposedAppVersion === "string")
+                        message.proposedAppVersion = parseInt(object.proposedAppVersion, 10);
+                    else if (typeof object.proposedAppVersion === "number")
+                        message.proposedAppVersion = object.proposedAppVersion;
+                    else if (typeof object.proposedAppVersion === "object")
+                        message.proposedAppVersion = new $util.LongBits(object.proposedAppVersion.low >>> 0, object.proposedAppVersion.high >>> 0).toNumber(true);
+                if (object.version != null) {
+                    if (typeof object.version !== "object")
+                        throw TypeError(".tendermint.abci.RequestPrepareProposal.version: object expected");
+                    message.version = $root.tendermint.version.Consensus.fromObject(object.version);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a RequestPrepareProposal message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @static
+             * @param {tendermint.abci.RequestPrepareProposal} message RequestPrepareProposal
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RequestPrepareProposal.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults) {
+                    object.txs = [];
+                    object.misbehavior = [];
+                }
+                if (options.defaults) {
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.maxTxBytes = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.maxTxBytes = options.longs === String ? "0" : 0;
+                    object.localLastCommit = null;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.height = options.longs === String ? "0" : 0;
+                    object.time = null;
+                    if (options.bytes === String)
+                        object.nextValidatorsHash = "";
+                    else {
+                        object.nextValidatorsHash = [];
+                        if (options.bytes !== Array)
+                            object.nextValidatorsHash = $util.newBuffer(object.nextValidatorsHash);
+                    }
+                    object.round = 0;
+                    object.coreChainLockedHeight = 0;
+                    if (options.bytes === String)
+                        object.proposerProTxHash = "";
+                    else {
+                        object.proposerProTxHash = [];
+                        if (options.bytes !== Array)
+                            object.proposerProTxHash = $util.newBuffer(object.proposerProTxHash);
+                    }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, true);
+                        object.proposedAppVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.proposedAppVersion = options.longs === String ? "0" : 0;
+                    object.version = null;
+                }
+                if (message.maxTxBytes != null && message.hasOwnProperty("maxTxBytes"))
+                    if (typeof message.maxTxBytes === "number")
+                        object.maxTxBytes = options.longs === String ? String(message.maxTxBytes) : message.maxTxBytes;
+                    else
+                        object.maxTxBytes = options.longs === String ? $util.Long.prototype.toString.call(message.maxTxBytes) : options.longs === Number ? new $util.LongBits(message.maxTxBytes.low >>> 0, message.maxTxBytes.high >>> 0).toNumber() : message.maxTxBytes;
+                if (message.txs && message.txs.length) {
+                    object.txs = [];
+                    for (var j = 0; j < message.txs.length; ++j)
+                        object.txs[j] = options.bytes === String ? $util.base64.encode(message.txs[j], 0, message.txs[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.txs[j]) : message.txs[j];
+                }
+                if (message.localLastCommit != null && message.hasOwnProperty("localLastCommit"))
+                    object.localLastCommit = $root.tendermint.abci.ExtendedCommitInfo.toObject(message.localLastCommit, options);
+                if (message.misbehavior && message.misbehavior.length) {
+                    object.misbehavior = [];
+                    for (var j = 0; j < message.misbehavior.length; ++j)
+                        object.misbehavior[j] = $root.tendermint.abci.Misbehavior.toObject(message.misbehavior[j], options);
+                }
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (typeof message.height === "number")
+                        object.height = options.longs === String ? String(message.height) : message.height;
+                    else
+                        object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.time != null && message.hasOwnProperty("time"))
+                    object.time = $root.google.protobuf.Timestamp.toObject(message.time, options);
+                if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
+                    object.nextValidatorsHash = options.bytes === String ? $util.base64.encode(message.nextValidatorsHash, 0, message.nextValidatorsHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.nextValidatorsHash) : message.nextValidatorsHash;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
+                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
+                    object.coreChainLockedHeight = message.coreChainLockedHeight;
+                if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
+                    object.proposerProTxHash = options.bytes === String ? $util.base64.encode(message.proposerProTxHash, 0, message.proposerProTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proposerProTxHash) : message.proposerProTxHash;
+                if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
+                    if (typeof message.proposedAppVersion === "number")
+                        object.proposedAppVersion = options.longs === String ? String(message.proposedAppVersion) : message.proposedAppVersion;
+                    else
+                        object.proposedAppVersion = options.longs === String ? $util.Long.prototype.toString.call(message.proposedAppVersion) : options.longs === Number ? new $util.LongBits(message.proposedAppVersion.low >>> 0, message.proposedAppVersion.high >>> 0).toNumber(true) : message.proposedAppVersion;
+                if (message.version != null && message.hasOwnProperty("version"))
+                    object.version = $root.tendermint.version.Consensus.toObject(message.version, options);
+                return object;
+            };
+
+            /**
+             * Converts this RequestPrepareProposal to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RequestPrepareProposal.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return RequestPrepareProposal;
+        })();
+
+        abci.RequestProcessProposal = (function() {
+
+            /**
+             * Properties of a RequestProcessProposal.
+             * @memberof tendermint.abci
+             * @interface IRequestProcessProposal
+             * @property {Array.<Uint8Array>|null} [txs] RequestProcessProposal txs
+             * @property {tendermint.abci.ICommitInfo|null} [proposedLastCommit] RequestProcessProposal proposedLastCommit
+             * @property {Array.<tendermint.abci.IMisbehavior>|null} [misbehavior] RequestProcessProposal misbehavior
+             * @property {Uint8Array|null} [hash] RequestProcessProposal hash
+             * @property {number|Long|null} [height] RequestProcessProposal height
+             * @property {number|null} [round] RequestProcessProposal round
+             * @property {google.protobuf.ITimestamp|null} [time] RequestProcessProposal time
+             * @property {Uint8Array|null} [nextValidatorsHash] RequestProcessProposal nextValidatorsHash
+             * @property {number|null} [coreChainLockedHeight] RequestProcessProposal coreChainLockedHeight
+             * @property {Uint8Array|null} [proposerProTxHash] RequestProcessProposal proposerProTxHash
+             * @property {number|Long|null} [proposedAppVersion] RequestProcessProposal proposedAppVersion
+             * @property {tendermint.version.IConsensus|null} [version] RequestProcessProposal version
+             * @property {tendermint.types.ICoreChainLock|null} [coreChainLockUpdate] RequestProcessProposal coreChainLockUpdate
+             */
+
+            /**
+             * Constructs a new RequestProcessProposal.
+             * @memberof tendermint.abci
+             * @classdesc Represents a RequestProcessProposal.
+             * @implements IRequestProcessProposal
+             * @constructor
+             * @param {tendermint.abci.IRequestProcessProposal=} [properties] Properties to set
+             */
+            function RequestProcessProposal(properties) {
+                this.txs = [];
+                this.misbehavior = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * RequestProcessProposal txs.
+             * @member {Array.<Uint8Array>} txs
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.txs = $util.emptyArray;
+
+            /**
+             * RequestProcessProposal proposedLastCommit.
+             * @member {tendermint.abci.ICommitInfo|null|undefined} proposedLastCommit
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.proposedLastCommit = null;
+
+            /**
+             * RequestProcessProposal misbehavior.
+             * @member {Array.<tendermint.abci.IMisbehavior>} misbehavior
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.misbehavior = $util.emptyArray;
+
+            /**
+             * RequestProcessProposal hash.
+             * @member {Uint8Array} hash
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.hash = $util.newBuffer([]);
+
+            /**
+             * RequestProcessProposal height.
+             * @member {number|Long} height
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * RequestProcessProposal round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.round = 0;
+
+            /**
+             * RequestProcessProposal time.
+             * @member {google.protobuf.ITimestamp|null|undefined} time
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.time = null;
+
+            /**
+             * RequestProcessProposal nextValidatorsHash.
+             * @member {Uint8Array} nextValidatorsHash
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.nextValidatorsHash = $util.newBuffer([]);
+
+            /**
+             * RequestProcessProposal coreChainLockedHeight.
+             * @member {number} coreChainLockedHeight
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.coreChainLockedHeight = 0;
+
+            /**
+             * RequestProcessProposal proposerProTxHash.
+             * @member {Uint8Array} proposerProTxHash
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.proposerProTxHash = $util.newBuffer([]);
+
+            /**
+             * RequestProcessProposal proposedAppVersion.
+             * @member {number|Long} proposedAppVersion
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.proposedAppVersion = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+            /**
+             * RequestProcessProposal version.
+             * @member {tendermint.version.IConsensus|null|undefined} version
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.version = null;
+
+            /**
+             * RequestProcessProposal coreChainLockUpdate.
+             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLockUpdate
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.coreChainLockUpdate = null;
+
+            /**
+             * Creates a new RequestProcessProposal instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @static
+             * @param {tendermint.abci.IRequestProcessProposal=} [properties] Properties to set
+             * @returns {tendermint.abci.RequestProcessProposal} RequestProcessProposal instance
+             */
+            RequestProcessProposal.create = function create(properties) {
+                return new RequestProcessProposal(properties);
+            };
+
+            /**
+             * Encodes the specified RequestProcessProposal message. Does not implicitly {@link tendermint.abci.RequestProcessProposal.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @static
+             * @param {tendermint.abci.IRequestProcessProposal} message RequestProcessProposal message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestProcessProposal.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.txs != null && message.txs.length)
+                    for (var i = 0; i < message.txs.length; ++i)
+                        writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.txs[i]);
+                if (message.proposedLastCommit != null && Object.hasOwnProperty.call(message, "proposedLastCommit"))
+                    $root.tendermint.abci.CommitInfo.encode(message.proposedLastCommit, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.misbehavior != null && message.misbehavior.length)
+                    for (var i = 0; i < message.misbehavior.length; ++i)
+                        $root.tendermint.abci.Misbehavior.encode(message.misbehavior[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.hash != null && Object.hasOwnProperty.call(message, "hash"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.hash);
+                if (message.height != null && Object.hasOwnProperty.call(message, "height"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).int64(message.height);
+                if (message.time != null && Object.hasOwnProperty.call(message, "time"))
+                    $root.google.protobuf.Timestamp.encode(message.time, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                if (message.nextValidatorsHash != null && Object.hasOwnProperty.call(message, "nextValidatorsHash"))
+                    writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.nextValidatorsHash);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.round);
+                if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
+                    writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
+                if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
+                    writer.uint32(/* id 101, wireType 2 =*/810).bytes(message.proposerProTxHash);
+                if (message.proposedAppVersion != null && Object.hasOwnProperty.call(message, "proposedAppVersion"))
+                    writer.uint32(/* id 102, wireType 0 =*/816).uint64(message.proposedAppVersion);
+                if (message.version != null && Object.hasOwnProperty.call(message, "version"))
+                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 103, wireType 2 =*/826).fork()).ldelim();
+                if (message.coreChainLockUpdate != null && Object.hasOwnProperty.call(message, "coreChainLockUpdate"))
+                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 104, wireType 2 =*/834).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified RequestProcessProposal message, length delimited. Does not implicitly {@link tendermint.abci.RequestProcessProposal.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @static
+             * @param {tendermint.abci.IRequestProcessProposal} message RequestProcessProposal message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestProcessProposal.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a RequestProcessProposal message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.RequestProcessProposal} RequestProcessProposal
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestProcessProposal.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestProcessProposal();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        if (!(message.txs && message.txs.length))
+                            message.txs = [];
+                        message.txs.push(reader.bytes());
+                        break;
+                    case 2:
+                        message.proposedLastCommit = $root.tendermint.abci.CommitInfo.decode(reader, reader.uint32());
+                        break;
+                    case 3:
+                        if (!(message.misbehavior && message.misbehavior.length))
+                            message.misbehavior = [];
+                        message.misbehavior.push($root.tendermint.abci.Misbehavior.decode(reader, reader.uint32()));
+                        break;
+                    case 4:
+                        message.hash = reader.bytes();
+                        break;
+                    case 5:
+                        message.height = reader.int64();
+                        break;
+                    case 8:
+                        message.round = reader.int32();
+                        break;
+                    case 6:
+                        message.time = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                        break;
+                    case 7:
+                        message.nextValidatorsHash = reader.bytes();
+                        break;
+                    case 100:
+                        message.coreChainLockedHeight = reader.uint32();
+                        break;
+                    case 101:
+                        message.proposerProTxHash = reader.bytes();
+                        break;
+                    case 102:
+                        message.proposedAppVersion = reader.uint64();
+                        break;
+                    case 103:
+                        message.version = $root.tendermint.version.Consensus.decode(reader, reader.uint32());
+                        break;
+                    case 104:
+                        message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a RequestProcessProposal message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.RequestProcessProposal} RequestProcessProposal
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestProcessProposal.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a RequestProcessProposal message.
+             * @function verify
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RequestProcessProposal.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.txs != null && message.hasOwnProperty("txs")) {
+                    if (!Array.isArray(message.txs))
+                        return "txs: array expected";
+                    for (var i = 0; i < message.txs.length; ++i)
+                        if (!(message.txs[i] && typeof message.txs[i].length === "number" || $util.isString(message.txs[i])))
+                            return "txs: buffer[] expected";
+                }
+                if (message.proposedLastCommit != null && message.hasOwnProperty("proposedLastCommit")) {
+                    var error = $root.tendermint.abci.CommitInfo.verify(message.proposedLastCommit);
+                    if (error)
+                        return "proposedLastCommit." + error;
+                }
+                if (message.misbehavior != null && message.hasOwnProperty("misbehavior")) {
+                    if (!Array.isArray(message.misbehavior))
+                        return "misbehavior: array expected";
+                    for (var i = 0; i < message.misbehavior.length; ++i) {
+                        var error = $root.tendermint.abci.Misbehavior.verify(message.misbehavior[i]);
+                        if (error)
+                            return "misbehavior." + error;
+                    }
+                }
+                if (message.hash != null && message.hasOwnProperty("hash"))
+                    if (!(message.hash && typeof message.hash.length === "number" || $util.isString(message.hash)))
+                        return "hash: buffer expected";
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
+                        return "height: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
+                if (message.time != null && message.hasOwnProperty("time")) {
+                    var error = $root.google.protobuf.Timestamp.verify(message.time);
+                    if (error)
+                        return "time." + error;
+                }
+                if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
+                    if (!(message.nextValidatorsHash && typeof message.nextValidatorsHash.length === "number" || $util.isString(message.nextValidatorsHash)))
+                        return "nextValidatorsHash: buffer expected";
+                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
+                    if (!$util.isInteger(message.coreChainLockedHeight))
+                        return "coreChainLockedHeight: integer expected";
+                if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
+                    if (!(message.proposerProTxHash && typeof message.proposerProTxHash.length === "number" || $util.isString(message.proposerProTxHash)))
+                        return "proposerProTxHash: buffer expected";
+                if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
+                    if (!$util.isInteger(message.proposedAppVersion) && !(message.proposedAppVersion && $util.isInteger(message.proposedAppVersion.low) && $util.isInteger(message.proposedAppVersion.high)))
+                        return "proposedAppVersion: integer|Long expected";
+                if (message.version != null && message.hasOwnProperty("version")) {
+                    var error = $root.tendermint.version.Consensus.verify(message.version);
+                    if (error)
+                        return "version." + error;
+                }
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate")) {
+                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLockUpdate);
+                    if (error)
+                        return "coreChainLockUpdate." + error;
+                }
+                return null;
+            };
+
+            /**
+             * Creates a RequestProcessProposal message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.RequestProcessProposal} RequestProcessProposal
+             */
+            RequestProcessProposal.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.RequestProcessProposal)
+                    return object;
+                var message = new $root.tendermint.abci.RequestProcessProposal();
+                if (object.txs) {
+                    if (!Array.isArray(object.txs))
+                        throw TypeError(".tendermint.abci.RequestProcessProposal.txs: array expected");
+                    message.txs = [];
+                    for (var i = 0; i < object.txs.length; ++i)
+                        if (typeof object.txs[i] === "string")
+                            $util.base64.decode(object.txs[i], message.txs[i] = $util.newBuffer($util.base64.length(object.txs[i])), 0);
+                        else if (object.txs[i].length >= 0)
+                            message.txs[i] = object.txs[i];
+                }
+                if (object.proposedLastCommit != null) {
+                    if (typeof object.proposedLastCommit !== "object")
+                        throw TypeError(".tendermint.abci.RequestProcessProposal.proposedLastCommit: object expected");
+                    message.proposedLastCommit = $root.tendermint.abci.CommitInfo.fromObject(object.proposedLastCommit);
+                }
+                if (object.misbehavior) {
+                    if (!Array.isArray(object.misbehavior))
+                        throw TypeError(".tendermint.abci.RequestProcessProposal.misbehavior: array expected");
+                    message.misbehavior = [];
+                    for (var i = 0; i < object.misbehavior.length; ++i) {
+                        if (typeof object.misbehavior[i] !== "object")
+                            throw TypeError(".tendermint.abci.RequestProcessProposal.misbehavior: object expected");
+                        message.misbehavior[i] = $root.tendermint.abci.Misbehavior.fromObject(object.misbehavior[i]);
+                    }
+                }
+                if (object.hash != null)
+                    if (typeof object.hash === "string")
+                        $util.base64.decode(object.hash, message.hash = $util.newBuffer($util.base64.length(object.hash)), 0);
+                    else if (object.hash.length >= 0)
+                        message.hash = object.hash;
+                if (object.height != null)
+                    if ($util.Long)
+                        (message.height = $util.Long.fromValue(object.height)).unsigned = false;
+                    else if (typeof object.height === "string")
+                        message.height = parseInt(object.height, 10);
+                    else if (typeof object.height === "number")
+                        message.height = object.height;
+                    else if (typeof object.height === "object")
+                        message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
+                if (object.time != null) {
+                    if (typeof object.time !== "object")
+                        throw TypeError(".tendermint.abci.RequestProcessProposal.time: object expected");
+                    message.time = $root.google.protobuf.Timestamp.fromObject(object.time);
+                }
+                if (object.nextValidatorsHash != null)
+                    if (typeof object.nextValidatorsHash === "string")
+                        $util.base64.decode(object.nextValidatorsHash, message.nextValidatorsHash = $util.newBuffer($util.base64.length(object.nextValidatorsHash)), 0);
+                    else if (object.nextValidatorsHash.length >= 0)
+                        message.nextValidatorsHash = object.nextValidatorsHash;
+                if (object.coreChainLockedHeight != null)
+                    message.coreChainLockedHeight = object.coreChainLockedHeight >>> 0;
+                if (object.proposerProTxHash != null)
+                    if (typeof object.proposerProTxHash === "string")
+                        $util.base64.decode(object.proposerProTxHash, message.proposerProTxHash = $util.newBuffer($util.base64.length(object.proposerProTxHash)), 0);
+                    else if (object.proposerProTxHash.length >= 0)
+                        message.proposerProTxHash = object.proposerProTxHash;
+                if (object.proposedAppVersion != null)
+                    if ($util.Long)
+                        (message.proposedAppVersion = $util.Long.fromValue(object.proposedAppVersion)).unsigned = true;
+                    else if (typeof object.proposedAppVersion === "string")
+                        message.proposedAppVersion = parseInt(object.proposedAppVersion, 10);
+                    else if (typeof object.proposedAppVersion === "number")
+                        message.proposedAppVersion = object.proposedAppVersion;
+                    else if (typeof object.proposedAppVersion === "object")
+                        message.proposedAppVersion = new $util.LongBits(object.proposedAppVersion.low >>> 0, object.proposedAppVersion.high >>> 0).toNumber(true);
+                if (object.version != null) {
+                    if (typeof object.version !== "object")
+                        throw TypeError(".tendermint.abci.RequestProcessProposal.version: object expected");
+                    message.version = $root.tendermint.version.Consensus.fromObject(object.version);
+                }
+                if (object.coreChainLockUpdate != null) {
+                    if (typeof object.coreChainLockUpdate !== "object")
+                        throw TypeError(".tendermint.abci.RequestProcessProposal.coreChainLockUpdate: object expected");
+                    message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLockUpdate);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a RequestProcessProposal message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @static
+             * @param {tendermint.abci.RequestProcessProposal} message RequestProcessProposal
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RequestProcessProposal.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults) {
+                    object.txs = [];
+                    object.misbehavior = [];
+                }
+                if (options.defaults) {
+                    object.proposedLastCommit = null;
+                    if (options.bytes === String)
+                        object.hash = "";
+                    else {
+                        object.hash = [];
+                        if (options.bytes !== Array)
+                            object.hash = $util.newBuffer(object.hash);
+                    }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.height = options.longs === String ? "0" : 0;
+                    object.time = null;
+                    if (options.bytes === String)
+                        object.nextValidatorsHash = "";
+                    else {
+                        object.nextValidatorsHash = [];
+                        if (options.bytes !== Array)
+                            object.nextValidatorsHash = $util.newBuffer(object.nextValidatorsHash);
+                    }
+                    object.round = 0;
+                    object.coreChainLockedHeight = 0;
+                    if (options.bytes === String)
+                        object.proposerProTxHash = "";
+                    else {
+                        object.proposerProTxHash = [];
+                        if (options.bytes !== Array)
+                            object.proposerProTxHash = $util.newBuffer(object.proposerProTxHash);
+                    }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, true);
+                        object.proposedAppVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.proposedAppVersion = options.longs === String ? "0" : 0;
+                    object.version = null;
+                    object.coreChainLockUpdate = null;
+                }
+                if (message.txs && message.txs.length) {
+                    object.txs = [];
+                    for (var j = 0; j < message.txs.length; ++j)
+                        object.txs[j] = options.bytes === String ? $util.base64.encode(message.txs[j], 0, message.txs[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.txs[j]) : message.txs[j];
+                }
+                if (message.proposedLastCommit != null && message.hasOwnProperty("proposedLastCommit"))
+                    object.proposedLastCommit = $root.tendermint.abci.CommitInfo.toObject(message.proposedLastCommit, options);
+                if (message.misbehavior && message.misbehavior.length) {
+                    object.misbehavior = [];
+                    for (var j = 0; j < message.misbehavior.length; ++j)
+                        object.misbehavior[j] = $root.tendermint.abci.Misbehavior.toObject(message.misbehavior[j], options);
+                }
+                if (message.hash != null && message.hasOwnProperty("hash"))
+                    object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (typeof message.height === "number")
+                        object.height = options.longs === String ? String(message.height) : message.height;
+                    else
+                        object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.time != null && message.hasOwnProperty("time"))
+                    object.time = $root.google.protobuf.Timestamp.toObject(message.time, options);
+                if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
+                    object.nextValidatorsHash = options.bytes === String ? $util.base64.encode(message.nextValidatorsHash, 0, message.nextValidatorsHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.nextValidatorsHash) : message.nextValidatorsHash;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
+                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
+                    object.coreChainLockedHeight = message.coreChainLockedHeight;
+                if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
+                    object.proposerProTxHash = options.bytes === String ? $util.base64.encode(message.proposerProTxHash, 0, message.proposerProTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proposerProTxHash) : message.proposerProTxHash;
+                if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
+                    if (typeof message.proposedAppVersion === "number")
+                        object.proposedAppVersion = options.longs === String ? String(message.proposedAppVersion) : message.proposedAppVersion;
+                    else
+                        object.proposedAppVersion = options.longs === String ? $util.Long.prototype.toString.call(message.proposedAppVersion) : options.longs === Number ? new $util.LongBits(message.proposedAppVersion.low >>> 0, message.proposedAppVersion.high >>> 0).toNumber(true) : message.proposedAppVersion;
+                if (message.version != null && message.hasOwnProperty("version"))
+                    object.version = $root.tendermint.version.Consensus.toObject(message.version, options);
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
+                    object.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLockUpdate, options);
+                return object;
+            };
+
+            /**
+             * Converts this RequestProcessProposal to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RequestProcessProposal.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return RequestProcessProposal;
+        })();
+
+        abci.RequestExtendVote = (function() {
+
+            /**
+             * Properties of a RequestExtendVote.
+             * @memberof tendermint.abci
+             * @interface IRequestExtendVote
+             * @property {Uint8Array|null} [hash] RequestExtendVote hash
+             * @property {number|Long|null} [height] RequestExtendVote height
+             * @property {number|null} [round] RequestExtendVote round
+             */
+
+            /**
+             * Constructs a new RequestExtendVote.
+             * @memberof tendermint.abci
+             * @classdesc Represents a RequestExtendVote.
+             * @implements IRequestExtendVote
+             * @constructor
+             * @param {tendermint.abci.IRequestExtendVote=} [properties] Properties to set
+             */
+            function RequestExtendVote(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * RequestExtendVote hash.
+             * @member {Uint8Array} hash
+             * @memberof tendermint.abci.RequestExtendVote
+             * @instance
+             */
+            RequestExtendVote.prototype.hash = $util.newBuffer([]);
+
+            /**
+             * RequestExtendVote height.
+             * @member {number|Long} height
+             * @memberof tendermint.abci.RequestExtendVote
+             * @instance
+             */
+            RequestExtendVote.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * RequestExtendVote round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestExtendVote
+             * @instance
+             */
+            RequestExtendVote.prototype.round = 0;
+
+            /**
+             * Creates a new RequestExtendVote instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.RequestExtendVote
+             * @static
+             * @param {tendermint.abci.IRequestExtendVote=} [properties] Properties to set
+             * @returns {tendermint.abci.RequestExtendVote} RequestExtendVote instance
+             */
+            RequestExtendVote.create = function create(properties) {
+                return new RequestExtendVote(properties);
+            };
+
+            /**
+             * Encodes the specified RequestExtendVote message. Does not implicitly {@link tendermint.abci.RequestExtendVote.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.RequestExtendVote
+             * @static
+             * @param {tendermint.abci.IRequestExtendVote} message RequestExtendVote message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestExtendVote.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.hash != null && Object.hasOwnProperty.call(message, "hash"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.hash);
+                if (message.height != null && Object.hasOwnProperty.call(message, "height"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).int64(message.height);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).int32(message.round);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified RequestExtendVote message, length delimited. Does not implicitly {@link tendermint.abci.RequestExtendVote.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.RequestExtendVote
+             * @static
+             * @param {tendermint.abci.IRequestExtendVote} message RequestExtendVote message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestExtendVote.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a RequestExtendVote message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.RequestExtendVote
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.RequestExtendVote} RequestExtendVote
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestExtendVote.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestExtendVote();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.hash = reader.bytes();
+                        break;
+                    case 2:
+                        message.height = reader.int64();
+                        break;
+                    case 3:
+                        message.round = reader.int32();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a RequestExtendVote message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.RequestExtendVote
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.RequestExtendVote} RequestExtendVote
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestExtendVote.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a RequestExtendVote message.
+             * @function verify
+             * @memberof tendermint.abci.RequestExtendVote
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RequestExtendVote.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.hash != null && message.hasOwnProperty("hash"))
+                    if (!(message.hash && typeof message.hash.length === "number" || $util.isString(message.hash)))
+                        return "hash: buffer expected";
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
+                        return "height: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
+                return null;
+            };
+
+            /**
+             * Creates a RequestExtendVote message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.RequestExtendVote
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.RequestExtendVote} RequestExtendVote
+             */
+            RequestExtendVote.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.RequestExtendVote)
+                    return object;
+                var message = new $root.tendermint.abci.RequestExtendVote();
+                if (object.hash != null)
+                    if (typeof object.hash === "string")
+                        $util.base64.decode(object.hash, message.hash = $util.newBuffer($util.base64.length(object.hash)), 0);
+                    else if (object.hash.length >= 0)
+                        message.hash = object.hash;
+                if (object.height != null)
+                    if ($util.Long)
+                        (message.height = $util.Long.fromValue(object.height)).unsigned = false;
+                    else if (typeof object.height === "string")
+                        message.height = parseInt(object.height, 10);
+                    else if (typeof object.height === "number")
+                        message.height = object.height;
+                    else if (typeof object.height === "object")
+                        message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a RequestExtendVote message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.RequestExtendVote
+             * @static
+             * @param {tendermint.abci.RequestExtendVote} message RequestExtendVote
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RequestExtendVote.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    if (options.bytes === String)
+                        object.hash = "";
+                    else {
+                        object.hash = [];
+                        if (options.bytes !== Array)
+                            object.hash = $util.newBuffer(object.hash);
+                    }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.height = options.longs === String ? "0" : 0;
+                    object.round = 0;
+                }
+                if (message.hash != null && message.hasOwnProperty("hash"))
+                    object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (typeof message.height === "number")
+                        object.height = options.longs === String ? String(message.height) : message.height;
+                    else
+                        object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
+                return object;
+            };
+
+            /**
+             * Converts this RequestExtendVote to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.RequestExtendVote
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RequestExtendVote.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return RequestExtendVote;
+        })();
+
+        abci.RequestVerifyVoteExtension = (function() {
+
+            /**
+             * Properties of a RequestVerifyVoteExtension.
+             * @memberof tendermint.abci
+             * @interface IRequestVerifyVoteExtension
+             * @property {Uint8Array|null} [hash] RequestVerifyVoteExtension hash
+             * @property {Uint8Array|null} [validatorProTxHash] RequestVerifyVoteExtension validatorProTxHash
+             * @property {number|Long|null} [height] RequestVerifyVoteExtension height
+             * @property {number|null} [round] RequestVerifyVoteExtension round
+             * @property {Array.<tendermint.abci.IExtendVoteExtension>|null} [voteExtensions] RequestVerifyVoteExtension voteExtensions
+             */
+
+            /**
+             * Constructs a new RequestVerifyVoteExtension.
+             * @memberof tendermint.abci
+             * @classdesc Represents a RequestVerifyVoteExtension.
+             * @implements IRequestVerifyVoteExtension
+             * @constructor
+             * @param {tendermint.abci.IRequestVerifyVoteExtension=} [properties] Properties to set
+             */
+            function RequestVerifyVoteExtension(properties) {
+                this.voteExtensions = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * RequestVerifyVoteExtension hash.
+             * @member {Uint8Array} hash
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @instance
+             */
+            RequestVerifyVoteExtension.prototype.hash = $util.newBuffer([]);
+
+            /**
+             * RequestVerifyVoteExtension validatorProTxHash.
+             * @member {Uint8Array} validatorProTxHash
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @instance
+             */
+            RequestVerifyVoteExtension.prototype.validatorProTxHash = $util.newBuffer([]);
+
+            /**
+             * RequestVerifyVoteExtension height.
+             * @member {number|Long} height
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @instance
+             */
+            RequestVerifyVoteExtension.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * RequestVerifyVoteExtension round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @instance
+             */
+            RequestVerifyVoteExtension.prototype.round = 0;
+
+            /**
+             * RequestVerifyVoteExtension voteExtensions.
+             * @member {Array.<tendermint.abci.IExtendVoteExtension>} voteExtensions
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @instance
+             */
+            RequestVerifyVoteExtension.prototype.voteExtensions = $util.emptyArray;
+
+            /**
+             * Creates a new RequestVerifyVoteExtension instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @static
+             * @param {tendermint.abci.IRequestVerifyVoteExtension=} [properties] Properties to set
+             * @returns {tendermint.abci.RequestVerifyVoteExtension} RequestVerifyVoteExtension instance
+             */
+            RequestVerifyVoteExtension.create = function create(properties) {
+                return new RequestVerifyVoteExtension(properties);
+            };
+
+            /**
+             * Encodes the specified RequestVerifyVoteExtension message. Does not implicitly {@link tendermint.abci.RequestVerifyVoteExtension.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @static
+             * @param {tendermint.abci.IRequestVerifyVoteExtension} message RequestVerifyVoteExtension message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestVerifyVoteExtension.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.hash != null && Object.hasOwnProperty.call(message, "hash"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.hash);
+                if (message.validatorProTxHash != null && Object.hasOwnProperty.call(message, "validatorProTxHash"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.validatorProTxHash);
+                if (message.height != null && Object.hasOwnProperty.call(message, "height"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.height);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 4, wireType 0 =*/32).int32(message.round);
+                if (message.voteExtensions != null && message.voteExtensions.length)
+                    for (var i = 0; i < message.voteExtensions.length; ++i)
+                        $root.tendermint.abci.ExtendVoteExtension.encode(message.voteExtensions[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified RequestVerifyVoteExtension message, length delimited. Does not implicitly {@link tendermint.abci.RequestVerifyVoteExtension.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @static
+             * @param {tendermint.abci.IRequestVerifyVoteExtension} message RequestVerifyVoteExtension message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestVerifyVoteExtension.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a RequestVerifyVoteExtension message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.RequestVerifyVoteExtension} RequestVerifyVoteExtension
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestVerifyVoteExtension.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestVerifyVoteExtension();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.hash = reader.bytes();
+                        break;
+                    case 2:
+                        message.validatorProTxHash = reader.bytes();
+                        break;
+                    case 3:
+                        message.height = reader.int64();
+                        break;
+                    case 4:
+                        message.round = reader.int32();
+                        break;
+                    case 5:
+                        if (!(message.voteExtensions && message.voteExtensions.length))
+                            message.voteExtensions = [];
+                        message.voteExtensions.push($root.tendermint.abci.ExtendVoteExtension.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a RequestVerifyVoteExtension message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.RequestVerifyVoteExtension} RequestVerifyVoteExtension
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestVerifyVoteExtension.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a RequestVerifyVoteExtension message.
+             * @function verify
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RequestVerifyVoteExtension.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.hash != null && message.hasOwnProperty("hash"))
+                    if (!(message.hash && typeof message.hash.length === "number" || $util.isString(message.hash)))
+                        return "hash: buffer expected";
+                if (message.validatorProTxHash != null && message.hasOwnProperty("validatorProTxHash"))
+                    if (!(message.validatorProTxHash && typeof message.validatorProTxHash.length === "number" || $util.isString(message.validatorProTxHash)))
+                        return "validatorProTxHash: buffer expected";
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
+                        return "height: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
+                if (message.voteExtensions != null && message.hasOwnProperty("voteExtensions")) {
+                    if (!Array.isArray(message.voteExtensions))
+                        return "voteExtensions: array expected";
+                    for (var i = 0; i < message.voteExtensions.length; ++i) {
+                        var error = $root.tendermint.abci.ExtendVoteExtension.verify(message.voteExtensions[i]);
+                        if (error)
+                            return "voteExtensions." + error;
+                    }
+                }
+                return null;
+            };
+
+            /**
+             * Creates a RequestVerifyVoteExtension message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.RequestVerifyVoteExtension} RequestVerifyVoteExtension
+             */
+            RequestVerifyVoteExtension.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.RequestVerifyVoteExtension)
+                    return object;
+                var message = new $root.tendermint.abci.RequestVerifyVoteExtension();
+                if (object.hash != null)
+                    if (typeof object.hash === "string")
+                        $util.base64.decode(object.hash, message.hash = $util.newBuffer($util.base64.length(object.hash)), 0);
+                    else if (object.hash.length >= 0)
+                        message.hash = object.hash;
+                if (object.validatorProTxHash != null)
+                    if (typeof object.validatorProTxHash === "string")
+                        $util.base64.decode(object.validatorProTxHash, message.validatorProTxHash = $util.newBuffer($util.base64.length(object.validatorProTxHash)), 0);
+                    else if (object.validatorProTxHash.length >= 0)
+                        message.validatorProTxHash = object.validatorProTxHash;
+                if (object.height != null)
+                    if ($util.Long)
+                        (message.height = $util.Long.fromValue(object.height)).unsigned = false;
+                    else if (typeof object.height === "string")
+                        message.height = parseInt(object.height, 10);
+                    else if (typeof object.height === "number")
+                        message.height = object.height;
+                    else if (typeof object.height === "object")
+                        message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
+                if (object.voteExtensions) {
+                    if (!Array.isArray(object.voteExtensions))
+                        throw TypeError(".tendermint.abci.RequestVerifyVoteExtension.voteExtensions: array expected");
+                    message.voteExtensions = [];
+                    for (var i = 0; i < object.voteExtensions.length; ++i) {
+                        if (typeof object.voteExtensions[i] !== "object")
+                            throw TypeError(".tendermint.abci.RequestVerifyVoteExtension.voteExtensions: object expected");
+                        message.voteExtensions[i] = $root.tendermint.abci.ExtendVoteExtension.fromObject(object.voteExtensions[i]);
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a RequestVerifyVoteExtension message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @static
+             * @param {tendermint.abci.RequestVerifyVoteExtension} message RequestVerifyVoteExtension
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RequestVerifyVoteExtension.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.voteExtensions = [];
+                if (options.defaults) {
+                    if (options.bytes === String)
+                        object.hash = "";
+                    else {
+                        object.hash = [];
+                        if (options.bytes !== Array)
+                            object.hash = $util.newBuffer(object.hash);
+                    }
+                    if (options.bytes === String)
+                        object.validatorProTxHash = "";
+                    else {
+                        object.validatorProTxHash = [];
+                        if (options.bytes !== Array)
+                            object.validatorProTxHash = $util.newBuffer(object.validatorProTxHash);
+                    }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.height = options.longs === String ? "0" : 0;
+                    object.round = 0;
+                }
+                if (message.hash != null && message.hasOwnProperty("hash"))
+                    object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
+                if (message.validatorProTxHash != null && message.hasOwnProperty("validatorProTxHash"))
+                    object.validatorProTxHash = options.bytes === String ? $util.base64.encode(message.validatorProTxHash, 0, message.validatorProTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.validatorProTxHash) : message.validatorProTxHash;
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (typeof message.height === "number")
+                        object.height = options.longs === String ? String(message.height) : message.height;
+                    else
+                        object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
+                if (message.voteExtensions && message.voteExtensions.length) {
+                    object.voteExtensions = [];
+                    for (var j = 0; j < message.voteExtensions.length; ++j)
+                        object.voteExtensions[j] = $root.tendermint.abci.ExtendVoteExtension.toObject(message.voteExtensions[j], options);
+                }
+                return object;
+            };
+
+            /**
+             * Converts this RequestVerifyVoteExtension to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.RequestVerifyVoteExtension
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RequestVerifyVoteExtension.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return RequestVerifyVoteExtension;
+        })();
+
+        abci.RequestFinalizeBlock = (function() {
+
+            /**
+             * Properties of a RequestFinalizeBlock.
+             * @memberof tendermint.abci
+             * @interface IRequestFinalizeBlock
+             * @property {tendermint.abci.ICommitInfo|null} [commit] RequestFinalizeBlock commit
+             * @property {Array.<tendermint.abci.IMisbehavior>|null} [misbehavior] RequestFinalizeBlock misbehavior
+             * @property {Uint8Array|null} [hash] RequestFinalizeBlock hash
+             * @property {number|Long|null} [height] RequestFinalizeBlock height
+             * @property {number|null} [round] RequestFinalizeBlock round
+             * @property {tendermint.types.IBlock|null} [block] RequestFinalizeBlock block
+             * @property {tendermint.types.IBlockID|null} [blockId] RequestFinalizeBlock blockId
+             */
+
+            /**
+             * Constructs a new RequestFinalizeBlock.
+             * @memberof tendermint.abci
+             * @classdesc Represents a RequestFinalizeBlock.
+             * @implements IRequestFinalizeBlock
+             * @constructor
+             * @param {tendermint.abci.IRequestFinalizeBlock=} [properties] Properties to set
+             */
+            function RequestFinalizeBlock(properties) {
+                this.misbehavior = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * RequestFinalizeBlock commit.
+             * @member {tendermint.abci.ICommitInfo|null|undefined} commit
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.commit = null;
+
+            /**
+             * RequestFinalizeBlock misbehavior.
+             * @member {Array.<tendermint.abci.IMisbehavior>} misbehavior
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.misbehavior = $util.emptyArray;
+
+            /**
+             * RequestFinalizeBlock hash.
+             * @member {Uint8Array} hash
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.hash = $util.newBuffer([]);
+
+            /**
+             * RequestFinalizeBlock height.
+             * @member {number|Long} height
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * RequestFinalizeBlock round.
+             * @member {number} round
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.round = 0;
+
+            /**
+             * RequestFinalizeBlock block.
+             * @member {tendermint.types.IBlock|null|undefined} block
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.block = null;
+
+            /**
+             * RequestFinalizeBlock blockId.
+             * @member {tendermint.types.IBlockID|null|undefined} blockId
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             */
+            RequestFinalizeBlock.prototype.blockId = null;
+
+            /**
+             * Creates a new RequestFinalizeBlock instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @static
+             * @param {tendermint.abci.IRequestFinalizeBlock=} [properties] Properties to set
+             * @returns {tendermint.abci.RequestFinalizeBlock} RequestFinalizeBlock instance
+             */
+            RequestFinalizeBlock.create = function create(properties) {
+                return new RequestFinalizeBlock(properties);
+            };
+
+            /**
+             * Encodes the specified RequestFinalizeBlock message. Does not implicitly {@link tendermint.abci.RequestFinalizeBlock.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @static
+             * @param {tendermint.abci.IRequestFinalizeBlock} message RequestFinalizeBlock message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestFinalizeBlock.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
+                    $root.tendermint.abci.CommitInfo.encode(message.commit, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.misbehavior != null && message.misbehavior.length)
+                    for (var i = 0; i < message.misbehavior.length; ++i)
+                        $root.tendermint.abci.Misbehavior.encode(message.misbehavior[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.hash != null && Object.hasOwnProperty.call(message, "hash"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.hash);
+                if (message.height != null && Object.hasOwnProperty.call(message, "height"))
+                    writer.uint32(/* id 4, wireType 0 =*/32).int64(message.height);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).int32(message.round);
+                if (message.block != null && Object.hasOwnProperty.call(message, "block"))
+                    $root.tendermint.types.Block.encode(message.block, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                if (message.blockId != null && Object.hasOwnProperty.call(message, "blockId"))
+                    $root.tendermint.types.BlockID.encode(message.blockId, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified RequestFinalizeBlock message, length delimited. Does not implicitly {@link tendermint.abci.RequestFinalizeBlock.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @static
+             * @param {tendermint.abci.IRequestFinalizeBlock} message RequestFinalizeBlock message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RequestFinalizeBlock.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a RequestFinalizeBlock message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.RequestFinalizeBlock} RequestFinalizeBlock
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestFinalizeBlock.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.RequestFinalizeBlock();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.commit = $root.tendermint.abci.CommitInfo.decode(reader, reader.uint32());
+                        break;
+                    case 2:
+                        if (!(message.misbehavior && message.misbehavior.length))
+                            message.misbehavior = [];
+                        message.misbehavior.push($root.tendermint.abci.Misbehavior.decode(reader, reader.uint32()));
+                        break;
+                    case 3:
+                        message.hash = reader.bytes();
+                        break;
+                    case 4:
+                        message.height = reader.int64();
+                        break;
+                    case 5:
+                        message.round = reader.int32();
+                        break;
+                    case 6:
+                        message.block = $root.tendermint.types.Block.decode(reader, reader.uint32());
+                        break;
+                    case 7:
+                        message.blockId = $root.tendermint.types.BlockID.decode(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a RequestFinalizeBlock message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.RequestFinalizeBlock} RequestFinalizeBlock
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RequestFinalizeBlock.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a RequestFinalizeBlock message.
+             * @function verify
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RequestFinalizeBlock.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.commit != null && message.hasOwnProperty("commit")) {
+                    var error = $root.tendermint.abci.CommitInfo.verify(message.commit);
+                    if (error)
+                        return "commit." + error;
+                }
+                if (message.misbehavior != null && message.hasOwnProperty("misbehavior")) {
+                    if (!Array.isArray(message.misbehavior))
+                        return "misbehavior: array expected";
+                    for (var i = 0; i < message.misbehavior.length; ++i) {
+                        var error = $root.tendermint.abci.Misbehavior.verify(message.misbehavior[i]);
+                        if (error)
+                            return "misbehavior." + error;
+                    }
+                }
+                if (message.hash != null && message.hasOwnProperty("hash"))
+                    if (!(message.hash && typeof message.hash.length === "number" || $util.isString(message.hash)))
+                        return "hash: buffer expected";
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
+                        return "height: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
+                if (message.block != null && message.hasOwnProperty("block")) {
+                    var error = $root.tendermint.types.Block.verify(message.block);
+                    if (error)
+                        return "block." + error;
+                }
+                if (message.blockId != null && message.hasOwnProperty("blockId")) {
+                    var error = $root.tendermint.types.BlockID.verify(message.blockId);
+                    if (error)
+                        return "blockId." + error;
+                }
+                return null;
+            };
+
+            /**
+             * Creates a RequestFinalizeBlock message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.RequestFinalizeBlock} RequestFinalizeBlock
+             */
+            RequestFinalizeBlock.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.RequestFinalizeBlock)
+                    return object;
+                var message = new $root.tendermint.abci.RequestFinalizeBlock();
+                if (object.commit != null) {
+                    if (typeof object.commit !== "object")
+                        throw TypeError(".tendermint.abci.RequestFinalizeBlock.commit: object expected");
+                    message.commit = $root.tendermint.abci.CommitInfo.fromObject(object.commit);
+                }
+                if (object.misbehavior) {
+                    if (!Array.isArray(object.misbehavior))
+                        throw TypeError(".tendermint.abci.RequestFinalizeBlock.misbehavior: array expected");
+                    message.misbehavior = [];
+                    for (var i = 0; i < object.misbehavior.length; ++i) {
+                        if (typeof object.misbehavior[i] !== "object")
+                            throw TypeError(".tendermint.abci.RequestFinalizeBlock.misbehavior: object expected");
+                        message.misbehavior[i] = $root.tendermint.abci.Misbehavior.fromObject(object.misbehavior[i]);
+                    }
+                }
+                if (object.hash != null)
+                    if (typeof object.hash === "string")
+                        $util.base64.decode(object.hash, message.hash = $util.newBuffer($util.base64.length(object.hash)), 0);
+                    else if (object.hash.length >= 0)
+                        message.hash = object.hash;
+                if (object.height != null)
+                    if ($util.Long)
+                        (message.height = $util.Long.fromValue(object.height)).unsigned = false;
+                    else if (typeof object.height === "string")
+                        message.height = parseInt(object.height, 10);
+                    else if (typeof object.height === "number")
+                        message.height = object.height;
+                    else if (typeof object.height === "object")
+                        message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
+                if (object.block != null) {
+                    if (typeof object.block !== "object")
+                        throw TypeError(".tendermint.abci.RequestFinalizeBlock.block: object expected");
+                    message.block = $root.tendermint.types.Block.fromObject(object.block);
+                }
+                if (object.blockId != null) {
+                    if (typeof object.blockId !== "object")
+                        throw TypeError(".tendermint.abci.RequestFinalizeBlock.blockId: object expected");
+                    message.blockId = $root.tendermint.types.BlockID.fromObject(object.blockId);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a RequestFinalizeBlock message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @static
+             * @param {tendermint.abci.RequestFinalizeBlock} message RequestFinalizeBlock
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RequestFinalizeBlock.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.misbehavior = [];
+                if (options.defaults) {
+                    object.commit = null;
+                    if (options.bytes === String)
+                        object.hash = "";
+                    else {
+                        object.hash = [];
+                        if (options.bytes !== Array)
+                            object.hash = $util.newBuffer(object.hash);
+                    }
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.height = options.longs === String ? "0" : 0;
+                    object.round = 0;
+                    object.block = null;
+                    object.blockId = null;
+                }
+                if (message.commit != null && message.hasOwnProperty("commit"))
+                    object.commit = $root.tendermint.abci.CommitInfo.toObject(message.commit, options);
+                if (message.misbehavior && message.misbehavior.length) {
+                    object.misbehavior = [];
+                    for (var j = 0; j < message.misbehavior.length; ++j)
+                        object.misbehavior[j] = $root.tendermint.abci.Misbehavior.toObject(message.misbehavior[j], options);
+                }
+                if (message.hash != null && message.hasOwnProperty("hash"))
+                    object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (typeof message.height === "number")
+                        object.height = options.longs === String ? String(message.height) : message.height;
+                    else
+                        object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
+                if (message.block != null && message.hasOwnProperty("block"))
+                    object.block = $root.tendermint.types.Block.toObject(message.block, options);
+                if (message.blockId != null && message.hasOwnProperty("blockId"))
+                    object.blockId = $root.tendermint.types.BlockID.toObject(message.blockId, options);
+                return object;
+            };
+
+            /**
+             * Converts this RequestFinalizeBlock to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.RequestFinalizeBlock
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RequestFinalizeBlock.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return RequestFinalizeBlock;
+        })();
+
         abci.Response = (function() {
 
             /**
@@ -4145,18 +5186,18 @@ $root.tendermint = (function() {
              * @property {tendermint.abci.IResponseEcho|null} [echo] Response echo
              * @property {tendermint.abci.IResponseFlush|null} [flush] Response flush
              * @property {tendermint.abci.IResponseInfo|null} [info] Response info
-             * @property {tendermint.abci.IResponseSetOption|null} [setOption] Response setOption
              * @property {tendermint.abci.IResponseInitChain|null} [initChain] Response initChain
              * @property {tendermint.abci.IResponseQuery|null} [query] Response query
-             * @property {tendermint.abci.IResponseBeginBlock|null} [beginBlock] Response beginBlock
              * @property {tendermint.abci.IResponseCheckTx|null} [checkTx] Response checkTx
-             * @property {tendermint.abci.IResponseDeliverTx|null} [deliverTx] Response deliverTx
-             * @property {tendermint.abci.IResponseEndBlock|null} [endBlock] Response endBlock
-             * @property {tendermint.abci.IResponseCommit|null} [commit] Response commit
              * @property {tendermint.abci.IResponseListSnapshots|null} [listSnapshots] Response listSnapshots
              * @property {tendermint.abci.IResponseOfferSnapshot|null} [offerSnapshot] Response offerSnapshot
              * @property {tendermint.abci.IResponseLoadSnapshotChunk|null} [loadSnapshotChunk] Response loadSnapshotChunk
              * @property {tendermint.abci.IResponseApplySnapshotChunk|null} [applySnapshotChunk] Response applySnapshotChunk
+             * @property {tendermint.abci.IResponsePrepareProposal|null} [prepareProposal] Response prepareProposal
+             * @property {tendermint.abci.IResponseProcessProposal|null} [processProposal] Response processProposal
+             * @property {tendermint.abci.IResponseExtendVote|null} [extendVote] Response extendVote
+             * @property {tendermint.abci.IResponseVerifyVoteExtension|null} [verifyVoteExtension] Response verifyVoteExtension
+             * @property {tendermint.abci.IResponseFinalizeBlock|null} [finalizeBlock] Response finalizeBlock
              */
 
             /**
@@ -4207,14 +5248,6 @@ $root.tendermint = (function() {
             Response.prototype.info = null;
 
             /**
-             * Response setOption.
-             * @member {tendermint.abci.IResponseSetOption|null|undefined} setOption
-             * @memberof tendermint.abci.Response
-             * @instance
-             */
-            Response.prototype.setOption = null;
-
-            /**
              * Response initChain.
              * @member {tendermint.abci.IResponseInitChain|null|undefined} initChain
              * @memberof tendermint.abci.Response
@@ -4231,44 +5264,12 @@ $root.tendermint = (function() {
             Response.prototype.query = null;
 
             /**
-             * Response beginBlock.
-             * @member {tendermint.abci.IResponseBeginBlock|null|undefined} beginBlock
-             * @memberof tendermint.abci.Response
-             * @instance
-             */
-            Response.prototype.beginBlock = null;
-
-            /**
              * Response checkTx.
              * @member {tendermint.abci.IResponseCheckTx|null|undefined} checkTx
              * @memberof tendermint.abci.Response
              * @instance
              */
             Response.prototype.checkTx = null;
-
-            /**
-             * Response deliverTx.
-             * @member {tendermint.abci.IResponseDeliverTx|null|undefined} deliverTx
-             * @memberof tendermint.abci.Response
-             * @instance
-             */
-            Response.prototype.deliverTx = null;
-
-            /**
-             * Response endBlock.
-             * @member {tendermint.abci.IResponseEndBlock|null|undefined} endBlock
-             * @memberof tendermint.abci.Response
-             * @instance
-             */
-            Response.prototype.endBlock = null;
-
-            /**
-             * Response commit.
-             * @member {tendermint.abci.IResponseCommit|null|undefined} commit
-             * @memberof tendermint.abci.Response
-             * @instance
-             */
-            Response.prototype.commit = null;
 
             /**
              * Response listSnapshots.
@@ -4302,17 +5303,57 @@ $root.tendermint = (function() {
              */
             Response.prototype.applySnapshotChunk = null;
 
+            /**
+             * Response prepareProposal.
+             * @member {tendermint.abci.IResponsePrepareProposal|null|undefined} prepareProposal
+             * @memberof tendermint.abci.Response
+             * @instance
+             */
+            Response.prototype.prepareProposal = null;
+
+            /**
+             * Response processProposal.
+             * @member {tendermint.abci.IResponseProcessProposal|null|undefined} processProposal
+             * @memberof tendermint.abci.Response
+             * @instance
+             */
+            Response.prototype.processProposal = null;
+
+            /**
+             * Response extendVote.
+             * @member {tendermint.abci.IResponseExtendVote|null|undefined} extendVote
+             * @memberof tendermint.abci.Response
+             * @instance
+             */
+            Response.prototype.extendVote = null;
+
+            /**
+             * Response verifyVoteExtension.
+             * @member {tendermint.abci.IResponseVerifyVoteExtension|null|undefined} verifyVoteExtension
+             * @memberof tendermint.abci.Response
+             * @instance
+             */
+            Response.prototype.verifyVoteExtension = null;
+
+            /**
+             * Response finalizeBlock.
+             * @member {tendermint.abci.IResponseFinalizeBlock|null|undefined} finalizeBlock
+             * @memberof tendermint.abci.Response
+             * @instance
+             */
+            Response.prototype.finalizeBlock = null;
+
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
 
             /**
              * Response value.
-             * @member {"exception"|"echo"|"flush"|"info"|"setOption"|"initChain"|"query"|"beginBlock"|"checkTx"|"deliverTx"|"endBlock"|"commit"|"listSnapshots"|"offerSnapshot"|"loadSnapshotChunk"|"applySnapshotChunk"|undefined} value
+             * @member {"exception"|"echo"|"flush"|"info"|"initChain"|"query"|"checkTx"|"listSnapshots"|"offerSnapshot"|"loadSnapshotChunk"|"applySnapshotChunk"|"prepareProposal"|"processProposal"|"extendVote"|"verifyVoteExtension"|"finalizeBlock"|undefined} value
              * @memberof tendermint.abci.Response
              * @instance
              */
             Object.defineProperty(Response.prototype, "value", {
-                get: $util.oneOfGetter($oneOfFields = ["exception", "echo", "flush", "info", "setOption", "initChain", "query", "beginBlock", "checkTx", "deliverTx", "endBlock", "commit", "listSnapshots", "offerSnapshot", "loadSnapshotChunk", "applySnapshotChunk"]),
+                get: $util.oneOfGetter($oneOfFields = ["exception", "echo", "flush", "info", "initChain", "query", "checkTx", "listSnapshots", "offerSnapshot", "loadSnapshotChunk", "applySnapshotChunk", "prepareProposal", "processProposal", "extendVote", "verifyVoteExtension", "finalizeBlock"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
 
@@ -4348,30 +5389,30 @@ $root.tendermint = (function() {
                     $root.tendermint.abci.ResponseFlush.encode(message.flush, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.info != null && Object.hasOwnProperty.call(message, "info"))
                     $root.tendermint.abci.ResponseInfo.encode(message.info, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                if (message.setOption != null && Object.hasOwnProperty.call(message, "setOption"))
-                    $root.tendermint.abci.ResponseSetOption.encode(message.setOption, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 if (message.initChain != null && Object.hasOwnProperty.call(message, "initChain"))
-                    $root.tendermint.abci.ResponseInitChain.encode(message.initChain, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    $root.tendermint.abci.ResponseInitChain.encode(message.initChain, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 if (message.query != null && Object.hasOwnProperty.call(message, "query"))
-                    $root.tendermint.abci.ResponseQuery.encode(message.query, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
-                if (message.beginBlock != null && Object.hasOwnProperty.call(message, "beginBlock"))
-                    $root.tendermint.abci.ResponseBeginBlock.encode(message.beginBlock, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    $root.tendermint.abci.ResponseQuery.encode(message.query, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 if (message.checkTx != null && Object.hasOwnProperty.call(message, "checkTx"))
-                    $root.tendermint.abci.ResponseCheckTx.encode(message.checkTx, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
-                if (message.deliverTx != null && Object.hasOwnProperty.call(message, "deliverTx"))
-                    $root.tendermint.abci.ResponseDeliverTx.encode(message.deliverTx, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
-                if (message.endBlock != null && Object.hasOwnProperty.call(message, "endBlock"))
-                    $root.tendermint.abci.ResponseEndBlock.encode(message.endBlock, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
-                if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
-                    $root.tendermint.abci.ResponseCommit.encode(message.commit, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+                    $root.tendermint.abci.ResponseCheckTx.encode(message.checkTx, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                 if (message.listSnapshots != null && Object.hasOwnProperty.call(message, "listSnapshots"))
-                    $root.tendermint.abci.ResponseListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
+                    $root.tendermint.abci.ResponseListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
                 if (message.offerSnapshot != null && Object.hasOwnProperty.call(message, "offerSnapshot"))
-                    $root.tendermint.abci.ResponseOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
+                    $root.tendermint.abci.ResponseOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
                 if (message.loadSnapshotChunk != null && Object.hasOwnProperty.call(message, "loadSnapshotChunk"))
-                    $root.tendermint.abci.ResponseLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
+                    $root.tendermint.abci.ResponseLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
                 if (message.applySnapshotChunk != null && Object.hasOwnProperty.call(message, "applySnapshotChunk"))
-                    $root.tendermint.abci.ResponseApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
+                    $root.tendermint.abci.ResponseApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
+                if (message.prepareProposal != null && Object.hasOwnProperty.call(message, "prepareProposal"))
+                    $root.tendermint.abci.ResponsePrepareProposal.encode(message.prepareProposal, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
+                if (message.processProposal != null && Object.hasOwnProperty.call(message, "processProposal"))
+                    $root.tendermint.abci.ResponseProcessProposal.encode(message.processProposal, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
+                if (message.extendVote != null && Object.hasOwnProperty.call(message, "extendVote"))
+                    $root.tendermint.abci.ResponseExtendVote.encode(message.extendVote, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
+                if (message.verifyVoteExtension != null && Object.hasOwnProperty.call(message, "verifyVoteExtension"))
+                    $root.tendermint.abci.ResponseVerifyVoteExtension.encode(message.verifyVoteExtension, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
+                if (message.finalizeBlock != null && Object.hasOwnProperty.call(message, "finalizeBlock"))
+                    $root.tendermint.abci.ResponseFinalizeBlock.encode(message.finalizeBlock, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
                 return writer;
             };
 
@@ -4419,40 +5460,40 @@ $root.tendermint = (function() {
                         message.info = $root.tendermint.abci.ResponseInfo.decode(reader, reader.uint32());
                         break;
                     case 5:
-                        message.setOption = $root.tendermint.abci.ResponseSetOption.decode(reader, reader.uint32());
-                        break;
-                    case 6:
                         message.initChain = $root.tendermint.abci.ResponseInitChain.decode(reader, reader.uint32());
                         break;
-                    case 7:
+                    case 6:
                         message.query = $root.tendermint.abci.ResponseQuery.decode(reader, reader.uint32());
                         break;
                     case 8:
-                        message.beginBlock = $root.tendermint.abci.ResponseBeginBlock.decode(reader, reader.uint32());
-                        break;
-                    case 9:
                         message.checkTx = $root.tendermint.abci.ResponseCheckTx.decode(reader, reader.uint32());
                         break;
-                    case 10:
-                        message.deliverTx = $root.tendermint.abci.ResponseDeliverTx.decode(reader, reader.uint32());
-                        break;
-                    case 11:
-                        message.endBlock = $root.tendermint.abci.ResponseEndBlock.decode(reader, reader.uint32());
-                        break;
                     case 12:
-                        message.commit = $root.tendermint.abci.ResponseCommit.decode(reader, reader.uint32());
-                        break;
-                    case 13:
                         message.listSnapshots = $root.tendermint.abci.ResponseListSnapshots.decode(reader, reader.uint32());
                         break;
-                    case 14:
+                    case 13:
                         message.offerSnapshot = $root.tendermint.abci.ResponseOfferSnapshot.decode(reader, reader.uint32());
                         break;
-                    case 15:
+                    case 14:
                         message.loadSnapshotChunk = $root.tendermint.abci.ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
                         break;
-                    case 16:
+                    case 15:
                         message.applySnapshotChunk = $root.tendermint.abci.ResponseApplySnapshotChunk.decode(reader, reader.uint32());
+                        break;
+                    case 16:
+                        message.prepareProposal = $root.tendermint.abci.ResponsePrepareProposal.decode(reader, reader.uint32());
+                        break;
+                    case 17:
+                        message.processProposal = $root.tendermint.abci.ResponseProcessProposal.decode(reader, reader.uint32());
+                        break;
+                    case 18:
+                        message.extendVote = $root.tendermint.abci.ResponseExtendVote.decode(reader, reader.uint32());
+                        break;
+                    case 19:
+                        message.verifyVoteExtension = $root.tendermint.abci.ResponseVerifyVoteExtension.decode(reader, reader.uint32());
+                        break;
+                    case 20:
+                        message.finalizeBlock = $root.tendermint.abci.ResponseFinalizeBlock.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -4528,16 +5569,6 @@ $root.tendermint = (function() {
                             return "info." + error;
                     }
                 }
-                if (message.setOption != null && message.hasOwnProperty("setOption")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.ResponseSetOption.verify(message.setOption);
-                        if (error)
-                            return "setOption." + error;
-                    }
-                }
                 if (message.initChain != null && message.hasOwnProperty("initChain")) {
                     if (properties.value === 1)
                         return "value: multiple values";
@@ -4558,16 +5589,6 @@ $root.tendermint = (function() {
                             return "query." + error;
                     }
                 }
-                if (message.beginBlock != null && message.hasOwnProperty("beginBlock")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.ResponseBeginBlock.verify(message.beginBlock);
-                        if (error)
-                            return "beginBlock." + error;
-                    }
-                }
                 if (message.checkTx != null && message.hasOwnProperty("checkTx")) {
                     if (properties.value === 1)
                         return "value: multiple values";
@@ -4576,36 +5597,6 @@ $root.tendermint = (function() {
                         var error = $root.tendermint.abci.ResponseCheckTx.verify(message.checkTx);
                         if (error)
                             return "checkTx." + error;
-                    }
-                }
-                if (message.deliverTx != null && message.hasOwnProperty("deliverTx")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.ResponseDeliverTx.verify(message.deliverTx);
-                        if (error)
-                            return "deliverTx." + error;
-                    }
-                }
-                if (message.endBlock != null && message.hasOwnProperty("endBlock")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.ResponseEndBlock.verify(message.endBlock);
-                        if (error)
-                            return "endBlock." + error;
-                    }
-                }
-                if (message.commit != null && message.hasOwnProperty("commit")) {
-                    if (properties.value === 1)
-                        return "value: multiple values";
-                    properties.value = 1;
-                    {
-                        var error = $root.tendermint.abci.ResponseCommit.verify(message.commit);
-                        if (error)
-                            return "commit." + error;
                     }
                 }
                 if (message.listSnapshots != null && message.hasOwnProperty("listSnapshots")) {
@@ -4648,6 +5639,56 @@ $root.tendermint = (function() {
                             return "applySnapshotChunk." + error;
                     }
                 }
+                if (message.prepareProposal != null && message.hasOwnProperty("prepareProposal")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.ResponsePrepareProposal.verify(message.prepareProposal);
+                        if (error)
+                            return "prepareProposal." + error;
+                    }
+                }
+                if (message.processProposal != null && message.hasOwnProperty("processProposal")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.ResponseProcessProposal.verify(message.processProposal);
+                        if (error)
+                            return "processProposal." + error;
+                    }
+                }
+                if (message.extendVote != null && message.hasOwnProperty("extendVote")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.ResponseExtendVote.verify(message.extendVote);
+                        if (error)
+                            return "extendVote." + error;
+                    }
+                }
+                if (message.verifyVoteExtension != null && message.hasOwnProperty("verifyVoteExtension")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.ResponseVerifyVoteExtension.verify(message.verifyVoteExtension);
+                        if (error)
+                            return "verifyVoteExtension." + error;
+                    }
+                }
+                if (message.finalizeBlock != null && message.hasOwnProperty("finalizeBlock")) {
+                    if (properties.value === 1)
+                        return "value: multiple values";
+                    properties.value = 1;
+                    {
+                        var error = $root.tendermint.abci.ResponseFinalizeBlock.verify(message.finalizeBlock);
+                        if (error)
+                            return "finalizeBlock." + error;
+                    }
+                }
                 return null;
             };
 
@@ -4683,11 +5724,6 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.Response.info: object expected");
                     message.info = $root.tendermint.abci.ResponseInfo.fromObject(object.info);
                 }
-                if (object.setOption != null) {
-                    if (typeof object.setOption !== "object")
-                        throw TypeError(".tendermint.abci.Response.setOption: object expected");
-                    message.setOption = $root.tendermint.abci.ResponseSetOption.fromObject(object.setOption);
-                }
                 if (object.initChain != null) {
                     if (typeof object.initChain !== "object")
                         throw TypeError(".tendermint.abci.Response.initChain: object expected");
@@ -4698,30 +5734,10 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.Response.query: object expected");
                     message.query = $root.tendermint.abci.ResponseQuery.fromObject(object.query);
                 }
-                if (object.beginBlock != null) {
-                    if (typeof object.beginBlock !== "object")
-                        throw TypeError(".tendermint.abci.Response.beginBlock: object expected");
-                    message.beginBlock = $root.tendermint.abci.ResponseBeginBlock.fromObject(object.beginBlock);
-                }
                 if (object.checkTx != null) {
                     if (typeof object.checkTx !== "object")
                         throw TypeError(".tendermint.abci.Response.checkTx: object expected");
                     message.checkTx = $root.tendermint.abci.ResponseCheckTx.fromObject(object.checkTx);
-                }
-                if (object.deliverTx != null) {
-                    if (typeof object.deliverTx !== "object")
-                        throw TypeError(".tendermint.abci.Response.deliverTx: object expected");
-                    message.deliverTx = $root.tendermint.abci.ResponseDeliverTx.fromObject(object.deliverTx);
-                }
-                if (object.endBlock != null) {
-                    if (typeof object.endBlock !== "object")
-                        throw TypeError(".tendermint.abci.Response.endBlock: object expected");
-                    message.endBlock = $root.tendermint.abci.ResponseEndBlock.fromObject(object.endBlock);
-                }
-                if (object.commit != null) {
-                    if (typeof object.commit !== "object")
-                        throw TypeError(".tendermint.abci.Response.commit: object expected");
-                    message.commit = $root.tendermint.abci.ResponseCommit.fromObject(object.commit);
                 }
                 if (object.listSnapshots != null) {
                     if (typeof object.listSnapshots !== "object")
@@ -4742,6 +5758,31 @@ $root.tendermint = (function() {
                     if (typeof object.applySnapshotChunk !== "object")
                         throw TypeError(".tendermint.abci.Response.applySnapshotChunk: object expected");
                     message.applySnapshotChunk = $root.tendermint.abci.ResponseApplySnapshotChunk.fromObject(object.applySnapshotChunk);
+                }
+                if (object.prepareProposal != null) {
+                    if (typeof object.prepareProposal !== "object")
+                        throw TypeError(".tendermint.abci.Response.prepareProposal: object expected");
+                    message.prepareProposal = $root.tendermint.abci.ResponsePrepareProposal.fromObject(object.prepareProposal);
+                }
+                if (object.processProposal != null) {
+                    if (typeof object.processProposal !== "object")
+                        throw TypeError(".tendermint.abci.Response.processProposal: object expected");
+                    message.processProposal = $root.tendermint.abci.ResponseProcessProposal.fromObject(object.processProposal);
+                }
+                if (object.extendVote != null) {
+                    if (typeof object.extendVote !== "object")
+                        throw TypeError(".tendermint.abci.Response.extendVote: object expected");
+                    message.extendVote = $root.tendermint.abci.ResponseExtendVote.fromObject(object.extendVote);
+                }
+                if (object.verifyVoteExtension != null) {
+                    if (typeof object.verifyVoteExtension !== "object")
+                        throw TypeError(".tendermint.abci.Response.verifyVoteExtension: object expected");
+                    message.verifyVoteExtension = $root.tendermint.abci.ResponseVerifyVoteExtension.fromObject(object.verifyVoteExtension);
+                }
+                if (object.finalizeBlock != null) {
+                    if (typeof object.finalizeBlock !== "object")
+                        throw TypeError(".tendermint.abci.Response.finalizeBlock: object expected");
+                    message.finalizeBlock = $root.tendermint.abci.ResponseFinalizeBlock.fromObject(object.finalizeBlock);
                 }
                 return message;
             };
@@ -4779,11 +5820,6 @@ $root.tendermint = (function() {
                     if (options.oneofs)
                         object.value = "info";
                 }
-                if (message.setOption != null && message.hasOwnProperty("setOption")) {
-                    object.setOption = $root.tendermint.abci.ResponseSetOption.toObject(message.setOption, options);
-                    if (options.oneofs)
-                        object.value = "setOption";
-                }
                 if (message.initChain != null && message.hasOwnProperty("initChain")) {
                     object.initChain = $root.tendermint.abci.ResponseInitChain.toObject(message.initChain, options);
                     if (options.oneofs)
@@ -4794,30 +5830,10 @@ $root.tendermint = (function() {
                     if (options.oneofs)
                         object.value = "query";
                 }
-                if (message.beginBlock != null && message.hasOwnProperty("beginBlock")) {
-                    object.beginBlock = $root.tendermint.abci.ResponseBeginBlock.toObject(message.beginBlock, options);
-                    if (options.oneofs)
-                        object.value = "beginBlock";
-                }
                 if (message.checkTx != null && message.hasOwnProperty("checkTx")) {
                     object.checkTx = $root.tendermint.abci.ResponseCheckTx.toObject(message.checkTx, options);
                     if (options.oneofs)
                         object.value = "checkTx";
-                }
-                if (message.deliverTx != null && message.hasOwnProperty("deliverTx")) {
-                    object.deliverTx = $root.tendermint.abci.ResponseDeliverTx.toObject(message.deliverTx, options);
-                    if (options.oneofs)
-                        object.value = "deliverTx";
-                }
-                if (message.endBlock != null && message.hasOwnProperty("endBlock")) {
-                    object.endBlock = $root.tendermint.abci.ResponseEndBlock.toObject(message.endBlock, options);
-                    if (options.oneofs)
-                        object.value = "endBlock";
-                }
-                if (message.commit != null && message.hasOwnProperty("commit")) {
-                    object.commit = $root.tendermint.abci.ResponseCommit.toObject(message.commit, options);
-                    if (options.oneofs)
-                        object.value = "commit";
                 }
                 if (message.listSnapshots != null && message.hasOwnProperty("listSnapshots")) {
                     object.listSnapshots = $root.tendermint.abci.ResponseListSnapshots.toObject(message.listSnapshots, options);
@@ -4838,6 +5854,31 @@ $root.tendermint = (function() {
                     object.applySnapshotChunk = $root.tendermint.abci.ResponseApplySnapshotChunk.toObject(message.applySnapshotChunk, options);
                     if (options.oneofs)
                         object.value = "applySnapshotChunk";
+                }
+                if (message.prepareProposal != null && message.hasOwnProperty("prepareProposal")) {
+                    object.prepareProposal = $root.tendermint.abci.ResponsePrepareProposal.toObject(message.prepareProposal, options);
+                    if (options.oneofs)
+                        object.value = "prepareProposal";
+                }
+                if (message.processProposal != null && message.hasOwnProperty("processProposal")) {
+                    object.processProposal = $root.tendermint.abci.ResponseProcessProposal.toObject(message.processProposal, options);
+                    if (options.oneofs)
+                        object.value = "processProposal";
+                }
+                if (message.extendVote != null && message.hasOwnProperty("extendVote")) {
+                    object.extendVote = $root.tendermint.abci.ResponseExtendVote.toObject(message.extendVote, options);
+                    if (options.oneofs)
+                        object.value = "extendVote";
+                }
+                if (message.verifyVoteExtension != null && message.hasOwnProperty("verifyVoteExtension")) {
+                    object.verifyVoteExtension = $root.tendermint.abci.ResponseVerifyVoteExtension.toObject(message.verifyVoteExtension, options);
+                    if (options.oneofs)
+                        object.value = "verifyVoteExtension";
+                }
+                if (message.finalizeBlock != null && message.hasOwnProperty("finalizeBlock")) {
+                    object.finalizeBlock = $root.tendermint.abci.ResponseFinalizeBlock.toObject(message.finalizeBlock, options);
+                    if (options.oneofs)
+                        object.value = "finalizeBlock";
                 }
                 return object;
             };
@@ -5401,7 +6442,6 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [appVersion] ResponseInfo appVersion
              * @property {number|Long|null} [lastBlockHeight] ResponseInfo lastBlockHeight
              * @property {Uint8Array|null} [lastBlockAppHash] ResponseInfo lastBlockAppHash
-             * @property {number|null} [lastCoreChainLockedHeight] ResponseInfo lastCoreChainLockedHeight
              */
 
             /**
@@ -5460,14 +6500,6 @@ $root.tendermint = (function() {
             ResponseInfo.prototype.lastBlockAppHash = $util.newBuffer([]);
 
             /**
-             * ResponseInfo lastCoreChainLockedHeight.
-             * @member {number} lastCoreChainLockedHeight
-             * @memberof tendermint.abci.ResponseInfo
-             * @instance
-             */
-            ResponseInfo.prototype.lastCoreChainLockedHeight = 0;
-
-            /**
              * Creates a new ResponseInfo instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.ResponseInfo
@@ -5501,8 +6533,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 4, wireType 0 =*/32).int64(message.lastBlockHeight);
                 if (message.lastBlockAppHash != null && Object.hasOwnProperty.call(message, "lastBlockAppHash"))
                     writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.lastBlockAppHash);
-                if (message.lastCoreChainLockedHeight != null && Object.hasOwnProperty.call(message, "lastCoreChainLockedHeight"))
-                    writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.lastCoreChainLockedHeight);
                 return writer;
             };
 
@@ -5551,9 +6581,6 @@ $root.tendermint = (function() {
                         break;
                     case 5:
                         message.lastBlockAppHash = reader.bytes();
-                        break;
-                    case 100:
-                        message.lastCoreChainLockedHeight = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -5605,9 +6632,6 @@ $root.tendermint = (function() {
                 if (message.lastBlockAppHash != null && message.hasOwnProperty("lastBlockAppHash"))
                     if (!(message.lastBlockAppHash && typeof message.lastBlockAppHash.length === "number" || $util.isString(message.lastBlockAppHash)))
                         return "lastBlockAppHash: buffer expected";
-                if (message.lastCoreChainLockedHeight != null && message.hasOwnProperty("lastCoreChainLockedHeight"))
-                    if (!$util.isInteger(message.lastCoreChainLockedHeight))
-                        return "lastCoreChainLockedHeight: integer expected";
                 return null;
             };
 
@@ -5650,8 +6674,6 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.lastBlockAppHash, message.lastBlockAppHash = $util.newBuffer($util.base64.length(object.lastBlockAppHash)), 0);
                     else if (object.lastBlockAppHash.length >= 0)
                         message.lastBlockAppHash = object.lastBlockAppHash;
-                if (object.lastCoreChainLockedHeight != null)
-                    message.lastCoreChainLockedHeight = object.lastCoreChainLockedHeight >>> 0;
                 return message;
             };
 
@@ -5688,7 +6710,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.lastBlockAppHash = $util.newBuffer(object.lastBlockAppHash);
                     }
-                    object.lastCoreChainLockedHeight = 0;
                 }
                 if (message.data != null && message.hasOwnProperty("data"))
                     object.data = message.data;
@@ -5706,8 +6727,6 @@ $root.tendermint = (function() {
                         object.lastBlockHeight = options.longs === String ? $util.Long.prototype.toString.call(message.lastBlockHeight) : options.longs === Number ? new $util.LongBits(message.lastBlockHeight.low >>> 0, message.lastBlockHeight.high >>> 0).toNumber() : message.lastBlockHeight;
                 if (message.lastBlockAppHash != null && message.hasOwnProperty("lastBlockAppHash"))
                     object.lastBlockAppHash = options.bytes === String ? $util.base64.encode(message.lastBlockAppHash, 0, message.lastBlockAppHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.lastBlockAppHash) : message.lastBlockAppHash;
-                if (message.lastCoreChainLockedHeight != null && message.hasOwnProperty("lastCoreChainLockedHeight"))
-                    object.lastCoreChainLockedHeight = message.lastCoreChainLockedHeight;
                 return object;
             };
 
@@ -5725,248 +6744,17 @@ $root.tendermint = (function() {
             return ResponseInfo;
         })();
 
-        abci.ResponseSetOption = (function() {
-
-            /**
-             * Properties of a ResponseSetOption.
-             * @memberof tendermint.abci
-             * @interface IResponseSetOption
-             * @property {number|null} [code] ResponseSetOption code
-             * @property {string|null} [log] ResponseSetOption log
-             * @property {string|null} [info] ResponseSetOption info
-             */
-
-            /**
-             * Constructs a new ResponseSetOption.
-             * @memberof tendermint.abci
-             * @classdesc Represents a ResponseSetOption.
-             * @implements IResponseSetOption
-             * @constructor
-             * @param {tendermint.abci.IResponseSetOption=} [properties] Properties to set
-             */
-            function ResponseSetOption(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * ResponseSetOption code.
-             * @member {number} code
-             * @memberof tendermint.abci.ResponseSetOption
-             * @instance
-             */
-            ResponseSetOption.prototype.code = 0;
-
-            /**
-             * ResponseSetOption log.
-             * @member {string} log
-             * @memberof tendermint.abci.ResponseSetOption
-             * @instance
-             */
-            ResponseSetOption.prototype.log = "";
-
-            /**
-             * ResponseSetOption info.
-             * @member {string} info
-             * @memberof tendermint.abci.ResponseSetOption
-             * @instance
-             */
-            ResponseSetOption.prototype.info = "";
-
-            /**
-             * Creates a new ResponseSetOption instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {tendermint.abci.IResponseSetOption=} [properties] Properties to set
-             * @returns {tendermint.abci.ResponseSetOption} ResponseSetOption instance
-             */
-            ResponseSetOption.create = function create(properties) {
-                return new ResponseSetOption(properties);
-            };
-
-            /**
-             * Encodes the specified ResponseSetOption message. Does not implicitly {@link tendermint.abci.ResponseSetOption.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {tendermint.abci.IResponseSetOption} message ResponseSetOption message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseSetOption.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.code != null && Object.hasOwnProperty.call(message, "code"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.code);
-                if (message.log != null && Object.hasOwnProperty.call(message, "log"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.log);
-                if (message.info != null && Object.hasOwnProperty.call(message, "info"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.info);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified ResponseSetOption message, length delimited. Does not implicitly {@link tendermint.abci.ResponseSetOption.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {tendermint.abci.IResponseSetOption} message ResponseSetOption message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseSetOption.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a ResponseSetOption message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ResponseSetOption} ResponseSetOption
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseSetOption.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseSetOption();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.code = reader.uint32();
-                        break;
-                    case 3:
-                        message.log = reader.string();
-                        break;
-                    case 4:
-                        message.info = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a ResponseSetOption message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ResponseSetOption} ResponseSetOption
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseSetOption.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a ResponseSetOption message.
-             * @function verify
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            ResponseSetOption.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.code != null && message.hasOwnProperty("code"))
-                    if (!$util.isInteger(message.code))
-                        return "code: integer expected";
-                if (message.log != null && message.hasOwnProperty("log"))
-                    if (!$util.isString(message.log))
-                        return "log: string expected";
-                if (message.info != null && message.hasOwnProperty("info"))
-                    if (!$util.isString(message.info))
-                        return "info: string expected";
-                return null;
-            };
-
-            /**
-             * Creates a ResponseSetOption message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ResponseSetOption} ResponseSetOption
-             */
-            ResponseSetOption.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ResponseSetOption)
-                    return object;
-                var message = new $root.tendermint.abci.ResponseSetOption();
-                if (object.code != null)
-                    message.code = object.code >>> 0;
-                if (object.log != null)
-                    message.log = String(object.log);
-                if (object.info != null)
-                    message.info = String(object.info);
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a ResponseSetOption message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.ResponseSetOption
-             * @static
-             * @param {tendermint.abci.ResponseSetOption} message ResponseSetOption
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            ResponseSetOption.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.code = 0;
-                    object.log = "";
-                    object.info = "";
-                }
-                if (message.code != null && message.hasOwnProperty("code"))
-                    object.code = message.code;
-                if (message.log != null && message.hasOwnProperty("log"))
-                    object.log = message.log;
-                if (message.info != null && message.hasOwnProperty("info"))
-                    object.info = message.info;
-                return object;
-            };
-
-            /**
-             * Converts this ResponseSetOption to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.ResponseSetOption
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            ResponseSetOption.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return ResponseSetOption;
-        })();
-
         abci.ResponseInitChain = (function() {
 
             /**
              * Properties of a ResponseInitChain.
              * @memberof tendermint.abci
              * @interface IResponseInitChain
-             * @property {tendermint.abci.IConsensusParams|null} [consensusParams] ResponseInitChain consensusParams
+             * @property {tendermint.types.IConsensusParams|null} [consensusParams] ResponseInitChain consensusParams
              * @property {Uint8Array|null} [appHash] ResponseInitChain appHash
              * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSetUpdate] ResponseInitChain validatorSetUpdate
              * @property {tendermint.types.ICoreChainLock|null} [nextCoreChainLockUpdate] ResponseInitChain nextCoreChainLockUpdate
+             * @property {number|null} [initialCoreHeight] ResponseInitChain initialCoreHeight
              */
 
             /**
@@ -5986,7 +6774,7 @@ $root.tendermint = (function() {
 
             /**
              * ResponseInitChain consensusParams.
-             * @member {tendermint.abci.IConsensusParams|null|undefined} consensusParams
+             * @member {tendermint.types.IConsensusParams|null|undefined} consensusParams
              * @memberof tendermint.abci.ResponseInitChain
              * @instance
              */
@@ -6017,6 +6805,14 @@ $root.tendermint = (function() {
             ResponseInitChain.prototype.nextCoreChainLockUpdate = null;
 
             /**
+             * ResponseInitChain initialCoreHeight.
+             * @member {number} initialCoreHeight
+             * @memberof tendermint.abci.ResponseInitChain
+             * @instance
+             */
+            ResponseInitChain.prototype.initialCoreHeight = 0;
+
+            /**
              * Creates a new ResponseInitChain instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.ResponseInitChain
@@ -6041,13 +6837,15 @@ $root.tendermint = (function() {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.consensusParams != null && Object.hasOwnProperty.call(message, "consensusParams"))
-                    $root.tendermint.abci.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                 if (message.appHash != null && Object.hasOwnProperty.call(message, "appHash"))
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.appHash);
                 if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
                     $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
                 if (message.nextCoreChainLockUpdate != null && Object.hasOwnProperty.call(message, "nextCoreChainLockUpdate"))
                     $root.tendermint.types.CoreChainLock.encode(message.nextCoreChainLockUpdate, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
+                if (message.initialCoreHeight != null && Object.hasOwnProperty.call(message, "initialCoreHeight"))
+                    writer.uint32(/* id 102, wireType 0 =*/816).uint32(message.initialCoreHeight);
                 return writer;
             };
 
@@ -6083,7 +6881,7 @@ $root.tendermint = (function() {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.consensusParams = $root.tendermint.abci.ConsensusParams.decode(reader, reader.uint32());
+                        message.consensusParams = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
                     case 3:
                         message.appHash = reader.bytes();
@@ -6093,6 +6891,9 @@ $root.tendermint = (function() {
                         break;
                     case 101:
                         message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
+                        break;
+                    case 102:
+                        message.initialCoreHeight = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -6130,7 +6931,7 @@ $root.tendermint = (function() {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams")) {
-                    var error = $root.tendermint.abci.ConsensusParams.verify(message.consensusParams);
+                    var error = $root.tendermint.types.ConsensusParams.verify(message.consensusParams);
                     if (error)
                         return "consensusParams." + error;
                 }
@@ -6147,6 +6948,9 @@ $root.tendermint = (function() {
                     if (error)
                         return "nextCoreChainLockUpdate." + error;
                 }
+                if (message.initialCoreHeight != null && message.hasOwnProperty("initialCoreHeight"))
+                    if (!$util.isInteger(message.initialCoreHeight))
+                        return "initialCoreHeight: integer expected";
                 return null;
             };
 
@@ -6165,7 +6969,7 @@ $root.tendermint = (function() {
                 if (object.consensusParams != null) {
                     if (typeof object.consensusParams !== "object")
                         throw TypeError(".tendermint.abci.ResponseInitChain.consensusParams: object expected");
-                    message.consensusParams = $root.tendermint.abci.ConsensusParams.fromObject(object.consensusParams);
+                    message.consensusParams = $root.tendermint.types.ConsensusParams.fromObject(object.consensusParams);
                 }
                 if (object.appHash != null)
                     if (typeof object.appHash === "string")
@@ -6182,6 +6986,8 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.ResponseInitChain.nextCoreChainLockUpdate: object expected");
                     message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.nextCoreChainLockUpdate);
                 }
+                if (object.initialCoreHeight != null)
+                    message.initialCoreHeight = object.initialCoreHeight >>> 0;
                 return message;
             };
 
@@ -6209,15 +7015,18 @@ $root.tendermint = (function() {
                     }
                     object.validatorSetUpdate = null;
                     object.nextCoreChainLockUpdate = null;
+                    object.initialCoreHeight = 0;
                 }
                 if (message.consensusParams != null && message.hasOwnProperty("consensusParams"))
-                    object.consensusParams = $root.tendermint.abci.ConsensusParams.toObject(message.consensusParams, options);
+                    object.consensusParams = $root.tendermint.types.ConsensusParams.toObject(message.consensusParams, options);
                 if (message.appHash != null && message.hasOwnProperty("appHash"))
                     object.appHash = options.bytes === String ? $util.base64.encode(message.appHash, 0, message.appHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.appHash) : message.appHash;
                 if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate"))
                     object.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.toObject(message.validatorSetUpdate, options);
                 if (message.nextCoreChainLockUpdate != null && message.hasOwnProperty("nextCoreChainLockUpdate"))
                     object.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.nextCoreChainLockUpdate, options);
+                if (message.initialCoreHeight != null && message.hasOwnProperty("initialCoreHeight"))
+                    object.initialCoreHeight = message.initialCoreHeight;
                 return object;
             };
 
@@ -6650,214 +7459,6 @@ $root.tendermint = (function() {
             return ResponseQuery;
         })();
 
-        abci.ResponseBeginBlock = (function() {
-
-            /**
-             * Properties of a ResponseBeginBlock.
-             * @memberof tendermint.abci
-             * @interface IResponseBeginBlock
-             * @property {Array.<tendermint.abci.IEvent>|null} [events] ResponseBeginBlock events
-             */
-
-            /**
-             * Constructs a new ResponseBeginBlock.
-             * @memberof tendermint.abci
-             * @classdesc Represents a ResponseBeginBlock.
-             * @implements IResponseBeginBlock
-             * @constructor
-             * @param {tendermint.abci.IResponseBeginBlock=} [properties] Properties to set
-             */
-            function ResponseBeginBlock(properties) {
-                this.events = [];
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * ResponseBeginBlock events.
-             * @member {Array.<tendermint.abci.IEvent>} events
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @instance
-             */
-            ResponseBeginBlock.prototype.events = $util.emptyArray;
-
-            /**
-             * Creates a new ResponseBeginBlock instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @static
-             * @param {tendermint.abci.IResponseBeginBlock=} [properties] Properties to set
-             * @returns {tendermint.abci.ResponseBeginBlock} ResponseBeginBlock instance
-             */
-            ResponseBeginBlock.create = function create(properties) {
-                return new ResponseBeginBlock(properties);
-            };
-
-            /**
-             * Encodes the specified ResponseBeginBlock message. Does not implicitly {@link tendermint.abci.ResponseBeginBlock.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @static
-             * @param {tendermint.abci.IResponseBeginBlock} message ResponseBeginBlock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseBeginBlock.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.events != null && message.events.length)
-                    for (var i = 0; i < message.events.length; ++i)
-                        $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified ResponseBeginBlock message, length delimited. Does not implicitly {@link tendermint.abci.ResponseBeginBlock.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @static
-             * @param {tendermint.abci.IResponseBeginBlock} message ResponseBeginBlock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseBeginBlock.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a ResponseBeginBlock message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ResponseBeginBlock} ResponseBeginBlock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseBeginBlock.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseBeginBlock();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        if (!(message.events && message.events.length))
-                            message.events = [];
-                        message.events.push($root.tendermint.abci.Event.decode(reader, reader.uint32()));
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a ResponseBeginBlock message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ResponseBeginBlock} ResponseBeginBlock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseBeginBlock.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a ResponseBeginBlock message.
-             * @function verify
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            ResponseBeginBlock.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.events != null && message.hasOwnProperty("events")) {
-                    if (!Array.isArray(message.events))
-                        return "events: array expected";
-                    for (var i = 0; i < message.events.length; ++i) {
-                        var error = $root.tendermint.abci.Event.verify(message.events[i]);
-                        if (error)
-                            return "events." + error;
-                    }
-                }
-                return null;
-            };
-
-            /**
-             * Creates a ResponseBeginBlock message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ResponseBeginBlock} ResponseBeginBlock
-             */
-            ResponseBeginBlock.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ResponseBeginBlock)
-                    return object;
-                var message = new $root.tendermint.abci.ResponseBeginBlock();
-                if (object.events) {
-                    if (!Array.isArray(object.events))
-                        throw TypeError(".tendermint.abci.ResponseBeginBlock.events: array expected");
-                    message.events = [];
-                    for (var i = 0; i < object.events.length; ++i) {
-                        if (typeof object.events[i] !== "object")
-                            throw TypeError(".tendermint.abci.ResponseBeginBlock.events: object expected");
-                        message.events[i] = $root.tendermint.abci.Event.fromObject(object.events[i]);
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a ResponseBeginBlock message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @static
-             * @param {tendermint.abci.ResponseBeginBlock} message ResponseBeginBlock
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            ResponseBeginBlock.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.arrays || options.defaults)
-                    object.events = [];
-                if (message.events && message.events.length) {
-                    object.events = [];
-                    for (var j = 0; j < message.events.length; ++j)
-                        object.events[j] = $root.tendermint.abci.Event.toObject(message.events[j], options);
-                }
-                return object;
-            };
-
-            /**
-             * Converts this ResponseBeginBlock to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.ResponseBeginBlock
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            ResponseBeginBlock.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return ResponseBeginBlock;
-        })();
-
         abci.ResponseCheckTx = (function() {
 
             /**
@@ -6866,12 +7467,12 @@ $root.tendermint = (function() {
              * @interface IResponseCheckTx
              * @property {number|null} [code] ResponseCheckTx code
              * @property {Uint8Array|null} [data] ResponseCheckTx data
-             * @property {string|null} [log] ResponseCheckTx log
              * @property {string|null} [info] ResponseCheckTx info
              * @property {number|Long|null} [gasWanted] ResponseCheckTx gasWanted
-             * @property {number|Long|null} [gasUsed] ResponseCheckTx gasUsed
-             * @property {Array.<tendermint.abci.IEvent>|null} [events] ResponseCheckTx events
              * @property {string|null} [codespace] ResponseCheckTx codespace
+             * @property {string|null} [sender] ResponseCheckTx sender
+             * @property {number|Long|null} [priority] ResponseCheckTx priority
+             * @property {string|null} [mempoolError] ResponseCheckTx mempoolError
              */
 
             /**
@@ -6883,7 +7484,6 @@ $root.tendermint = (function() {
              * @param {tendermint.abci.IResponseCheckTx=} [properties] Properties to set
              */
             function ResponseCheckTx(properties) {
-                this.events = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -6907,14 +7507,6 @@ $root.tendermint = (function() {
             ResponseCheckTx.prototype.data = $util.newBuffer([]);
 
             /**
-             * ResponseCheckTx log.
-             * @member {string} log
-             * @memberof tendermint.abci.ResponseCheckTx
-             * @instance
-             */
-            ResponseCheckTx.prototype.log = "";
-
-            /**
              * ResponseCheckTx info.
              * @member {string} info
              * @memberof tendermint.abci.ResponseCheckTx
@@ -6931,28 +7523,36 @@ $root.tendermint = (function() {
             ResponseCheckTx.prototype.gasWanted = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
             /**
-             * ResponseCheckTx gasUsed.
-             * @member {number|Long} gasUsed
-             * @memberof tendermint.abci.ResponseCheckTx
-             * @instance
-             */
-            ResponseCheckTx.prototype.gasUsed = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * ResponseCheckTx events.
-             * @member {Array.<tendermint.abci.IEvent>} events
-             * @memberof tendermint.abci.ResponseCheckTx
-             * @instance
-             */
-            ResponseCheckTx.prototype.events = $util.emptyArray;
-
-            /**
              * ResponseCheckTx codespace.
              * @member {string} codespace
              * @memberof tendermint.abci.ResponseCheckTx
              * @instance
              */
             ResponseCheckTx.prototype.codespace = "";
+
+            /**
+             * ResponseCheckTx sender.
+             * @member {string} sender
+             * @memberof tendermint.abci.ResponseCheckTx
+             * @instance
+             */
+            ResponseCheckTx.prototype.sender = "";
+
+            /**
+             * ResponseCheckTx priority.
+             * @member {number|Long} priority
+             * @memberof tendermint.abci.ResponseCheckTx
+             * @instance
+             */
+            ResponseCheckTx.prototype.priority = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * ResponseCheckTx mempoolError.
+             * @member {string} mempoolError
+             * @memberof tendermint.abci.ResponseCheckTx
+             * @instance
+             */
+            ResponseCheckTx.prototype.mempoolError = "";
 
             /**
              * Creates a new ResponseCheckTx instance using the specified properties.
@@ -6982,19 +7582,18 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.code);
                 if (message.data != null && Object.hasOwnProperty.call(message, "data"))
                     writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.data);
-                if (message.log != null && Object.hasOwnProperty.call(message, "log"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.log);
                 if (message.info != null && Object.hasOwnProperty.call(message, "info"))
                     writer.uint32(/* id 4, wireType 2 =*/34).string(message.info);
                 if (message.gasWanted != null && Object.hasOwnProperty.call(message, "gasWanted"))
                     writer.uint32(/* id 5, wireType 0 =*/40).int64(message.gasWanted);
-                if (message.gasUsed != null && Object.hasOwnProperty.call(message, "gasUsed"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).int64(message.gasUsed);
-                if (message.events != null && message.events.length)
-                    for (var i = 0; i < message.events.length; ++i)
-                        $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 if (message.codespace != null && Object.hasOwnProperty.call(message, "codespace"))
                     writer.uint32(/* id 8, wireType 2 =*/66).string(message.codespace);
+                if (message.sender != null && Object.hasOwnProperty.call(message, "sender"))
+                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.sender);
+                if (message.priority != null && Object.hasOwnProperty.call(message, "priority"))
+                    writer.uint32(/* id 10, wireType 0 =*/80).int64(message.priority);
+                if (message.mempoolError != null && Object.hasOwnProperty.call(message, "mempoolError"))
+                    writer.uint32(/* id 11, wireType 2 =*/90).string(message.mempoolError);
                 return writer;
             };
 
@@ -7035,25 +7634,23 @@ $root.tendermint = (function() {
                     case 2:
                         message.data = reader.bytes();
                         break;
-                    case 3:
-                        message.log = reader.string();
-                        break;
                     case 4:
                         message.info = reader.string();
                         break;
                     case 5:
                         message.gasWanted = reader.int64();
                         break;
-                    case 6:
-                        message.gasUsed = reader.int64();
-                        break;
-                    case 7:
-                        if (!(message.events && message.events.length))
-                            message.events = [];
-                        message.events.push($root.tendermint.abci.Event.decode(reader, reader.uint32()));
-                        break;
                     case 8:
                         message.codespace = reader.string();
+                        break;
+                    case 9:
+                        message.sender = reader.string();
+                        break;
+                    case 10:
+                        message.priority = reader.int64();
+                        break;
+                    case 11:
+                        message.mempoolError = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -7096,30 +7693,24 @@ $root.tendermint = (function() {
                 if (message.data != null && message.hasOwnProperty("data"))
                     if (!(message.data && typeof message.data.length === "number" || $util.isString(message.data)))
                         return "data: buffer expected";
-                if (message.log != null && message.hasOwnProperty("log"))
-                    if (!$util.isString(message.log))
-                        return "log: string expected";
                 if (message.info != null && message.hasOwnProperty("info"))
                     if (!$util.isString(message.info))
                         return "info: string expected";
                 if (message.gasWanted != null && message.hasOwnProperty("gasWanted"))
                     if (!$util.isInteger(message.gasWanted) && !(message.gasWanted && $util.isInteger(message.gasWanted.low) && $util.isInteger(message.gasWanted.high)))
                         return "gasWanted: integer|Long expected";
-                if (message.gasUsed != null && message.hasOwnProperty("gasUsed"))
-                    if (!$util.isInteger(message.gasUsed) && !(message.gasUsed && $util.isInteger(message.gasUsed.low) && $util.isInteger(message.gasUsed.high)))
-                        return "gasUsed: integer|Long expected";
-                if (message.events != null && message.hasOwnProperty("events")) {
-                    if (!Array.isArray(message.events))
-                        return "events: array expected";
-                    for (var i = 0; i < message.events.length; ++i) {
-                        var error = $root.tendermint.abci.Event.verify(message.events[i]);
-                        if (error)
-                            return "events." + error;
-                    }
-                }
                 if (message.codespace != null && message.hasOwnProperty("codespace"))
                     if (!$util.isString(message.codespace))
                         return "codespace: string expected";
+                if (message.sender != null && message.hasOwnProperty("sender"))
+                    if (!$util.isString(message.sender))
+                        return "sender: string expected";
+                if (message.priority != null && message.hasOwnProperty("priority"))
+                    if (!$util.isInteger(message.priority) && !(message.priority && $util.isInteger(message.priority.low) && $util.isInteger(message.priority.high)))
+                        return "priority: integer|Long expected";
+                if (message.mempoolError != null && message.hasOwnProperty("mempoolError"))
+                    if (!$util.isString(message.mempoolError))
+                        return "mempoolError: string expected";
                 return null;
             };
 
@@ -7142,8 +7733,6 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.data, message.data = $util.newBuffer($util.base64.length(object.data)), 0);
                     else if (object.data.length >= 0)
                         message.data = object.data;
-                if (object.log != null)
-                    message.log = String(object.log);
                 if (object.info != null)
                     message.info = String(object.info);
                 if (object.gasWanted != null)
@@ -7155,27 +7744,21 @@ $root.tendermint = (function() {
                         message.gasWanted = object.gasWanted;
                     else if (typeof object.gasWanted === "object")
                         message.gasWanted = new $util.LongBits(object.gasWanted.low >>> 0, object.gasWanted.high >>> 0).toNumber();
-                if (object.gasUsed != null)
-                    if ($util.Long)
-                        (message.gasUsed = $util.Long.fromValue(object.gasUsed)).unsigned = false;
-                    else if (typeof object.gasUsed === "string")
-                        message.gasUsed = parseInt(object.gasUsed, 10);
-                    else if (typeof object.gasUsed === "number")
-                        message.gasUsed = object.gasUsed;
-                    else if (typeof object.gasUsed === "object")
-                        message.gasUsed = new $util.LongBits(object.gasUsed.low >>> 0, object.gasUsed.high >>> 0).toNumber();
-                if (object.events) {
-                    if (!Array.isArray(object.events))
-                        throw TypeError(".tendermint.abci.ResponseCheckTx.events: array expected");
-                    message.events = [];
-                    for (var i = 0; i < object.events.length; ++i) {
-                        if (typeof object.events[i] !== "object")
-                            throw TypeError(".tendermint.abci.ResponseCheckTx.events: object expected");
-                        message.events[i] = $root.tendermint.abci.Event.fromObject(object.events[i]);
-                    }
-                }
                 if (object.codespace != null)
                     message.codespace = String(object.codespace);
+                if (object.sender != null)
+                    message.sender = String(object.sender);
+                if (object.priority != null)
+                    if ($util.Long)
+                        (message.priority = $util.Long.fromValue(object.priority)).unsigned = false;
+                    else if (typeof object.priority === "string")
+                        message.priority = parseInt(object.priority, 10);
+                    else if (typeof object.priority === "number")
+                        message.priority = object.priority;
+                    else if (typeof object.priority === "object")
+                        message.priority = new $util.LongBits(object.priority.low >>> 0, object.priority.high >>> 0).toNumber();
+                if (object.mempoolError != null)
+                    message.mempoolError = String(object.mempoolError);
                 return message;
             };
 
@@ -7192,8 +7775,6 @@ $root.tendermint = (function() {
                 if (!options)
                     options = {};
                 var object = {};
-                if (options.arrays || options.defaults)
-                    object.events = [];
                 if (options.defaults) {
                     object.code = 0;
                     if (options.bytes === String)
@@ -7203,26 +7784,25 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.data = $util.newBuffer(object.data);
                     }
-                    object.log = "";
                     object.info = "";
                     if ($util.Long) {
                         var long = new $util.Long(0, 0, false);
                         object.gasWanted = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.gasWanted = options.longs === String ? "0" : 0;
+                    object.codespace = "";
+                    object.sender = "";
                     if ($util.Long) {
                         var long = new $util.Long(0, 0, false);
-                        object.gasUsed = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        object.priority = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
-                        object.gasUsed = options.longs === String ? "0" : 0;
-                    object.codespace = "";
+                        object.priority = options.longs === String ? "0" : 0;
+                    object.mempoolError = "";
                 }
                 if (message.code != null && message.hasOwnProperty("code"))
                     object.code = message.code;
                 if (message.data != null && message.hasOwnProperty("data"))
                     object.data = options.bytes === String ? $util.base64.encode(message.data, 0, message.data.length) : options.bytes === Array ? Array.prototype.slice.call(message.data) : message.data;
-                if (message.log != null && message.hasOwnProperty("log"))
-                    object.log = message.log;
                 if (message.info != null && message.hasOwnProperty("info"))
                     object.info = message.info;
                 if (message.gasWanted != null && message.hasOwnProperty("gasWanted"))
@@ -7230,18 +7810,17 @@ $root.tendermint = (function() {
                         object.gasWanted = options.longs === String ? String(message.gasWanted) : message.gasWanted;
                     else
                         object.gasWanted = options.longs === String ? $util.Long.prototype.toString.call(message.gasWanted) : options.longs === Number ? new $util.LongBits(message.gasWanted.low >>> 0, message.gasWanted.high >>> 0).toNumber() : message.gasWanted;
-                if (message.gasUsed != null && message.hasOwnProperty("gasUsed"))
-                    if (typeof message.gasUsed === "number")
-                        object.gasUsed = options.longs === String ? String(message.gasUsed) : message.gasUsed;
-                    else
-                        object.gasUsed = options.longs === String ? $util.Long.prototype.toString.call(message.gasUsed) : options.longs === Number ? new $util.LongBits(message.gasUsed.low >>> 0, message.gasUsed.high >>> 0).toNumber() : message.gasUsed;
-                if (message.events && message.events.length) {
-                    object.events = [];
-                    for (var j = 0; j < message.events.length; ++j)
-                        object.events[j] = $root.tendermint.abci.Event.toObject(message.events[j], options);
-                }
                 if (message.codespace != null && message.hasOwnProperty("codespace"))
                     object.codespace = message.codespace;
+                if (message.sender != null && message.hasOwnProperty("sender"))
+                    object.sender = message.sender;
+                if (message.priority != null && message.hasOwnProperty("priority"))
+                    if (typeof message.priority === "number")
+                        object.priority = options.longs === String ? String(message.priority) : message.priority;
+                    else
+                        object.priority = options.longs === String ? $util.Long.prototype.toString.call(message.priority) : options.longs === Number ? new $util.LongBits(message.priority.low >>> 0, message.priority.high >>> 0).toNumber() : message.priority;
+                if (message.mempoolError != null && message.hasOwnProperty("mempoolError"))
+                    object.mempoolError = message.mempoolError;
                 return object;
             };
 
@@ -7257,931 +7836,6 @@ $root.tendermint = (function() {
             };
 
             return ResponseCheckTx;
-        })();
-
-        abci.ResponseDeliverTx = (function() {
-
-            /**
-             * Properties of a ResponseDeliverTx.
-             * @memberof tendermint.abci
-             * @interface IResponseDeliverTx
-             * @property {number|null} [code] ResponseDeliverTx code
-             * @property {Uint8Array|null} [data] ResponseDeliverTx data
-             * @property {string|null} [log] ResponseDeliverTx log
-             * @property {string|null} [info] ResponseDeliverTx info
-             * @property {number|Long|null} [gasWanted] ResponseDeliverTx gasWanted
-             * @property {number|Long|null} [gasUsed] ResponseDeliverTx gasUsed
-             * @property {Array.<tendermint.abci.IEvent>|null} [events] ResponseDeliverTx events
-             * @property {string|null} [codespace] ResponseDeliverTx codespace
-             */
-
-            /**
-             * Constructs a new ResponseDeliverTx.
-             * @memberof tendermint.abci
-             * @classdesc Represents a ResponseDeliverTx.
-             * @implements IResponseDeliverTx
-             * @constructor
-             * @param {tendermint.abci.IResponseDeliverTx=} [properties] Properties to set
-             */
-            function ResponseDeliverTx(properties) {
-                this.events = [];
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * ResponseDeliverTx code.
-             * @member {number} code
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             */
-            ResponseDeliverTx.prototype.code = 0;
-
-            /**
-             * ResponseDeliverTx data.
-             * @member {Uint8Array} data
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             */
-            ResponseDeliverTx.prototype.data = $util.newBuffer([]);
-
-            /**
-             * ResponseDeliverTx log.
-             * @member {string} log
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             */
-            ResponseDeliverTx.prototype.log = "";
-
-            /**
-             * ResponseDeliverTx info.
-             * @member {string} info
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             */
-            ResponseDeliverTx.prototype.info = "";
-
-            /**
-             * ResponseDeliverTx gasWanted.
-             * @member {number|Long} gasWanted
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             */
-            ResponseDeliverTx.prototype.gasWanted = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * ResponseDeliverTx gasUsed.
-             * @member {number|Long} gasUsed
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             */
-            ResponseDeliverTx.prototype.gasUsed = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * ResponseDeliverTx events.
-             * @member {Array.<tendermint.abci.IEvent>} events
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             */
-            ResponseDeliverTx.prototype.events = $util.emptyArray;
-
-            /**
-             * ResponseDeliverTx codespace.
-             * @member {string} codespace
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             */
-            ResponseDeliverTx.prototype.codespace = "";
-
-            /**
-             * Creates a new ResponseDeliverTx instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @static
-             * @param {tendermint.abci.IResponseDeliverTx=} [properties] Properties to set
-             * @returns {tendermint.abci.ResponseDeliverTx} ResponseDeliverTx instance
-             */
-            ResponseDeliverTx.create = function create(properties) {
-                return new ResponseDeliverTx(properties);
-            };
-
-            /**
-             * Encodes the specified ResponseDeliverTx message. Does not implicitly {@link tendermint.abci.ResponseDeliverTx.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @static
-             * @param {tendermint.abci.IResponseDeliverTx} message ResponseDeliverTx message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseDeliverTx.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.code != null && Object.hasOwnProperty.call(message, "code"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.code);
-                if (message.data != null && Object.hasOwnProperty.call(message, "data"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.data);
-                if (message.log != null && Object.hasOwnProperty.call(message, "log"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.log);
-                if (message.info != null && Object.hasOwnProperty.call(message, "info"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.info);
-                if (message.gasWanted != null && Object.hasOwnProperty.call(message, "gasWanted"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).int64(message.gasWanted);
-                if (message.gasUsed != null && Object.hasOwnProperty.call(message, "gasUsed"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).int64(message.gasUsed);
-                if (message.events != null && message.events.length)
-                    for (var i = 0; i < message.events.length; ++i)
-                        $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
-                if (message.codespace != null && Object.hasOwnProperty.call(message, "codespace"))
-                    writer.uint32(/* id 8, wireType 2 =*/66).string(message.codespace);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified ResponseDeliverTx message, length delimited. Does not implicitly {@link tendermint.abci.ResponseDeliverTx.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @static
-             * @param {tendermint.abci.IResponseDeliverTx} message ResponseDeliverTx message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseDeliverTx.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a ResponseDeliverTx message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ResponseDeliverTx} ResponseDeliverTx
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseDeliverTx.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseDeliverTx();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.code = reader.uint32();
-                        break;
-                    case 2:
-                        message.data = reader.bytes();
-                        break;
-                    case 3:
-                        message.log = reader.string();
-                        break;
-                    case 4:
-                        message.info = reader.string();
-                        break;
-                    case 5:
-                        message.gasWanted = reader.int64();
-                        break;
-                    case 6:
-                        message.gasUsed = reader.int64();
-                        break;
-                    case 7:
-                        if (!(message.events && message.events.length))
-                            message.events = [];
-                        message.events.push($root.tendermint.abci.Event.decode(reader, reader.uint32()));
-                        break;
-                    case 8:
-                        message.codespace = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a ResponseDeliverTx message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ResponseDeliverTx} ResponseDeliverTx
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseDeliverTx.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a ResponseDeliverTx message.
-             * @function verify
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            ResponseDeliverTx.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.code != null && message.hasOwnProperty("code"))
-                    if (!$util.isInteger(message.code))
-                        return "code: integer expected";
-                if (message.data != null && message.hasOwnProperty("data"))
-                    if (!(message.data && typeof message.data.length === "number" || $util.isString(message.data)))
-                        return "data: buffer expected";
-                if (message.log != null && message.hasOwnProperty("log"))
-                    if (!$util.isString(message.log))
-                        return "log: string expected";
-                if (message.info != null && message.hasOwnProperty("info"))
-                    if (!$util.isString(message.info))
-                        return "info: string expected";
-                if (message.gasWanted != null && message.hasOwnProperty("gasWanted"))
-                    if (!$util.isInteger(message.gasWanted) && !(message.gasWanted && $util.isInteger(message.gasWanted.low) && $util.isInteger(message.gasWanted.high)))
-                        return "gasWanted: integer|Long expected";
-                if (message.gasUsed != null && message.hasOwnProperty("gasUsed"))
-                    if (!$util.isInteger(message.gasUsed) && !(message.gasUsed && $util.isInteger(message.gasUsed.low) && $util.isInteger(message.gasUsed.high)))
-                        return "gasUsed: integer|Long expected";
-                if (message.events != null && message.hasOwnProperty("events")) {
-                    if (!Array.isArray(message.events))
-                        return "events: array expected";
-                    for (var i = 0; i < message.events.length; ++i) {
-                        var error = $root.tendermint.abci.Event.verify(message.events[i]);
-                        if (error)
-                            return "events." + error;
-                    }
-                }
-                if (message.codespace != null && message.hasOwnProperty("codespace"))
-                    if (!$util.isString(message.codespace))
-                        return "codespace: string expected";
-                return null;
-            };
-
-            /**
-             * Creates a ResponseDeliverTx message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ResponseDeliverTx} ResponseDeliverTx
-             */
-            ResponseDeliverTx.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ResponseDeliverTx)
-                    return object;
-                var message = new $root.tendermint.abci.ResponseDeliverTx();
-                if (object.code != null)
-                    message.code = object.code >>> 0;
-                if (object.data != null)
-                    if (typeof object.data === "string")
-                        $util.base64.decode(object.data, message.data = $util.newBuffer($util.base64.length(object.data)), 0);
-                    else if (object.data.length >= 0)
-                        message.data = object.data;
-                if (object.log != null)
-                    message.log = String(object.log);
-                if (object.info != null)
-                    message.info = String(object.info);
-                if (object.gasWanted != null)
-                    if ($util.Long)
-                        (message.gasWanted = $util.Long.fromValue(object.gasWanted)).unsigned = false;
-                    else if (typeof object.gasWanted === "string")
-                        message.gasWanted = parseInt(object.gasWanted, 10);
-                    else if (typeof object.gasWanted === "number")
-                        message.gasWanted = object.gasWanted;
-                    else if (typeof object.gasWanted === "object")
-                        message.gasWanted = new $util.LongBits(object.gasWanted.low >>> 0, object.gasWanted.high >>> 0).toNumber();
-                if (object.gasUsed != null)
-                    if ($util.Long)
-                        (message.gasUsed = $util.Long.fromValue(object.gasUsed)).unsigned = false;
-                    else if (typeof object.gasUsed === "string")
-                        message.gasUsed = parseInt(object.gasUsed, 10);
-                    else if (typeof object.gasUsed === "number")
-                        message.gasUsed = object.gasUsed;
-                    else if (typeof object.gasUsed === "object")
-                        message.gasUsed = new $util.LongBits(object.gasUsed.low >>> 0, object.gasUsed.high >>> 0).toNumber();
-                if (object.events) {
-                    if (!Array.isArray(object.events))
-                        throw TypeError(".tendermint.abci.ResponseDeliverTx.events: array expected");
-                    message.events = [];
-                    for (var i = 0; i < object.events.length; ++i) {
-                        if (typeof object.events[i] !== "object")
-                            throw TypeError(".tendermint.abci.ResponseDeliverTx.events: object expected");
-                        message.events[i] = $root.tendermint.abci.Event.fromObject(object.events[i]);
-                    }
-                }
-                if (object.codespace != null)
-                    message.codespace = String(object.codespace);
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a ResponseDeliverTx message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @static
-             * @param {tendermint.abci.ResponseDeliverTx} message ResponseDeliverTx
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            ResponseDeliverTx.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.arrays || options.defaults)
-                    object.events = [];
-                if (options.defaults) {
-                    object.code = 0;
-                    if (options.bytes === String)
-                        object.data = "";
-                    else {
-                        object.data = [];
-                        if (options.bytes !== Array)
-                            object.data = $util.newBuffer(object.data);
-                    }
-                    object.log = "";
-                    object.info = "";
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.gasWanted = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.gasWanted = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.gasUsed = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.gasUsed = options.longs === String ? "0" : 0;
-                    object.codespace = "";
-                }
-                if (message.code != null && message.hasOwnProperty("code"))
-                    object.code = message.code;
-                if (message.data != null && message.hasOwnProperty("data"))
-                    object.data = options.bytes === String ? $util.base64.encode(message.data, 0, message.data.length) : options.bytes === Array ? Array.prototype.slice.call(message.data) : message.data;
-                if (message.log != null && message.hasOwnProperty("log"))
-                    object.log = message.log;
-                if (message.info != null && message.hasOwnProperty("info"))
-                    object.info = message.info;
-                if (message.gasWanted != null && message.hasOwnProperty("gasWanted"))
-                    if (typeof message.gasWanted === "number")
-                        object.gasWanted = options.longs === String ? String(message.gasWanted) : message.gasWanted;
-                    else
-                        object.gasWanted = options.longs === String ? $util.Long.prototype.toString.call(message.gasWanted) : options.longs === Number ? new $util.LongBits(message.gasWanted.low >>> 0, message.gasWanted.high >>> 0).toNumber() : message.gasWanted;
-                if (message.gasUsed != null && message.hasOwnProperty("gasUsed"))
-                    if (typeof message.gasUsed === "number")
-                        object.gasUsed = options.longs === String ? String(message.gasUsed) : message.gasUsed;
-                    else
-                        object.gasUsed = options.longs === String ? $util.Long.prototype.toString.call(message.gasUsed) : options.longs === Number ? new $util.LongBits(message.gasUsed.low >>> 0, message.gasUsed.high >>> 0).toNumber() : message.gasUsed;
-                if (message.events && message.events.length) {
-                    object.events = [];
-                    for (var j = 0; j < message.events.length; ++j)
-                        object.events[j] = $root.tendermint.abci.Event.toObject(message.events[j], options);
-                }
-                if (message.codespace != null && message.hasOwnProperty("codespace"))
-                    object.codespace = message.codespace;
-                return object;
-            };
-
-            /**
-             * Converts this ResponseDeliverTx to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.ResponseDeliverTx
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            ResponseDeliverTx.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return ResponseDeliverTx;
-        })();
-
-        abci.ResponseEndBlock = (function() {
-
-            /**
-             * Properties of a ResponseEndBlock.
-             * @memberof tendermint.abci
-             * @interface IResponseEndBlock
-             * @property {tendermint.abci.IConsensusParams|null} [consensusParamUpdates] ResponseEndBlock consensusParamUpdates
-             * @property {Array.<tendermint.abci.IEvent>|null} [events] ResponseEndBlock events
-             * @property {tendermint.types.ICoreChainLock|null} [nextCoreChainLockUpdate] ResponseEndBlock nextCoreChainLockUpdate
-             * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSetUpdate] ResponseEndBlock validatorSetUpdate
-             */
-
-            /**
-             * Constructs a new ResponseEndBlock.
-             * @memberof tendermint.abci
-             * @classdesc Represents a ResponseEndBlock.
-             * @implements IResponseEndBlock
-             * @constructor
-             * @param {tendermint.abci.IResponseEndBlock=} [properties] Properties to set
-             */
-            function ResponseEndBlock(properties) {
-                this.events = [];
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * ResponseEndBlock consensusParamUpdates.
-             * @member {tendermint.abci.IConsensusParams|null|undefined} consensusParamUpdates
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @instance
-             */
-            ResponseEndBlock.prototype.consensusParamUpdates = null;
-
-            /**
-             * ResponseEndBlock events.
-             * @member {Array.<tendermint.abci.IEvent>} events
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @instance
-             */
-            ResponseEndBlock.prototype.events = $util.emptyArray;
-
-            /**
-             * ResponseEndBlock nextCoreChainLockUpdate.
-             * @member {tendermint.types.ICoreChainLock|null|undefined} nextCoreChainLockUpdate
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @instance
-             */
-            ResponseEndBlock.prototype.nextCoreChainLockUpdate = null;
-
-            /**
-             * ResponseEndBlock validatorSetUpdate.
-             * @member {tendermint.abci.IValidatorSetUpdate|null|undefined} validatorSetUpdate
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @instance
-             */
-            ResponseEndBlock.prototype.validatorSetUpdate = null;
-
-            /**
-             * Creates a new ResponseEndBlock instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @static
-             * @param {tendermint.abci.IResponseEndBlock=} [properties] Properties to set
-             * @returns {tendermint.abci.ResponseEndBlock} ResponseEndBlock instance
-             */
-            ResponseEndBlock.create = function create(properties) {
-                return new ResponseEndBlock(properties);
-            };
-
-            /**
-             * Encodes the specified ResponseEndBlock message. Does not implicitly {@link tendermint.abci.ResponseEndBlock.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @static
-             * @param {tendermint.abci.IResponseEndBlock} message ResponseEndBlock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseEndBlock.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.consensusParamUpdates != null && Object.hasOwnProperty.call(message, "consensusParamUpdates"))
-                    $root.tendermint.abci.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                if (message.events != null && message.events.length)
-                    for (var i = 0; i < message.events.length; ++i)
-                        $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                if (message.nextCoreChainLockUpdate != null && Object.hasOwnProperty.call(message, "nextCoreChainLockUpdate"))
-                    $root.tendermint.types.CoreChainLock.encode(message.nextCoreChainLockUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
-                if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
-                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified ResponseEndBlock message, length delimited. Does not implicitly {@link tendermint.abci.ResponseEndBlock.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @static
-             * @param {tendermint.abci.IResponseEndBlock} message ResponseEndBlock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseEndBlock.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a ResponseEndBlock message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ResponseEndBlock} ResponseEndBlock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseEndBlock.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseEndBlock();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 2:
-                        message.consensusParamUpdates = $root.tendermint.abci.ConsensusParams.decode(reader, reader.uint32());
-                        break;
-                    case 3:
-                        if (!(message.events && message.events.length))
-                            message.events = [];
-                        message.events.push($root.tendermint.abci.Event.decode(reader, reader.uint32()));
-                        break;
-                    case 100:
-                        message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
-                        break;
-                    case 101:
-                        message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a ResponseEndBlock message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ResponseEndBlock} ResponseEndBlock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseEndBlock.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a ResponseEndBlock message.
-             * @function verify
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            ResponseEndBlock.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates")) {
-                    var error = $root.tendermint.abci.ConsensusParams.verify(message.consensusParamUpdates);
-                    if (error)
-                        return "consensusParamUpdates." + error;
-                }
-                if (message.events != null && message.hasOwnProperty("events")) {
-                    if (!Array.isArray(message.events))
-                        return "events: array expected";
-                    for (var i = 0; i < message.events.length; ++i) {
-                        var error = $root.tendermint.abci.Event.verify(message.events[i]);
-                        if (error)
-                            return "events." + error;
-                    }
-                }
-                if (message.nextCoreChainLockUpdate != null && message.hasOwnProperty("nextCoreChainLockUpdate")) {
-                    var error = $root.tendermint.types.CoreChainLock.verify(message.nextCoreChainLockUpdate);
-                    if (error)
-                        return "nextCoreChainLockUpdate." + error;
-                }
-                if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate")) {
-                    var error = $root.tendermint.abci.ValidatorSetUpdate.verify(message.validatorSetUpdate);
-                    if (error)
-                        return "validatorSetUpdate." + error;
-                }
-                return null;
-            };
-
-            /**
-             * Creates a ResponseEndBlock message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ResponseEndBlock} ResponseEndBlock
-             */
-            ResponseEndBlock.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ResponseEndBlock)
-                    return object;
-                var message = new $root.tendermint.abci.ResponseEndBlock();
-                if (object.consensusParamUpdates != null) {
-                    if (typeof object.consensusParamUpdates !== "object")
-                        throw TypeError(".tendermint.abci.ResponseEndBlock.consensusParamUpdates: object expected");
-                    message.consensusParamUpdates = $root.tendermint.abci.ConsensusParams.fromObject(object.consensusParamUpdates);
-                }
-                if (object.events) {
-                    if (!Array.isArray(object.events))
-                        throw TypeError(".tendermint.abci.ResponseEndBlock.events: array expected");
-                    message.events = [];
-                    for (var i = 0; i < object.events.length; ++i) {
-                        if (typeof object.events[i] !== "object")
-                            throw TypeError(".tendermint.abci.ResponseEndBlock.events: object expected");
-                        message.events[i] = $root.tendermint.abci.Event.fromObject(object.events[i]);
-                    }
-                }
-                if (object.nextCoreChainLockUpdate != null) {
-                    if (typeof object.nextCoreChainLockUpdate !== "object")
-                        throw TypeError(".tendermint.abci.ResponseEndBlock.nextCoreChainLockUpdate: object expected");
-                    message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.nextCoreChainLockUpdate);
-                }
-                if (object.validatorSetUpdate != null) {
-                    if (typeof object.validatorSetUpdate !== "object")
-                        throw TypeError(".tendermint.abci.ResponseEndBlock.validatorSetUpdate: object expected");
-                    message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.fromObject(object.validatorSetUpdate);
-                }
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a ResponseEndBlock message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @static
-             * @param {tendermint.abci.ResponseEndBlock} message ResponseEndBlock
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            ResponseEndBlock.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.arrays || options.defaults)
-                    object.events = [];
-                if (options.defaults) {
-                    object.consensusParamUpdates = null;
-                    object.nextCoreChainLockUpdate = null;
-                    object.validatorSetUpdate = null;
-                }
-                if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates"))
-                    object.consensusParamUpdates = $root.tendermint.abci.ConsensusParams.toObject(message.consensusParamUpdates, options);
-                if (message.events && message.events.length) {
-                    object.events = [];
-                    for (var j = 0; j < message.events.length; ++j)
-                        object.events[j] = $root.tendermint.abci.Event.toObject(message.events[j], options);
-                }
-                if (message.nextCoreChainLockUpdate != null && message.hasOwnProperty("nextCoreChainLockUpdate"))
-                    object.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.nextCoreChainLockUpdate, options);
-                if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate"))
-                    object.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.toObject(message.validatorSetUpdate, options);
-                return object;
-            };
-
-            /**
-             * Converts this ResponseEndBlock to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.ResponseEndBlock
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            ResponseEndBlock.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return ResponseEndBlock;
-        })();
-
-        abci.ResponseCommit = (function() {
-
-            /**
-             * Properties of a ResponseCommit.
-             * @memberof tendermint.abci
-             * @interface IResponseCommit
-             * @property {Uint8Array|null} [data] ResponseCommit data
-             * @property {number|Long|null} [retainHeight] ResponseCommit retainHeight
-             */
-
-            /**
-             * Constructs a new ResponseCommit.
-             * @memberof tendermint.abci
-             * @classdesc Represents a ResponseCommit.
-             * @implements IResponseCommit
-             * @constructor
-             * @param {tendermint.abci.IResponseCommit=} [properties] Properties to set
-             */
-            function ResponseCommit(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * ResponseCommit data.
-             * @member {Uint8Array} data
-             * @memberof tendermint.abci.ResponseCommit
-             * @instance
-             */
-            ResponseCommit.prototype.data = $util.newBuffer([]);
-
-            /**
-             * ResponseCommit retainHeight.
-             * @member {number|Long} retainHeight
-             * @memberof tendermint.abci.ResponseCommit
-             * @instance
-             */
-            ResponseCommit.prototype.retainHeight = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * Creates a new ResponseCommit instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.ResponseCommit
-             * @static
-             * @param {tendermint.abci.IResponseCommit=} [properties] Properties to set
-             * @returns {tendermint.abci.ResponseCommit} ResponseCommit instance
-             */
-            ResponseCommit.create = function create(properties) {
-                return new ResponseCommit(properties);
-            };
-
-            /**
-             * Encodes the specified ResponseCommit message. Does not implicitly {@link tendermint.abci.ResponseCommit.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.ResponseCommit
-             * @static
-             * @param {tendermint.abci.IResponseCommit} message ResponseCommit message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseCommit.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.data != null && Object.hasOwnProperty.call(message, "data"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.data);
-                if (message.retainHeight != null && Object.hasOwnProperty.call(message, "retainHeight"))
-                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.retainHeight);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified ResponseCommit message, length delimited. Does not implicitly {@link tendermint.abci.ResponseCommit.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.ResponseCommit
-             * @static
-             * @param {tendermint.abci.IResponseCommit} message ResponseCommit message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ResponseCommit.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a ResponseCommit message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.ResponseCommit
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ResponseCommit} ResponseCommit
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseCommit.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseCommit();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 2:
-                        message.data = reader.bytes();
-                        break;
-                    case 3:
-                        message.retainHeight = reader.int64();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a ResponseCommit message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.ResponseCommit
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ResponseCommit} ResponseCommit
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ResponseCommit.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a ResponseCommit message.
-             * @function verify
-             * @memberof tendermint.abci.ResponseCommit
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            ResponseCommit.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.data != null && message.hasOwnProperty("data"))
-                    if (!(message.data && typeof message.data.length === "number" || $util.isString(message.data)))
-                        return "data: buffer expected";
-                if (message.retainHeight != null && message.hasOwnProperty("retainHeight"))
-                    if (!$util.isInteger(message.retainHeight) && !(message.retainHeight && $util.isInteger(message.retainHeight.low) && $util.isInteger(message.retainHeight.high)))
-                        return "retainHeight: integer|Long expected";
-                return null;
-            };
-
-            /**
-             * Creates a ResponseCommit message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.ResponseCommit
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ResponseCommit} ResponseCommit
-             */
-            ResponseCommit.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ResponseCommit)
-                    return object;
-                var message = new $root.tendermint.abci.ResponseCommit();
-                if (object.data != null)
-                    if (typeof object.data === "string")
-                        $util.base64.decode(object.data, message.data = $util.newBuffer($util.base64.length(object.data)), 0);
-                    else if (object.data.length >= 0)
-                        message.data = object.data;
-                if (object.retainHeight != null)
-                    if ($util.Long)
-                        (message.retainHeight = $util.Long.fromValue(object.retainHeight)).unsigned = false;
-                    else if (typeof object.retainHeight === "string")
-                        message.retainHeight = parseInt(object.retainHeight, 10);
-                    else if (typeof object.retainHeight === "number")
-                        message.retainHeight = object.retainHeight;
-                    else if (typeof object.retainHeight === "object")
-                        message.retainHeight = new $util.LongBits(object.retainHeight.low >>> 0, object.retainHeight.high >>> 0).toNumber();
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a ResponseCommit message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.ResponseCommit
-             * @static
-             * @param {tendermint.abci.ResponseCommit} message ResponseCommit
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            ResponseCommit.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    if (options.bytes === String)
-                        object.data = "";
-                    else {
-                        object.data = [];
-                        if (options.bytes !== Array)
-                            object.data = $util.newBuffer(object.data);
-                    }
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.retainHeight = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.retainHeight = options.longs === String ? "0" : 0;
-                }
-                if (message.data != null && message.hasOwnProperty("data"))
-                    object.data = options.bytes === String ? $util.base64.encode(message.data, 0, message.data.length) : options.bytes === Array ? Array.prototype.slice.call(message.data) : message.data;
-                if (message.retainHeight != null && message.hasOwnProperty("retainHeight"))
-                    if (typeof message.retainHeight === "number")
-                        object.retainHeight = options.longs === String ? String(message.retainHeight) : message.retainHeight;
-                    else
-                        object.retainHeight = options.longs === String ? $util.Long.prototype.toString.call(message.retainHeight) : options.longs === Number ? new $util.LongBits(message.retainHeight.low >>> 0, message.retainHeight.high >>> 0).toNumber() : message.retainHeight;
-                return object;
-            };
-
-            /**
-             * Converts this ResponseCommit to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.ResponseCommit
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            ResponseCommit.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return ResponseCommit;
         })();
 
         abci.ResponseListSnapshots = (function() {
@@ -9158,27 +8812,31 @@ $root.tendermint = (function() {
             return ResponseApplySnapshotChunk;
         })();
 
-        abci.ConsensusParams = (function() {
+        abci.ResponsePrepareProposal = (function() {
 
             /**
-             * Properties of a ConsensusParams.
+             * Properties of a ResponsePrepareProposal.
              * @memberof tendermint.abci
-             * @interface IConsensusParams
-             * @property {tendermint.abci.IBlockParams|null} [block] ConsensusParams block
-             * @property {tendermint.types.IEvidenceParams|null} [evidence] ConsensusParams evidence
-             * @property {tendermint.types.IValidatorParams|null} [validator] ConsensusParams validator
-             * @property {tendermint.types.IVersionParams|null} [version] ConsensusParams version
+             * @interface IResponsePrepareProposal
+             * @property {Array.<tendermint.abci.ITxRecord>|null} [txRecords] ResponsePrepareProposal txRecords
+             * @property {Uint8Array|null} [appHash] ResponsePrepareProposal appHash
+             * @property {Array.<tendermint.abci.IExecTxResult>|null} [txResults] ResponsePrepareProposal txResults
+             * @property {tendermint.types.IConsensusParams|null} [consensusParamUpdates] ResponsePrepareProposal consensusParamUpdates
+             * @property {tendermint.types.ICoreChainLock|null} [coreChainLockUpdate] ResponsePrepareProposal coreChainLockUpdate
+             * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSetUpdate] ResponsePrepareProposal validatorSetUpdate
              */
 
             /**
-             * Constructs a new ConsensusParams.
+             * Constructs a new ResponsePrepareProposal.
              * @memberof tendermint.abci
-             * @classdesc Represents a ConsensusParams.
-             * @implements IConsensusParams
+             * @classdesc Represents a ResponsePrepareProposal.
+             * @implements IResponsePrepareProposal
              * @constructor
-             * @param {tendermint.abci.IConsensusParams=} [properties] Properties to set
+             * @param {tendermint.abci.IResponsePrepareProposal=} [properties] Properties to set
              */
-            function ConsensusParams(properties) {
+            function ResponsePrepareProposal(properties) {
+                this.txRecords = [];
+                this.txResults = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -9186,114 +8844,146 @@ $root.tendermint = (function() {
             }
 
             /**
-             * ConsensusParams block.
-             * @member {tendermint.abci.IBlockParams|null|undefined} block
-             * @memberof tendermint.abci.ConsensusParams
+             * ResponsePrepareProposal txRecords.
+             * @member {Array.<tendermint.abci.ITxRecord>} txRecords
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @instance
              */
-            ConsensusParams.prototype.block = null;
+            ResponsePrepareProposal.prototype.txRecords = $util.emptyArray;
 
             /**
-             * ConsensusParams evidence.
-             * @member {tendermint.types.IEvidenceParams|null|undefined} evidence
-             * @memberof tendermint.abci.ConsensusParams
+             * ResponsePrepareProposal appHash.
+             * @member {Uint8Array} appHash
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @instance
              */
-            ConsensusParams.prototype.evidence = null;
+            ResponsePrepareProposal.prototype.appHash = $util.newBuffer([]);
 
             /**
-             * ConsensusParams validator.
-             * @member {tendermint.types.IValidatorParams|null|undefined} validator
-             * @memberof tendermint.abci.ConsensusParams
+             * ResponsePrepareProposal txResults.
+             * @member {Array.<tendermint.abci.IExecTxResult>} txResults
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @instance
              */
-            ConsensusParams.prototype.validator = null;
+            ResponsePrepareProposal.prototype.txResults = $util.emptyArray;
 
             /**
-             * ConsensusParams version.
-             * @member {tendermint.types.IVersionParams|null|undefined} version
-             * @memberof tendermint.abci.ConsensusParams
+             * ResponsePrepareProposal consensusParamUpdates.
+             * @member {tendermint.types.IConsensusParams|null|undefined} consensusParamUpdates
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @instance
              */
-            ConsensusParams.prototype.version = null;
+            ResponsePrepareProposal.prototype.consensusParamUpdates = null;
 
             /**
-             * Creates a new ConsensusParams instance using the specified properties.
+             * ResponsePrepareProposal coreChainLockUpdate.
+             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLockUpdate
+             * @memberof tendermint.abci.ResponsePrepareProposal
+             * @instance
+             */
+            ResponsePrepareProposal.prototype.coreChainLockUpdate = null;
+
+            /**
+             * ResponsePrepareProposal validatorSetUpdate.
+             * @member {tendermint.abci.IValidatorSetUpdate|null|undefined} validatorSetUpdate
+             * @memberof tendermint.abci.ResponsePrepareProposal
+             * @instance
+             */
+            ResponsePrepareProposal.prototype.validatorSetUpdate = null;
+
+            /**
+             * Creates a new ResponsePrepareProposal instance using the specified properties.
              * @function create
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @static
-             * @param {tendermint.abci.IConsensusParams=} [properties] Properties to set
-             * @returns {tendermint.abci.ConsensusParams} ConsensusParams instance
+             * @param {tendermint.abci.IResponsePrepareProposal=} [properties] Properties to set
+             * @returns {tendermint.abci.ResponsePrepareProposal} ResponsePrepareProposal instance
              */
-            ConsensusParams.create = function create(properties) {
-                return new ConsensusParams(properties);
+            ResponsePrepareProposal.create = function create(properties) {
+                return new ResponsePrepareProposal(properties);
             };
 
             /**
-             * Encodes the specified ConsensusParams message. Does not implicitly {@link tendermint.abci.ConsensusParams.verify|verify} messages.
+             * Encodes the specified ResponsePrepareProposal message. Does not implicitly {@link tendermint.abci.ResponsePrepareProposal.verify|verify} messages.
              * @function encode
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @static
-             * @param {tendermint.abci.IConsensusParams} message ConsensusParams message or plain object to encode
+             * @param {tendermint.abci.IResponsePrepareProposal} message ResponsePrepareProposal message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ConsensusParams.encode = function encode(message, writer) {
+            ResponsePrepareProposal.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
-                if (message.block != null && Object.hasOwnProperty.call(message, "block"))
-                    $root.tendermint.abci.BlockParams.encode(message.block, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                if (message.evidence != null && Object.hasOwnProperty.call(message, "evidence"))
-                    $root.tendermint.types.EvidenceParams.encode(message.evidence, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                if (message.validator != null && Object.hasOwnProperty.call(message, "validator"))
-                    $root.tendermint.types.ValidatorParams.encode(message.validator, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                if (message.version != null && Object.hasOwnProperty.call(message, "version"))
-                    $root.tendermint.types.VersionParams.encode(message.version, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.txRecords != null && message.txRecords.length)
+                    for (var i = 0; i < message.txRecords.length; ++i)
+                        $root.tendermint.abci.TxRecord.encode(message.txRecords[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.appHash != null && Object.hasOwnProperty.call(message, "appHash"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.appHash);
+                if (message.txResults != null && message.txResults.length)
+                    for (var i = 0; i < message.txResults.length; ++i)
+                        $root.tendermint.abci.ExecTxResult.encode(message.txResults[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.consensusParamUpdates != null && Object.hasOwnProperty.call(message, "consensusParamUpdates"))
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                if (message.coreChainLockUpdate != null && Object.hasOwnProperty.call(message, "coreChainLockUpdate"))
+                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
+                if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
+                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
                 return writer;
             };
 
             /**
-             * Encodes the specified ConsensusParams message, length delimited. Does not implicitly {@link tendermint.abci.ConsensusParams.verify|verify} messages.
+             * Encodes the specified ResponsePrepareProposal message, length delimited. Does not implicitly {@link tendermint.abci.ResponsePrepareProposal.verify|verify} messages.
              * @function encodeDelimited
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @static
-             * @param {tendermint.abci.IConsensusParams} message ConsensusParams message or plain object to encode
+             * @param {tendermint.abci.IResponsePrepareProposal} message ResponsePrepareProposal message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            ConsensusParams.encodeDelimited = function encodeDelimited(message, writer) {
+            ResponsePrepareProposal.encodeDelimited = function encodeDelimited(message, writer) {
                 return this.encode(message, writer).ldelim();
             };
 
             /**
-             * Decodes a ConsensusParams message from the specified reader or buffer.
+             * Decodes a ResponsePrepareProposal message from the specified reader or buffer.
              * @function decode
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
              * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ConsensusParams} ConsensusParams
+             * @returns {tendermint.abci.ResponsePrepareProposal} ResponsePrepareProposal
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ConsensusParams.decode = function decode(reader, length) {
+            ResponsePrepareProposal.decode = function decode(reader, length) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ConsensusParams();
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponsePrepareProposal();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.block = $root.tendermint.abci.BlockParams.decode(reader, reader.uint32());
+                        if (!(message.txRecords && message.txRecords.length))
+                            message.txRecords = [];
+                        message.txRecords.push($root.tendermint.abci.TxRecord.decode(reader, reader.uint32()));
                         break;
                     case 2:
-                        message.evidence = $root.tendermint.types.EvidenceParams.decode(reader, reader.uint32());
+                        message.appHash = reader.bytes();
                         break;
                     case 3:
-                        message.validator = $root.tendermint.types.ValidatorParams.decode(reader, reader.uint32());
+                        if (!(message.txResults && message.txResults.length))
+                            message.txResults = [];
+                        message.txResults.push($root.tendermint.abci.ExecTxResult.decode(reader, reader.uint32()));
                         break;
-                    case 4:
-                        message.version = $root.tendermint.types.VersionParams.decode(reader, reader.uint32());
+                    case 5:
+                        message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
+                        break;
+                    case 100:
+                        message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
+                        break;
+                    case 101:
+                        message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -9304,153 +8994,213 @@ $root.tendermint = (function() {
             };
 
             /**
-             * Decodes a ConsensusParams message from the specified reader or buffer, length delimited.
+             * Decodes a ResponsePrepareProposal message from the specified reader or buffer, length delimited.
              * @function decodeDelimited
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ConsensusParams} ConsensusParams
+             * @returns {tendermint.abci.ResponsePrepareProposal} ResponsePrepareProposal
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ConsensusParams.decodeDelimited = function decodeDelimited(reader) {
+            ResponsePrepareProposal.decodeDelimited = function decodeDelimited(reader) {
                 if (!(reader instanceof $Reader))
                     reader = new $Reader(reader);
                 return this.decode(reader, reader.uint32());
             };
 
             /**
-             * Verifies a ConsensusParams message.
+             * Verifies a ResponsePrepareProposal message.
              * @function verify
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @static
              * @param {Object.<string,*>} message Plain object to verify
              * @returns {string|null} `null` if valid, otherwise the reason why it is not
              */
-            ConsensusParams.verify = function verify(message) {
+            ResponsePrepareProposal.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
-                if (message.block != null && message.hasOwnProperty("block")) {
-                    var error = $root.tendermint.abci.BlockParams.verify(message.block);
-                    if (error)
-                        return "block." + error;
+                if (message.txRecords != null && message.hasOwnProperty("txRecords")) {
+                    if (!Array.isArray(message.txRecords))
+                        return "txRecords: array expected";
+                    for (var i = 0; i < message.txRecords.length; ++i) {
+                        var error = $root.tendermint.abci.TxRecord.verify(message.txRecords[i]);
+                        if (error)
+                            return "txRecords." + error;
+                    }
                 }
-                if (message.evidence != null && message.hasOwnProperty("evidence")) {
-                    var error = $root.tendermint.types.EvidenceParams.verify(message.evidence);
-                    if (error)
-                        return "evidence." + error;
+                if (message.appHash != null && message.hasOwnProperty("appHash"))
+                    if (!(message.appHash && typeof message.appHash.length === "number" || $util.isString(message.appHash)))
+                        return "appHash: buffer expected";
+                if (message.txResults != null && message.hasOwnProperty("txResults")) {
+                    if (!Array.isArray(message.txResults))
+                        return "txResults: array expected";
+                    for (var i = 0; i < message.txResults.length; ++i) {
+                        var error = $root.tendermint.abci.ExecTxResult.verify(message.txResults[i]);
+                        if (error)
+                            return "txResults." + error;
+                    }
                 }
-                if (message.validator != null && message.hasOwnProperty("validator")) {
-                    var error = $root.tendermint.types.ValidatorParams.verify(message.validator);
+                if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates")) {
+                    var error = $root.tendermint.types.ConsensusParams.verify(message.consensusParamUpdates);
                     if (error)
-                        return "validator." + error;
+                        return "consensusParamUpdates." + error;
                 }
-                if (message.version != null && message.hasOwnProperty("version")) {
-                    var error = $root.tendermint.types.VersionParams.verify(message.version);
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate")) {
+                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLockUpdate);
                     if (error)
-                        return "version." + error;
+                        return "coreChainLockUpdate." + error;
+                }
+                if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate")) {
+                    var error = $root.tendermint.abci.ValidatorSetUpdate.verify(message.validatorSetUpdate);
+                    if (error)
+                        return "validatorSetUpdate." + error;
                 }
                 return null;
             };
 
             /**
-             * Creates a ConsensusParams message from a plain object. Also converts values to their respective internal types.
+             * Creates a ResponsePrepareProposal message from a plain object. Also converts values to their respective internal types.
              * @function fromObject
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @static
              * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ConsensusParams} ConsensusParams
+             * @returns {tendermint.abci.ResponsePrepareProposal} ResponsePrepareProposal
              */
-            ConsensusParams.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ConsensusParams)
+            ResponsePrepareProposal.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ResponsePrepareProposal)
                     return object;
-                var message = new $root.tendermint.abci.ConsensusParams();
-                if (object.block != null) {
-                    if (typeof object.block !== "object")
-                        throw TypeError(".tendermint.abci.ConsensusParams.block: object expected");
-                    message.block = $root.tendermint.abci.BlockParams.fromObject(object.block);
+                var message = new $root.tendermint.abci.ResponsePrepareProposal();
+                if (object.txRecords) {
+                    if (!Array.isArray(object.txRecords))
+                        throw TypeError(".tendermint.abci.ResponsePrepareProposal.txRecords: array expected");
+                    message.txRecords = [];
+                    for (var i = 0; i < object.txRecords.length; ++i) {
+                        if (typeof object.txRecords[i] !== "object")
+                            throw TypeError(".tendermint.abci.ResponsePrepareProposal.txRecords: object expected");
+                        message.txRecords[i] = $root.tendermint.abci.TxRecord.fromObject(object.txRecords[i]);
+                    }
                 }
-                if (object.evidence != null) {
-                    if (typeof object.evidence !== "object")
-                        throw TypeError(".tendermint.abci.ConsensusParams.evidence: object expected");
-                    message.evidence = $root.tendermint.types.EvidenceParams.fromObject(object.evidence);
+                if (object.appHash != null)
+                    if (typeof object.appHash === "string")
+                        $util.base64.decode(object.appHash, message.appHash = $util.newBuffer($util.base64.length(object.appHash)), 0);
+                    else if (object.appHash.length >= 0)
+                        message.appHash = object.appHash;
+                if (object.txResults) {
+                    if (!Array.isArray(object.txResults))
+                        throw TypeError(".tendermint.abci.ResponsePrepareProposal.txResults: array expected");
+                    message.txResults = [];
+                    for (var i = 0; i < object.txResults.length; ++i) {
+                        if (typeof object.txResults[i] !== "object")
+                            throw TypeError(".tendermint.abci.ResponsePrepareProposal.txResults: object expected");
+                        message.txResults[i] = $root.tendermint.abci.ExecTxResult.fromObject(object.txResults[i]);
+                    }
                 }
-                if (object.validator != null) {
-                    if (typeof object.validator !== "object")
-                        throw TypeError(".tendermint.abci.ConsensusParams.validator: object expected");
-                    message.validator = $root.tendermint.types.ValidatorParams.fromObject(object.validator);
+                if (object.consensusParamUpdates != null) {
+                    if (typeof object.consensusParamUpdates !== "object")
+                        throw TypeError(".tendermint.abci.ResponsePrepareProposal.consensusParamUpdates: object expected");
+                    message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.fromObject(object.consensusParamUpdates);
                 }
-                if (object.version != null) {
-                    if (typeof object.version !== "object")
-                        throw TypeError(".tendermint.abci.ConsensusParams.version: object expected");
-                    message.version = $root.tendermint.types.VersionParams.fromObject(object.version);
+                if (object.coreChainLockUpdate != null) {
+                    if (typeof object.coreChainLockUpdate !== "object")
+                        throw TypeError(".tendermint.abci.ResponsePrepareProposal.coreChainLockUpdate: object expected");
+                    message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLockUpdate);
+                }
+                if (object.validatorSetUpdate != null) {
+                    if (typeof object.validatorSetUpdate !== "object")
+                        throw TypeError(".tendermint.abci.ResponsePrepareProposal.validatorSetUpdate: object expected");
+                    message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.fromObject(object.validatorSetUpdate);
                 }
                 return message;
             };
 
             /**
-             * Creates a plain object from a ConsensusParams message. Also converts values to other types if specified.
+             * Creates a plain object from a ResponsePrepareProposal message. Also converts values to other types if specified.
              * @function toObject
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @static
-             * @param {tendermint.abci.ConsensusParams} message ConsensusParams
+             * @param {tendermint.abci.ResponsePrepareProposal} message ResponsePrepareProposal
              * @param {$protobuf.IConversionOptions} [options] Conversion options
              * @returns {Object.<string,*>} Plain object
              */
-            ConsensusParams.toObject = function toObject(message, options) {
+            ResponsePrepareProposal.toObject = function toObject(message, options) {
                 if (!options)
                     options = {};
                 var object = {};
-                if (options.defaults) {
-                    object.block = null;
-                    object.evidence = null;
-                    object.validator = null;
-                    object.version = null;
+                if (options.arrays || options.defaults) {
+                    object.txRecords = [];
+                    object.txResults = [];
                 }
-                if (message.block != null && message.hasOwnProperty("block"))
-                    object.block = $root.tendermint.abci.BlockParams.toObject(message.block, options);
-                if (message.evidence != null && message.hasOwnProperty("evidence"))
-                    object.evidence = $root.tendermint.types.EvidenceParams.toObject(message.evidence, options);
-                if (message.validator != null && message.hasOwnProperty("validator"))
-                    object.validator = $root.tendermint.types.ValidatorParams.toObject(message.validator, options);
-                if (message.version != null && message.hasOwnProperty("version"))
-                    object.version = $root.tendermint.types.VersionParams.toObject(message.version, options);
+                if (options.defaults) {
+                    if (options.bytes === String)
+                        object.appHash = "";
+                    else {
+                        object.appHash = [];
+                        if (options.bytes !== Array)
+                            object.appHash = $util.newBuffer(object.appHash);
+                    }
+                    object.consensusParamUpdates = null;
+                    object.coreChainLockUpdate = null;
+                    object.validatorSetUpdate = null;
+                }
+                if (message.txRecords && message.txRecords.length) {
+                    object.txRecords = [];
+                    for (var j = 0; j < message.txRecords.length; ++j)
+                        object.txRecords[j] = $root.tendermint.abci.TxRecord.toObject(message.txRecords[j], options);
+                }
+                if (message.appHash != null && message.hasOwnProperty("appHash"))
+                    object.appHash = options.bytes === String ? $util.base64.encode(message.appHash, 0, message.appHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.appHash) : message.appHash;
+                if (message.txResults && message.txResults.length) {
+                    object.txResults = [];
+                    for (var j = 0; j < message.txResults.length; ++j)
+                        object.txResults[j] = $root.tendermint.abci.ExecTxResult.toObject(message.txResults[j], options);
+                }
+                if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates"))
+                    object.consensusParamUpdates = $root.tendermint.types.ConsensusParams.toObject(message.consensusParamUpdates, options);
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
+                    object.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLockUpdate, options);
+                if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate"))
+                    object.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.toObject(message.validatorSetUpdate, options);
                 return object;
             };
 
             /**
-             * Converts this ConsensusParams to JSON.
+             * Converts this ResponsePrepareProposal to JSON.
              * @function toJSON
-             * @memberof tendermint.abci.ConsensusParams
+             * @memberof tendermint.abci.ResponsePrepareProposal
              * @instance
              * @returns {Object.<string,*>} JSON object
              */
-            ConsensusParams.prototype.toJSON = function toJSON() {
+            ResponsePrepareProposal.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
-            return ConsensusParams;
+            return ResponsePrepareProposal;
         })();
 
-        abci.BlockParams = (function() {
+        abci.ResponseProcessProposal = (function() {
 
             /**
-             * Properties of a BlockParams.
+             * Properties of a ResponseProcessProposal.
              * @memberof tendermint.abci
-             * @interface IBlockParams
-             * @property {number|Long|null} [maxBytes] BlockParams maxBytes
-             * @property {number|Long|null} [maxGas] BlockParams maxGas
+             * @interface IResponseProcessProposal
+             * @property {tendermint.abci.ResponseProcessProposal.ProposalStatus|null} [status] ResponseProcessProposal status
+             * @property {Uint8Array|null} [appHash] ResponseProcessProposal appHash
+             * @property {Array.<tendermint.abci.IExecTxResult>|null} [txResults] ResponseProcessProposal txResults
+             * @property {tendermint.types.IConsensusParams|null} [consensusParamUpdates] ResponseProcessProposal consensusParamUpdates
+             * @property {tendermint.abci.IValidatorSetUpdate|null} [validatorSetUpdate] ResponseProcessProposal validatorSetUpdate
              */
 
             /**
-             * Constructs a new BlockParams.
+             * Constructs a new ResponseProcessProposal.
              * @memberof tendermint.abci
-             * @classdesc Represents a BlockParams.
-             * @implements IBlockParams
+             * @classdesc Represents a ResponseProcessProposal.
+             * @implements IResponseProcessProposal
              * @constructor
-             * @param {tendermint.abci.IBlockParams=} [properties] Properties to set
+             * @param {tendermint.abci.IResponseProcessProposal=} [properties] Properties to set
              */
-            function BlockParams(properties) {
+            function ResponseProcessProposal(properties) {
+                this.txResults = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -9458,88 +9208,130 @@ $root.tendermint = (function() {
             }
 
             /**
-             * BlockParams maxBytes.
-             * @member {number|Long} maxBytes
-             * @memberof tendermint.abci.BlockParams
+             * ResponseProcessProposal status.
+             * @member {tendermint.abci.ResponseProcessProposal.ProposalStatus} status
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @instance
              */
-            BlockParams.prototype.maxBytes = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseProcessProposal.prototype.status = 0;
 
             /**
-             * BlockParams maxGas.
-             * @member {number|Long} maxGas
-             * @memberof tendermint.abci.BlockParams
+             * ResponseProcessProposal appHash.
+             * @member {Uint8Array} appHash
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @instance
              */
-            BlockParams.prototype.maxGas = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ResponseProcessProposal.prototype.appHash = $util.newBuffer([]);
 
             /**
-             * Creates a new BlockParams instance using the specified properties.
+             * ResponseProcessProposal txResults.
+             * @member {Array.<tendermint.abci.IExecTxResult>} txResults
+             * @memberof tendermint.abci.ResponseProcessProposal
+             * @instance
+             */
+            ResponseProcessProposal.prototype.txResults = $util.emptyArray;
+
+            /**
+             * ResponseProcessProposal consensusParamUpdates.
+             * @member {tendermint.types.IConsensusParams|null|undefined} consensusParamUpdates
+             * @memberof tendermint.abci.ResponseProcessProposal
+             * @instance
+             */
+            ResponseProcessProposal.prototype.consensusParamUpdates = null;
+
+            /**
+             * ResponseProcessProposal validatorSetUpdate.
+             * @member {tendermint.abci.IValidatorSetUpdate|null|undefined} validatorSetUpdate
+             * @memberof tendermint.abci.ResponseProcessProposal
+             * @instance
+             */
+            ResponseProcessProposal.prototype.validatorSetUpdate = null;
+
+            /**
+             * Creates a new ResponseProcessProposal instance using the specified properties.
              * @function create
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @static
-             * @param {tendermint.abci.IBlockParams=} [properties] Properties to set
-             * @returns {tendermint.abci.BlockParams} BlockParams instance
+             * @param {tendermint.abci.IResponseProcessProposal=} [properties] Properties to set
+             * @returns {tendermint.abci.ResponseProcessProposal} ResponseProcessProposal instance
              */
-            BlockParams.create = function create(properties) {
-                return new BlockParams(properties);
+            ResponseProcessProposal.create = function create(properties) {
+                return new ResponseProcessProposal(properties);
             };
 
             /**
-             * Encodes the specified BlockParams message. Does not implicitly {@link tendermint.abci.BlockParams.verify|verify} messages.
+             * Encodes the specified ResponseProcessProposal message. Does not implicitly {@link tendermint.abci.ResponseProcessProposal.verify|verify} messages.
              * @function encode
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @static
-             * @param {tendermint.abci.IBlockParams} message BlockParams message or plain object to encode
+             * @param {tendermint.abci.IResponseProcessProposal} message ResponseProcessProposal message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            BlockParams.encode = function encode(message, writer) {
+            ResponseProcessProposal.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
-                if (message.maxBytes != null && Object.hasOwnProperty.call(message, "maxBytes"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.maxBytes);
-                if (message.maxGas != null && Object.hasOwnProperty.call(message, "maxGas"))
-                    writer.uint32(/* id 2, wireType 0 =*/16).int64(message.maxGas);
+                if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.status);
+                if (message.appHash != null && Object.hasOwnProperty.call(message, "appHash"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.appHash);
+                if (message.txResults != null && message.txResults.length)
+                    for (var i = 0; i < message.txResults.length; ++i)
+                        $root.tendermint.abci.ExecTxResult.encode(message.txResults[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.consensusParamUpdates != null && Object.hasOwnProperty.call(message, "consensusParamUpdates"))
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
+                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
                 return writer;
             };
 
             /**
-             * Encodes the specified BlockParams message, length delimited. Does not implicitly {@link tendermint.abci.BlockParams.verify|verify} messages.
+             * Encodes the specified ResponseProcessProposal message, length delimited. Does not implicitly {@link tendermint.abci.ResponseProcessProposal.verify|verify} messages.
              * @function encodeDelimited
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @static
-             * @param {tendermint.abci.IBlockParams} message BlockParams message or plain object to encode
+             * @param {tendermint.abci.IResponseProcessProposal} message ResponseProcessProposal message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            BlockParams.encodeDelimited = function encodeDelimited(message, writer) {
+            ResponseProcessProposal.encodeDelimited = function encodeDelimited(message, writer) {
                 return this.encode(message, writer).ldelim();
             };
 
             /**
-             * Decodes a BlockParams message from the specified reader or buffer.
+             * Decodes a ResponseProcessProposal message from the specified reader or buffer.
              * @function decode
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
              * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.BlockParams} BlockParams
+             * @returns {tendermint.abci.ResponseProcessProposal} ResponseProcessProposal
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            BlockParams.decode = function decode(reader, length) {
+            ResponseProcessProposal.decode = function decode(reader, length) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.BlockParams();
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseProcessProposal();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.maxBytes = reader.int64();
+                        message.status = reader.int32();
                         break;
                     case 2:
-                        message.maxGas = reader.int64();
+                        message.appHash = reader.bytes();
+                        break;
+                    case 3:
+                        if (!(message.txResults && message.txResults.length))
+                            message.txResults = [];
+                        message.txResults.push($root.tendermint.abci.ExecTxResult.decode(reader, reader.uint32()));
+                        break;
+                    case 5:
+                        message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
+                        break;
+                    case 100:
+                        message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -9550,147 +9342,212 @@ $root.tendermint = (function() {
             };
 
             /**
-             * Decodes a BlockParams message from the specified reader or buffer, length delimited.
+             * Decodes a ResponseProcessProposal message from the specified reader or buffer, length delimited.
              * @function decodeDelimited
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.BlockParams} BlockParams
+             * @returns {tendermint.abci.ResponseProcessProposal} ResponseProcessProposal
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            BlockParams.decodeDelimited = function decodeDelimited(reader) {
+            ResponseProcessProposal.decodeDelimited = function decodeDelimited(reader) {
                 if (!(reader instanceof $Reader))
                     reader = new $Reader(reader);
                 return this.decode(reader, reader.uint32());
             };
 
             /**
-             * Verifies a BlockParams message.
+             * Verifies a ResponseProcessProposal message.
              * @function verify
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @static
              * @param {Object.<string,*>} message Plain object to verify
              * @returns {string|null} `null` if valid, otherwise the reason why it is not
              */
-            BlockParams.verify = function verify(message) {
+            ResponseProcessProposal.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
-                if (message.maxBytes != null && message.hasOwnProperty("maxBytes"))
-                    if (!$util.isInteger(message.maxBytes) && !(message.maxBytes && $util.isInteger(message.maxBytes.low) && $util.isInteger(message.maxBytes.high)))
-                        return "maxBytes: integer|Long expected";
-                if (message.maxGas != null && message.hasOwnProperty("maxGas"))
-                    if (!$util.isInteger(message.maxGas) && !(message.maxGas && $util.isInteger(message.maxGas.low) && $util.isInteger(message.maxGas.high)))
-                        return "maxGas: integer|Long expected";
+                if (message.status != null && message.hasOwnProperty("status"))
+                    switch (message.status) {
+                    default:
+                        return "status: enum value expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                        break;
+                    }
+                if (message.appHash != null && message.hasOwnProperty("appHash"))
+                    if (!(message.appHash && typeof message.appHash.length === "number" || $util.isString(message.appHash)))
+                        return "appHash: buffer expected";
+                if (message.txResults != null && message.hasOwnProperty("txResults")) {
+                    if (!Array.isArray(message.txResults))
+                        return "txResults: array expected";
+                    for (var i = 0; i < message.txResults.length; ++i) {
+                        var error = $root.tendermint.abci.ExecTxResult.verify(message.txResults[i]);
+                        if (error)
+                            return "txResults." + error;
+                    }
+                }
+                if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates")) {
+                    var error = $root.tendermint.types.ConsensusParams.verify(message.consensusParamUpdates);
+                    if (error)
+                        return "consensusParamUpdates." + error;
+                }
+                if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate")) {
+                    var error = $root.tendermint.abci.ValidatorSetUpdate.verify(message.validatorSetUpdate);
+                    if (error)
+                        return "validatorSetUpdate." + error;
+                }
                 return null;
             };
 
             /**
-             * Creates a BlockParams message from a plain object. Also converts values to their respective internal types.
+             * Creates a ResponseProcessProposal message from a plain object. Also converts values to their respective internal types.
              * @function fromObject
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @static
              * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.BlockParams} BlockParams
+             * @returns {tendermint.abci.ResponseProcessProposal} ResponseProcessProposal
              */
-            BlockParams.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.BlockParams)
+            ResponseProcessProposal.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ResponseProcessProposal)
                     return object;
-                var message = new $root.tendermint.abci.BlockParams();
-                if (object.maxBytes != null)
-                    if ($util.Long)
-                        (message.maxBytes = $util.Long.fromValue(object.maxBytes)).unsigned = false;
-                    else if (typeof object.maxBytes === "string")
-                        message.maxBytes = parseInt(object.maxBytes, 10);
-                    else if (typeof object.maxBytes === "number")
-                        message.maxBytes = object.maxBytes;
-                    else if (typeof object.maxBytes === "object")
-                        message.maxBytes = new $util.LongBits(object.maxBytes.low >>> 0, object.maxBytes.high >>> 0).toNumber();
-                if (object.maxGas != null)
-                    if ($util.Long)
-                        (message.maxGas = $util.Long.fromValue(object.maxGas)).unsigned = false;
-                    else if (typeof object.maxGas === "string")
-                        message.maxGas = parseInt(object.maxGas, 10);
-                    else if (typeof object.maxGas === "number")
-                        message.maxGas = object.maxGas;
-                    else if (typeof object.maxGas === "object")
-                        message.maxGas = new $util.LongBits(object.maxGas.low >>> 0, object.maxGas.high >>> 0).toNumber();
+                var message = new $root.tendermint.abci.ResponseProcessProposal();
+                switch (object.status) {
+                case "UNKNOWN":
+                case 0:
+                    message.status = 0;
+                    break;
+                case "ACCEPT":
+                case 1:
+                    message.status = 1;
+                    break;
+                case "REJECT":
+                case 2:
+                    message.status = 2;
+                    break;
+                }
+                if (object.appHash != null)
+                    if (typeof object.appHash === "string")
+                        $util.base64.decode(object.appHash, message.appHash = $util.newBuffer($util.base64.length(object.appHash)), 0);
+                    else if (object.appHash.length >= 0)
+                        message.appHash = object.appHash;
+                if (object.txResults) {
+                    if (!Array.isArray(object.txResults))
+                        throw TypeError(".tendermint.abci.ResponseProcessProposal.txResults: array expected");
+                    message.txResults = [];
+                    for (var i = 0; i < object.txResults.length; ++i) {
+                        if (typeof object.txResults[i] !== "object")
+                            throw TypeError(".tendermint.abci.ResponseProcessProposal.txResults: object expected");
+                        message.txResults[i] = $root.tendermint.abci.ExecTxResult.fromObject(object.txResults[i]);
+                    }
+                }
+                if (object.consensusParamUpdates != null) {
+                    if (typeof object.consensusParamUpdates !== "object")
+                        throw TypeError(".tendermint.abci.ResponseProcessProposal.consensusParamUpdates: object expected");
+                    message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.fromObject(object.consensusParamUpdates);
+                }
+                if (object.validatorSetUpdate != null) {
+                    if (typeof object.validatorSetUpdate !== "object")
+                        throw TypeError(".tendermint.abci.ResponseProcessProposal.validatorSetUpdate: object expected");
+                    message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.fromObject(object.validatorSetUpdate);
+                }
                 return message;
             };
 
             /**
-             * Creates a plain object from a BlockParams message. Also converts values to other types if specified.
+             * Creates a plain object from a ResponseProcessProposal message. Also converts values to other types if specified.
              * @function toObject
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @static
-             * @param {tendermint.abci.BlockParams} message BlockParams
+             * @param {tendermint.abci.ResponseProcessProposal} message ResponseProcessProposal
              * @param {$protobuf.IConversionOptions} [options] Conversion options
              * @returns {Object.<string,*>} Plain object
              */
-            BlockParams.toObject = function toObject(message, options) {
+            ResponseProcessProposal.toObject = function toObject(message, options) {
                 if (!options)
                     options = {};
                 var object = {};
+                if (options.arrays || options.defaults)
+                    object.txResults = [];
                 if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxBytes = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxBytes = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.maxGas = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.maxGas = options.longs === String ? "0" : 0;
+                    object.status = options.enums === String ? "UNKNOWN" : 0;
+                    if (options.bytes === String)
+                        object.appHash = "";
+                    else {
+                        object.appHash = [];
+                        if (options.bytes !== Array)
+                            object.appHash = $util.newBuffer(object.appHash);
+                    }
+                    object.consensusParamUpdates = null;
+                    object.validatorSetUpdate = null;
                 }
-                if (message.maxBytes != null && message.hasOwnProperty("maxBytes"))
-                    if (typeof message.maxBytes === "number")
-                        object.maxBytes = options.longs === String ? String(message.maxBytes) : message.maxBytes;
-                    else
-                        object.maxBytes = options.longs === String ? $util.Long.prototype.toString.call(message.maxBytes) : options.longs === Number ? new $util.LongBits(message.maxBytes.low >>> 0, message.maxBytes.high >>> 0).toNumber() : message.maxBytes;
-                if (message.maxGas != null && message.hasOwnProperty("maxGas"))
-                    if (typeof message.maxGas === "number")
-                        object.maxGas = options.longs === String ? String(message.maxGas) : message.maxGas;
-                    else
-                        object.maxGas = options.longs === String ? $util.Long.prototype.toString.call(message.maxGas) : options.longs === Number ? new $util.LongBits(message.maxGas.low >>> 0, message.maxGas.high >>> 0).toNumber() : message.maxGas;
+                if (message.status != null && message.hasOwnProperty("status"))
+                    object.status = options.enums === String ? $root.tendermint.abci.ResponseProcessProposal.ProposalStatus[message.status] : message.status;
+                if (message.appHash != null && message.hasOwnProperty("appHash"))
+                    object.appHash = options.bytes === String ? $util.base64.encode(message.appHash, 0, message.appHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.appHash) : message.appHash;
+                if (message.txResults && message.txResults.length) {
+                    object.txResults = [];
+                    for (var j = 0; j < message.txResults.length; ++j)
+                        object.txResults[j] = $root.tendermint.abci.ExecTxResult.toObject(message.txResults[j], options);
+                }
+                if (message.consensusParamUpdates != null && message.hasOwnProperty("consensusParamUpdates"))
+                    object.consensusParamUpdates = $root.tendermint.types.ConsensusParams.toObject(message.consensusParamUpdates, options);
+                if (message.validatorSetUpdate != null && message.hasOwnProperty("validatorSetUpdate"))
+                    object.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.toObject(message.validatorSetUpdate, options);
                 return object;
             };
 
             /**
-             * Converts this BlockParams to JSON.
+             * Converts this ResponseProcessProposal to JSON.
              * @function toJSON
-             * @memberof tendermint.abci.BlockParams
+             * @memberof tendermint.abci.ResponseProcessProposal
              * @instance
              * @returns {Object.<string,*>} JSON object
              */
-            BlockParams.prototype.toJSON = function toJSON() {
+            ResponseProcessProposal.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
-            return BlockParams;
+            /**
+             * ProposalStatus enum.
+             * @name tendermint.abci.ResponseProcessProposal.ProposalStatus
+             * @enum {number}
+             * @property {number} UNKNOWN=0 UNKNOWN value
+             * @property {number} ACCEPT=1 ACCEPT value
+             * @property {number} REJECT=2 REJECT value
+             */
+            ResponseProcessProposal.ProposalStatus = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "UNKNOWN"] = 0;
+                values[valuesById[1] = "ACCEPT"] = 1;
+                values[valuesById[2] = "REJECT"] = 2;
+                return values;
+            })();
+
+            return ResponseProcessProposal;
         })();
 
-        abci.LastCommitInfo = (function() {
+        abci.ExtendVoteExtension = (function() {
 
             /**
-             * Properties of a LastCommitInfo.
+             * Properties of an ExtendVoteExtension.
              * @memberof tendermint.abci
-             * @interface ILastCommitInfo
-             * @property {number|null} [round] LastCommitInfo round
-             * @property {Uint8Array|null} [quorumHash] LastCommitInfo quorumHash
-             * @property {Uint8Array|null} [blockSignature] LastCommitInfo blockSignature
-             * @property {Uint8Array|null} [stateSignature] LastCommitInfo stateSignature
+             * @interface IExtendVoteExtension
+             * @property {tendermint.types.VoteExtensionType|null} [type] ExtendVoteExtension type
+             * @property {Uint8Array|null} [extension] ExtendVoteExtension extension
              */
 
             /**
-             * Constructs a new LastCommitInfo.
+             * Constructs a new ExtendVoteExtension.
              * @memberof tendermint.abci
-             * @classdesc Represents a LastCommitInfo.
-             * @implements ILastCommitInfo
+             * @classdesc Represents an ExtendVoteExtension.
+             * @implements IExtendVoteExtension
              * @constructor
-             * @param {tendermint.abci.ILastCommitInfo=} [properties] Properties to set
+             * @param {tendermint.abci.IExtendVoteExtension=} [properties] Properties to set
              */
-            function LastCommitInfo(properties) {
+            function ExtendVoteExtension(properties) {
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -9698,59 +9555,968 @@ $root.tendermint = (function() {
             }
 
             /**
-             * LastCommitInfo round.
-             * @member {number} round
-             * @memberof tendermint.abci.LastCommitInfo
+             * ExtendVoteExtension type.
+             * @member {tendermint.types.VoteExtensionType} type
+             * @memberof tendermint.abci.ExtendVoteExtension
              * @instance
              */
-            LastCommitInfo.prototype.round = 0;
+            ExtendVoteExtension.prototype.type = 0;
 
             /**
-             * LastCommitInfo quorumHash.
-             * @member {Uint8Array} quorumHash
-             * @memberof tendermint.abci.LastCommitInfo
+             * ExtendVoteExtension extension.
+             * @member {Uint8Array} extension
+             * @memberof tendermint.abci.ExtendVoteExtension
              * @instance
              */
-            LastCommitInfo.prototype.quorumHash = $util.newBuffer([]);
+            ExtendVoteExtension.prototype.extension = $util.newBuffer([]);
 
             /**
-             * LastCommitInfo blockSignature.
-             * @member {Uint8Array} blockSignature
-             * @memberof tendermint.abci.LastCommitInfo
-             * @instance
-             */
-            LastCommitInfo.prototype.blockSignature = $util.newBuffer([]);
-
-            /**
-             * LastCommitInfo stateSignature.
-             * @member {Uint8Array} stateSignature
-             * @memberof tendermint.abci.LastCommitInfo
-             * @instance
-             */
-            LastCommitInfo.prototype.stateSignature = $util.newBuffer([]);
-
-            /**
-             * Creates a new LastCommitInfo instance using the specified properties.
+             * Creates a new ExtendVoteExtension instance using the specified properties.
              * @function create
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.ExtendVoteExtension
              * @static
-             * @param {tendermint.abci.ILastCommitInfo=} [properties] Properties to set
-             * @returns {tendermint.abci.LastCommitInfo} LastCommitInfo instance
+             * @param {tendermint.abci.IExtendVoteExtension=} [properties] Properties to set
+             * @returns {tendermint.abci.ExtendVoteExtension} ExtendVoteExtension instance
              */
-            LastCommitInfo.create = function create(properties) {
-                return new LastCommitInfo(properties);
+            ExtendVoteExtension.create = function create(properties) {
+                return new ExtendVoteExtension(properties);
             };
 
             /**
-             * Encodes the specified LastCommitInfo message. Does not implicitly {@link tendermint.abci.LastCommitInfo.verify|verify} messages.
+             * Encodes the specified ExtendVoteExtension message. Does not implicitly {@link tendermint.abci.ExtendVoteExtension.verify|verify} messages.
              * @function encode
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.ExtendVoteExtension
              * @static
-             * @param {tendermint.abci.ILastCommitInfo} message LastCommitInfo message or plain object to encode
+             * @param {tendermint.abci.IExtendVoteExtension} message ExtendVoteExtension message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            LastCommitInfo.encode = function encode(message, writer) {
+            ExtendVoteExtension.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                if (message.extension != null && Object.hasOwnProperty.call(message, "extension"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.extension);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ExtendVoteExtension message, length delimited. Does not implicitly {@link tendermint.abci.ExtendVoteExtension.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.ExtendVoteExtension
+             * @static
+             * @param {tendermint.abci.IExtendVoteExtension} message ExtendVoteExtension message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ExtendVoteExtension.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an ExtendVoteExtension message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.ExtendVoteExtension
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.ExtendVoteExtension} ExtendVoteExtension
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExtendVoteExtension.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ExtendVoteExtension();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.type = reader.int32();
+                        break;
+                    case 2:
+                        message.extension = reader.bytes();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an ExtendVoteExtension message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.ExtendVoteExtension
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.ExtendVoteExtension} ExtendVoteExtension
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExtendVoteExtension.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an ExtendVoteExtension message.
+             * @function verify
+             * @memberof tendermint.abci.ExtendVoteExtension
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ExtendVoteExtension.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.type != null && message.hasOwnProperty("type"))
+                    switch (message.type) {
+                    default:
+                        return "type: enum value expected";
+                    case 0:
+                    case 1:
+                        break;
+                    }
+                if (message.extension != null && message.hasOwnProperty("extension"))
+                    if (!(message.extension && typeof message.extension.length === "number" || $util.isString(message.extension)))
+                        return "extension: buffer expected";
+                return null;
+            };
+
+            /**
+             * Creates an ExtendVoteExtension message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.ExtendVoteExtension
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.ExtendVoteExtension} ExtendVoteExtension
+             */
+            ExtendVoteExtension.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ExtendVoteExtension)
+                    return object;
+                var message = new $root.tendermint.abci.ExtendVoteExtension();
+                switch (object.type) {
+                case "DEFAULT":
+                case 0:
+                    message.type = 0;
+                    break;
+                case "THRESHOLD_RECOVER":
+                case 1:
+                    message.type = 1;
+                    break;
+                }
+                if (object.extension != null)
+                    if (typeof object.extension === "string")
+                        $util.base64.decode(object.extension, message.extension = $util.newBuffer($util.base64.length(object.extension)), 0);
+                    else if (object.extension.length >= 0)
+                        message.extension = object.extension;
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an ExtendVoteExtension message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.ExtendVoteExtension
+             * @static
+             * @param {tendermint.abci.ExtendVoteExtension} message ExtendVoteExtension
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ExtendVoteExtension.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.type = options.enums === String ? "DEFAULT" : 0;
+                    if (options.bytes === String)
+                        object.extension = "";
+                    else {
+                        object.extension = [];
+                        if (options.bytes !== Array)
+                            object.extension = $util.newBuffer(object.extension);
+                    }
+                }
+                if (message.type != null && message.hasOwnProperty("type"))
+                    object.type = options.enums === String ? $root.tendermint.types.VoteExtensionType[message.type] : message.type;
+                if (message.extension != null && message.hasOwnProperty("extension"))
+                    object.extension = options.bytes === String ? $util.base64.encode(message.extension, 0, message.extension.length) : options.bytes === Array ? Array.prototype.slice.call(message.extension) : message.extension;
+                return object;
+            };
+
+            /**
+             * Converts this ExtendVoteExtension to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.ExtendVoteExtension
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ExtendVoteExtension.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ExtendVoteExtension;
+        })();
+
+        abci.ResponseExtendVote = (function() {
+
+            /**
+             * Properties of a ResponseExtendVote.
+             * @memberof tendermint.abci
+             * @interface IResponseExtendVote
+             * @property {Array.<tendermint.abci.IExtendVoteExtension>|null} [voteExtensions] ResponseExtendVote voteExtensions
+             */
+
+            /**
+             * Constructs a new ResponseExtendVote.
+             * @memberof tendermint.abci
+             * @classdesc Represents a ResponseExtendVote.
+             * @implements IResponseExtendVote
+             * @constructor
+             * @param {tendermint.abci.IResponseExtendVote=} [properties] Properties to set
+             */
+            function ResponseExtendVote(properties) {
+                this.voteExtensions = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ResponseExtendVote voteExtensions.
+             * @member {Array.<tendermint.abci.IExtendVoteExtension>} voteExtensions
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @instance
+             */
+            ResponseExtendVote.prototype.voteExtensions = $util.emptyArray;
+
+            /**
+             * Creates a new ResponseExtendVote instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @static
+             * @param {tendermint.abci.IResponseExtendVote=} [properties] Properties to set
+             * @returns {tendermint.abci.ResponseExtendVote} ResponseExtendVote instance
+             */
+            ResponseExtendVote.create = function create(properties) {
+                return new ResponseExtendVote(properties);
+            };
+
+            /**
+             * Encodes the specified ResponseExtendVote message. Does not implicitly {@link tendermint.abci.ResponseExtendVote.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @static
+             * @param {tendermint.abci.IResponseExtendVote} message ResponseExtendVote message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ResponseExtendVote.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.voteExtensions != null && message.voteExtensions.length)
+                    for (var i = 0; i < message.voteExtensions.length; ++i)
+                        $root.tendermint.abci.ExtendVoteExtension.encode(message.voteExtensions[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ResponseExtendVote message, length delimited. Does not implicitly {@link tendermint.abci.ResponseExtendVote.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @static
+             * @param {tendermint.abci.IResponseExtendVote} message ResponseExtendVote message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ResponseExtendVote.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a ResponseExtendVote message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.ResponseExtendVote} ResponseExtendVote
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ResponseExtendVote.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseExtendVote();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        if (!(message.voteExtensions && message.voteExtensions.length))
+                            message.voteExtensions = [];
+                        message.voteExtensions.push($root.tendermint.abci.ExtendVoteExtension.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a ResponseExtendVote message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.ResponseExtendVote} ResponseExtendVote
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ResponseExtendVote.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a ResponseExtendVote message.
+             * @function verify
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ResponseExtendVote.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.voteExtensions != null && message.hasOwnProperty("voteExtensions")) {
+                    if (!Array.isArray(message.voteExtensions))
+                        return "voteExtensions: array expected";
+                    for (var i = 0; i < message.voteExtensions.length; ++i) {
+                        var error = $root.tendermint.abci.ExtendVoteExtension.verify(message.voteExtensions[i]);
+                        if (error)
+                            return "voteExtensions." + error;
+                    }
+                }
+                return null;
+            };
+
+            /**
+             * Creates a ResponseExtendVote message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.ResponseExtendVote} ResponseExtendVote
+             */
+            ResponseExtendVote.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ResponseExtendVote)
+                    return object;
+                var message = new $root.tendermint.abci.ResponseExtendVote();
+                if (object.voteExtensions) {
+                    if (!Array.isArray(object.voteExtensions))
+                        throw TypeError(".tendermint.abci.ResponseExtendVote.voteExtensions: array expected");
+                    message.voteExtensions = [];
+                    for (var i = 0; i < object.voteExtensions.length; ++i) {
+                        if (typeof object.voteExtensions[i] !== "object")
+                            throw TypeError(".tendermint.abci.ResponseExtendVote.voteExtensions: object expected");
+                        message.voteExtensions[i] = $root.tendermint.abci.ExtendVoteExtension.fromObject(object.voteExtensions[i]);
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a ResponseExtendVote message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @static
+             * @param {tendermint.abci.ResponseExtendVote} message ResponseExtendVote
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ResponseExtendVote.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.voteExtensions = [];
+                if (message.voteExtensions && message.voteExtensions.length) {
+                    object.voteExtensions = [];
+                    for (var j = 0; j < message.voteExtensions.length; ++j)
+                        object.voteExtensions[j] = $root.tendermint.abci.ExtendVoteExtension.toObject(message.voteExtensions[j], options);
+                }
+                return object;
+            };
+
+            /**
+             * Converts this ResponseExtendVote to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.ResponseExtendVote
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ResponseExtendVote.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ResponseExtendVote;
+        })();
+
+        abci.ResponseVerifyVoteExtension = (function() {
+
+            /**
+             * Properties of a ResponseVerifyVoteExtension.
+             * @memberof tendermint.abci
+             * @interface IResponseVerifyVoteExtension
+             * @property {tendermint.abci.ResponseVerifyVoteExtension.VerifyStatus|null} [status] ResponseVerifyVoteExtension status
+             */
+
+            /**
+             * Constructs a new ResponseVerifyVoteExtension.
+             * @memberof tendermint.abci
+             * @classdesc Represents a ResponseVerifyVoteExtension.
+             * @implements IResponseVerifyVoteExtension
+             * @constructor
+             * @param {tendermint.abci.IResponseVerifyVoteExtension=} [properties] Properties to set
+             */
+            function ResponseVerifyVoteExtension(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ResponseVerifyVoteExtension status.
+             * @member {tendermint.abci.ResponseVerifyVoteExtension.VerifyStatus} status
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @instance
+             */
+            ResponseVerifyVoteExtension.prototype.status = 0;
+
+            /**
+             * Creates a new ResponseVerifyVoteExtension instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @static
+             * @param {tendermint.abci.IResponseVerifyVoteExtension=} [properties] Properties to set
+             * @returns {tendermint.abci.ResponseVerifyVoteExtension} ResponseVerifyVoteExtension instance
+             */
+            ResponseVerifyVoteExtension.create = function create(properties) {
+                return new ResponseVerifyVoteExtension(properties);
+            };
+
+            /**
+             * Encodes the specified ResponseVerifyVoteExtension message. Does not implicitly {@link tendermint.abci.ResponseVerifyVoteExtension.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @static
+             * @param {tendermint.abci.IResponseVerifyVoteExtension} message ResponseVerifyVoteExtension message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ResponseVerifyVoteExtension.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.status != null && Object.hasOwnProperty.call(message, "status"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.status);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ResponseVerifyVoteExtension message, length delimited. Does not implicitly {@link tendermint.abci.ResponseVerifyVoteExtension.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @static
+             * @param {tendermint.abci.IResponseVerifyVoteExtension} message ResponseVerifyVoteExtension message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ResponseVerifyVoteExtension.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a ResponseVerifyVoteExtension message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.ResponseVerifyVoteExtension} ResponseVerifyVoteExtension
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ResponseVerifyVoteExtension.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseVerifyVoteExtension();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.status = reader.int32();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a ResponseVerifyVoteExtension message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.ResponseVerifyVoteExtension} ResponseVerifyVoteExtension
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ResponseVerifyVoteExtension.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a ResponseVerifyVoteExtension message.
+             * @function verify
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ResponseVerifyVoteExtension.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.status != null && message.hasOwnProperty("status"))
+                    switch (message.status) {
+                    default:
+                        return "status: enum value expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                        break;
+                    }
+                return null;
+            };
+
+            /**
+             * Creates a ResponseVerifyVoteExtension message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.ResponseVerifyVoteExtension} ResponseVerifyVoteExtension
+             */
+            ResponseVerifyVoteExtension.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ResponseVerifyVoteExtension)
+                    return object;
+                var message = new $root.tendermint.abci.ResponseVerifyVoteExtension();
+                switch (object.status) {
+                case "UNKNOWN":
+                case 0:
+                    message.status = 0;
+                    break;
+                case "ACCEPT":
+                case 1:
+                    message.status = 1;
+                    break;
+                case "REJECT":
+                case 2:
+                    message.status = 2;
+                    break;
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a ResponseVerifyVoteExtension message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @static
+             * @param {tendermint.abci.ResponseVerifyVoteExtension} message ResponseVerifyVoteExtension
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ResponseVerifyVoteExtension.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults)
+                    object.status = options.enums === String ? "UNKNOWN" : 0;
+                if (message.status != null && message.hasOwnProperty("status"))
+                    object.status = options.enums === String ? $root.tendermint.abci.ResponseVerifyVoteExtension.VerifyStatus[message.status] : message.status;
+                return object;
+            };
+
+            /**
+             * Converts this ResponseVerifyVoteExtension to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.ResponseVerifyVoteExtension
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ResponseVerifyVoteExtension.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            /**
+             * VerifyStatus enum.
+             * @name tendermint.abci.ResponseVerifyVoteExtension.VerifyStatus
+             * @enum {number}
+             * @property {number} UNKNOWN=0 UNKNOWN value
+             * @property {number} ACCEPT=1 ACCEPT value
+             * @property {number} REJECT=2 REJECT value
+             */
+            ResponseVerifyVoteExtension.VerifyStatus = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "UNKNOWN"] = 0;
+                values[valuesById[1] = "ACCEPT"] = 1;
+                values[valuesById[2] = "REJECT"] = 2;
+                return values;
+            })();
+
+            return ResponseVerifyVoteExtension;
+        })();
+
+        abci.ResponseFinalizeBlock = (function() {
+
+            /**
+             * Properties of a ResponseFinalizeBlock.
+             * @memberof tendermint.abci
+             * @interface IResponseFinalizeBlock
+             * @property {Array.<tendermint.abci.IEvent>|null} [events] ResponseFinalizeBlock events
+             * @property {number|Long|null} [retainHeight] ResponseFinalizeBlock retainHeight
+             */
+
+            /**
+             * Constructs a new ResponseFinalizeBlock.
+             * @memberof tendermint.abci
+             * @classdesc Represents a ResponseFinalizeBlock.
+             * @implements IResponseFinalizeBlock
+             * @constructor
+             * @param {tendermint.abci.IResponseFinalizeBlock=} [properties] Properties to set
+             */
+            function ResponseFinalizeBlock(properties) {
+                this.events = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ResponseFinalizeBlock events.
+             * @member {Array.<tendermint.abci.IEvent>} events
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @instance
+             */
+            ResponseFinalizeBlock.prototype.events = $util.emptyArray;
+
+            /**
+             * ResponseFinalizeBlock retainHeight.
+             * @member {number|Long} retainHeight
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @instance
+             */
+            ResponseFinalizeBlock.prototype.retainHeight = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * Creates a new ResponseFinalizeBlock instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @static
+             * @param {tendermint.abci.IResponseFinalizeBlock=} [properties] Properties to set
+             * @returns {tendermint.abci.ResponseFinalizeBlock} ResponseFinalizeBlock instance
+             */
+            ResponseFinalizeBlock.create = function create(properties) {
+                return new ResponseFinalizeBlock(properties);
+            };
+
+            /**
+             * Encodes the specified ResponseFinalizeBlock message. Does not implicitly {@link tendermint.abci.ResponseFinalizeBlock.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @static
+             * @param {tendermint.abci.IResponseFinalizeBlock} message ResponseFinalizeBlock message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ResponseFinalizeBlock.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.events != null && message.events.length)
+                    for (var i = 0; i < message.events.length; ++i)
+                        $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.retainHeight != null && Object.hasOwnProperty.call(message, "retainHeight"))
+                    writer.uint32(/* id 6, wireType 0 =*/48).int64(message.retainHeight);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ResponseFinalizeBlock message, length delimited. Does not implicitly {@link tendermint.abci.ResponseFinalizeBlock.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @static
+             * @param {tendermint.abci.IResponseFinalizeBlock} message ResponseFinalizeBlock message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ResponseFinalizeBlock.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a ResponseFinalizeBlock message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.ResponseFinalizeBlock} ResponseFinalizeBlock
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ResponseFinalizeBlock.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ResponseFinalizeBlock();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        if (!(message.events && message.events.length))
+                            message.events = [];
+                        message.events.push($root.tendermint.abci.Event.decode(reader, reader.uint32()));
+                        break;
+                    case 6:
+                        message.retainHeight = reader.int64();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a ResponseFinalizeBlock message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.ResponseFinalizeBlock} ResponseFinalizeBlock
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ResponseFinalizeBlock.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a ResponseFinalizeBlock message.
+             * @function verify
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ResponseFinalizeBlock.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.events != null && message.hasOwnProperty("events")) {
+                    if (!Array.isArray(message.events))
+                        return "events: array expected";
+                    for (var i = 0; i < message.events.length; ++i) {
+                        var error = $root.tendermint.abci.Event.verify(message.events[i]);
+                        if (error)
+                            return "events." + error;
+                    }
+                }
+                if (message.retainHeight != null && message.hasOwnProperty("retainHeight"))
+                    if (!$util.isInteger(message.retainHeight) && !(message.retainHeight && $util.isInteger(message.retainHeight.low) && $util.isInteger(message.retainHeight.high)))
+                        return "retainHeight: integer|Long expected";
+                return null;
+            };
+
+            /**
+             * Creates a ResponseFinalizeBlock message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.ResponseFinalizeBlock} ResponseFinalizeBlock
+             */
+            ResponseFinalizeBlock.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ResponseFinalizeBlock)
+                    return object;
+                var message = new $root.tendermint.abci.ResponseFinalizeBlock();
+                if (object.events) {
+                    if (!Array.isArray(object.events))
+                        throw TypeError(".tendermint.abci.ResponseFinalizeBlock.events: array expected");
+                    message.events = [];
+                    for (var i = 0; i < object.events.length; ++i) {
+                        if (typeof object.events[i] !== "object")
+                            throw TypeError(".tendermint.abci.ResponseFinalizeBlock.events: object expected");
+                        message.events[i] = $root.tendermint.abci.Event.fromObject(object.events[i]);
+                    }
+                }
+                if (object.retainHeight != null)
+                    if ($util.Long)
+                        (message.retainHeight = $util.Long.fromValue(object.retainHeight)).unsigned = false;
+                    else if (typeof object.retainHeight === "string")
+                        message.retainHeight = parseInt(object.retainHeight, 10);
+                    else if (typeof object.retainHeight === "number")
+                        message.retainHeight = object.retainHeight;
+                    else if (typeof object.retainHeight === "object")
+                        message.retainHeight = new $util.LongBits(object.retainHeight.low >>> 0, object.retainHeight.high >>> 0).toNumber();
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a ResponseFinalizeBlock message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @static
+             * @param {tendermint.abci.ResponseFinalizeBlock} message ResponseFinalizeBlock
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ResponseFinalizeBlock.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.events = [];
+                if (options.defaults)
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.retainHeight = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.retainHeight = options.longs === String ? "0" : 0;
+                if (message.events && message.events.length) {
+                    object.events = [];
+                    for (var j = 0; j < message.events.length; ++j)
+                        object.events[j] = $root.tendermint.abci.Event.toObject(message.events[j], options);
+                }
+                if (message.retainHeight != null && message.hasOwnProperty("retainHeight"))
+                    if (typeof message.retainHeight === "number")
+                        object.retainHeight = options.longs === String ? String(message.retainHeight) : message.retainHeight;
+                    else
+                        object.retainHeight = options.longs === String ? $util.Long.prototype.toString.call(message.retainHeight) : options.longs === Number ? new $util.LongBits(message.retainHeight.low >>> 0, message.retainHeight.high >>> 0).toNumber() : message.retainHeight;
+                return object;
+            };
+
+            /**
+             * Converts this ResponseFinalizeBlock to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.ResponseFinalizeBlock
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ResponseFinalizeBlock.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ResponseFinalizeBlock;
+        })();
+
+        abci.CommitInfo = (function() {
+
+            /**
+             * Properties of a CommitInfo.
+             * @memberof tendermint.abci
+             * @interface ICommitInfo
+             * @property {number|null} [round] CommitInfo round
+             * @property {Uint8Array|null} [quorumHash] CommitInfo quorumHash
+             * @property {Uint8Array|null} [blockSignature] CommitInfo blockSignature
+             * @property {Array.<tendermint.types.IVoteExtension>|null} [thresholdVoteExtensions] CommitInfo thresholdVoteExtensions
+             */
+
+            /**
+             * Constructs a new CommitInfo.
+             * @memberof tendermint.abci
+             * @classdesc Represents a CommitInfo.
+             * @implements ICommitInfo
+             * @constructor
+             * @param {tendermint.abci.ICommitInfo=} [properties] Properties to set
+             */
+            function CommitInfo(properties) {
+                this.thresholdVoteExtensions = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * CommitInfo round.
+             * @member {number} round
+             * @memberof tendermint.abci.CommitInfo
+             * @instance
+             */
+            CommitInfo.prototype.round = 0;
+
+            /**
+             * CommitInfo quorumHash.
+             * @member {Uint8Array} quorumHash
+             * @memberof tendermint.abci.CommitInfo
+             * @instance
+             */
+            CommitInfo.prototype.quorumHash = $util.newBuffer([]);
+
+            /**
+             * CommitInfo blockSignature.
+             * @member {Uint8Array} blockSignature
+             * @memberof tendermint.abci.CommitInfo
+             * @instance
+             */
+            CommitInfo.prototype.blockSignature = $util.newBuffer([]);
+
+            /**
+             * CommitInfo thresholdVoteExtensions.
+             * @member {Array.<tendermint.types.IVoteExtension>} thresholdVoteExtensions
+             * @memberof tendermint.abci.CommitInfo
+             * @instance
+             */
+            CommitInfo.prototype.thresholdVoteExtensions = $util.emptyArray;
+
+            /**
+             * Creates a new CommitInfo instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.CommitInfo
+             * @static
+             * @param {tendermint.abci.ICommitInfo=} [properties] Properties to set
+             * @returns {tendermint.abci.CommitInfo} CommitInfo instance
+             */
+            CommitInfo.create = function create(properties) {
+                return new CommitInfo(properties);
+            };
+
+            /**
+             * Encodes the specified CommitInfo message. Does not implicitly {@link tendermint.abci.CommitInfo.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.CommitInfo
+             * @static
+             * @param {tendermint.abci.ICommitInfo} message CommitInfo message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            CommitInfo.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.round != null && Object.hasOwnProperty.call(message, "round"))
@@ -9759,39 +10525,40 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.quorumHash);
                 if (message.blockSignature != null && Object.hasOwnProperty.call(message, "blockSignature"))
                     writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.blockSignature);
-                if (message.stateSignature != null && Object.hasOwnProperty.call(message, "stateSignature"))
-                    writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.stateSignature);
+                if (message.thresholdVoteExtensions != null && message.thresholdVoteExtensions.length)
+                    for (var i = 0; i < message.thresholdVoteExtensions.length; ++i)
+                        $root.tendermint.types.VoteExtension.encode(message.thresholdVoteExtensions[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 return writer;
             };
 
             /**
-             * Encodes the specified LastCommitInfo message, length delimited. Does not implicitly {@link tendermint.abci.LastCommitInfo.verify|verify} messages.
+             * Encodes the specified CommitInfo message, length delimited. Does not implicitly {@link tendermint.abci.CommitInfo.verify|verify} messages.
              * @function encodeDelimited
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.CommitInfo
              * @static
-             * @param {tendermint.abci.ILastCommitInfo} message LastCommitInfo message or plain object to encode
+             * @param {tendermint.abci.ICommitInfo} message CommitInfo message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            LastCommitInfo.encodeDelimited = function encodeDelimited(message, writer) {
+            CommitInfo.encodeDelimited = function encodeDelimited(message, writer) {
                 return this.encode(message, writer).ldelim();
             };
 
             /**
-             * Decodes a LastCommitInfo message from the specified reader or buffer.
+             * Decodes a CommitInfo message from the specified reader or buffer.
              * @function decode
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.CommitInfo
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
              * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.LastCommitInfo} LastCommitInfo
+             * @returns {tendermint.abci.CommitInfo} CommitInfo
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            LastCommitInfo.decode = function decode(reader, length) {
+            CommitInfo.decode = function decode(reader, length) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.LastCommitInfo();
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.CommitInfo();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
@@ -9804,8 +10571,10 @@ $root.tendermint = (function() {
                     case 4:
                         message.blockSignature = reader.bytes();
                         break;
-                    case 5:
-                        message.stateSignature = reader.bytes();
+                    case 6:
+                        if (!(message.thresholdVoteExtensions && message.thresholdVoteExtensions.length))
+                            message.thresholdVoteExtensions = [];
+                        message.thresholdVoteExtensions.push($root.tendermint.types.VoteExtension.decode(reader, reader.uint32()));
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -9816,30 +10585,30 @@ $root.tendermint = (function() {
             };
 
             /**
-             * Decodes a LastCommitInfo message from the specified reader or buffer, length delimited.
+             * Decodes a CommitInfo message from the specified reader or buffer, length delimited.
              * @function decodeDelimited
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.CommitInfo
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.LastCommitInfo} LastCommitInfo
+             * @returns {tendermint.abci.CommitInfo} CommitInfo
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            LastCommitInfo.decodeDelimited = function decodeDelimited(reader) {
+            CommitInfo.decodeDelimited = function decodeDelimited(reader) {
                 if (!(reader instanceof $Reader))
                     reader = new $Reader(reader);
                 return this.decode(reader, reader.uint32());
             };
 
             /**
-             * Verifies a LastCommitInfo message.
+             * Verifies a CommitInfo message.
              * @function verify
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.CommitInfo
              * @static
              * @param {Object.<string,*>} message Plain object to verify
              * @returns {string|null} `null` if valid, otherwise the reason why it is not
              */
-            LastCommitInfo.verify = function verify(message) {
+            CommitInfo.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
                 if (message.round != null && message.hasOwnProperty("round"))
@@ -9851,24 +10620,30 @@ $root.tendermint = (function() {
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     if (!(message.blockSignature && typeof message.blockSignature.length === "number" || $util.isString(message.blockSignature)))
                         return "blockSignature: buffer expected";
-                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    if (!(message.stateSignature && typeof message.stateSignature.length === "number" || $util.isString(message.stateSignature)))
-                        return "stateSignature: buffer expected";
+                if (message.thresholdVoteExtensions != null && message.hasOwnProperty("thresholdVoteExtensions")) {
+                    if (!Array.isArray(message.thresholdVoteExtensions))
+                        return "thresholdVoteExtensions: array expected";
+                    for (var i = 0; i < message.thresholdVoteExtensions.length; ++i) {
+                        var error = $root.tendermint.types.VoteExtension.verify(message.thresholdVoteExtensions[i]);
+                        if (error)
+                            return "thresholdVoteExtensions." + error;
+                    }
+                }
                 return null;
             };
 
             /**
-             * Creates a LastCommitInfo message from a plain object. Also converts values to their respective internal types.
+             * Creates a CommitInfo message from a plain object. Also converts values to their respective internal types.
              * @function fromObject
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.CommitInfo
              * @static
              * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.LastCommitInfo} LastCommitInfo
+             * @returns {tendermint.abci.CommitInfo} CommitInfo
              */
-            LastCommitInfo.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.LastCommitInfo)
+            CommitInfo.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.CommitInfo)
                     return object;
-                var message = new $root.tendermint.abci.LastCommitInfo();
+                var message = new $root.tendermint.abci.CommitInfo();
                 if (object.round != null)
                     message.round = object.round | 0;
                 if (object.quorumHash != null)
@@ -9881,27 +10656,34 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.blockSignature, message.blockSignature = $util.newBuffer($util.base64.length(object.blockSignature)), 0);
                     else if (object.blockSignature.length >= 0)
                         message.blockSignature = object.blockSignature;
-                if (object.stateSignature != null)
-                    if (typeof object.stateSignature === "string")
-                        $util.base64.decode(object.stateSignature, message.stateSignature = $util.newBuffer($util.base64.length(object.stateSignature)), 0);
-                    else if (object.stateSignature.length >= 0)
-                        message.stateSignature = object.stateSignature;
+                if (object.thresholdVoteExtensions) {
+                    if (!Array.isArray(object.thresholdVoteExtensions))
+                        throw TypeError(".tendermint.abci.CommitInfo.thresholdVoteExtensions: array expected");
+                    message.thresholdVoteExtensions = [];
+                    for (var i = 0; i < object.thresholdVoteExtensions.length; ++i) {
+                        if (typeof object.thresholdVoteExtensions[i] !== "object")
+                            throw TypeError(".tendermint.abci.CommitInfo.thresholdVoteExtensions: object expected");
+                        message.thresholdVoteExtensions[i] = $root.tendermint.types.VoteExtension.fromObject(object.thresholdVoteExtensions[i]);
+                    }
+                }
                 return message;
             };
 
             /**
-             * Creates a plain object from a LastCommitInfo message. Also converts values to other types if specified.
+             * Creates a plain object from a CommitInfo message. Also converts values to other types if specified.
              * @function toObject
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.CommitInfo
              * @static
-             * @param {tendermint.abci.LastCommitInfo} message LastCommitInfo
+             * @param {tendermint.abci.CommitInfo} message CommitInfo
              * @param {$protobuf.IConversionOptions} [options] Conversion options
              * @returns {Object.<string,*>} Plain object
              */
-            LastCommitInfo.toObject = function toObject(message, options) {
+            CommitInfo.toObject = function toObject(message, options) {
                 if (!options)
                     options = {};
                 var object = {};
+                if (options.arrays || options.defaults)
+                    object.thresholdVoteExtensions = [];
                 if (options.defaults) {
                     object.round = 0;
                     if (options.bytes === String)
@@ -9918,12 +10700,299 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.blockSignature = $util.newBuffer(object.blockSignature);
                     }
+                }
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
+                if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
+                    object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
+                if (message.thresholdVoteExtensions && message.thresholdVoteExtensions.length) {
+                    object.thresholdVoteExtensions = [];
+                    for (var j = 0; j < message.thresholdVoteExtensions.length; ++j)
+                        object.thresholdVoteExtensions[j] = $root.tendermint.types.VoteExtension.toObject(message.thresholdVoteExtensions[j], options);
+                }
+                return object;
+            };
+
+            /**
+             * Converts this CommitInfo to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.CommitInfo
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            CommitInfo.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return CommitInfo;
+        })();
+
+        abci.ExtendedCommitInfo = (function() {
+
+            /**
+             * Properties of an ExtendedCommitInfo.
+             * @memberof tendermint.abci
+             * @interface IExtendedCommitInfo
+             * @property {number|null} [round] ExtendedCommitInfo round
+             * @property {Uint8Array|null} [quorumHash] ExtendedCommitInfo quorumHash
+             * @property {Uint8Array|null} [blockSignature] ExtendedCommitInfo blockSignature
+             * @property {Array.<tendermint.types.IVoteExtension>|null} [thresholdVoteExtensions] ExtendedCommitInfo thresholdVoteExtensions
+             */
+
+            /**
+             * Constructs a new ExtendedCommitInfo.
+             * @memberof tendermint.abci
+             * @classdesc Represents an ExtendedCommitInfo.
+             * @implements IExtendedCommitInfo
+             * @constructor
+             * @param {tendermint.abci.IExtendedCommitInfo=} [properties] Properties to set
+             */
+            function ExtendedCommitInfo(properties) {
+                this.thresholdVoteExtensions = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ExtendedCommitInfo round.
+             * @member {number} round
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @instance
+             */
+            ExtendedCommitInfo.prototype.round = 0;
+
+            /**
+             * ExtendedCommitInfo quorumHash.
+             * @member {Uint8Array} quorumHash
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @instance
+             */
+            ExtendedCommitInfo.prototype.quorumHash = $util.newBuffer([]);
+
+            /**
+             * ExtendedCommitInfo blockSignature.
+             * @member {Uint8Array} blockSignature
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @instance
+             */
+            ExtendedCommitInfo.prototype.blockSignature = $util.newBuffer([]);
+
+            /**
+             * ExtendedCommitInfo thresholdVoteExtensions.
+             * @member {Array.<tendermint.types.IVoteExtension>} thresholdVoteExtensions
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @instance
+             */
+            ExtendedCommitInfo.prototype.thresholdVoteExtensions = $util.emptyArray;
+
+            /**
+             * Creates a new ExtendedCommitInfo instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @static
+             * @param {tendermint.abci.IExtendedCommitInfo=} [properties] Properties to set
+             * @returns {tendermint.abci.ExtendedCommitInfo} ExtendedCommitInfo instance
+             */
+            ExtendedCommitInfo.create = function create(properties) {
+                return new ExtendedCommitInfo(properties);
+            };
+
+            /**
+             * Encodes the specified ExtendedCommitInfo message. Does not implicitly {@link tendermint.abci.ExtendedCommitInfo.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @static
+             * @param {tendermint.abci.IExtendedCommitInfo} message ExtendedCommitInfo message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ExtendedCommitInfo.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.round);
+                if (message.quorumHash != null && Object.hasOwnProperty.call(message, "quorumHash"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.quorumHash);
+                if (message.blockSignature != null && Object.hasOwnProperty.call(message, "blockSignature"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.blockSignature);
+                if (message.thresholdVoteExtensions != null && message.thresholdVoteExtensions.length)
+                    for (var i = 0; i < message.thresholdVoteExtensions.length; ++i)
+                        $root.tendermint.types.VoteExtension.encode(message.thresholdVoteExtensions[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ExtendedCommitInfo message, length delimited. Does not implicitly {@link tendermint.abci.ExtendedCommitInfo.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @static
+             * @param {tendermint.abci.IExtendedCommitInfo} message ExtendedCommitInfo message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ExtendedCommitInfo.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an ExtendedCommitInfo message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.ExtendedCommitInfo} ExtendedCommitInfo
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExtendedCommitInfo.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ExtendedCommitInfo();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.round = reader.int32();
+                        break;
+                    case 3:
+                        message.quorumHash = reader.bytes();
+                        break;
+                    case 4:
+                        message.blockSignature = reader.bytes();
+                        break;
+                    case 6:
+                        if (!(message.thresholdVoteExtensions && message.thresholdVoteExtensions.length))
+                            message.thresholdVoteExtensions = [];
+                        message.thresholdVoteExtensions.push($root.tendermint.types.VoteExtension.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an ExtendedCommitInfo message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.ExtendedCommitInfo} ExtendedCommitInfo
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExtendedCommitInfo.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an ExtendedCommitInfo message.
+             * @function verify
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ExtendedCommitInfo.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    if (!(message.quorumHash && typeof message.quorumHash.length === "number" || $util.isString(message.quorumHash)))
+                        return "quorumHash: buffer expected";
+                if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
+                    if (!(message.blockSignature && typeof message.blockSignature.length === "number" || $util.isString(message.blockSignature)))
+                        return "blockSignature: buffer expected";
+                if (message.thresholdVoteExtensions != null && message.hasOwnProperty("thresholdVoteExtensions")) {
+                    if (!Array.isArray(message.thresholdVoteExtensions))
+                        return "thresholdVoteExtensions: array expected";
+                    for (var i = 0; i < message.thresholdVoteExtensions.length; ++i) {
+                        var error = $root.tendermint.types.VoteExtension.verify(message.thresholdVoteExtensions[i]);
+                        if (error)
+                            return "thresholdVoteExtensions." + error;
+                    }
+                }
+                return null;
+            };
+
+            /**
+             * Creates an ExtendedCommitInfo message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.ExtendedCommitInfo} ExtendedCommitInfo
+             */
+            ExtendedCommitInfo.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ExtendedCommitInfo)
+                    return object;
+                var message = new $root.tendermint.abci.ExtendedCommitInfo();
+                if (object.round != null)
+                    message.round = object.round | 0;
+                if (object.quorumHash != null)
+                    if (typeof object.quorumHash === "string")
+                        $util.base64.decode(object.quorumHash, message.quorumHash = $util.newBuffer($util.base64.length(object.quorumHash)), 0);
+                    else if (object.quorumHash.length >= 0)
+                        message.quorumHash = object.quorumHash;
+                if (object.blockSignature != null)
+                    if (typeof object.blockSignature === "string")
+                        $util.base64.decode(object.blockSignature, message.blockSignature = $util.newBuffer($util.base64.length(object.blockSignature)), 0);
+                    else if (object.blockSignature.length >= 0)
+                        message.blockSignature = object.blockSignature;
+                if (object.thresholdVoteExtensions) {
+                    if (!Array.isArray(object.thresholdVoteExtensions))
+                        throw TypeError(".tendermint.abci.ExtendedCommitInfo.thresholdVoteExtensions: array expected");
+                    message.thresholdVoteExtensions = [];
+                    for (var i = 0; i < object.thresholdVoteExtensions.length; ++i) {
+                        if (typeof object.thresholdVoteExtensions[i] !== "object")
+                            throw TypeError(".tendermint.abci.ExtendedCommitInfo.thresholdVoteExtensions: object expected");
+                        message.thresholdVoteExtensions[i] = $root.tendermint.types.VoteExtension.fromObject(object.thresholdVoteExtensions[i]);
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an ExtendedCommitInfo message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.ExtendedCommitInfo
+             * @static
+             * @param {tendermint.abci.ExtendedCommitInfo} message ExtendedCommitInfo
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ExtendedCommitInfo.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.thresholdVoteExtensions = [];
+                if (options.defaults) {
+                    object.round = 0;
                     if (options.bytes === String)
-                        object.stateSignature = "";
+                        object.quorumHash = "";
                     else {
-                        object.stateSignature = [];
+                        object.quorumHash = [];
                         if (options.bytes !== Array)
-                            object.stateSignature = $util.newBuffer(object.stateSignature);
+                            object.quorumHash = $util.newBuffer(object.quorumHash);
+                    }
+                    if (options.bytes === String)
+                        object.blockSignature = "";
+                    else {
+                        object.blockSignature = [];
+                        if (options.bytes !== Array)
+                            object.blockSignature = $util.newBuffer(object.blockSignature);
                     }
                 }
                 if (message.round != null && message.hasOwnProperty("round"))
@@ -9932,23 +11001,26 @@ $root.tendermint = (function() {
                     object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
-                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    object.stateSignature = options.bytes === String ? $util.base64.encode(message.stateSignature, 0, message.stateSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.stateSignature) : message.stateSignature;
+                if (message.thresholdVoteExtensions && message.thresholdVoteExtensions.length) {
+                    object.thresholdVoteExtensions = [];
+                    for (var j = 0; j < message.thresholdVoteExtensions.length; ++j)
+                        object.thresholdVoteExtensions[j] = $root.tendermint.types.VoteExtension.toObject(message.thresholdVoteExtensions[j], options);
+                }
                 return object;
             };
 
             /**
-             * Converts this LastCommitInfo to JSON.
+             * Converts this ExtendedCommitInfo to JSON.
              * @function toJSON
-             * @memberof tendermint.abci.LastCommitInfo
+             * @memberof tendermint.abci.ExtendedCommitInfo
              * @instance
              * @returns {Object.<string,*>} JSON object
              */
-            LastCommitInfo.prototype.toJSON = function toJSON() {
+            ExtendedCommitInfo.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
-            return LastCommitInfo;
+            return ExtendedCommitInfo;
         })();
 
         abci.Event = (function() {
@@ -10188,8 +11260,8 @@ $root.tendermint = (function() {
              * Properties of an EventAttribute.
              * @memberof tendermint.abci
              * @interface IEventAttribute
-             * @property {Uint8Array|null} [key] EventAttribute key
-             * @property {Uint8Array|null} [value] EventAttribute value
+             * @property {string|null} [key] EventAttribute key
+             * @property {string|null} [value] EventAttribute value
              * @property {boolean|null} [index] EventAttribute index
              */
 
@@ -10210,19 +11282,19 @@ $root.tendermint = (function() {
 
             /**
              * EventAttribute key.
-             * @member {Uint8Array} key
+             * @member {string} key
              * @memberof tendermint.abci.EventAttribute
              * @instance
              */
-            EventAttribute.prototype.key = $util.newBuffer([]);
+            EventAttribute.prototype.key = "";
 
             /**
              * EventAttribute value.
-             * @member {Uint8Array} value
+             * @member {string} value
              * @memberof tendermint.abci.EventAttribute
              * @instance
              */
-            EventAttribute.prototype.value = $util.newBuffer([]);
+            EventAttribute.prototype.value = "";
 
             /**
              * EventAttribute index.
@@ -10257,9 +11329,9 @@ $root.tendermint = (function() {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.key != null && Object.hasOwnProperty.call(message, "key"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.key);
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.key);
                 if (message.value != null && Object.hasOwnProperty.call(message, "value"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.value);
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.value);
                 if (message.index != null && Object.hasOwnProperty.call(message, "index"))
                     writer.uint32(/* id 3, wireType 0 =*/24).bool(message.index);
                 return writer;
@@ -10297,10 +11369,10 @@ $root.tendermint = (function() {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.key = reader.bytes();
+                        message.key = reader.string();
                         break;
                     case 2:
-                        message.value = reader.bytes();
+                        message.value = reader.string();
                         break;
                     case 3:
                         message.index = reader.bool();
@@ -10341,11 +11413,11 @@ $root.tendermint = (function() {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
                 if (message.key != null && message.hasOwnProperty("key"))
-                    if (!(message.key && typeof message.key.length === "number" || $util.isString(message.key)))
-                        return "key: buffer expected";
+                    if (!$util.isString(message.key))
+                        return "key: string expected";
                 if (message.value != null && message.hasOwnProperty("value"))
-                    if (!(message.value && typeof message.value.length === "number" || $util.isString(message.value)))
-                        return "value: buffer expected";
+                    if (!$util.isString(message.value))
+                        return "value: string expected";
                 if (message.index != null && message.hasOwnProperty("index"))
                     if (typeof message.index !== "boolean")
                         return "index: boolean expected";
@@ -10365,15 +11437,9 @@ $root.tendermint = (function() {
                     return object;
                 var message = new $root.tendermint.abci.EventAttribute();
                 if (object.key != null)
-                    if (typeof object.key === "string")
-                        $util.base64.decode(object.key, message.key = $util.newBuffer($util.base64.length(object.key)), 0);
-                    else if (object.key.length >= 0)
-                        message.key = object.key;
+                    message.key = String(object.key);
                 if (object.value != null)
-                    if (typeof object.value === "string")
-                        $util.base64.decode(object.value, message.value = $util.newBuffer($util.base64.length(object.value)), 0);
-                    else if (object.value.length >= 0)
-                        message.value = object.value;
+                    message.value = String(object.value);
                 if (object.index != null)
                     message.index = Boolean(object.index);
                 return message;
@@ -10393,26 +11459,14 @@ $root.tendermint = (function() {
                     options = {};
                 var object = {};
                 if (options.defaults) {
-                    if (options.bytes === String)
-                        object.key = "";
-                    else {
-                        object.key = [];
-                        if (options.bytes !== Array)
-                            object.key = $util.newBuffer(object.key);
-                    }
-                    if (options.bytes === String)
-                        object.value = "";
-                    else {
-                        object.value = [];
-                        if (options.bytes !== Array)
-                            object.value = $util.newBuffer(object.value);
-                    }
+                    object.key = "";
+                    object.value = "";
                     object.index = false;
                 }
                 if (message.key != null && message.hasOwnProperty("key"))
-                    object.key = options.bytes === String ? $util.base64.encode(message.key, 0, message.key.length) : options.bytes === Array ? Array.prototype.slice.call(message.key) : message.key;
+                    object.key = message.key;
                 if (message.value != null && message.hasOwnProperty("value"))
-                    object.value = options.bytes === String ? $util.base64.encode(message.value, 0, message.value.length) : options.bytes === Array ? Array.prototype.slice.call(message.value) : message.value;
+                    object.value = message.value;
                 if (message.index != null && message.hasOwnProperty("index"))
                     object.index = message.index;
                 return object;
@@ -10432,6 +11486,407 @@ $root.tendermint = (function() {
             return EventAttribute;
         })();
 
+        abci.ExecTxResult = (function() {
+
+            /**
+             * Properties of an ExecTxResult.
+             * @memberof tendermint.abci
+             * @interface IExecTxResult
+             * @property {number|null} [code] ExecTxResult code
+             * @property {Uint8Array|null} [data] ExecTxResult data
+             * @property {string|null} [log] ExecTxResult log
+             * @property {string|null} [info] ExecTxResult info
+             * @property {number|Long|null} [gasWanted] ExecTxResult gasWanted
+             * @property {number|Long|null} [gasUsed] ExecTxResult gasUsed
+             * @property {Array.<tendermint.abci.IEvent>|null} [events] ExecTxResult events
+             * @property {string|null} [codespace] ExecTxResult codespace
+             */
+
+            /**
+             * Constructs a new ExecTxResult.
+             * @memberof tendermint.abci
+             * @classdesc Represents an ExecTxResult.
+             * @implements IExecTxResult
+             * @constructor
+             * @param {tendermint.abci.IExecTxResult=} [properties] Properties to set
+             */
+            function ExecTxResult(properties) {
+                this.events = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ExecTxResult code.
+             * @member {number} code
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             */
+            ExecTxResult.prototype.code = 0;
+
+            /**
+             * ExecTxResult data.
+             * @member {Uint8Array} data
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             */
+            ExecTxResult.prototype.data = $util.newBuffer([]);
+
+            /**
+             * ExecTxResult log.
+             * @member {string} log
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             */
+            ExecTxResult.prototype.log = "";
+
+            /**
+             * ExecTxResult info.
+             * @member {string} info
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             */
+            ExecTxResult.prototype.info = "";
+
+            /**
+             * ExecTxResult gasWanted.
+             * @member {number|Long} gasWanted
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             */
+            ExecTxResult.prototype.gasWanted = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * ExecTxResult gasUsed.
+             * @member {number|Long} gasUsed
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             */
+            ExecTxResult.prototype.gasUsed = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * ExecTxResult events.
+             * @member {Array.<tendermint.abci.IEvent>} events
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             */
+            ExecTxResult.prototype.events = $util.emptyArray;
+
+            /**
+             * ExecTxResult codespace.
+             * @member {string} codespace
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             */
+            ExecTxResult.prototype.codespace = "";
+
+            /**
+             * Creates a new ExecTxResult instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.ExecTxResult
+             * @static
+             * @param {tendermint.abci.IExecTxResult=} [properties] Properties to set
+             * @returns {tendermint.abci.ExecTxResult} ExecTxResult instance
+             */
+            ExecTxResult.create = function create(properties) {
+                return new ExecTxResult(properties);
+            };
+
+            /**
+             * Encodes the specified ExecTxResult message. Does not implicitly {@link tendermint.abci.ExecTxResult.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.ExecTxResult
+             * @static
+             * @param {tendermint.abci.IExecTxResult} message ExecTxResult message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ExecTxResult.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.code != null && Object.hasOwnProperty.call(message, "code"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.code);
+                if (message.data != null && Object.hasOwnProperty.call(message, "data"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.data);
+                if (message.log != null && Object.hasOwnProperty.call(message, "log"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.log);
+                if (message.info != null && Object.hasOwnProperty.call(message, "info"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.info);
+                if (message.gasWanted != null && Object.hasOwnProperty.call(message, "gasWanted"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).int64(message.gasWanted);
+                if (message.gasUsed != null && Object.hasOwnProperty.call(message, "gasUsed"))
+                    writer.uint32(/* id 6, wireType 0 =*/48).int64(message.gasUsed);
+                if (message.events != null && message.events.length)
+                    for (var i = 0; i < message.events.length; ++i)
+                        $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                if (message.codespace != null && Object.hasOwnProperty.call(message, "codespace"))
+                    writer.uint32(/* id 8, wireType 2 =*/66).string(message.codespace);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ExecTxResult message, length delimited. Does not implicitly {@link tendermint.abci.ExecTxResult.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.ExecTxResult
+             * @static
+             * @param {tendermint.abci.IExecTxResult} message ExecTxResult message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ExecTxResult.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an ExecTxResult message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.ExecTxResult
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.ExecTxResult} ExecTxResult
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExecTxResult.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ExecTxResult();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.code = reader.uint32();
+                        break;
+                    case 2:
+                        message.data = reader.bytes();
+                        break;
+                    case 3:
+                        message.log = reader.string();
+                        break;
+                    case 4:
+                        message.info = reader.string();
+                        break;
+                    case 5:
+                        message.gasWanted = reader.int64();
+                        break;
+                    case 6:
+                        message.gasUsed = reader.int64();
+                        break;
+                    case 7:
+                        if (!(message.events && message.events.length))
+                            message.events = [];
+                        message.events.push($root.tendermint.abci.Event.decode(reader, reader.uint32()));
+                        break;
+                    case 8:
+                        message.codespace = reader.string();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an ExecTxResult message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.ExecTxResult
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.ExecTxResult} ExecTxResult
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExecTxResult.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an ExecTxResult message.
+             * @function verify
+             * @memberof tendermint.abci.ExecTxResult
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ExecTxResult.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.code != null && message.hasOwnProperty("code"))
+                    if (!$util.isInteger(message.code))
+                        return "code: integer expected";
+                if (message.data != null && message.hasOwnProperty("data"))
+                    if (!(message.data && typeof message.data.length === "number" || $util.isString(message.data)))
+                        return "data: buffer expected";
+                if (message.log != null && message.hasOwnProperty("log"))
+                    if (!$util.isString(message.log))
+                        return "log: string expected";
+                if (message.info != null && message.hasOwnProperty("info"))
+                    if (!$util.isString(message.info))
+                        return "info: string expected";
+                if (message.gasWanted != null && message.hasOwnProperty("gasWanted"))
+                    if (!$util.isInteger(message.gasWanted) && !(message.gasWanted && $util.isInteger(message.gasWanted.low) && $util.isInteger(message.gasWanted.high)))
+                        return "gasWanted: integer|Long expected";
+                if (message.gasUsed != null && message.hasOwnProperty("gasUsed"))
+                    if (!$util.isInteger(message.gasUsed) && !(message.gasUsed && $util.isInteger(message.gasUsed.low) && $util.isInteger(message.gasUsed.high)))
+                        return "gasUsed: integer|Long expected";
+                if (message.events != null && message.hasOwnProperty("events")) {
+                    if (!Array.isArray(message.events))
+                        return "events: array expected";
+                    for (var i = 0; i < message.events.length; ++i) {
+                        var error = $root.tendermint.abci.Event.verify(message.events[i]);
+                        if (error)
+                            return "events." + error;
+                    }
+                }
+                if (message.codespace != null && message.hasOwnProperty("codespace"))
+                    if (!$util.isString(message.codespace))
+                        return "codespace: string expected";
+                return null;
+            };
+
+            /**
+             * Creates an ExecTxResult message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.ExecTxResult
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.ExecTxResult} ExecTxResult
+             */
+            ExecTxResult.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ExecTxResult)
+                    return object;
+                var message = new $root.tendermint.abci.ExecTxResult();
+                if (object.code != null)
+                    message.code = object.code >>> 0;
+                if (object.data != null)
+                    if (typeof object.data === "string")
+                        $util.base64.decode(object.data, message.data = $util.newBuffer($util.base64.length(object.data)), 0);
+                    else if (object.data.length >= 0)
+                        message.data = object.data;
+                if (object.log != null)
+                    message.log = String(object.log);
+                if (object.info != null)
+                    message.info = String(object.info);
+                if (object.gasWanted != null)
+                    if ($util.Long)
+                        (message.gasWanted = $util.Long.fromValue(object.gasWanted)).unsigned = false;
+                    else if (typeof object.gasWanted === "string")
+                        message.gasWanted = parseInt(object.gasWanted, 10);
+                    else if (typeof object.gasWanted === "number")
+                        message.gasWanted = object.gasWanted;
+                    else if (typeof object.gasWanted === "object")
+                        message.gasWanted = new $util.LongBits(object.gasWanted.low >>> 0, object.gasWanted.high >>> 0).toNumber();
+                if (object.gasUsed != null)
+                    if ($util.Long)
+                        (message.gasUsed = $util.Long.fromValue(object.gasUsed)).unsigned = false;
+                    else if (typeof object.gasUsed === "string")
+                        message.gasUsed = parseInt(object.gasUsed, 10);
+                    else if (typeof object.gasUsed === "number")
+                        message.gasUsed = object.gasUsed;
+                    else if (typeof object.gasUsed === "object")
+                        message.gasUsed = new $util.LongBits(object.gasUsed.low >>> 0, object.gasUsed.high >>> 0).toNumber();
+                if (object.events) {
+                    if (!Array.isArray(object.events))
+                        throw TypeError(".tendermint.abci.ExecTxResult.events: array expected");
+                    message.events = [];
+                    for (var i = 0; i < object.events.length; ++i) {
+                        if (typeof object.events[i] !== "object")
+                            throw TypeError(".tendermint.abci.ExecTxResult.events: object expected");
+                        message.events[i] = $root.tendermint.abci.Event.fromObject(object.events[i]);
+                    }
+                }
+                if (object.codespace != null)
+                    message.codespace = String(object.codespace);
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an ExecTxResult message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.ExecTxResult
+             * @static
+             * @param {tendermint.abci.ExecTxResult} message ExecTxResult
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ExecTxResult.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.events = [];
+                if (options.defaults) {
+                    object.code = 0;
+                    if (options.bytes === String)
+                        object.data = "";
+                    else {
+                        object.data = [];
+                        if (options.bytes !== Array)
+                            object.data = $util.newBuffer(object.data);
+                    }
+                    object.log = "";
+                    object.info = "";
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.gasWanted = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.gasWanted = options.longs === String ? "0" : 0;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.gasUsed = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.gasUsed = options.longs === String ? "0" : 0;
+                    object.codespace = "";
+                }
+                if (message.code != null && message.hasOwnProperty("code"))
+                    object.code = message.code;
+                if (message.data != null && message.hasOwnProperty("data"))
+                    object.data = options.bytes === String ? $util.base64.encode(message.data, 0, message.data.length) : options.bytes === Array ? Array.prototype.slice.call(message.data) : message.data;
+                if (message.log != null && message.hasOwnProperty("log"))
+                    object.log = message.log;
+                if (message.info != null && message.hasOwnProperty("info"))
+                    object.info = message.info;
+                if (message.gasWanted != null && message.hasOwnProperty("gasWanted"))
+                    if (typeof message.gasWanted === "number")
+                        object.gasWanted = options.longs === String ? String(message.gasWanted) : message.gasWanted;
+                    else
+                        object.gasWanted = options.longs === String ? $util.Long.prototype.toString.call(message.gasWanted) : options.longs === Number ? new $util.LongBits(message.gasWanted.low >>> 0, message.gasWanted.high >>> 0).toNumber() : message.gasWanted;
+                if (message.gasUsed != null && message.hasOwnProperty("gasUsed"))
+                    if (typeof message.gasUsed === "number")
+                        object.gasUsed = options.longs === String ? String(message.gasUsed) : message.gasUsed;
+                    else
+                        object.gasUsed = options.longs === String ? $util.Long.prototype.toString.call(message.gasUsed) : options.longs === Number ? new $util.LongBits(message.gasUsed.low >>> 0, message.gasUsed.high >>> 0).toNumber() : message.gasUsed;
+                if (message.events && message.events.length) {
+                    object.events = [];
+                    for (var j = 0; j < message.events.length; ++j)
+                        object.events[j] = $root.tendermint.abci.Event.toObject(message.events[j], options);
+                }
+                if (message.codespace != null && message.hasOwnProperty("codespace"))
+                    object.codespace = message.codespace;
+                return object;
+            };
+
+            /**
+             * Converts this ExecTxResult to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.ExecTxResult
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ExecTxResult.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ExecTxResult;
+        })();
+
         abci.TxResult = (function() {
 
             /**
@@ -10441,7 +11896,7 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [height] TxResult height
              * @property {number|null} [index] TxResult index
              * @property {Uint8Array|null} [tx] TxResult tx
-             * @property {tendermint.abci.IResponseDeliverTx|null} [result] TxResult result
+             * @property {tendermint.abci.IExecTxResult|null} [result] TxResult result
              */
 
             /**
@@ -10485,7 +11940,7 @@ $root.tendermint = (function() {
 
             /**
              * TxResult result.
-             * @member {tendermint.abci.IResponseDeliverTx|null|undefined} result
+             * @member {tendermint.abci.IExecTxResult|null|undefined} result
              * @memberof tendermint.abci.TxResult
              * @instance
              */
@@ -10522,7 +11977,7 @@ $root.tendermint = (function() {
                 if (message.tx != null && Object.hasOwnProperty.call(message, "tx"))
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.tx);
                 if (message.result != null && Object.hasOwnProperty.call(message, "result"))
-                    $root.tendermint.abci.ResponseDeliverTx.encode(message.result, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    $root.tendermint.abci.ExecTxResult.encode(message.result, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 return writer;
             };
 
@@ -10567,7 +12022,7 @@ $root.tendermint = (function() {
                         message.tx = reader.bytes();
                         break;
                     case 4:
-                        message.result = $root.tendermint.abci.ResponseDeliverTx.decode(reader, reader.uint32());
+                        message.result = $root.tendermint.abci.ExecTxResult.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -10614,7 +12069,7 @@ $root.tendermint = (function() {
                     if (!(message.tx && typeof message.tx.length === "number" || $util.isString(message.tx)))
                         return "tx: buffer expected";
                 if (message.result != null && message.hasOwnProperty("result")) {
-                    var error = $root.tendermint.abci.ResponseDeliverTx.verify(message.result);
+                    var error = $root.tendermint.abci.ExecTxResult.verify(message.result);
                     if (error)
                         return "result." + error;
                 }
@@ -10652,7 +12107,7 @@ $root.tendermint = (function() {
                 if (object.result != null) {
                     if (typeof object.result !== "object")
                         throw TypeError(".tendermint.abci.TxResult.result: object expected");
-                    message.result = $root.tendermint.abci.ResponseDeliverTx.fromObject(object.result);
+                    message.result = $root.tendermint.abci.ExecTxResult.fromObject(object.result);
                 }
                 return message;
             };
@@ -10696,7 +12151,7 @@ $root.tendermint = (function() {
                 if (message.tx != null && message.hasOwnProperty("tx"))
                     object.tx = options.bytes === String ? $util.base64.encode(message.tx, 0, message.tx.length) : options.bytes === Array ? Array.prototype.slice.call(message.tx) : message.tx;
                 if (message.result != null && message.hasOwnProperty("result"))
-                    object.result = $root.tendermint.abci.ResponseDeliverTx.toObject(message.result, options);
+                    object.result = $root.tendermint.abci.ExecTxResult.toObject(message.result, options);
                 return object;
             };
 
@@ -10712,6 +12167,266 @@ $root.tendermint = (function() {
             };
 
             return TxResult;
+        })();
+
+        abci.TxRecord = (function() {
+
+            /**
+             * Properties of a TxRecord.
+             * @memberof tendermint.abci
+             * @interface ITxRecord
+             * @property {tendermint.abci.TxRecord.TxAction|null} [action] TxRecord action
+             * @property {Uint8Array|null} [tx] TxRecord tx
+             */
+
+            /**
+             * Constructs a new TxRecord.
+             * @memberof tendermint.abci
+             * @classdesc Represents a TxRecord.
+             * @implements ITxRecord
+             * @constructor
+             * @param {tendermint.abci.ITxRecord=} [properties] Properties to set
+             */
+            function TxRecord(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * TxRecord action.
+             * @member {tendermint.abci.TxRecord.TxAction} action
+             * @memberof tendermint.abci.TxRecord
+             * @instance
+             */
+            TxRecord.prototype.action = 0;
+
+            /**
+             * TxRecord tx.
+             * @member {Uint8Array} tx
+             * @memberof tendermint.abci.TxRecord
+             * @instance
+             */
+            TxRecord.prototype.tx = $util.newBuffer([]);
+
+            /**
+             * Creates a new TxRecord instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.TxRecord
+             * @static
+             * @param {tendermint.abci.ITxRecord=} [properties] Properties to set
+             * @returns {tendermint.abci.TxRecord} TxRecord instance
+             */
+            TxRecord.create = function create(properties) {
+                return new TxRecord(properties);
+            };
+
+            /**
+             * Encodes the specified TxRecord message. Does not implicitly {@link tendermint.abci.TxRecord.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.TxRecord
+             * @static
+             * @param {tendermint.abci.ITxRecord} message TxRecord message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            TxRecord.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.action != null && Object.hasOwnProperty.call(message, "action"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.action);
+                if (message.tx != null && Object.hasOwnProperty.call(message, "tx"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.tx);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified TxRecord message, length delimited. Does not implicitly {@link tendermint.abci.TxRecord.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.TxRecord
+             * @static
+             * @param {tendermint.abci.ITxRecord} message TxRecord message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            TxRecord.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a TxRecord message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.TxRecord
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.TxRecord} TxRecord
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            TxRecord.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.TxRecord();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.action = reader.int32();
+                        break;
+                    case 2:
+                        message.tx = reader.bytes();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a TxRecord message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.TxRecord
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.TxRecord} TxRecord
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            TxRecord.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a TxRecord message.
+             * @function verify
+             * @memberof tendermint.abci.TxRecord
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            TxRecord.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.action != null && message.hasOwnProperty("action"))
+                    switch (message.action) {
+                    default:
+                        return "action: enum value expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        break;
+                    }
+                if (message.tx != null && message.hasOwnProperty("tx"))
+                    if (!(message.tx && typeof message.tx.length === "number" || $util.isString(message.tx)))
+                        return "tx: buffer expected";
+                return null;
+            };
+
+            /**
+             * Creates a TxRecord message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.TxRecord
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.TxRecord} TxRecord
+             */
+            TxRecord.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.TxRecord)
+                    return object;
+                var message = new $root.tendermint.abci.TxRecord();
+                switch (object.action) {
+                case "UNKNOWN":
+                case 0:
+                    message.action = 0;
+                    break;
+                case "UNMODIFIED":
+                case 1:
+                    message.action = 1;
+                    break;
+                case "ADDED":
+                case 2:
+                    message.action = 2;
+                    break;
+                case "REMOVED":
+                case 3:
+                    message.action = 3;
+                    break;
+                }
+                if (object.tx != null)
+                    if (typeof object.tx === "string")
+                        $util.base64.decode(object.tx, message.tx = $util.newBuffer($util.base64.length(object.tx)), 0);
+                    else if (object.tx.length >= 0)
+                        message.tx = object.tx;
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a TxRecord message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.TxRecord
+             * @static
+             * @param {tendermint.abci.TxRecord} message TxRecord
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            TxRecord.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.action = options.enums === String ? "UNKNOWN" : 0;
+                    if (options.bytes === String)
+                        object.tx = "";
+                    else {
+                        object.tx = [];
+                        if (options.bytes !== Array)
+                            object.tx = $util.newBuffer(object.tx);
+                    }
+                }
+                if (message.action != null && message.hasOwnProperty("action"))
+                    object.action = options.enums === String ? $root.tendermint.abci.TxRecord.TxAction[message.action] : message.action;
+                if (message.tx != null && message.hasOwnProperty("tx"))
+                    object.tx = options.bytes === String ? $util.base64.encode(message.tx, 0, message.tx.length) : options.bytes === Array ? Array.prototype.slice.call(message.tx) : message.tx;
+                return object;
+            };
+
+            /**
+             * Converts this TxRecord to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.TxRecord
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            TxRecord.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            /**
+             * TxAction enum.
+             * @name tendermint.abci.TxRecord.TxAction
+             * @enum {number}
+             * @property {number} UNKNOWN=0 UNKNOWN value
+             * @property {number} UNMODIFIED=1 UNMODIFIED value
+             * @property {number} ADDED=2 ADDED value
+             * @property {number} REMOVED=3 REMOVED value
+             */
+            TxRecord.TxAction = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "UNKNOWN"] = 0;
+                values[valuesById[1] = "UNMODIFIED"] = 1;
+                values[valuesById[2] = "ADDED"] = 2;
+                values[valuesById[3] = "REMOVED"] = 3;
+                return values;
+            })();
+
+            return TxRecord;
         })();
 
         abci.Validator = (function() {
@@ -10956,6 +12671,7 @@ $root.tendermint = (function() {
              * @property {tendermint.crypto.IPublicKey|null} [pubKey] ValidatorUpdate pubKey
              * @property {number|Long|null} [power] ValidatorUpdate power
              * @property {Uint8Array|null} [proTxHash] ValidatorUpdate proTxHash
+             * @property {string|null} [nodeAddress] ValidatorUpdate nodeAddress
              */
 
             /**
@@ -10998,6 +12714,14 @@ $root.tendermint = (function() {
             ValidatorUpdate.prototype.proTxHash = $util.newBuffer([]);
 
             /**
+             * ValidatorUpdate nodeAddress.
+             * @member {string} nodeAddress
+             * @memberof tendermint.abci.ValidatorUpdate
+             * @instance
+             */
+            ValidatorUpdate.prototype.nodeAddress = "";
+
+            /**
              * Creates a new ValidatorUpdate instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.ValidatorUpdate
@@ -11027,6 +12751,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 2, wireType 0 =*/16).int64(message.power);
                 if (message.proTxHash != null && Object.hasOwnProperty.call(message, "proTxHash"))
                     writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.proTxHash);
+                if (message.nodeAddress != null && Object.hasOwnProperty.call(message, "nodeAddress"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.nodeAddress);
                 return writer;
             };
 
@@ -11069,6 +12795,9 @@ $root.tendermint = (function() {
                         break;
                     case 3:
                         message.proTxHash = reader.bytes();
+                        break;
+                    case 4:
+                        message.nodeAddress = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -11116,6 +12845,9 @@ $root.tendermint = (function() {
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     if (!(message.proTxHash && typeof message.proTxHash.length === "number" || $util.isString(message.proTxHash)))
                         return "proTxHash: buffer expected";
+                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
+                    if (!$util.isString(message.nodeAddress))
+                        return "nodeAddress: string expected";
                 return null;
             };
 
@@ -11150,6 +12882,8 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.proTxHash, message.proTxHash = $util.newBuffer($util.base64.length(object.proTxHash)), 0);
                     else if (object.proTxHash.length >= 0)
                         message.proTxHash = object.proTxHash;
+                if (object.nodeAddress != null)
+                    message.nodeAddress = String(object.nodeAddress);
                 return message;
             };
 
@@ -11180,6 +12914,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proTxHash = $util.newBuffer(object.proTxHash);
                     }
+                    object.nodeAddress = "";
                 }
                 if (message.pubKey != null && message.hasOwnProperty("pubKey"))
                     object.pubKey = $root.tendermint.crypto.PublicKey.toObject(message.pubKey, options);
@@ -11190,6 +12925,8 @@ $root.tendermint = (function() {
                         object.power = options.longs === String ? $util.Long.prototype.toString.call(message.power) : options.longs === Number ? new $util.LongBits(message.power.low >>> 0, message.power.high >>> 0).toNumber() : message.power;
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     object.proTxHash = options.bytes === String ? $util.base64.encode(message.proTxHash, 0, message.proTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proTxHash) : message.proTxHash;
+                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
+                    object.nodeAddress = message.nodeAddress;
                 return object;
             };
 
@@ -12078,44 +13815,26 @@ $root.tendermint = (function() {
             return VoteInfo;
         })();
 
-        /**
-         * EvidenceType enum.
-         * @name tendermint.abci.EvidenceType
-         * @enum {number}
-         * @property {number} UNKNOWN=0 UNKNOWN value
-         * @property {number} DUPLICATE_VOTE=1 DUPLICATE_VOTE value
-         * @property {number} LIGHT_CLIENT_ATTACK=2 LIGHT_CLIENT_ATTACK value
-         */
-        abci.EvidenceType = (function() {
-            var valuesById = {}, values = Object.create(valuesById);
-            values[valuesById[0] = "UNKNOWN"] = 0;
-            values[valuesById[1] = "DUPLICATE_VOTE"] = 1;
-            values[valuesById[2] = "LIGHT_CLIENT_ATTACK"] = 2;
-            return values;
-        })();
-
-        abci.Evidence = (function() {
+        abci.ExtendedVoteInfo = (function() {
 
             /**
-             * Properties of an Evidence.
+             * Properties of an ExtendedVoteInfo.
              * @memberof tendermint.abci
-             * @interface IEvidence
-             * @property {tendermint.abci.EvidenceType|null} [type] Evidence type
-             * @property {tendermint.abci.IValidator|null} [validator] Evidence validator
-             * @property {number|Long|null} [height] Evidence height
-             * @property {google.protobuf.ITimestamp|null} [time] Evidence time
-             * @property {number|Long|null} [totalVotingPower] Evidence totalVotingPower
+             * @interface IExtendedVoteInfo
+             * @property {tendermint.abci.IValidator|null} [validator] ExtendedVoteInfo validator
+             * @property {boolean|null} [signedLastBlock] ExtendedVoteInfo signedLastBlock
+             * @property {Uint8Array|null} [voteExtension] ExtendedVoteInfo voteExtension
              */
 
             /**
-             * Constructs a new Evidence.
+             * Constructs a new ExtendedVoteInfo.
              * @memberof tendermint.abci
-             * @classdesc Represents an Evidence.
-             * @implements IEvidence
+             * @classdesc Represents an ExtendedVoteInfo.
+             * @implements IExtendedVoteInfo
              * @constructor
-             * @param {tendermint.abci.IEvidence=} [properties] Properties to set
+             * @param {tendermint.abci.IExtendedVoteInfo=} [properties] Properties to set
              */
-            function Evidence(properties) {
+            function ExtendedVoteInfo(properties) {
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -12123,67 +13842,331 @@ $root.tendermint = (function() {
             }
 
             /**
-             * Evidence type.
-             * @member {tendermint.abci.EvidenceType} type
-             * @memberof tendermint.abci.Evidence
-             * @instance
-             */
-            Evidence.prototype.type = 0;
-
-            /**
-             * Evidence validator.
+             * ExtendedVoteInfo validator.
              * @member {tendermint.abci.IValidator|null|undefined} validator
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.ExtendedVoteInfo
              * @instance
              */
-            Evidence.prototype.validator = null;
+            ExtendedVoteInfo.prototype.validator = null;
 
             /**
-             * Evidence height.
-             * @member {number|Long} height
-             * @memberof tendermint.abci.Evidence
+             * ExtendedVoteInfo signedLastBlock.
+             * @member {boolean} signedLastBlock
+             * @memberof tendermint.abci.ExtendedVoteInfo
              * @instance
              */
-            Evidence.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+            ExtendedVoteInfo.prototype.signedLastBlock = false;
 
             /**
-             * Evidence time.
-             * @member {google.protobuf.ITimestamp|null|undefined} time
-             * @memberof tendermint.abci.Evidence
+             * ExtendedVoteInfo voteExtension.
+             * @member {Uint8Array} voteExtension
+             * @memberof tendermint.abci.ExtendedVoteInfo
              * @instance
              */
-            Evidence.prototype.time = null;
+            ExtendedVoteInfo.prototype.voteExtension = $util.newBuffer([]);
 
             /**
-             * Evidence totalVotingPower.
-             * @member {number|Long} totalVotingPower
-             * @memberof tendermint.abci.Evidence
-             * @instance
-             */
-            Evidence.prototype.totalVotingPower = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * Creates a new Evidence instance using the specified properties.
+             * Creates a new ExtendedVoteInfo instance using the specified properties.
              * @function create
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.ExtendedVoteInfo
              * @static
-             * @param {tendermint.abci.IEvidence=} [properties] Properties to set
-             * @returns {tendermint.abci.Evidence} Evidence instance
+             * @param {tendermint.abci.IExtendedVoteInfo=} [properties] Properties to set
+             * @returns {tendermint.abci.ExtendedVoteInfo} ExtendedVoteInfo instance
              */
-            Evidence.create = function create(properties) {
-                return new Evidence(properties);
+            ExtendedVoteInfo.create = function create(properties) {
+                return new ExtendedVoteInfo(properties);
             };
 
             /**
-             * Encodes the specified Evidence message. Does not implicitly {@link tendermint.abci.Evidence.verify|verify} messages.
+             * Encodes the specified ExtendedVoteInfo message. Does not implicitly {@link tendermint.abci.ExtendedVoteInfo.verify|verify} messages.
              * @function encode
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.ExtendedVoteInfo
              * @static
-             * @param {tendermint.abci.IEvidence} message Evidence message or plain object to encode
+             * @param {tendermint.abci.IExtendedVoteInfo} message ExtendedVoteInfo message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Evidence.encode = function encode(message, writer) {
+            ExtendedVoteInfo.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.validator != null && Object.hasOwnProperty.call(message, "validator"))
+                    $root.tendermint.abci.Validator.encode(message.validator, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.signedLastBlock != null && Object.hasOwnProperty.call(message, "signedLastBlock"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).bool(message.signedLastBlock);
+                if (message.voteExtension != null && Object.hasOwnProperty.call(message, "voteExtension"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.voteExtension);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ExtendedVoteInfo message, length delimited. Does not implicitly {@link tendermint.abci.ExtendedVoteInfo.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.abci.ExtendedVoteInfo
+             * @static
+             * @param {tendermint.abci.IExtendedVoteInfo} message ExtendedVoteInfo message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ExtendedVoteInfo.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an ExtendedVoteInfo message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.abci.ExtendedVoteInfo
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.abci.ExtendedVoteInfo} ExtendedVoteInfo
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExtendedVoteInfo.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ExtendedVoteInfo();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.validator = $root.tendermint.abci.Validator.decode(reader, reader.uint32());
+                        break;
+                    case 2:
+                        message.signedLastBlock = reader.bool();
+                        break;
+                    case 3:
+                        message.voteExtension = reader.bytes();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an ExtendedVoteInfo message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.abci.ExtendedVoteInfo
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.abci.ExtendedVoteInfo} ExtendedVoteInfo
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ExtendedVoteInfo.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an ExtendedVoteInfo message.
+             * @function verify
+             * @memberof tendermint.abci.ExtendedVoteInfo
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ExtendedVoteInfo.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.validator != null && message.hasOwnProperty("validator")) {
+                    var error = $root.tendermint.abci.Validator.verify(message.validator);
+                    if (error)
+                        return "validator." + error;
+                }
+                if (message.signedLastBlock != null && message.hasOwnProperty("signedLastBlock"))
+                    if (typeof message.signedLastBlock !== "boolean")
+                        return "signedLastBlock: boolean expected";
+                if (message.voteExtension != null && message.hasOwnProperty("voteExtension"))
+                    if (!(message.voteExtension && typeof message.voteExtension.length === "number" || $util.isString(message.voteExtension)))
+                        return "voteExtension: buffer expected";
+                return null;
+            };
+
+            /**
+             * Creates an ExtendedVoteInfo message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.abci.ExtendedVoteInfo
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.abci.ExtendedVoteInfo} ExtendedVoteInfo
+             */
+            ExtendedVoteInfo.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.ExtendedVoteInfo)
+                    return object;
+                var message = new $root.tendermint.abci.ExtendedVoteInfo();
+                if (object.validator != null) {
+                    if (typeof object.validator !== "object")
+                        throw TypeError(".tendermint.abci.ExtendedVoteInfo.validator: object expected");
+                    message.validator = $root.tendermint.abci.Validator.fromObject(object.validator);
+                }
+                if (object.signedLastBlock != null)
+                    message.signedLastBlock = Boolean(object.signedLastBlock);
+                if (object.voteExtension != null)
+                    if (typeof object.voteExtension === "string")
+                        $util.base64.decode(object.voteExtension, message.voteExtension = $util.newBuffer($util.base64.length(object.voteExtension)), 0);
+                    else if (object.voteExtension.length >= 0)
+                        message.voteExtension = object.voteExtension;
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an ExtendedVoteInfo message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.abci.ExtendedVoteInfo
+             * @static
+             * @param {tendermint.abci.ExtendedVoteInfo} message ExtendedVoteInfo
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ExtendedVoteInfo.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.validator = null;
+                    object.signedLastBlock = false;
+                    if (options.bytes === String)
+                        object.voteExtension = "";
+                    else {
+                        object.voteExtension = [];
+                        if (options.bytes !== Array)
+                            object.voteExtension = $util.newBuffer(object.voteExtension);
+                    }
+                }
+                if (message.validator != null && message.hasOwnProperty("validator"))
+                    object.validator = $root.tendermint.abci.Validator.toObject(message.validator, options);
+                if (message.signedLastBlock != null && message.hasOwnProperty("signedLastBlock"))
+                    object.signedLastBlock = message.signedLastBlock;
+                if (message.voteExtension != null && message.hasOwnProperty("voteExtension"))
+                    object.voteExtension = options.bytes === String ? $util.base64.encode(message.voteExtension, 0, message.voteExtension.length) : options.bytes === Array ? Array.prototype.slice.call(message.voteExtension) : message.voteExtension;
+                return object;
+            };
+
+            /**
+             * Converts this ExtendedVoteInfo to JSON.
+             * @function toJSON
+             * @memberof tendermint.abci.ExtendedVoteInfo
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ExtendedVoteInfo.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ExtendedVoteInfo;
+        })();
+
+        /**
+         * MisbehaviorType enum.
+         * @name tendermint.abci.MisbehaviorType
+         * @enum {number}
+         * @property {number} UNKNOWN=0 UNKNOWN value
+         * @property {number} DUPLICATE_VOTE=1 DUPLICATE_VOTE value
+         * @property {number} LIGHT_CLIENT_ATTACK=2 LIGHT_CLIENT_ATTACK value
+         */
+        abci.MisbehaviorType = (function() {
+            var valuesById = {}, values = Object.create(valuesById);
+            values[valuesById[0] = "UNKNOWN"] = 0;
+            values[valuesById[1] = "DUPLICATE_VOTE"] = 1;
+            values[valuesById[2] = "LIGHT_CLIENT_ATTACK"] = 2;
+            return values;
+        })();
+
+        abci.Misbehavior = (function() {
+
+            /**
+             * Properties of a Misbehavior.
+             * @memberof tendermint.abci
+             * @interface IMisbehavior
+             * @property {tendermint.abci.MisbehaviorType|null} [type] Misbehavior type
+             * @property {tendermint.abci.IValidator|null} [validator] Misbehavior validator
+             * @property {number|Long|null} [height] Misbehavior height
+             * @property {google.protobuf.ITimestamp|null} [time] Misbehavior time
+             * @property {number|Long|null} [totalVotingPower] Misbehavior totalVotingPower
+             */
+
+            /**
+             * Constructs a new Misbehavior.
+             * @memberof tendermint.abci
+             * @classdesc Represents a Misbehavior.
+             * @implements IMisbehavior
+             * @constructor
+             * @param {tendermint.abci.IMisbehavior=} [properties] Properties to set
+             */
+            function Misbehavior(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Misbehavior type.
+             * @member {tendermint.abci.MisbehaviorType} type
+             * @memberof tendermint.abci.Misbehavior
+             * @instance
+             */
+            Misbehavior.prototype.type = 0;
+
+            /**
+             * Misbehavior validator.
+             * @member {tendermint.abci.IValidator|null|undefined} validator
+             * @memberof tendermint.abci.Misbehavior
+             * @instance
+             */
+            Misbehavior.prototype.validator = null;
+
+            /**
+             * Misbehavior height.
+             * @member {number|Long} height
+             * @memberof tendermint.abci.Misbehavior
+             * @instance
+             */
+            Misbehavior.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * Misbehavior time.
+             * @member {google.protobuf.ITimestamp|null|undefined} time
+             * @memberof tendermint.abci.Misbehavior
+             * @instance
+             */
+            Misbehavior.prototype.time = null;
+
+            /**
+             * Misbehavior totalVotingPower.
+             * @member {number|Long} totalVotingPower
+             * @memberof tendermint.abci.Misbehavior
+             * @instance
+             */
+            Misbehavior.prototype.totalVotingPower = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * Creates a new Misbehavior instance using the specified properties.
+             * @function create
+             * @memberof tendermint.abci.Misbehavior
+             * @static
+             * @param {tendermint.abci.IMisbehavior=} [properties] Properties to set
+             * @returns {tendermint.abci.Misbehavior} Misbehavior instance
+             */
+            Misbehavior.create = function create(properties) {
+                return new Misbehavior(properties);
+            };
+
+            /**
+             * Encodes the specified Misbehavior message. Does not implicitly {@link tendermint.abci.Misbehavior.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.abci.Misbehavior
+             * @static
+             * @param {tendermint.abci.IMisbehavior} message Misbehavior message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Misbehavior.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.type != null && Object.hasOwnProperty.call(message, "type"))
@@ -12200,33 +14183,33 @@ $root.tendermint = (function() {
             };
 
             /**
-             * Encodes the specified Evidence message, length delimited. Does not implicitly {@link tendermint.abci.Evidence.verify|verify} messages.
+             * Encodes the specified Misbehavior message, length delimited. Does not implicitly {@link tendermint.abci.Misbehavior.verify|verify} messages.
              * @function encodeDelimited
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.Misbehavior
              * @static
-             * @param {tendermint.abci.IEvidence} message Evidence message or plain object to encode
+             * @param {tendermint.abci.IMisbehavior} message Misbehavior message or plain object to encode
              * @param {$protobuf.Writer} [writer] Writer to encode to
              * @returns {$protobuf.Writer} Writer
              */
-            Evidence.encodeDelimited = function encodeDelimited(message, writer) {
+            Misbehavior.encodeDelimited = function encodeDelimited(message, writer) {
                 return this.encode(message, writer).ldelim();
             };
 
             /**
-             * Decodes an Evidence message from the specified reader or buffer.
+             * Decodes a Misbehavior message from the specified reader or buffer.
              * @function decode
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.Misbehavior
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
              * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.Evidence} Evidence
+             * @returns {tendermint.abci.Misbehavior} Misbehavior
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Evidence.decode = function decode(reader, length) {
+            Misbehavior.decode = function decode(reader, length) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.Evidence();
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.Misbehavior();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
@@ -12254,30 +14237,30 @@ $root.tendermint = (function() {
             };
 
             /**
-             * Decodes an Evidence message from the specified reader or buffer, length delimited.
+             * Decodes a Misbehavior message from the specified reader or buffer, length delimited.
              * @function decodeDelimited
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.Misbehavior
              * @static
              * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.Evidence} Evidence
+             * @returns {tendermint.abci.Misbehavior} Misbehavior
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Evidence.decodeDelimited = function decodeDelimited(reader) {
+            Misbehavior.decodeDelimited = function decodeDelimited(reader) {
                 if (!(reader instanceof $Reader))
                     reader = new $Reader(reader);
                 return this.decode(reader, reader.uint32());
             };
 
             /**
-             * Verifies an Evidence message.
+             * Verifies a Misbehavior message.
              * @function verify
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.Misbehavior
              * @static
              * @param {Object.<string,*>} message Plain object to verify
              * @returns {string|null} `null` if valid, otherwise the reason why it is not
              */
-            Evidence.verify = function verify(message) {
+            Misbehavior.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
                 if (message.type != null && message.hasOwnProperty("type"))
@@ -12309,17 +14292,17 @@ $root.tendermint = (function() {
             };
 
             /**
-             * Creates an Evidence message from a plain object. Also converts values to their respective internal types.
+             * Creates a Misbehavior message from a plain object. Also converts values to their respective internal types.
              * @function fromObject
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.Misbehavior
              * @static
              * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.Evidence} Evidence
+             * @returns {tendermint.abci.Misbehavior} Misbehavior
              */
-            Evidence.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.Evidence)
+            Misbehavior.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.abci.Misbehavior)
                     return object;
-                var message = new $root.tendermint.abci.Evidence();
+                var message = new $root.tendermint.abci.Misbehavior();
                 switch (object.type) {
                 case "UNKNOWN":
                 case 0:
@@ -12336,7 +14319,7 @@ $root.tendermint = (function() {
                 }
                 if (object.validator != null) {
                     if (typeof object.validator !== "object")
-                        throw TypeError(".tendermint.abci.Evidence.validator: object expected");
+                        throw TypeError(".tendermint.abci.Misbehavior.validator: object expected");
                     message.validator = $root.tendermint.abci.Validator.fromObject(object.validator);
                 }
                 if (object.height != null)
@@ -12350,7 +14333,7 @@ $root.tendermint = (function() {
                         message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
                 if (object.time != null) {
                     if (typeof object.time !== "object")
-                        throw TypeError(".tendermint.abci.Evidence.time: object expected");
+                        throw TypeError(".tendermint.abci.Misbehavior.time: object expected");
                     message.time = $root.google.protobuf.Timestamp.fromObject(object.time);
                 }
                 if (object.totalVotingPower != null)
@@ -12366,15 +14349,15 @@ $root.tendermint = (function() {
             };
 
             /**
-             * Creates a plain object from an Evidence message. Also converts values to other types if specified.
+             * Creates a plain object from a Misbehavior message. Also converts values to other types if specified.
              * @function toObject
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.Misbehavior
              * @static
-             * @param {tendermint.abci.Evidence} message Evidence
+             * @param {tendermint.abci.Misbehavior} message Misbehavior
              * @param {$protobuf.IConversionOptions} [options] Conversion options
              * @returns {Object.<string,*>} Plain object
              */
-            Evidence.toObject = function toObject(message, options) {
+            Misbehavior.toObject = function toObject(message, options) {
                 if (!options)
                     options = {};
                 var object = {};
@@ -12394,7 +14377,7 @@ $root.tendermint = (function() {
                         object.totalVotingPower = options.longs === String ? "0" : 0;
                 }
                 if (message.type != null && message.hasOwnProperty("type"))
-                    object.type = options.enums === String ? $root.tendermint.abci.EvidenceType[message.type] : message.type;
+                    object.type = options.enums === String ? $root.tendermint.abci.MisbehaviorType[message.type] : message.type;
                 if (message.validator != null && message.hasOwnProperty("validator"))
                     object.validator = $root.tendermint.abci.Validator.toObject(message.validator, options);
                 if (message.height != null && message.hasOwnProperty("height"))
@@ -12413,17 +14396,17 @@ $root.tendermint = (function() {
             };
 
             /**
-             * Converts this Evidence to JSON.
+             * Converts this Misbehavior to JSON.
              * @function toJSON
-             * @memberof tendermint.abci.Evidence
+             * @memberof tendermint.abci.Misbehavior
              * @instance
              * @returns {Object.<string,*>} JSON object
              */
-            Evidence.prototype.toJSON = function toJSON() {
+            Misbehavior.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
-            return Evidence;
+            return Misbehavior;
         })();
 
         abci.Snapshot = (function() {
@@ -12888,72 +14871,6 @@ $root.tendermint = (function() {
              */
 
             /**
-             * Callback as used by {@link tendermint.abci.ABCIApplication#setOption}.
-             * @memberof tendermint.abci.ABCIApplication
-             * @typedef SetOptionCallback
-             * @type {function}
-             * @param {Error|null} error Error, if any
-             * @param {tendermint.abci.ResponseSetOption} [response] ResponseSetOption
-             */
-
-            /**
-             * Calls SetOption.
-             * @function setOption
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestSetOption} request RequestSetOption message or plain object
-             * @param {tendermint.abci.ABCIApplication.SetOptionCallback} callback Node-style callback called with the error, if any, and ResponseSetOption
-             * @returns {undefined}
-             * @variation 1
-             */
-            Object.defineProperty(ABCIApplication.prototype.setOption = function setOption(request, callback) {
-                return this.rpcCall(setOption, $root.tendermint.abci.RequestSetOption, $root.tendermint.abci.ResponseSetOption, request, callback);
-            }, "name", { value: "SetOption" });
-
-            /**
-             * Calls SetOption.
-             * @function setOption
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestSetOption} request RequestSetOption message or plain object
-             * @returns {Promise<tendermint.abci.ResponseSetOption>} Promise
-             * @variation 2
-             */
-
-            /**
-             * Callback as used by {@link tendermint.abci.ABCIApplication#deliverTx}.
-             * @memberof tendermint.abci.ABCIApplication
-             * @typedef DeliverTxCallback
-             * @type {function}
-             * @param {Error|null} error Error, if any
-             * @param {tendermint.abci.ResponseDeliverTx} [response] ResponseDeliverTx
-             */
-
-            /**
-             * Calls DeliverTx.
-             * @function deliverTx
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestDeliverTx} request RequestDeliverTx message or plain object
-             * @param {tendermint.abci.ABCIApplication.DeliverTxCallback} callback Node-style callback called with the error, if any, and ResponseDeliverTx
-             * @returns {undefined}
-             * @variation 1
-             */
-            Object.defineProperty(ABCIApplication.prototype.deliverTx = function deliverTx(request, callback) {
-                return this.rpcCall(deliverTx, $root.tendermint.abci.RequestDeliverTx, $root.tendermint.abci.ResponseDeliverTx, request, callback);
-            }, "name", { value: "DeliverTx" });
-
-            /**
-             * Calls DeliverTx.
-             * @function deliverTx
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestDeliverTx} request RequestDeliverTx message or plain object
-             * @returns {Promise<tendermint.abci.ResponseDeliverTx>} Promise
-             * @variation 2
-             */
-
-            /**
              * Callback as used by {@link tendermint.abci.ABCIApplication#checkTx}.
              * @memberof tendermint.abci.ABCIApplication
              * @typedef CheckTxCallback
@@ -13020,39 +14937,6 @@ $root.tendermint = (function() {
              */
 
             /**
-             * Callback as used by {@link tendermint.abci.ABCIApplication#commit}.
-             * @memberof tendermint.abci.ABCIApplication
-             * @typedef CommitCallback
-             * @type {function}
-             * @param {Error|null} error Error, if any
-             * @param {tendermint.abci.ResponseCommit} [response] ResponseCommit
-             */
-
-            /**
-             * Calls Commit.
-             * @function commit
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestCommit} request RequestCommit message or plain object
-             * @param {tendermint.abci.ABCIApplication.CommitCallback} callback Node-style callback called with the error, if any, and ResponseCommit
-             * @returns {undefined}
-             * @variation 1
-             */
-            Object.defineProperty(ABCIApplication.prototype.commit = function commit(request, callback) {
-                return this.rpcCall(commit, $root.tendermint.abci.RequestCommit, $root.tendermint.abci.ResponseCommit, request, callback);
-            }, "name", { value: "Commit" });
-
-            /**
-             * Calls Commit.
-             * @function commit
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestCommit} request RequestCommit message or plain object
-             * @returns {Promise<tendermint.abci.ResponseCommit>} Promise
-             * @variation 2
-             */
-
-            /**
              * Callback as used by {@link tendermint.abci.ABCIApplication#initChain}.
              * @memberof tendermint.abci.ABCIApplication
              * @typedef InitChainCallback
@@ -13082,72 +14966,6 @@ $root.tendermint = (function() {
              * @instance
              * @param {tendermint.abci.IRequestInitChain} request RequestInitChain message or plain object
              * @returns {Promise<tendermint.abci.ResponseInitChain>} Promise
-             * @variation 2
-             */
-
-            /**
-             * Callback as used by {@link tendermint.abci.ABCIApplication#beginBlock}.
-             * @memberof tendermint.abci.ABCIApplication
-             * @typedef BeginBlockCallback
-             * @type {function}
-             * @param {Error|null} error Error, if any
-             * @param {tendermint.abci.ResponseBeginBlock} [response] ResponseBeginBlock
-             */
-
-            /**
-             * Calls BeginBlock.
-             * @function beginBlock
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestBeginBlock} request RequestBeginBlock message or plain object
-             * @param {tendermint.abci.ABCIApplication.BeginBlockCallback} callback Node-style callback called with the error, if any, and ResponseBeginBlock
-             * @returns {undefined}
-             * @variation 1
-             */
-            Object.defineProperty(ABCIApplication.prototype.beginBlock = function beginBlock(request, callback) {
-                return this.rpcCall(beginBlock, $root.tendermint.abci.RequestBeginBlock, $root.tendermint.abci.ResponseBeginBlock, request, callback);
-            }, "name", { value: "BeginBlock" });
-
-            /**
-             * Calls BeginBlock.
-             * @function beginBlock
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestBeginBlock} request RequestBeginBlock message or plain object
-             * @returns {Promise<tendermint.abci.ResponseBeginBlock>} Promise
-             * @variation 2
-             */
-
-            /**
-             * Callback as used by {@link tendermint.abci.ABCIApplication#endBlock}.
-             * @memberof tendermint.abci.ABCIApplication
-             * @typedef EndBlockCallback
-             * @type {function}
-             * @param {Error|null} error Error, if any
-             * @param {tendermint.abci.ResponseEndBlock} [response] ResponseEndBlock
-             */
-
-            /**
-             * Calls EndBlock.
-             * @function endBlock
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestEndBlock} request RequestEndBlock message or plain object
-             * @param {tendermint.abci.ABCIApplication.EndBlockCallback} callback Node-style callback called with the error, if any, and ResponseEndBlock
-             * @returns {undefined}
-             * @variation 1
-             */
-            Object.defineProperty(ABCIApplication.prototype.endBlock = function endBlock(request, callback) {
-                return this.rpcCall(endBlock, $root.tendermint.abci.RequestEndBlock, $root.tendermint.abci.ResponseEndBlock, request, callback);
-            }, "name", { value: "EndBlock" });
-
-            /**
-             * Calls EndBlock.
-             * @function endBlock
-             * @memberof tendermint.abci.ABCIApplication
-             * @instance
-             * @param {tendermint.abci.IRequestEndBlock} request RequestEndBlock message or plain object
-             * @returns {Promise<tendermint.abci.ResponseEndBlock>} Promise
              * @variation 2
              */
 
@@ -13280,6 +15098,171 @@ $root.tendermint = (function() {
              * @instance
              * @param {tendermint.abci.IRequestApplySnapshotChunk} request RequestApplySnapshotChunk message or plain object
              * @returns {Promise<tendermint.abci.ResponseApplySnapshotChunk>} Promise
+             * @variation 2
+             */
+
+            /**
+             * Callback as used by {@link tendermint.abci.ABCIApplication#prepareProposal}.
+             * @memberof tendermint.abci.ABCIApplication
+             * @typedef PrepareProposalCallback
+             * @type {function}
+             * @param {Error|null} error Error, if any
+             * @param {tendermint.abci.ResponsePrepareProposal} [response] ResponsePrepareProposal
+             */
+
+            /**
+             * Calls PrepareProposal.
+             * @function prepareProposal
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestPrepareProposal} request RequestPrepareProposal message or plain object
+             * @param {tendermint.abci.ABCIApplication.PrepareProposalCallback} callback Node-style callback called with the error, if any, and ResponsePrepareProposal
+             * @returns {undefined}
+             * @variation 1
+             */
+            Object.defineProperty(ABCIApplication.prototype.prepareProposal = function prepareProposal(request, callback) {
+                return this.rpcCall(prepareProposal, $root.tendermint.abci.RequestPrepareProposal, $root.tendermint.abci.ResponsePrepareProposal, request, callback);
+            }, "name", { value: "PrepareProposal" });
+
+            /**
+             * Calls PrepareProposal.
+             * @function prepareProposal
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestPrepareProposal} request RequestPrepareProposal message or plain object
+             * @returns {Promise<tendermint.abci.ResponsePrepareProposal>} Promise
+             * @variation 2
+             */
+
+            /**
+             * Callback as used by {@link tendermint.abci.ABCIApplication#processProposal}.
+             * @memberof tendermint.abci.ABCIApplication
+             * @typedef ProcessProposalCallback
+             * @type {function}
+             * @param {Error|null} error Error, if any
+             * @param {tendermint.abci.ResponseProcessProposal} [response] ResponseProcessProposal
+             */
+
+            /**
+             * Calls ProcessProposal.
+             * @function processProposal
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestProcessProposal} request RequestProcessProposal message or plain object
+             * @param {tendermint.abci.ABCIApplication.ProcessProposalCallback} callback Node-style callback called with the error, if any, and ResponseProcessProposal
+             * @returns {undefined}
+             * @variation 1
+             */
+            Object.defineProperty(ABCIApplication.prototype.processProposal = function processProposal(request, callback) {
+                return this.rpcCall(processProposal, $root.tendermint.abci.RequestProcessProposal, $root.tendermint.abci.ResponseProcessProposal, request, callback);
+            }, "name", { value: "ProcessProposal" });
+
+            /**
+             * Calls ProcessProposal.
+             * @function processProposal
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestProcessProposal} request RequestProcessProposal message or plain object
+             * @returns {Promise<tendermint.abci.ResponseProcessProposal>} Promise
+             * @variation 2
+             */
+
+            /**
+             * Callback as used by {@link tendermint.abci.ABCIApplication#extendVote}.
+             * @memberof tendermint.abci.ABCIApplication
+             * @typedef ExtendVoteCallback
+             * @type {function}
+             * @param {Error|null} error Error, if any
+             * @param {tendermint.abci.ResponseExtendVote} [response] ResponseExtendVote
+             */
+
+            /**
+             * Calls ExtendVote.
+             * @function extendVote
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestExtendVote} request RequestExtendVote message or plain object
+             * @param {tendermint.abci.ABCIApplication.ExtendVoteCallback} callback Node-style callback called with the error, if any, and ResponseExtendVote
+             * @returns {undefined}
+             * @variation 1
+             */
+            Object.defineProperty(ABCIApplication.prototype.extendVote = function extendVote(request, callback) {
+                return this.rpcCall(extendVote, $root.tendermint.abci.RequestExtendVote, $root.tendermint.abci.ResponseExtendVote, request, callback);
+            }, "name", { value: "ExtendVote" });
+
+            /**
+             * Calls ExtendVote.
+             * @function extendVote
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestExtendVote} request RequestExtendVote message or plain object
+             * @returns {Promise<tendermint.abci.ResponseExtendVote>} Promise
+             * @variation 2
+             */
+
+            /**
+             * Callback as used by {@link tendermint.abci.ABCIApplication#verifyVoteExtension}.
+             * @memberof tendermint.abci.ABCIApplication
+             * @typedef VerifyVoteExtensionCallback
+             * @type {function}
+             * @param {Error|null} error Error, if any
+             * @param {tendermint.abci.ResponseVerifyVoteExtension} [response] ResponseVerifyVoteExtension
+             */
+
+            /**
+             * Calls VerifyVoteExtension.
+             * @function verifyVoteExtension
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestVerifyVoteExtension} request RequestVerifyVoteExtension message or plain object
+             * @param {tendermint.abci.ABCIApplication.VerifyVoteExtensionCallback} callback Node-style callback called with the error, if any, and ResponseVerifyVoteExtension
+             * @returns {undefined}
+             * @variation 1
+             */
+            Object.defineProperty(ABCIApplication.prototype.verifyVoteExtension = function verifyVoteExtension(request, callback) {
+                return this.rpcCall(verifyVoteExtension, $root.tendermint.abci.RequestVerifyVoteExtension, $root.tendermint.abci.ResponseVerifyVoteExtension, request, callback);
+            }, "name", { value: "VerifyVoteExtension" });
+
+            /**
+             * Calls VerifyVoteExtension.
+             * @function verifyVoteExtension
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestVerifyVoteExtension} request RequestVerifyVoteExtension message or plain object
+             * @returns {Promise<tendermint.abci.ResponseVerifyVoteExtension>} Promise
+             * @variation 2
+             */
+
+            /**
+             * Callback as used by {@link tendermint.abci.ABCIApplication#finalizeBlock}.
+             * @memberof tendermint.abci.ABCIApplication
+             * @typedef FinalizeBlockCallback
+             * @type {function}
+             * @param {Error|null} error Error, if any
+             * @param {tendermint.abci.ResponseFinalizeBlock} [response] ResponseFinalizeBlock
+             */
+
+            /**
+             * Calls FinalizeBlock.
+             * @function finalizeBlock
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestFinalizeBlock} request RequestFinalizeBlock message or plain object
+             * @param {tendermint.abci.ABCIApplication.FinalizeBlockCallback} callback Node-style callback called with the error, if any, and ResponseFinalizeBlock
+             * @returns {undefined}
+             * @variation 1
+             */
+            Object.defineProperty(ABCIApplication.prototype.finalizeBlock = function finalizeBlock(request, callback) {
+                return this.rpcCall(finalizeBlock, $root.tendermint.abci.RequestFinalizeBlock, $root.tendermint.abci.ResponseFinalizeBlock, request, callback);
+            }, "name", { value: "FinalizeBlock" });
+
+            /**
+             * Calls FinalizeBlock.
+             * @function finalizeBlock
+             * @memberof tendermint.abci.ABCIApplication
+             * @instance
+             * @param {tendermint.abci.IRequestFinalizeBlock} request RequestFinalizeBlock message or plain object
+             * @returns {Promise<tendermint.abci.ResponseFinalizeBlock>} Promise
              * @variation 2
              */
 
@@ -14616,7 +16599,7 @@ $root.tendermint = (function() {
                 if (message.secp256k1 != null && Object.hasOwnProperty.call(message, "secp256k1"))
                     writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.secp256k1);
                 if (message.bls12381 != null && Object.hasOwnProperty.call(message, "bls12381"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.bls12381);
+                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.bls12381);
                 return writer;
             };
 
@@ -14657,7 +16640,7 @@ $root.tendermint = (function() {
                     case 2:
                         message.secp256k1 = reader.bytes();
                         break;
-                    case 3:
+                    case 4:
                         message.bls12381 = reader.bytes();
                         break;
                     default:
@@ -14804,6 +16787,834 @@ $root.tendermint = (function() {
          * @namespace
          */
         var types = {};
+
+        types.CoreChainLock = (function() {
+
+            /**
+             * Properties of a CoreChainLock.
+             * @memberof tendermint.types
+             * @interface ICoreChainLock
+             * @property {number|null} [coreBlockHeight] CoreChainLock coreBlockHeight
+             * @property {Uint8Array|null} [coreBlockHash] CoreChainLock coreBlockHash
+             * @property {Uint8Array|null} [signature] CoreChainLock signature
+             */
+
+            /**
+             * Constructs a new CoreChainLock.
+             * @memberof tendermint.types
+             * @classdesc Represents a CoreChainLock.
+             * @implements ICoreChainLock
+             * @constructor
+             * @param {tendermint.types.ICoreChainLock=} [properties] Properties to set
+             */
+            function CoreChainLock(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * CoreChainLock coreBlockHeight.
+             * @member {number} coreBlockHeight
+             * @memberof tendermint.types.CoreChainLock
+             * @instance
+             */
+            CoreChainLock.prototype.coreBlockHeight = 0;
+
+            /**
+             * CoreChainLock coreBlockHash.
+             * @member {Uint8Array} coreBlockHash
+             * @memberof tendermint.types.CoreChainLock
+             * @instance
+             */
+            CoreChainLock.prototype.coreBlockHash = $util.newBuffer([]);
+
+            /**
+             * CoreChainLock signature.
+             * @member {Uint8Array} signature
+             * @memberof tendermint.types.CoreChainLock
+             * @instance
+             */
+            CoreChainLock.prototype.signature = $util.newBuffer([]);
+
+            /**
+             * Creates a new CoreChainLock instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.CoreChainLock
+             * @static
+             * @param {tendermint.types.ICoreChainLock=} [properties] Properties to set
+             * @returns {tendermint.types.CoreChainLock} CoreChainLock instance
+             */
+            CoreChainLock.create = function create(properties) {
+                return new CoreChainLock(properties);
+            };
+
+            /**
+             * Encodes the specified CoreChainLock message. Does not implicitly {@link tendermint.types.CoreChainLock.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.CoreChainLock
+             * @static
+             * @param {tendermint.types.ICoreChainLock} message CoreChainLock message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            CoreChainLock.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.coreBlockHeight != null && Object.hasOwnProperty.call(message, "coreBlockHeight"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.coreBlockHeight);
+                if (message.coreBlockHash != null && Object.hasOwnProperty.call(message, "coreBlockHash"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.coreBlockHash);
+                if (message.signature != null && Object.hasOwnProperty.call(message, "signature"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.signature);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified CoreChainLock message, length delimited. Does not implicitly {@link tendermint.types.CoreChainLock.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.CoreChainLock
+             * @static
+             * @param {tendermint.types.ICoreChainLock} message CoreChainLock message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            CoreChainLock.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a CoreChainLock message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.CoreChainLock
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.CoreChainLock} CoreChainLock
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            CoreChainLock.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.CoreChainLock();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.coreBlockHeight = reader.uint32();
+                        break;
+                    case 2:
+                        message.coreBlockHash = reader.bytes();
+                        break;
+                    case 3:
+                        message.signature = reader.bytes();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a CoreChainLock message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.CoreChainLock
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.CoreChainLock} CoreChainLock
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            CoreChainLock.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a CoreChainLock message.
+             * @function verify
+             * @memberof tendermint.types.CoreChainLock
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            CoreChainLock.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.coreBlockHeight != null && message.hasOwnProperty("coreBlockHeight"))
+                    if (!$util.isInteger(message.coreBlockHeight))
+                        return "coreBlockHeight: integer expected";
+                if (message.coreBlockHash != null && message.hasOwnProperty("coreBlockHash"))
+                    if (!(message.coreBlockHash && typeof message.coreBlockHash.length === "number" || $util.isString(message.coreBlockHash)))
+                        return "coreBlockHash: buffer expected";
+                if (message.signature != null && message.hasOwnProperty("signature"))
+                    if (!(message.signature && typeof message.signature.length === "number" || $util.isString(message.signature)))
+                        return "signature: buffer expected";
+                return null;
+            };
+
+            /**
+             * Creates a CoreChainLock message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.CoreChainLock
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.CoreChainLock} CoreChainLock
+             */
+            CoreChainLock.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.CoreChainLock)
+                    return object;
+                var message = new $root.tendermint.types.CoreChainLock();
+                if (object.coreBlockHeight != null)
+                    message.coreBlockHeight = object.coreBlockHeight >>> 0;
+                if (object.coreBlockHash != null)
+                    if (typeof object.coreBlockHash === "string")
+                        $util.base64.decode(object.coreBlockHash, message.coreBlockHash = $util.newBuffer($util.base64.length(object.coreBlockHash)), 0);
+                    else if (object.coreBlockHash.length >= 0)
+                        message.coreBlockHash = object.coreBlockHash;
+                if (object.signature != null)
+                    if (typeof object.signature === "string")
+                        $util.base64.decode(object.signature, message.signature = $util.newBuffer($util.base64.length(object.signature)), 0);
+                    else if (object.signature.length >= 0)
+                        message.signature = object.signature;
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a CoreChainLock message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.CoreChainLock
+             * @static
+             * @param {tendermint.types.CoreChainLock} message CoreChainLock
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            CoreChainLock.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.coreBlockHeight = 0;
+                    if (options.bytes === String)
+                        object.coreBlockHash = "";
+                    else {
+                        object.coreBlockHash = [];
+                        if (options.bytes !== Array)
+                            object.coreBlockHash = $util.newBuffer(object.coreBlockHash);
+                    }
+                    if (options.bytes === String)
+                        object.signature = "";
+                    else {
+                        object.signature = [];
+                        if (options.bytes !== Array)
+                            object.signature = $util.newBuffer(object.signature);
+                    }
+                }
+                if (message.coreBlockHeight != null && message.hasOwnProperty("coreBlockHeight"))
+                    object.coreBlockHeight = message.coreBlockHeight;
+                if (message.coreBlockHash != null && message.hasOwnProperty("coreBlockHash"))
+                    object.coreBlockHash = options.bytes === String ? $util.base64.encode(message.coreBlockHash, 0, message.coreBlockHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.coreBlockHash) : message.coreBlockHash;
+                if (message.signature != null && message.hasOwnProperty("signature"))
+                    object.signature = options.bytes === String ? $util.base64.encode(message.signature, 0, message.signature.length) : options.bytes === Array ? Array.prototype.slice.call(message.signature) : message.signature;
+                return object;
+            };
+
+            /**
+             * Converts this CoreChainLock to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.CoreChainLock
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            CoreChainLock.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return CoreChainLock;
+        })();
+
+        /**
+         * VoteExtensionType enum.
+         * @name tendermint.types.VoteExtensionType
+         * @enum {number}
+         * @property {number} DEFAULT=0 DEFAULT value
+         * @property {number} THRESHOLD_RECOVER=1 THRESHOLD_RECOVER value
+         */
+        types.VoteExtensionType = (function() {
+            var valuesById = {}, values = Object.create(valuesById);
+            values[valuesById[0] = "DEFAULT"] = 0;
+            values[valuesById[1] = "THRESHOLD_RECOVER"] = 1;
+            return values;
+        })();
+
+        types.VoteExtension = (function() {
+
+            /**
+             * Properties of a VoteExtension.
+             * @memberof tendermint.types
+             * @interface IVoteExtension
+             * @property {tendermint.types.VoteExtensionType|null} [type] VoteExtension type
+             * @property {Uint8Array|null} [extension] VoteExtension extension
+             * @property {Uint8Array|null} [signature] VoteExtension signature
+             */
+
+            /**
+             * Constructs a new VoteExtension.
+             * @memberof tendermint.types
+             * @classdesc Represents a VoteExtension.
+             * @implements IVoteExtension
+             * @constructor
+             * @param {tendermint.types.IVoteExtension=} [properties] Properties to set
+             */
+            function VoteExtension(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * VoteExtension type.
+             * @member {tendermint.types.VoteExtensionType} type
+             * @memberof tendermint.types.VoteExtension
+             * @instance
+             */
+            VoteExtension.prototype.type = 0;
+
+            /**
+             * VoteExtension extension.
+             * @member {Uint8Array} extension
+             * @memberof tendermint.types.VoteExtension
+             * @instance
+             */
+            VoteExtension.prototype.extension = $util.newBuffer([]);
+
+            /**
+             * VoteExtension signature.
+             * @member {Uint8Array} signature
+             * @memberof tendermint.types.VoteExtension
+             * @instance
+             */
+            VoteExtension.prototype.signature = $util.newBuffer([]);
+
+            /**
+             * Creates a new VoteExtension instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.VoteExtension
+             * @static
+             * @param {tendermint.types.IVoteExtension=} [properties] Properties to set
+             * @returns {tendermint.types.VoteExtension} VoteExtension instance
+             */
+            VoteExtension.create = function create(properties) {
+                return new VoteExtension(properties);
+            };
+
+            /**
+             * Encodes the specified VoteExtension message. Does not implicitly {@link tendermint.types.VoteExtension.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.VoteExtension
+             * @static
+             * @param {tendermint.types.IVoteExtension} message VoteExtension message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            VoteExtension.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+                if (message.extension != null && Object.hasOwnProperty.call(message, "extension"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.extension);
+                if (message.signature != null && Object.hasOwnProperty.call(message, "signature"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.signature);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified VoteExtension message, length delimited. Does not implicitly {@link tendermint.types.VoteExtension.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.VoteExtension
+             * @static
+             * @param {tendermint.types.IVoteExtension} message VoteExtension message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            VoteExtension.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a VoteExtension message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.VoteExtension
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.VoteExtension} VoteExtension
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            VoteExtension.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.VoteExtension();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.type = reader.int32();
+                        break;
+                    case 2:
+                        message.extension = reader.bytes();
+                        break;
+                    case 3:
+                        message.signature = reader.bytes();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a VoteExtension message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.VoteExtension
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.VoteExtension} VoteExtension
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            VoteExtension.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a VoteExtension message.
+             * @function verify
+             * @memberof tendermint.types.VoteExtension
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            VoteExtension.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.type != null && message.hasOwnProperty("type"))
+                    switch (message.type) {
+                    default:
+                        return "type: enum value expected";
+                    case 0:
+                    case 1:
+                        break;
+                    }
+                if (message.extension != null && message.hasOwnProperty("extension"))
+                    if (!(message.extension && typeof message.extension.length === "number" || $util.isString(message.extension)))
+                        return "extension: buffer expected";
+                if (message.signature != null && message.hasOwnProperty("signature"))
+                    if (!(message.signature && typeof message.signature.length === "number" || $util.isString(message.signature)))
+                        return "signature: buffer expected";
+                return null;
+            };
+
+            /**
+             * Creates a VoteExtension message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.VoteExtension
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.VoteExtension} VoteExtension
+             */
+            VoteExtension.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.VoteExtension)
+                    return object;
+                var message = new $root.tendermint.types.VoteExtension();
+                switch (object.type) {
+                case "DEFAULT":
+                case 0:
+                    message.type = 0;
+                    break;
+                case "THRESHOLD_RECOVER":
+                case 1:
+                    message.type = 1;
+                    break;
+                }
+                if (object.extension != null)
+                    if (typeof object.extension === "string")
+                        $util.base64.decode(object.extension, message.extension = $util.newBuffer($util.base64.length(object.extension)), 0);
+                    else if (object.extension.length >= 0)
+                        message.extension = object.extension;
+                if (object.signature != null)
+                    if (typeof object.signature === "string")
+                        $util.base64.decode(object.signature, message.signature = $util.newBuffer($util.base64.length(object.signature)), 0);
+                    else if (object.signature.length >= 0)
+                        message.signature = object.signature;
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a VoteExtension message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.VoteExtension
+             * @static
+             * @param {tendermint.types.VoteExtension} message VoteExtension
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            VoteExtension.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.type = options.enums === String ? "DEFAULT" : 0;
+                    if (options.bytes === String)
+                        object.extension = "";
+                    else {
+                        object.extension = [];
+                        if (options.bytes !== Array)
+                            object.extension = $util.newBuffer(object.extension);
+                    }
+                    if (options.bytes === String)
+                        object.signature = "";
+                    else {
+                        object.signature = [];
+                        if (options.bytes !== Array)
+                            object.signature = $util.newBuffer(object.signature);
+                    }
+                }
+                if (message.type != null && message.hasOwnProperty("type"))
+                    object.type = options.enums === String ? $root.tendermint.types.VoteExtensionType[message.type] : message.type;
+                if (message.extension != null && message.hasOwnProperty("extension"))
+                    object.extension = options.bytes === String ? $util.base64.encode(message.extension, 0, message.extension.length) : options.bytes === Array ? Array.prototype.slice.call(message.extension) : message.extension;
+                if (message.signature != null && message.hasOwnProperty("signature"))
+                    object.signature = options.bytes === String ? $util.base64.encode(message.signature, 0, message.signature.length) : options.bytes === Array ? Array.prototype.slice.call(message.signature) : message.signature;
+                return object;
+            };
+
+            /**
+             * Converts this VoteExtension to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.VoteExtension
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            VoteExtension.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return VoteExtension;
+        })();
+
+        types.Block = (function() {
+
+            /**
+             * Properties of a Block.
+             * @memberof tendermint.types
+             * @interface IBlock
+             * @property {tendermint.types.IHeader|null} [header] Block header
+             * @property {tendermint.types.IData|null} [data] Block data
+             * @property {tendermint.types.ICoreChainLock|null} [coreChainLock] Block coreChainLock
+             * @property {tendermint.types.IEvidenceList|null} [evidence] Block evidence
+             * @property {tendermint.types.ICommit|null} [lastCommit] Block lastCommit
+             */
+
+            /**
+             * Constructs a new Block.
+             * @memberof tendermint.types
+             * @classdesc Represents a Block.
+             * @implements IBlock
+             * @constructor
+             * @param {tendermint.types.IBlock=} [properties] Properties to set
+             */
+            function Block(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Block header.
+             * @member {tendermint.types.IHeader|null|undefined} header
+             * @memberof tendermint.types.Block
+             * @instance
+             */
+            Block.prototype.header = null;
+
+            /**
+             * Block data.
+             * @member {tendermint.types.IData|null|undefined} data
+             * @memberof tendermint.types.Block
+             * @instance
+             */
+            Block.prototype.data = null;
+
+            /**
+             * Block coreChainLock.
+             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLock
+             * @memberof tendermint.types.Block
+             * @instance
+             */
+            Block.prototype.coreChainLock = null;
+
+            /**
+             * Block evidence.
+             * @member {tendermint.types.IEvidenceList|null|undefined} evidence
+             * @memberof tendermint.types.Block
+             * @instance
+             */
+            Block.prototype.evidence = null;
+
+            /**
+             * Block lastCommit.
+             * @member {tendermint.types.ICommit|null|undefined} lastCommit
+             * @memberof tendermint.types.Block
+             * @instance
+             */
+            Block.prototype.lastCommit = null;
+
+            /**
+             * Creates a new Block instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.Block
+             * @static
+             * @param {tendermint.types.IBlock=} [properties] Properties to set
+             * @returns {tendermint.types.Block} Block instance
+             */
+            Block.create = function create(properties) {
+                return new Block(properties);
+            };
+
+            /**
+             * Encodes the specified Block message. Does not implicitly {@link tendermint.types.Block.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.Block
+             * @static
+             * @param {tendermint.types.IBlock} message Block message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Block.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.header != null && Object.hasOwnProperty.call(message, "header"))
+                    $root.tendermint.types.Header.encode(message.header, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.data != null && Object.hasOwnProperty.call(message, "data"))
+                    $root.tendermint.types.Data.encode(message.data, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.evidence != null && Object.hasOwnProperty.call(message, "evidence"))
+                    $root.tendermint.types.EvidenceList.encode(message.evidence, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.lastCommit != null && Object.hasOwnProperty.call(message, "lastCommit"))
+                    $root.tendermint.types.Commit.encode(message.lastCommit, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.coreChainLock != null && Object.hasOwnProperty.call(message, "coreChainLock"))
+                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLock, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified Block message, length delimited. Does not implicitly {@link tendermint.types.Block.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.Block
+             * @static
+             * @param {tendermint.types.IBlock} message Block message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Block.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a Block message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.Block
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.Block} Block
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Block.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.Block();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.header = $root.tendermint.types.Header.decode(reader, reader.uint32());
+                        break;
+                    case 2:
+                        message.data = $root.tendermint.types.Data.decode(reader, reader.uint32());
+                        break;
+                    case 100:
+                        message.coreChainLock = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
+                        break;
+                    case 3:
+                        message.evidence = $root.tendermint.types.EvidenceList.decode(reader, reader.uint32());
+                        break;
+                    case 4:
+                        message.lastCommit = $root.tendermint.types.Commit.decode(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a Block message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.Block
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.Block} Block
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Block.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a Block message.
+             * @function verify
+             * @memberof tendermint.types.Block
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            Block.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.header != null && message.hasOwnProperty("header")) {
+                    var error = $root.tendermint.types.Header.verify(message.header);
+                    if (error)
+                        return "header." + error;
+                }
+                if (message.data != null && message.hasOwnProperty("data")) {
+                    var error = $root.tendermint.types.Data.verify(message.data);
+                    if (error)
+                        return "data." + error;
+                }
+                if (message.coreChainLock != null && message.hasOwnProperty("coreChainLock")) {
+                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLock);
+                    if (error)
+                        return "coreChainLock." + error;
+                }
+                if (message.evidence != null && message.hasOwnProperty("evidence")) {
+                    var error = $root.tendermint.types.EvidenceList.verify(message.evidence);
+                    if (error)
+                        return "evidence." + error;
+                }
+                if (message.lastCommit != null && message.hasOwnProperty("lastCommit")) {
+                    var error = $root.tendermint.types.Commit.verify(message.lastCommit);
+                    if (error)
+                        return "lastCommit." + error;
+                }
+                return null;
+            };
+
+            /**
+             * Creates a Block message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.Block
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.Block} Block
+             */
+            Block.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.Block)
+                    return object;
+                var message = new $root.tendermint.types.Block();
+                if (object.header != null) {
+                    if (typeof object.header !== "object")
+                        throw TypeError(".tendermint.types.Block.header: object expected");
+                    message.header = $root.tendermint.types.Header.fromObject(object.header);
+                }
+                if (object.data != null) {
+                    if (typeof object.data !== "object")
+                        throw TypeError(".tendermint.types.Block.data: object expected");
+                    message.data = $root.tendermint.types.Data.fromObject(object.data);
+                }
+                if (object.coreChainLock != null) {
+                    if (typeof object.coreChainLock !== "object")
+                        throw TypeError(".tendermint.types.Block.coreChainLock: object expected");
+                    message.coreChainLock = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLock);
+                }
+                if (object.evidence != null) {
+                    if (typeof object.evidence !== "object")
+                        throw TypeError(".tendermint.types.Block.evidence: object expected");
+                    message.evidence = $root.tendermint.types.EvidenceList.fromObject(object.evidence);
+                }
+                if (object.lastCommit != null) {
+                    if (typeof object.lastCommit !== "object")
+                        throw TypeError(".tendermint.types.Block.lastCommit: object expected");
+                    message.lastCommit = $root.tendermint.types.Commit.fromObject(object.lastCommit);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a Block message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.Block
+             * @static
+             * @param {tendermint.types.Block} message Block
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            Block.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.header = null;
+                    object.data = null;
+                    object.evidence = null;
+                    object.lastCommit = null;
+                    object.coreChainLock = null;
+                }
+                if (message.header != null && message.hasOwnProperty("header"))
+                    object.header = $root.tendermint.types.Header.toObject(message.header, options);
+                if (message.data != null && message.hasOwnProperty("data"))
+                    object.data = $root.tendermint.types.Data.toObject(message.data, options);
+                if (message.evidence != null && message.hasOwnProperty("evidence"))
+                    object.evidence = $root.tendermint.types.EvidenceList.toObject(message.evidence, options);
+                if (message.lastCommit != null && message.hasOwnProperty("lastCommit"))
+                    object.lastCommit = $root.tendermint.types.Commit.toObject(message.lastCommit, options);
+                if (message.coreChainLock != null && message.hasOwnProperty("coreChainLock"))
+                    object.coreChainLock = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLock, options);
+                return object;
+            };
+
+            /**
+             * Converts this Block to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.Block
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            Block.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return Block;
+        })();
 
         /**
          * BlockIDFlag enum.
@@ -15316,6 +18127,7 @@ $root.tendermint = (function() {
              * @interface IBlockID
              * @property {Uint8Array|null} [hash] BlockID hash
              * @property {tendermint.types.IPartSetHeader|null} [partSetHeader] BlockID partSetHeader
+             * @property {Uint8Array|null} [stateId] BlockID stateId
              */
 
             /**
@@ -15350,6 +18162,14 @@ $root.tendermint = (function() {
             BlockID.prototype.partSetHeader = null;
 
             /**
+             * BlockID stateId.
+             * @member {Uint8Array} stateId
+             * @memberof tendermint.types.BlockID
+             * @instance
+             */
+            BlockID.prototype.stateId = $util.newBuffer([]);
+
+            /**
              * Creates a new BlockID instance using the specified properties.
              * @function create
              * @memberof tendermint.types.BlockID
@@ -15377,6 +18197,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.hash);
                 if (message.partSetHeader != null && Object.hasOwnProperty.call(message, "partSetHeader"))
                     $root.tendermint.types.PartSetHeader.encode(message.partSetHeader, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.stateId != null && Object.hasOwnProperty.call(message, "stateId"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.stateId);
                 return writer;
             };
 
@@ -15416,6 +18238,9 @@ $root.tendermint = (function() {
                         break;
                     case 2:
                         message.partSetHeader = $root.tendermint.types.PartSetHeader.decode(reader, reader.uint32());
+                        break;
+                    case 3:
+                        message.stateId = reader.bytes();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -15460,6 +18285,9 @@ $root.tendermint = (function() {
                     if (error)
                         return "partSetHeader." + error;
                 }
+                if (message.stateId != null && message.hasOwnProperty("stateId"))
+                    if (!(message.stateId && typeof message.stateId.length === "number" || $util.isString(message.stateId)))
+                        return "stateId: buffer expected";
                 return null;
             };
 
@@ -15485,6 +18313,11 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.types.BlockID.partSetHeader: object expected");
                     message.partSetHeader = $root.tendermint.types.PartSetHeader.fromObject(object.partSetHeader);
                 }
+                if (object.stateId != null)
+                    if (typeof object.stateId === "string")
+                        $util.base64.decode(object.stateId, message.stateId = $util.newBuffer($util.base64.length(object.stateId)), 0);
+                    else if (object.stateId.length >= 0)
+                        message.stateId = object.stateId;
                 return message;
             };
 
@@ -15510,11 +18343,20 @@ $root.tendermint = (function() {
                             object.hash = $util.newBuffer(object.hash);
                     }
                     object.partSetHeader = null;
+                    if (options.bytes === String)
+                        object.stateId = "";
+                    else {
+                        object.stateId = [];
+                        if (options.bytes !== Array)
+                            object.stateId = $util.newBuffer(object.stateId);
+                    }
                 }
                 if (message.hash != null && message.hasOwnProperty("hash"))
                     object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
                 if (message.partSetHeader != null && message.hasOwnProperty("partSetHeader"))
                     object.partSetHeader = $root.tendermint.types.PartSetHeader.toObject(message.partSetHeader, options);
+                if (message.stateId != null && message.hasOwnProperty("stateId"))
+                    object.stateId = options.bytes === String ? $util.base64.encode(message.stateId, 0, message.stateId.length) : options.bytes === Array ? Array.prototype.slice.call(message.stateId) : message.stateId;
                 return object;
             };
 
@@ -15538,7 +18380,11 @@ $root.tendermint = (function() {
              * Properties of a StateID.
              * @memberof tendermint.types
              * @interface IStateID
-             * @property {Uint8Array|null} [lastAppHash] StateID lastAppHash
+             * @property {number|Long|null} [appVersion] StateID appVersion
+             * @property {number|Long|null} [height] StateID height
+             * @property {Uint8Array|null} [appHash] StateID appHash
+             * @property {number|null} [coreChainLockedHeight] StateID coreChainLockedHeight
+             * @property {google.protobuf.ITimestamp|null} [time] StateID time
              */
 
             /**
@@ -15557,12 +18403,44 @@ $root.tendermint = (function() {
             }
 
             /**
-             * StateID lastAppHash.
-             * @member {Uint8Array} lastAppHash
+             * StateID appVersion.
+             * @member {number|Long} appVersion
              * @memberof tendermint.types.StateID
              * @instance
              */
-            StateID.prototype.lastAppHash = $util.newBuffer([]);
+            StateID.prototype.appVersion = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * StateID height.
+             * @member {number|Long} height
+             * @memberof tendermint.types.StateID
+             * @instance
+             */
+            StateID.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * StateID appHash.
+             * @member {Uint8Array} appHash
+             * @memberof tendermint.types.StateID
+             * @instance
+             */
+            StateID.prototype.appHash = $util.newBuffer([]);
+
+            /**
+             * StateID coreChainLockedHeight.
+             * @member {number} coreChainLockedHeight
+             * @memberof tendermint.types.StateID
+             * @instance
+             */
+            StateID.prototype.coreChainLockedHeight = 0;
+
+            /**
+             * StateID time.
+             * @member {google.protobuf.ITimestamp|null|undefined} time
+             * @memberof tendermint.types.StateID
+             * @instance
+             */
+            StateID.prototype.time = null;
 
             /**
              * Creates a new StateID instance using the specified properties.
@@ -15588,8 +18466,16 @@ $root.tendermint = (function() {
             StateID.encode = function encode(message, writer) {
                 if (!writer)
                     writer = $Writer.create();
-                if (message.lastAppHash != null && Object.hasOwnProperty.call(message, "lastAppHash"))
-                    writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.lastAppHash);
+                if (message.appVersion != null && Object.hasOwnProperty.call(message, "appVersion"))
+                    writer.uint32(/* id 1, wireType 1 =*/9).fixed64(message.appVersion);
+                if (message.height != null && Object.hasOwnProperty.call(message, "height"))
+                    writer.uint32(/* id 2, wireType 1 =*/17).fixed64(message.height);
+                if (message.appHash != null && Object.hasOwnProperty.call(message, "appHash"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.appHash);
+                if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
+                    writer.uint32(/* id 4, wireType 5 =*/37).fixed32(message.coreChainLockedHeight);
+                if (message.time != null && Object.hasOwnProperty.call(message, "time"))
+                    $root.google.protobuf.Timestamp.encode(message.time, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 return writer;
             };
 
@@ -15625,7 +18511,19 @@ $root.tendermint = (function() {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
                     case 1:
-                        message.lastAppHash = reader.bytes();
+                        message.appVersion = reader.fixed64();
+                        break;
+                    case 2:
+                        message.height = reader.fixed64();
+                        break;
+                    case 3:
+                        message.appHash = reader.bytes();
+                        break;
+                    case 4:
+                        message.coreChainLockedHeight = reader.fixed32();
+                        break;
+                    case 5:
+                        message.time = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -15662,9 +18560,23 @@ $root.tendermint = (function() {
             StateID.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
-                if (message.lastAppHash != null && message.hasOwnProperty("lastAppHash"))
-                    if (!(message.lastAppHash && typeof message.lastAppHash.length === "number" || $util.isString(message.lastAppHash)))
-                        return "lastAppHash: buffer expected";
+                if (message.appVersion != null && message.hasOwnProperty("appVersion"))
+                    if (!$util.isInteger(message.appVersion) && !(message.appVersion && $util.isInteger(message.appVersion.low) && $util.isInteger(message.appVersion.high)))
+                        return "appVersion: integer|Long expected";
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
+                        return "height: integer|Long expected";
+                if (message.appHash != null && message.hasOwnProperty("appHash"))
+                    if (!(message.appHash && typeof message.appHash.length === "number" || $util.isString(message.appHash)))
+                        return "appHash: buffer expected";
+                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
+                    if (!$util.isInteger(message.coreChainLockedHeight))
+                        return "coreChainLockedHeight: integer expected";
+                if (message.time != null && message.hasOwnProperty("time")) {
+                    var error = $root.google.protobuf.Timestamp.verify(message.time);
+                    if (error)
+                        return "time." + error;
+                }
                 return null;
             };
 
@@ -15680,11 +18592,36 @@ $root.tendermint = (function() {
                 if (object instanceof $root.tendermint.types.StateID)
                     return object;
                 var message = new $root.tendermint.types.StateID();
-                if (object.lastAppHash != null)
-                    if (typeof object.lastAppHash === "string")
-                        $util.base64.decode(object.lastAppHash, message.lastAppHash = $util.newBuffer($util.base64.length(object.lastAppHash)), 0);
-                    else if (object.lastAppHash.length >= 0)
-                        message.lastAppHash = object.lastAppHash;
+                if (object.appVersion != null)
+                    if ($util.Long)
+                        (message.appVersion = $util.Long.fromValue(object.appVersion)).unsigned = false;
+                    else if (typeof object.appVersion === "string")
+                        message.appVersion = parseInt(object.appVersion, 10);
+                    else if (typeof object.appVersion === "number")
+                        message.appVersion = object.appVersion;
+                    else if (typeof object.appVersion === "object")
+                        message.appVersion = new $util.LongBits(object.appVersion.low >>> 0, object.appVersion.high >>> 0).toNumber();
+                if (object.height != null)
+                    if ($util.Long)
+                        (message.height = $util.Long.fromValue(object.height)).unsigned = false;
+                    else if (typeof object.height === "string")
+                        message.height = parseInt(object.height, 10);
+                    else if (typeof object.height === "number")
+                        message.height = object.height;
+                    else if (typeof object.height === "object")
+                        message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
+                if (object.appHash != null)
+                    if (typeof object.appHash === "string")
+                        $util.base64.decode(object.appHash, message.appHash = $util.newBuffer($util.base64.length(object.appHash)), 0);
+                    else if (object.appHash.length >= 0)
+                        message.appHash = object.appHash;
+                if (object.coreChainLockedHeight != null)
+                    message.coreChainLockedHeight = object.coreChainLockedHeight >>> 0;
+                if (object.time != null) {
+                    if (typeof object.time !== "object")
+                        throw TypeError(".tendermint.types.StateID.time: object expected");
+                    message.time = $root.google.protobuf.Timestamp.fromObject(object.time);
+                }
                 return message;
             };
 
@@ -15701,16 +18638,43 @@ $root.tendermint = (function() {
                 if (!options)
                     options = {};
                 var object = {};
-                if (options.defaults)
+                if (options.defaults) {
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.appVersion = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.appVersion = options.longs === String ? "0" : 0;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.height = options.longs === String ? "0" : 0;
                     if (options.bytes === String)
-                        object.lastAppHash = "";
+                        object.appHash = "";
                     else {
-                        object.lastAppHash = [];
+                        object.appHash = [];
                         if (options.bytes !== Array)
-                            object.lastAppHash = $util.newBuffer(object.lastAppHash);
+                            object.appHash = $util.newBuffer(object.appHash);
                     }
-                if (message.lastAppHash != null && message.hasOwnProperty("lastAppHash"))
-                    object.lastAppHash = options.bytes === String ? $util.base64.encode(message.lastAppHash, 0, message.lastAppHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.lastAppHash) : message.lastAppHash;
+                    object.coreChainLockedHeight = 0;
+                    object.time = null;
+                }
+                if (message.appVersion != null && message.hasOwnProperty("appVersion"))
+                    if (typeof message.appVersion === "number")
+                        object.appVersion = options.longs === String ? String(message.appVersion) : message.appVersion;
+                    else
+                        object.appVersion = options.longs === String ? $util.Long.prototype.toString.call(message.appVersion) : options.longs === Number ? new $util.LongBits(message.appVersion.low >>> 0, message.appVersion.high >>> 0).toNumber() : message.appVersion;
+                if (message.height != null && message.hasOwnProperty("height"))
+                    if (typeof message.height === "number")
+                        object.height = options.longs === String ? String(message.height) : message.height;
+                    else
+                        object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.appHash != null && message.hasOwnProperty("appHash"))
+                    object.appHash = options.bytes === String ? $util.base64.encode(message.appHash, 0, message.appHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.appHash) : message.appHash;
+                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
+                    object.coreChainLockedHeight = message.coreChainLockedHeight;
+                if (message.time != null && message.hasOwnProperty("time"))
+                    object.time = $root.google.protobuf.Timestamp.toObject(message.time, options);
                 return object;
             };
 
@@ -15746,7 +18710,7 @@ $root.tendermint = (function() {
              * @property {Uint8Array|null} [nextValidatorsHash] Header nextValidatorsHash
              * @property {Uint8Array|null} [consensusHash] Header consensusHash
              * @property {Uint8Array|null} [appHash] Header appHash
-             * @property {Uint8Array|null} [lastResultsHash] Header lastResultsHash
+             * @property {Uint8Array|null} [resultsHash] Header resultsHash
              * @property {Uint8Array|null} [evidenceHash] Header evidenceHash
              * @property {Uint8Array|null} [proposerProTxHash] Header proposerProTxHash
              * @property {number|Long|null} [proposedAppVersion] Header proposedAppVersion
@@ -15864,12 +18828,12 @@ $root.tendermint = (function() {
             Header.prototype.appHash = $util.newBuffer([]);
 
             /**
-             * Header lastResultsHash.
-             * @member {Uint8Array} lastResultsHash
+             * Header resultsHash.
+             * @member {Uint8Array} resultsHash
              * @memberof tendermint.types.Header
              * @instance
              */
-            Header.prototype.lastResultsHash = $util.newBuffer([]);
+            Header.prototype.resultsHash = $util.newBuffer([]);
 
             /**
              * Header evidenceHash.
@@ -15941,8 +18905,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.consensusHash);
                 if (message.appHash != null && Object.hasOwnProperty.call(message, "appHash"))
                     writer.uint32(/* id 11, wireType 2 =*/90).bytes(message.appHash);
-                if (message.lastResultsHash != null && Object.hasOwnProperty.call(message, "lastResultsHash"))
-                    writer.uint32(/* id 12, wireType 2 =*/98).bytes(message.lastResultsHash);
+                if (message.resultsHash != null && Object.hasOwnProperty.call(message, "resultsHash"))
+                    writer.uint32(/* id 12, wireType 2 =*/98).bytes(message.resultsHash);
                 if (message.evidenceHash != null && Object.hasOwnProperty.call(message, "evidenceHash"))
                     writer.uint32(/* id 13, wireType 2 =*/106).bytes(message.evidenceHash);
                 if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
@@ -16022,7 +18986,7 @@ $root.tendermint = (function() {
                         message.appHash = reader.bytes();
                         break;
                     case 12:
-                        message.lastResultsHash = reader.bytes();
+                        message.resultsHash = reader.bytes();
                         break;
                     case 13:
                         message.evidenceHash = reader.bytes();
@@ -16110,9 +19074,9 @@ $root.tendermint = (function() {
                 if (message.appHash != null && message.hasOwnProperty("appHash"))
                     if (!(message.appHash && typeof message.appHash.length === "number" || $util.isString(message.appHash)))
                         return "appHash: buffer expected";
-                if (message.lastResultsHash != null && message.hasOwnProperty("lastResultsHash"))
-                    if (!(message.lastResultsHash && typeof message.lastResultsHash.length === "number" || $util.isString(message.lastResultsHash)))
-                        return "lastResultsHash: buffer expected";
+                if (message.resultsHash != null && message.hasOwnProperty("resultsHash"))
+                    if (!(message.resultsHash && typeof message.resultsHash.length === "number" || $util.isString(message.resultsHash)))
+                        return "resultsHash: buffer expected";
                 if (message.evidenceHash != null && message.hasOwnProperty("evidenceHash"))
                     if (!(message.evidenceHash && typeof message.evidenceHash.length === "number" || $util.isString(message.evidenceHash)))
                         return "evidenceHash: buffer expected";
@@ -16195,11 +19159,11 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.appHash, message.appHash = $util.newBuffer($util.base64.length(object.appHash)), 0);
                     else if (object.appHash.length >= 0)
                         message.appHash = object.appHash;
-                if (object.lastResultsHash != null)
-                    if (typeof object.lastResultsHash === "string")
-                        $util.base64.decode(object.lastResultsHash, message.lastResultsHash = $util.newBuffer($util.base64.length(object.lastResultsHash)), 0);
-                    else if (object.lastResultsHash.length >= 0)
-                        message.lastResultsHash = object.lastResultsHash;
+                if (object.resultsHash != null)
+                    if (typeof object.resultsHash === "string")
+                        $util.base64.decode(object.resultsHash, message.resultsHash = $util.newBuffer($util.base64.length(object.resultsHash)), 0);
+                    else if (object.resultsHash.length >= 0)
+                        message.resultsHash = object.resultsHash;
                 if (object.evidenceHash != null)
                     if (typeof object.evidenceHash === "string")
                         $util.base64.decode(object.evidenceHash, message.evidenceHash = $util.newBuffer($util.base64.length(object.evidenceHash)), 0);
@@ -16288,11 +19252,11 @@ $root.tendermint = (function() {
                             object.appHash = $util.newBuffer(object.appHash);
                     }
                     if (options.bytes === String)
-                        object.lastResultsHash = "";
+                        object.resultsHash = "";
                     else {
-                        object.lastResultsHash = [];
+                        object.resultsHash = [];
                         if (options.bytes !== Array)
-                            object.lastResultsHash = $util.newBuffer(object.lastResultsHash);
+                            object.resultsHash = $util.newBuffer(object.resultsHash);
                     }
                     if (options.bytes === String)
                         object.evidenceHash = "";
@@ -16340,8 +19304,8 @@ $root.tendermint = (function() {
                     object.consensusHash = options.bytes === String ? $util.base64.encode(message.consensusHash, 0, message.consensusHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.consensusHash) : message.consensusHash;
                 if (message.appHash != null && message.hasOwnProperty("appHash"))
                     object.appHash = options.bytes === String ? $util.base64.encode(message.appHash, 0, message.appHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.appHash) : message.appHash;
-                if (message.lastResultsHash != null && message.hasOwnProperty("lastResultsHash"))
-                    object.lastResultsHash = options.bytes === String ? $util.base64.encode(message.lastResultsHash, 0, message.lastResultsHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.lastResultsHash) : message.lastResultsHash;
+                if (message.resultsHash != null && message.hasOwnProperty("resultsHash"))
+                    object.resultsHash = options.bytes === String ? $util.base64.encode(message.resultsHash, 0, message.resultsHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.resultsHash) : message.resultsHash;
                 if (message.evidenceHash != null && message.hasOwnProperty("evidenceHash"))
                     object.evidenceHash = options.bytes === String ? $util.base64.encode(message.evidenceHash, 0, message.evidenceHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.evidenceHash) : message.evidenceHash;
                 if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
@@ -16368,256 +19332,6 @@ $root.tendermint = (function() {
             };
 
             return Header;
-        })();
-
-        types.CoreChainLock = (function() {
-
-            /**
-             * Properties of a CoreChainLock.
-             * @memberof tendermint.types
-             * @interface ICoreChainLock
-             * @property {number|null} [coreBlockHeight] CoreChainLock coreBlockHeight
-             * @property {Uint8Array|null} [coreBlockHash] CoreChainLock coreBlockHash
-             * @property {Uint8Array|null} [signature] CoreChainLock signature
-             */
-
-            /**
-             * Constructs a new CoreChainLock.
-             * @memberof tendermint.types
-             * @classdesc Represents a CoreChainLock.
-             * @implements ICoreChainLock
-             * @constructor
-             * @param {tendermint.types.ICoreChainLock=} [properties] Properties to set
-             */
-            function CoreChainLock(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * CoreChainLock coreBlockHeight.
-             * @member {number} coreBlockHeight
-             * @memberof tendermint.types.CoreChainLock
-             * @instance
-             */
-            CoreChainLock.prototype.coreBlockHeight = 0;
-
-            /**
-             * CoreChainLock coreBlockHash.
-             * @member {Uint8Array} coreBlockHash
-             * @memberof tendermint.types.CoreChainLock
-             * @instance
-             */
-            CoreChainLock.prototype.coreBlockHash = $util.newBuffer([]);
-
-            /**
-             * CoreChainLock signature.
-             * @member {Uint8Array} signature
-             * @memberof tendermint.types.CoreChainLock
-             * @instance
-             */
-            CoreChainLock.prototype.signature = $util.newBuffer([]);
-
-            /**
-             * Creates a new CoreChainLock instance using the specified properties.
-             * @function create
-             * @memberof tendermint.types.CoreChainLock
-             * @static
-             * @param {tendermint.types.ICoreChainLock=} [properties] Properties to set
-             * @returns {tendermint.types.CoreChainLock} CoreChainLock instance
-             */
-            CoreChainLock.create = function create(properties) {
-                return new CoreChainLock(properties);
-            };
-
-            /**
-             * Encodes the specified CoreChainLock message. Does not implicitly {@link tendermint.types.CoreChainLock.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.types.CoreChainLock
-             * @static
-             * @param {tendermint.types.ICoreChainLock} message CoreChainLock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            CoreChainLock.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.coreBlockHeight != null && Object.hasOwnProperty.call(message, "coreBlockHeight"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.coreBlockHeight);
-                if (message.coreBlockHash != null && Object.hasOwnProperty.call(message, "coreBlockHash"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.coreBlockHash);
-                if (message.signature != null && Object.hasOwnProperty.call(message, "signature"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.signature);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified CoreChainLock message, length delimited. Does not implicitly {@link tendermint.types.CoreChainLock.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.types.CoreChainLock
-             * @static
-             * @param {tendermint.types.ICoreChainLock} message CoreChainLock message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            CoreChainLock.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes a CoreChainLock message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.types.CoreChainLock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.types.CoreChainLock} CoreChainLock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            CoreChainLock.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.CoreChainLock();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.coreBlockHeight = reader.uint32();
-                        break;
-                    case 2:
-                        message.coreBlockHash = reader.bytes();
-                        break;
-                    case 3:
-                        message.signature = reader.bytes();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes a CoreChainLock message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.types.CoreChainLock
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.types.CoreChainLock} CoreChainLock
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            CoreChainLock.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies a CoreChainLock message.
-             * @function verify
-             * @memberof tendermint.types.CoreChainLock
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            CoreChainLock.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.coreBlockHeight != null && message.hasOwnProperty("coreBlockHeight"))
-                    if (!$util.isInteger(message.coreBlockHeight))
-                        return "coreBlockHeight: integer expected";
-                if (message.coreBlockHash != null && message.hasOwnProperty("coreBlockHash"))
-                    if (!(message.coreBlockHash && typeof message.coreBlockHash.length === "number" || $util.isString(message.coreBlockHash)))
-                        return "coreBlockHash: buffer expected";
-                if (message.signature != null && message.hasOwnProperty("signature"))
-                    if (!(message.signature && typeof message.signature.length === "number" || $util.isString(message.signature)))
-                        return "signature: buffer expected";
-                return null;
-            };
-
-            /**
-             * Creates a CoreChainLock message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.types.CoreChainLock
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.types.CoreChainLock} CoreChainLock
-             */
-            CoreChainLock.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.types.CoreChainLock)
-                    return object;
-                var message = new $root.tendermint.types.CoreChainLock();
-                if (object.coreBlockHeight != null)
-                    message.coreBlockHeight = object.coreBlockHeight >>> 0;
-                if (object.coreBlockHash != null)
-                    if (typeof object.coreBlockHash === "string")
-                        $util.base64.decode(object.coreBlockHash, message.coreBlockHash = $util.newBuffer($util.base64.length(object.coreBlockHash)), 0);
-                    else if (object.coreBlockHash.length >= 0)
-                        message.coreBlockHash = object.coreBlockHash;
-                if (object.signature != null)
-                    if (typeof object.signature === "string")
-                        $util.base64.decode(object.signature, message.signature = $util.newBuffer($util.base64.length(object.signature)), 0);
-                    else if (object.signature.length >= 0)
-                        message.signature = object.signature;
-                return message;
-            };
-
-            /**
-             * Creates a plain object from a CoreChainLock message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.types.CoreChainLock
-             * @static
-             * @param {tendermint.types.CoreChainLock} message CoreChainLock
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            CoreChainLock.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    object.coreBlockHeight = 0;
-                    if (options.bytes === String)
-                        object.coreBlockHash = "";
-                    else {
-                        object.coreBlockHash = [];
-                        if (options.bytes !== Array)
-                            object.coreBlockHash = $util.newBuffer(object.coreBlockHash);
-                    }
-                    if (options.bytes === String)
-                        object.signature = "";
-                    else {
-                        object.signature = [];
-                        if (options.bytes !== Array)
-                            object.signature = $util.newBuffer(object.signature);
-                    }
-                }
-                if (message.coreBlockHeight != null && message.hasOwnProperty("coreBlockHeight"))
-                    object.coreBlockHeight = message.coreBlockHeight;
-                if (message.coreBlockHash != null && message.hasOwnProperty("coreBlockHash"))
-                    object.coreBlockHash = options.bytes === String ? $util.base64.encode(message.coreBlockHash, 0, message.coreBlockHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.coreBlockHash) : message.coreBlockHash;
-                if (message.signature != null && message.hasOwnProperty("signature"))
-                    object.signature = options.bytes === String ? $util.base64.encode(message.signature, 0, message.signature.length) : options.bytes === Array ? Array.prototype.slice.call(message.signature) : message.signature;
-                return object;
-            };
-
-            /**
-             * Converts this CoreChainLock to JSON.
-             * @function toJSON
-             * @memberof tendermint.types.CoreChainLock
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            CoreChainLock.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return CoreChainLock;
         })();
 
         types.Data = (function() {
@@ -16836,11 +19550,10 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [height] Vote height
              * @property {number|null} [round] Vote round
              * @property {tendermint.types.IBlockID|null} [blockId] Vote blockId
-             * @property {tendermint.types.IStateID|null} [stateId] Vote stateId
              * @property {Uint8Array|null} [validatorProTxHash] Vote validatorProTxHash
              * @property {number|null} [validatorIndex] Vote validatorIndex
              * @property {Uint8Array|null} [blockSignature] Vote blockSignature
-             * @property {Uint8Array|null} [stateSignature] Vote stateSignature
+             * @property {Array.<tendermint.types.IVoteExtension>|null} [voteExtensions] Vote voteExtensions
              */
 
             /**
@@ -16852,6 +19565,7 @@ $root.tendermint = (function() {
              * @param {tendermint.types.IVote=} [properties] Properties to set
              */
             function Vote(properties) {
+                this.voteExtensions = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -16891,14 +19605,6 @@ $root.tendermint = (function() {
             Vote.prototype.blockId = null;
 
             /**
-             * Vote stateId.
-             * @member {tendermint.types.IStateID|null|undefined} stateId
-             * @memberof tendermint.types.Vote
-             * @instance
-             */
-            Vote.prototype.stateId = null;
-
-            /**
              * Vote validatorProTxHash.
              * @member {Uint8Array} validatorProTxHash
              * @memberof tendermint.types.Vote
@@ -16923,12 +19629,12 @@ $root.tendermint = (function() {
             Vote.prototype.blockSignature = $util.newBuffer([]);
 
             /**
-             * Vote stateSignature.
-             * @member {Uint8Array} stateSignature
+             * Vote voteExtensions.
+             * @member {Array.<tendermint.types.IVoteExtension>} voteExtensions
              * @memberof tendermint.types.Vote
              * @instance
              */
-            Vote.prototype.stateSignature = $util.newBuffer([]);
+            Vote.prototype.voteExtensions = $util.emptyArray;
 
             /**
              * Creates a new Vote instance using the specified properties.
@@ -16968,10 +19674,9 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 7, wireType 0 =*/56).int32(message.validatorIndex);
                 if (message.blockSignature != null && Object.hasOwnProperty.call(message, "blockSignature"))
                     writer.uint32(/* id 8, wireType 2 =*/66).bytes(message.blockSignature);
-                if (message.stateId != null && Object.hasOwnProperty.call(message, "stateId"))
-                    $root.tendermint.types.StateID.encode(message.stateId, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
-                if (message.stateSignature != null && Object.hasOwnProperty.call(message, "stateSignature"))
-                    writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.stateSignature);
+                if (message.voteExtensions != null && message.voteExtensions.length)
+                    for (var i = 0; i < message.voteExtensions.length; ++i)
+                        $root.tendermint.types.VoteExtension.encode(message.voteExtensions[i], writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
                 return writer;
             };
 
@@ -17018,9 +19723,6 @@ $root.tendermint = (function() {
                     case 4:
                         message.blockId = $root.tendermint.types.BlockID.decode(reader, reader.uint32());
                         break;
-                    case 9:
-                        message.stateId = $root.tendermint.types.StateID.decode(reader, reader.uint32());
-                        break;
                     case 6:
                         message.validatorProTxHash = reader.bytes();
                         break;
@@ -17030,8 +19732,10 @@ $root.tendermint = (function() {
                     case 8:
                         message.blockSignature = reader.bytes();
                         break;
-                    case 10:
-                        message.stateSignature = reader.bytes();
+                    case 11:
+                        if (!(message.voteExtensions && message.voteExtensions.length))
+                            message.voteExtensions = [];
+                        message.voteExtensions.push($root.tendermint.types.VoteExtension.decode(reader, reader.uint32()));
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -17090,11 +19794,6 @@ $root.tendermint = (function() {
                     if (error)
                         return "blockId." + error;
                 }
-                if (message.stateId != null && message.hasOwnProperty("stateId")) {
-                    var error = $root.tendermint.types.StateID.verify(message.stateId);
-                    if (error)
-                        return "stateId." + error;
-                }
                 if (message.validatorProTxHash != null && message.hasOwnProperty("validatorProTxHash"))
                     if (!(message.validatorProTxHash && typeof message.validatorProTxHash.length === "number" || $util.isString(message.validatorProTxHash)))
                         return "validatorProTxHash: buffer expected";
@@ -17104,9 +19803,15 @@ $root.tendermint = (function() {
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     if (!(message.blockSignature && typeof message.blockSignature.length === "number" || $util.isString(message.blockSignature)))
                         return "blockSignature: buffer expected";
-                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    if (!(message.stateSignature && typeof message.stateSignature.length === "number" || $util.isString(message.stateSignature)))
-                        return "stateSignature: buffer expected";
+                if (message.voteExtensions != null && message.hasOwnProperty("voteExtensions")) {
+                    if (!Array.isArray(message.voteExtensions))
+                        return "voteExtensions: array expected";
+                    for (var i = 0; i < message.voteExtensions.length; ++i) {
+                        var error = $root.tendermint.types.VoteExtension.verify(message.voteExtensions[i]);
+                        if (error)
+                            return "voteExtensions." + error;
+                    }
+                }
                 return null;
             };
 
@@ -17160,11 +19865,6 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.types.Vote.blockId: object expected");
                     message.blockId = $root.tendermint.types.BlockID.fromObject(object.blockId);
                 }
-                if (object.stateId != null) {
-                    if (typeof object.stateId !== "object")
-                        throw TypeError(".tendermint.types.Vote.stateId: object expected");
-                    message.stateId = $root.tendermint.types.StateID.fromObject(object.stateId);
-                }
                 if (object.validatorProTxHash != null)
                     if (typeof object.validatorProTxHash === "string")
                         $util.base64.decode(object.validatorProTxHash, message.validatorProTxHash = $util.newBuffer($util.base64.length(object.validatorProTxHash)), 0);
@@ -17177,11 +19877,16 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.blockSignature, message.blockSignature = $util.newBuffer($util.base64.length(object.blockSignature)), 0);
                     else if (object.blockSignature.length >= 0)
                         message.blockSignature = object.blockSignature;
-                if (object.stateSignature != null)
-                    if (typeof object.stateSignature === "string")
-                        $util.base64.decode(object.stateSignature, message.stateSignature = $util.newBuffer($util.base64.length(object.stateSignature)), 0);
-                    else if (object.stateSignature.length >= 0)
-                        message.stateSignature = object.stateSignature;
+                if (object.voteExtensions) {
+                    if (!Array.isArray(object.voteExtensions))
+                        throw TypeError(".tendermint.types.Vote.voteExtensions: array expected");
+                    message.voteExtensions = [];
+                    for (var i = 0; i < object.voteExtensions.length; ++i) {
+                        if (typeof object.voteExtensions[i] !== "object")
+                            throw TypeError(".tendermint.types.Vote.voteExtensions: object expected");
+                        message.voteExtensions[i] = $root.tendermint.types.VoteExtension.fromObject(object.voteExtensions[i]);
+                    }
+                }
                 return message;
             };
 
@@ -17198,6 +19903,8 @@ $root.tendermint = (function() {
                 if (!options)
                     options = {};
                 var object = {};
+                if (options.arrays || options.defaults)
+                    object.voteExtensions = [];
                 if (options.defaults) {
                     object.type = options.enums === String ? "SIGNED_MSG_TYPE_UNKNOWN" : 0;
                     if ($util.Long) {
@@ -17222,14 +19929,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.blockSignature = $util.newBuffer(object.blockSignature);
                     }
-                    object.stateId = null;
-                    if (options.bytes === String)
-                        object.stateSignature = "";
-                    else {
-                        object.stateSignature = [];
-                        if (options.bytes !== Array)
-                            object.stateSignature = $util.newBuffer(object.stateSignature);
-                    }
                 }
                 if (message.type != null && message.hasOwnProperty("type"))
                     object.type = options.enums === String ? $root.tendermint.types.SignedMsgType[message.type] : message.type;
@@ -17248,10 +19947,11 @@ $root.tendermint = (function() {
                     object.validatorIndex = message.validatorIndex;
                 if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
                     object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
-                if (message.stateId != null && message.hasOwnProperty("stateId"))
-                    object.stateId = $root.tendermint.types.StateID.toObject(message.stateId, options);
-                if (message.stateSignature != null && message.hasOwnProperty("stateSignature"))
-                    object.stateSignature = options.bytes === String ? $util.base64.encode(message.stateSignature, 0, message.stateSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.stateSignature) : message.stateSignature;
+                if (message.voteExtensions && message.voteExtensions.length) {
+                    object.voteExtensions = [];
+                    for (var j = 0; j < message.voteExtensions.length; ++j)
+                        object.voteExtensions[j] = $root.tendermint.types.VoteExtension.toObject(message.voteExtensions[j], options);
+                }
                 return object;
             };
 
@@ -17278,10 +19978,9 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [height] Commit height
              * @property {number|null} [round] Commit round
              * @property {tendermint.types.IBlockID|null} [blockId] Commit blockId
-             * @property {tendermint.types.IStateID|null} [stateId] Commit stateId
              * @property {Uint8Array|null} [quorumHash] Commit quorumHash
              * @property {Uint8Array|null} [thresholdBlockSignature] Commit thresholdBlockSignature
-             * @property {Uint8Array|null} [thresholdStateSignature] Commit thresholdStateSignature
+             * @property {Array.<tendermint.types.IVoteExtension>|null} [thresholdVoteExtensions] Commit thresholdVoteExtensions
              */
 
             /**
@@ -17293,6 +19992,7 @@ $root.tendermint = (function() {
              * @param {tendermint.types.ICommit=} [properties] Properties to set
              */
             function Commit(properties) {
+                this.thresholdVoteExtensions = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -17324,14 +20024,6 @@ $root.tendermint = (function() {
             Commit.prototype.blockId = null;
 
             /**
-             * Commit stateId.
-             * @member {tendermint.types.IStateID|null|undefined} stateId
-             * @memberof tendermint.types.Commit
-             * @instance
-             */
-            Commit.prototype.stateId = null;
-
-            /**
              * Commit quorumHash.
              * @member {Uint8Array} quorumHash
              * @memberof tendermint.types.Commit
@@ -17348,12 +20040,12 @@ $root.tendermint = (function() {
             Commit.prototype.thresholdBlockSignature = $util.newBuffer([]);
 
             /**
-             * Commit thresholdStateSignature.
-             * @member {Uint8Array} thresholdStateSignature
+             * Commit thresholdVoteExtensions.
+             * @member {Array.<tendermint.types.IVoteExtension>} thresholdVoteExtensions
              * @memberof tendermint.types.Commit
              * @instance
              */
-            Commit.prototype.thresholdStateSignature = $util.newBuffer([]);
+            Commit.prototype.thresholdVoteExtensions = $util.emptyArray;
 
             /**
              * Creates a new Commit instance using the specified properties.
@@ -17385,14 +20077,13 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 2, wireType 0 =*/16).int32(message.round);
                 if (message.blockId != null && Object.hasOwnProperty.call(message, "blockId"))
                     $root.tendermint.types.BlockID.encode(message.blockId, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                if (message.stateId != null && Object.hasOwnProperty.call(message, "stateId"))
-                    $root.tendermint.types.StateID.encode(message.stateId, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.quorumHash != null && Object.hasOwnProperty.call(message, "quorumHash"))
-                    writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.quorumHash);
+                    writer.uint32(/* id 101, wireType 2 =*/810).bytes(message.quorumHash);
                 if (message.thresholdBlockSignature != null && Object.hasOwnProperty.call(message, "thresholdBlockSignature"))
-                    writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.thresholdBlockSignature);
-                if (message.thresholdStateSignature != null && Object.hasOwnProperty.call(message, "thresholdStateSignature"))
-                    writer.uint32(/* id 8, wireType 2 =*/66).bytes(message.thresholdStateSignature);
+                    writer.uint32(/* id 102, wireType 2 =*/818).bytes(message.thresholdBlockSignature);
+                if (message.thresholdVoteExtensions != null && message.thresholdVoteExtensions.length)
+                    for (var i = 0; i < message.thresholdVoteExtensions.length; ++i)
+                        $root.tendermint.types.VoteExtension.encode(message.thresholdVoteExtensions[i], writer.uint32(/* id 104, wireType 2 =*/834).fork()).ldelim();
                 return writer;
             };
 
@@ -17436,17 +20127,16 @@ $root.tendermint = (function() {
                     case 3:
                         message.blockId = $root.tendermint.types.BlockID.decode(reader, reader.uint32());
                         break;
-                    case 4:
-                        message.stateId = $root.tendermint.types.StateID.decode(reader, reader.uint32());
-                        break;
-                    case 6:
+                    case 101:
                         message.quorumHash = reader.bytes();
                         break;
-                    case 7:
+                    case 102:
                         message.thresholdBlockSignature = reader.bytes();
                         break;
-                    case 8:
-                        message.thresholdStateSignature = reader.bytes();
+                    case 104:
+                        if (!(message.thresholdVoteExtensions && message.thresholdVoteExtensions.length))
+                            message.thresholdVoteExtensions = [];
+                        message.thresholdVoteExtensions.push($root.tendermint.types.VoteExtension.decode(reader, reader.uint32()));
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -17494,20 +20184,21 @@ $root.tendermint = (function() {
                     if (error)
                         return "blockId." + error;
                 }
-                if (message.stateId != null && message.hasOwnProperty("stateId")) {
-                    var error = $root.tendermint.types.StateID.verify(message.stateId);
-                    if (error)
-                        return "stateId." + error;
-                }
                 if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
                     if (!(message.quorumHash && typeof message.quorumHash.length === "number" || $util.isString(message.quorumHash)))
                         return "quorumHash: buffer expected";
                 if (message.thresholdBlockSignature != null && message.hasOwnProperty("thresholdBlockSignature"))
                     if (!(message.thresholdBlockSignature && typeof message.thresholdBlockSignature.length === "number" || $util.isString(message.thresholdBlockSignature)))
                         return "thresholdBlockSignature: buffer expected";
-                if (message.thresholdStateSignature != null && message.hasOwnProperty("thresholdStateSignature"))
-                    if (!(message.thresholdStateSignature && typeof message.thresholdStateSignature.length === "number" || $util.isString(message.thresholdStateSignature)))
-                        return "thresholdStateSignature: buffer expected";
+                if (message.thresholdVoteExtensions != null && message.hasOwnProperty("thresholdVoteExtensions")) {
+                    if (!Array.isArray(message.thresholdVoteExtensions))
+                        return "thresholdVoteExtensions: array expected";
+                    for (var i = 0; i < message.thresholdVoteExtensions.length; ++i) {
+                        var error = $root.tendermint.types.VoteExtension.verify(message.thresholdVoteExtensions[i]);
+                        if (error)
+                            return "thresholdVoteExtensions." + error;
+                    }
+                }
                 return null;
             };
 
@@ -17539,11 +20230,6 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.types.Commit.blockId: object expected");
                     message.blockId = $root.tendermint.types.BlockID.fromObject(object.blockId);
                 }
-                if (object.stateId != null) {
-                    if (typeof object.stateId !== "object")
-                        throw TypeError(".tendermint.types.Commit.stateId: object expected");
-                    message.stateId = $root.tendermint.types.StateID.fromObject(object.stateId);
-                }
                 if (object.quorumHash != null)
                     if (typeof object.quorumHash === "string")
                         $util.base64.decode(object.quorumHash, message.quorumHash = $util.newBuffer($util.base64.length(object.quorumHash)), 0);
@@ -17554,11 +20240,16 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.thresholdBlockSignature, message.thresholdBlockSignature = $util.newBuffer($util.base64.length(object.thresholdBlockSignature)), 0);
                     else if (object.thresholdBlockSignature.length >= 0)
                         message.thresholdBlockSignature = object.thresholdBlockSignature;
-                if (object.thresholdStateSignature != null)
-                    if (typeof object.thresholdStateSignature === "string")
-                        $util.base64.decode(object.thresholdStateSignature, message.thresholdStateSignature = $util.newBuffer($util.base64.length(object.thresholdStateSignature)), 0);
-                    else if (object.thresholdStateSignature.length >= 0)
-                        message.thresholdStateSignature = object.thresholdStateSignature;
+                if (object.thresholdVoteExtensions) {
+                    if (!Array.isArray(object.thresholdVoteExtensions))
+                        throw TypeError(".tendermint.types.Commit.thresholdVoteExtensions: array expected");
+                    message.thresholdVoteExtensions = [];
+                    for (var i = 0; i < object.thresholdVoteExtensions.length; ++i) {
+                        if (typeof object.thresholdVoteExtensions[i] !== "object")
+                            throw TypeError(".tendermint.types.Commit.thresholdVoteExtensions: object expected");
+                        message.thresholdVoteExtensions[i] = $root.tendermint.types.VoteExtension.fromObject(object.thresholdVoteExtensions[i]);
+                    }
+                }
                 return message;
             };
 
@@ -17575,6 +20266,8 @@ $root.tendermint = (function() {
                 if (!options)
                     options = {};
                 var object = {};
+                if (options.arrays || options.defaults)
+                    object.thresholdVoteExtensions = [];
                 if (options.defaults) {
                     if ($util.Long) {
                         var long = new $util.Long(0, 0, false);
@@ -17583,7 +20276,6 @@ $root.tendermint = (function() {
                         object.height = options.longs === String ? "0" : 0;
                     object.round = 0;
                     object.blockId = null;
-                    object.stateId = null;
                     if (options.bytes === String)
                         object.quorumHash = "";
                     else {
@@ -17598,13 +20290,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.thresholdBlockSignature = $util.newBuffer(object.thresholdBlockSignature);
                     }
-                    if (options.bytes === String)
-                        object.thresholdStateSignature = "";
-                    else {
-                        object.thresholdStateSignature = [];
-                        if (options.bytes !== Array)
-                            object.thresholdStateSignature = $util.newBuffer(object.thresholdStateSignature);
-                    }
                 }
                 if (message.height != null && message.hasOwnProperty("height"))
                     if (typeof message.height === "number")
@@ -17615,14 +20300,15 @@ $root.tendermint = (function() {
                     object.round = message.round;
                 if (message.blockId != null && message.hasOwnProperty("blockId"))
                     object.blockId = $root.tendermint.types.BlockID.toObject(message.blockId, options);
-                if (message.stateId != null && message.hasOwnProperty("stateId"))
-                    object.stateId = $root.tendermint.types.StateID.toObject(message.stateId, options);
                 if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
                     object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 if (message.thresholdBlockSignature != null && message.hasOwnProperty("thresholdBlockSignature"))
                     object.thresholdBlockSignature = options.bytes === String ? $util.base64.encode(message.thresholdBlockSignature, 0, message.thresholdBlockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.thresholdBlockSignature) : message.thresholdBlockSignature;
-                if (message.thresholdStateSignature != null && message.hasOwnProperty("thresholdStateSignature"))
-                    object.thresholdStateSignature = options.bytes === String ? $util.base64.encode(message.thresholdStateSignature, 0, message.thresholdStateSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.thresholdStateSignature) : message.thresholdStateSignature;
+                if (message.thresholdVoteExtensions && message.thresholdVoteExtensions.length) {
+                    object.thresholdVoteExtensions = [];
+                    for (var j = 0; j < message.thresholdVoteExtensions.length; ++j)
+                        object.thresholdVoteExtensions[j] = $root.tendermint.types.VoteExtension.toObject(message.thresholdVoteExtensions[j], options);
+                }
                 return object;
             };
 
@@ -17648,12 +20334,13 @@ $root.tendermint = (function() {
              * @interface IProposal
              * @property {tendermint.types.SignedMsgType|null} [type] Proposal type
              * @property {number|Long|null} [height] Proposal height
-             * @property {number|null} [coreChainLockedHeight] Proposal coreChainLockedHeight
              * @property {number|null} [round] Proposal round
              * @property {number|null} [polRound] Proposal polRound
              * @property {tendermint.types.IBlockID|null} [blockId] Proposal blockId
              * @property {google.protobuf.ITimestamp|null} [timestamp] Proposal timestamp
              * @property {Uint8Array|null} [signature] Proposal signature
+             * @property {number|null} [coreChainLockedHeight] Proposal coreChainLockedHeight
+             * @property {tendermint.types.ICoreChainLock|null} [coreChainLockUpdate] Proposal coreChainLockUpdate
              */
 
             /**
@@ -17686,14 +20373,6 @@ $root.tendermint = (function() {
              * @instance
              */
             Proposal.prototype.height = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
-             * Proposal coreChainLockedHeight.
-             * @member {number} coreChainLockedHeight
-             * @memberof tendermint.types.Proposal
-             * @instance
-             */
-            Proposal.prototype.coreChainLockedHeight = 0;
 
             /**
              * Proposal round.
@@ -17736,6 +20415,22 @@ $root.tendermint = (function() {
             Proposal.prototype.signature = $util.newBuffer([]);
 
             /**
+             * Proposal coreChainLockedHeight.
+             * @member {number} coreChainLockedHeight
+             * @memberof tendermint.types.Proposal
+             * @instance
+             */
+            Proposal.prototype.coreChainLockedHeight = 0;
+
+            /**
+             * Proposal coreChainLockUpdate.
+             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLockUpdate
+             * @memberof tendermint.types.Proposal
+             * @instance
+             */
+            Proposal.prototype.coreChainLockUpdate = null;
+
+            /**
              * Creates a new Proposal instance using the specified properties.
              * @function create
              * @memberof tendermint.types.Proposal
@@ -17775,6 +20470,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.signature);
                 if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
                     writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
+                if (message.coreChainLockUpdate != null && Object.hasOwnProperty.call(message, "coreChainLockUpdate"))
+                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
                 return writer;
             };
 
@@ -17815,9 +20512,6 @@ $root.tendermint = (function() {
                     case 2:
                         message.height = reader.int64();
                         break;
-                    case 100:
-                        message.coreChainLockedHeight = reader.uint32();
-                        break;
                     case 3:
                         message.round = reader.int32();
                         break;
@@ -17832,6 +20526,12 @@ $root.tendermint = (function() {
                         break;
                     case 7:
                         message.signature = reader.bytes();
+                        break;
+                    case 100:
+                        message.coreChainLockedHeight = reader.uint32();
+                        break;
+                    case 101:
+                        message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -17882,9 +20582,6 @@ $root.tendermint = (function() {
                 if (message.height != null && message.hasOwnProperty("height"))
                     if (!$util.isInteger(message.height) && !(message.height && $util.isInteger(message.height.low) && $util.isInteger(message.height.high)))
                         return "height: integer|Long expected";
-                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
-                    if (!$util.isInteger(message.coreChainLockedHeight))
-                        return "coreChainLockedHeight: integer expected";
                 if (message.round != null && message.hasOwnProperty("round"))
                     if (!$util.isInteger(message.round))
                         return "round: integer expected";
@@ -17904,6 +20601,14 @@ $root.tendermint = (function() {
                 if (message.signature != null && message.hasOwnProperty("signature"))
                     if (!(message.signature && typeof message.signature.length === "number" || $util.isString(message.signature)))
                         return "signature: buffer expected";
+                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
+                    if (!$util.isInteger(message.coreChainLockedHeight))
+                        return "coreChainLockedHeight: integer expected";
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate")) {
+                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLockUpdate);
+                    if (error)
+                        return "coreChainLockUpdate." + error;
+                }
                 return null;
             };
 
@@ -17950,8 +20655,6 @@ $root.tendermint = (function() {
                         message.height = object.height;
                     else if (typeof object.height === "object")
                         message.height = new $util.LongBits(object.height.low >>> 0, object.height.high >>> 0).toNumber();
-                if (object.coreChainLockedHeight != null)
-                    message.coreChainLockedHeight = object.coreChainLockedHeight >>> 0;
                 if (object.round != null)
                     message.round = object.round | 0;
                 if (object.polRound != null)
@@ -17971,6 +20674,13 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.signature, message.signature = $util.newBuffer($util.base64.length(object.signature)), 0);
                     else if (object.signature.length >= 0)
                         message.signature = object.signature;
+                if (object.coreChainLockedHeight != null)
+                    message.coreChainLockedHeight = object.coreChainLockedHeight >>> 0;
+                if (object.coreChainLockUpdate != null) {
+                    if (typeof object.coreChainLockUpdate !== "object")
+                        throw TypeError(".tendermint.types.Proposal.coreChainLockUpdate: object expected");
+                    message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLockUpdate);
+                }
                 return message;
             };
 
@@ -18006,6 +20716,7 @@ $root.tendermint = (function() {
                             object.signature = $util.newBuffer(object.signature);
                     }
                     object.coreChainLockedHeight = 0;
+                    object.coreChainLockUpdate = null;
                 }
                 if (message.type != null && message.hasOwnProperty("type"))
                     object.type = options.enums === String ? $root.tendermint.types.SignedMsgType[message.type] : message.type;
@@ -18026,6 +20737,8 @@ $root.tendermint = (function() {
                     object.signature = options.bytes === String ? $util.base64.encode(message.signature, 0, message.signature.length) : options.bytes === Array ? Array.prototype.slice.call(message.signature) : message.signature;
                 if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
                     object.coreChainLockedHeight = message.coreChainLockedHeight;
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
+                    object.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLockUpdate, options);
                 return object;
             };
 
@@ -18490,10 +21203,10 @@ $root.tendermint = (function() {
              * @memberof tendermint.types
              * @interface IBlockMeta
              * @property {tendermint.types.IBlockID|null} [blockId] BlockMeta blockId
-             * @property {tendermint.types.IStateID|null} [stateId] BlockMeta stateId
              * @property {number|Long|null} [blockSize] BlockMeta blockSize
              * @property {tendermint.types.IHeader|null} [header] BlockMeta header
              * @property {number|Long|null} [numTxs] BlockMeta numTxs
+             * @property {number|null} [round] BlockMeta round
              * @property {boolean|null} [hasCoreChainLock] BlockMeta hasCoreChainLock
              */
 
@@ -18521,14 +21234,6 @@ $root.tendermint = (function() {
             BlockMeta.prototype.blockId = null;
 
             /**
-             * BlockMeta stateId.
-             * @member {tendermint.types.IStateID|null|undefined} stateId
-             * @memberof tendermint.types.BlockMeta
-             * @instance
-             */
-            BlockMeta.prototype.stateId = null;
-
-            /**
              * BlockMeta blockSize.
              * @member {number|Long} blockSize
              * @memberof tendermint.types.BlockMeta
@@ -18551,6 +21256,14 @@ $root.tendermint = (function() {
              * @instance
              */
             BlockMeta.prototype.numTxs = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * BlockMeta round.
+             * @member {number} round
+             * @memberof tendermint.types.BlockMeta
+             * @instance
+             */
+            BlockMeta.prototype.round = 0;
 
             /**
              * BlockMeta hasCoreChainLock.
@@ -18592,10 +21305,10 @@ $root.tendermint = (function() {
                     $root.tendermint.types.Header.encode(message.header, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.numTxs != null && Object.hasOwnProperty.call(message, "numTxs"))
                     writer.uint32(/* id 4, wireType 0 =*/32).int64(message.numTxs);
+                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
+                    writer.uint32(/* id 5, wireType 0 =*/40).int32(message.round);
                 if (message.hasCoreChainLock != null && Object.hasOwnProperty.call(message, "hasCoreChainLock"))
                     writer.uint32(/* id 100, wireType 0 =*/800).bool(message.hasCoreChainLock);
-                if (message.stateId != null && Object.hasOwnProperty.call(message, "stateId"))
-                    $root.tendermint.types.StateID.encode(message.stateId, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
                 return writer;
             };
 
@@ -18633,9 +21346,6 @@ $root.tendermint = (function() {
                     case 1:
                         message.blockId = $root.tendermint.types.BlockID.decode(reader, reader.uint32());
                         break;
-                    case 101:
-                        message.stateId = $root.tendermint.types.StateID.decode(reader, reader.uint32());
-                        break;
                     case 2:
                         message.blockSize = reader.int64();
                         break;
@@ -18644,6 +21354,9 @@ $root.tendermint = (function() {
                         break;
                     case 4:
                         message.numTxs = reader.int64();
+                        break;
+                    case 5:
+                        message.round = reader.int32();
                         break;
                     case 100:
                         message.hasCoreChainLock = reader.bool();
@@ -18688,11 +21401,6 @@ $root.tendermint = (function() {
                     if (error)
                         return "blockId." + error;
                 }
-                if (message.stateId != null && message.hasOwnProperty("stateId")) {
-                    var error = $root.tendermint.types.StateID.verify(message.stateId);
-                    if (error)
-                        return "stateId." + error;
-                }
                 if (message.blockSize != null && message.hasOwnProperty("blockSize"))
                     if (!$util.isInteger(message.blockSize) && !(message.blockSize && $util.isInteger(message.blockSize.low) && $util.isInteger(message.blockSize.high)))
                         return "blockSize: integer|Long expected";
@@ -18704,6 +21412,9 @@ $root.tendermint = (function() {
                 if (message.numTxs != null && message.hasOwnProperty("numTxs"))
                     if (!$util.isInteger(message.numTxs) && !(message.numTxs && $util.isInteger(message.numTxs.low) && $util.isInteger(message.numTxs.high)))
                         return "numTxs: integer|Long expected";
+                if (message.round != null && message.hasOwnProperty("round"))
+                    if (!$util.isInteger(message.round))
+                        return "round: integer expected";
                 if (message.hasCoreChainLock != null && message.hasOwnProperty("hasCoreChainLock"))
                     if (typeof message.hasCoreChainLock !== "boolean")
                         return "hasCoreChainLock: boolean expected";
@@ -18726,11 +21437,6 @@ $root.tendermint = (function() {
                     if (typeof object.blockId !== "object")
                         throw TypeError(".tendermint.types.BlockMeta.blockId: object expected");
                     message.blockId = $root.tendermint.types.BlockID.fromObject(object.blockId);
-                }
-                if (object.stateId != null) {
-                    if (typeof object.stateId !== "object")
-                        throw TypeError(".tendermint.types.BlockMeta.stateId: object expected");
-                    message.stateId = $root.tendermint.types.StateID.fromObject(object.stateId);
                 }
                 if (object.blockSize != null)
                     if ($util.Long)
@@ -18755,6 +21461,8 @@ $root.tendermint = (function() {
                         message.numTxs = object.numTxs;
                     else if (typeof object.numTxs === "object")
                         message.numTxs = new $util.LongBits(object.numTxs.low >>> 0, object.numTxs.high >>> 0).toNumber();
+                if (object.round != null)
+                    message.round = object.round | 0;
                 if (object.hasCoreChainLock != null)
                     message.hasCoreChainLock = Boolean(object.hasCoreChainLock);
                 return message;
@@ -18786,8 +21494,8 @@ $root.tendermint = (function() {
                         object.numTxs = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.numTxs = options.longs === String ? "0" : 0;
+                    object.round = 0;
                     object.hasCoreChainLock = false;
-                    object.stateId = null;
                 }
                 if (message.blockId != null && message.hasOwnProperty("blockId"))
                     object.blockId = $root.tendermint.types.BlockID.toObject(message.blockId, options);
@@ -18803,10 +21511,10 @@ $root.tendermint = (function() {
                         object.numTxs = options.longs === String ? String(message.numTxs) : message.numTxs;
                     else
                         object.numTxs = options.longs === String ? $util.Long.prototype.toString.call(message.numTxs) : options.longs === Number ? new $util.LongBits(message.numTxs.low >>> 0, message.numTxs.high >>> 0).toNumber() : message.numTxs;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
                 if (message.hasCoreChainLock != null && message.hasOwnProperty("hasCoreChainLock"))
                     object.hasCoreChainLock = message.hasCoreChainLock;
-                if (message.stateId != null && message.hasOwnProperty("stateId"))
-                    object.stateId = $root.tendermint.types.StateID.toObject(message.stateId, options);
                 return object;
             };
 
@@ -19464,6 +22172,7 @@ $root.tendermint = (function() {
              * @property {number|Long|null} [votingPower] Validator votingPower
              * @property {number|Long|null} [proposerPriority] Validator proposerPriority
              * @property {Uint8Array|null} [proTxHash] Validator proTxHash
+             * @property {string|null} [nodeAddress] Validator nodeAddress
              */
 
             /**
@@ -19514,6 +22223,14 @@ $root.tendermint = (function() {
             Validator.prototype.proTxHash = $util.newBuffer([]);
 
             /**
+             * Validator nodeAddress.
+             * @member {string} nodeAddress
+             * @memberof tendermint.types.Validator
+             * @instance
+             */
+            Validator.prototype.nodeAddress = "";
+
+            /**
              * Creates a new Validator instance using the specified properties.
              * @function create
              * @memberof tendermint.types.Validator
@@ -19545,6 +22262,8 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 4, wireType 0 =*/32).int64(message.proposerPriority);
                 if (message.proTxHash != null && Object.hasOwnProperty.call(message, "proTxHash"))
                     writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.proTxHash);
+                if (message.nodeAddress != null && Object.hasOwnProperty.call(message, "nodeAddress"))
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.nodeAddress);
                 return writer;
             };
 
@@ -19590,6 +22309,9 @@ $root.tendermint = (function() {
                         break;
                     case 5:
                         message.proTxHash = reader.bytes();
+                        break;
+                    case 6:
+                        message.nodeAddress = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -19640,6 +22362,9 @@ $root.tendermint = (function() {
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     if (!(message.proTxHash && typeof message.proTxHash.length === "number" || $util.isString(message.proTxHash)))
                         return "proTxHash: buffer expected";
+                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
+                    if (!$util.isString(message.nodeAddress))
+                        return "nodeAddress: string expected";
                 return null;
             };
 
@@ -19683,6 +22408,8 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.proTxHash, message.proTxHash = $util.newBuffer($util.base64.length(object.proTxHash)), 0);
                     else if (object.proTxHash.length >= 0)
                         message.proTxHash = object.proTxHash;
+                if (object.nodeAddress != null)
+                    message.nodeAddress = String(object.nodeAddress);
                 return message;
             };
 
@@ -19718,6 +22445,7 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.proTxHash = $util.newBuffer(object.proTxHash);
                     }
+                    object.nodeAddress = "";
                 }
                 if (message.pubKey != null && message.hasOwnProperty("pubKey"))
                     object.pubKey = $root.tendermint.crypto.PublicKey.toObject(message.pubKey, options);
@@ -19733,6 +22461,8 @@ $root.tendermint = (function() {
                         object.proposerPriority = options.longs === String ? $util.Long.prototype.toString.call(message.proposerPriority) : options.longs === Number ? new $util.LongBits(message.proposerPriority.low >>> 0, message.proposerPriority.high >>> 0).toNumber() : message.proposerPriority;
                 if (message.proTxHash != null && message.hasOwnProperty("proTxHash"))
                     object.proTxHash = options.bytes === String ? $util.base64.encode(message.proTxHash, 0, message.proTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proTxHash) : message.proTxHash;
+                if (message.nodeAddress != null && message.hasOwnProperty("nodeAddress"))
+                    object.nodeAddress = message.nodeAddress;
                 return object;
             };
 
@@ -19979,6 +22709,744 @@ $root.tendermint = (function() {
             return SimpleValidator;
         })();
 
+        types.Evidence = (function() {
+
+            /**
+             * Properties of an Evidence.
+             * @memberof tendermint.types
+             * @interface IEvidence
+             * @property {tendermint.types.IDuplicateVoteEvidence|null} [duplicateVoteEvidence] Evidence duplicateVoteEvidence
+             */
+
+            /**
+             * Constructs a new Evidence.
+             * @memberof tendermint.types
+             * @classdesc Represents an Evidence.
+             * @implements IEvidence
+             * @constructor
+             * @param {tendermint.types.IEvidence=} [properties] Properties to set
+             */
+            function Evidence(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Evidence duplicateVoteEvidence.
+             * @member {tendermint.types.IDuplicateVoteEvidence|null|undefined} duplicateVoteEvidence
+             * @memberof tendermint.types.Evidence
+             * @instance
+             */
+            Evidence.prototype.duplicateVoteEvidence = null;
+
+            // OneOf field names bound to virtual getters and setters
+            var $oneOfFields;
+
+            /**
+             * Evidence sum.
+             * @member {"duplicateVoteEvidence"|undefined} sum
+             * @memberof tendermint.types.Evidence
+             * @instance
+             */
+            Object.defineProperty(Evidence.prototype, "sum", {
+                get: $util.oneOfGetter($oneOfFields = ["duplicateVoteEvidence"]),
+                set: $util.oneOfSetter($oneOfFields)
+            });
+
+            /**
+             * Creates a new Evidence instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.Evidence
+             * @static
+             * @param {tendermint.types.IEvidence=} [properties] Properties to set
+             * @returns {tendermint.types.Evidence} Evidence instance
+             */
+            Evidence.create = function create(properties) {
+                return new Evidence(properties);
+            };
+
+            /**
+             * Encodes the specified Evidence message. Does not implicitly {@link tendermint.types.Evidence.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.Evidence
+             * @static
+             * @param {tendermint.types.IEvidence} message Evidence message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Evidence.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.duplicateVoteEvidence != null && Object.hasOwnProperty.call(message, "duplicateVoteEvidence"))
+                    $root.tendermint.types.DuplicateVoteEvidence.encode(message.duplicateVoteEvidence, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified Evidence message, length delimited. Does not implicitly {@link tendermint.types.Evidence.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.Evidence
+             * @static
+             * @param {tendermint.types.IEvidence} message Evidence message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            Evidence.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an Evidence message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.Evidence
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.Evidence} Evidence
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Evidence.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.Evidence();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.duplicateVoteEvidence = $root.tendermint.types.DuplicateVoteEvidence.decode(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an Evidence message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.Evidence
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.Evidence} Evidence
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Evidence.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an Evidence message.
+             * @function verify
+             * @memberof tendermint.types.Evidence
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            Evidence.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                var properties = {};
+                if (message.duplicateVoteEvidence != null && message.hasOwnProperty("duplicateVoteEvidence")) {
+                    properties.sum = 1;
+                    {
+                        var error = $root.tendermint.types.DuplicateVoteEvidence.verify(message.duplicateVoteEvidence);
+                        if (error)
+                            return "duplicateVoteEvidence." + error;
+                    }
+                }
+                return null;
+            };
+
+            /**
+             * Creates an Evidence message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.Evidence
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.Evidence} Evidence
+             */
+            Evidence.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.Evidence)
+                    return object;
+                var message = new $root.tendermint.types.Evidence();
+                if (object.duplicateVoteEvidence != null) {
+                    if (typeof object.duplicateVoteEvidence !== "object")
+                        throw TypeError(".tendermint.types.Evidence.duplicateVoteEvidence: object expected");
+                    message.duplicateVoteEvidence = $root.tendermint.types.DuplicateVoteEvidence.fromObject(object.duplicateVoteEvidence);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an Evidence message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.Evidence
+             * @static
+             * @param {tendermint.types.Evidence} message Evidence
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            Evidence.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (message.duplicateVoteEvidence != null && message.hasOwnProperty("duplicateVoteEvidence")) {
+                    object.duplicateVoteEvidence = $root.tendermint.types.DuplicateVoteEvidence.toObject(message.duplicateVoteEvidence, options);
+                    if (options.oneofs)
+                        object.sum = "duplicateVoteEvidence";
+                }
+                return object;
+            };
+
+            /**
+             * Converts this Evidence to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.Evidence
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            Evidence.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return Evidence;
+        })();
+
+        types.DuplicateVoteEvidence = (function() {
+
+            /**
+             * Properties of a DuplicateVoteEvidence.
+             * @memberof tendermint.types
+             * @interface IDuplicateVoteEvidence
+             * @property {tendermint.types.IVote|null} [voteA] DuplicateVoteEvidence voteA
+             * @property {tendermint.types.IVote|null} [voteB] DuplicateVoteEvidence voteB
+             * @property {number|Long|null} [totalVotingPower] DuplicateVoteEvidence totalVotingPower
+             * @property {number|Long|null} [validatorPower] DuplicateVoteEvidence validatorPower
+             * @property {google.protobuf.ITimestamp|null} [timestamp] DuplicateVoteEvidence timestamp
+             */
+
+            /**
+             * Constructs a new DuplicateVoteEvidence.
+             * @memberof tendermint.types
+             * @classdesc Represents a DuplicateVoteEvidence.
+             * @implements IDuplicateVoteEvidence
+             * @constructor
+             * @param {tendermint.types.IDuplicateVoteEvidence=} [properties] Properties to set
+             */
+            function DuplicateVoteEvidence(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * DuplicateVoteEvidence voteA.
+             * @member {tendermint.types.IVote|null|undefined} voteA
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @instance
+             */
+            DuplicateVoteEvidence.prototype.voteA = null;
+
+            /**
+             * DuplicateVoteEvidence voteB.
+             * @member {tendermint.types.IVote|null|undefined} voteB
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @instance
+             */
+            DuplicateVoteEvidence.prototype.voteB = null;
+
+            /**
+             * DuplicateVoteEvidence totalVotingPower.
+             * @member {number|Long} totalVotingPower
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @instance
+             */
+            DuplicateVoteEvidence.prototype.totalVotingPower = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * DuplicateVoteEvidence validatorPower.
+             * @member {number|Long} validatorPower
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @instance
+             */
+            DuplicateVoteEvidence.prototype.validatorPower = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
+             * DuplicateVoteEvidence timestamp.
+             * @member {google.protobuf.ITimestamp|null|undefined} timestamp
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @instance
+             */
+            DuplicateVoteEvidence.prototype.timestamp = null;
+
+            /**
+             * Creates a new DuplicateVoteEvidence instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @static
+             * @param {tendermint.types.IDuplicateVoteEvidence=} [properties] Properties to set
+             * @returns {tendermint.types.DuplicateVoteEvidence} DuplicateVoteEvidence instance
+             */
+            DuplicateVoteEvidence.create = function create(properties) {
+                return new DuplicateVoteEvidence(properties);
+            };
+
+            /**
+             * Encodes the specified DuplicateVoteEvidence message. Does not implicitly {@link tendermint.types.DuplicateVoteEvidence.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @static
+             * @param {tendermint.types.IDuplicateVoteEvidence} message DuplicateVoteEvidence message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            DuplicateVoteEvidence.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.voteA != null && Object.hasOwnProperty.call(message, "voteA"))
+                    $root.tendermint.types.Vote.encode(message.voteA, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.voteB != null && Object.hasOwnProperty.call(message, "voteB"))
+                    $root.tendermint.types.Vote.encode(message.voteB, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.totalVotingPower != null && Object.hasOwnProperty.call(message, "totalVotingPower"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.totalVotingPower);
+                if (message.validatorPower != null && Object.hasOwnProperty.call(message, "validatorPower"))
+                    writer.uint32(/* id 4, wireType 0 =*/32).int64(message.validatorPower);
+                if (message.timestamp != null && Object.hasOwnProperty.call(message, "timestamp"))
+                    $root.google.protobuf.Timestamp.encode(message.timestamp, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified DuplicateVoteEvidence message, length delimited. Does not implicitly {@link tendermint.types.DuplicateVoteEvidence.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @static
+             * @param {tendermint.types.IDuplicateVoteEvidence} message DuplicateVoteEvidence message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            DuplicateVoteEvidence.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a DuplicateVoteEvidence message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.DuplicateVoteEvidence} DuplicateVoteEvidence
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            DuplicateVoteEvidence.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.DuplicateVoteEvidence();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.voteA = $root.tendermint.types.Vote.decode(reader, reader.uint32());
+                        break;
+                    case 2:
+                        message.voteB = $root.tendermint.types.Vote.decode(reader, reader.uint32());
+                        break;
+                    case 3:
+                        message.totalVotingPower = reader.int64();
+                        break;
+                    case 4:
+                        message.validatorPower = reader.int64();
+                        break;
+                    case 5:
+                        message.timestamp = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a DuplicateVoteEvidence message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.DuplicateVoteEvidence} DuplicateVoteEvidence
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            DuplicateVoteEvidence.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a DuplicateVoteEvidence message.
+             * @function verify
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            DuplicateVoteEvidence.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.voteA != null && message.hasOwnProperty("voteA")) {
+                    var error = $root.tendermint.types.Vote.verify(message.voteA);
+                    if (error)
+                        return "voteA." + error;
+                }
+                if (message.voteB != null && message.hasOwnProperty("voteB")) {
+                    var error = $root.tendermint.types.Vote.verify(message.voteB);
+                    if (error)
+                        return "voteB." + error;
+                }
+                if (message.totalVotingPower != null && message.hasOwnProperty("totalVotingPower"))
+                    if (!$util.isInteger(message.totalVotingPower) && !(message.totalVotingPower && $util.isInteger(message.totalVotingPower.low) && $util.isInteger(message.totalVotingPower.high)))
+                        return "totalVotingPower: integer|Long expected";
+                if (message.validatorPower != null && message.hasOwnProperty("validatorPower"))
+                    if (!$util.isInteger(message.validatorPower) && !(message.validatorPower && $util.isInteger(message.validatorPower.low) && $util.isInteger(message.validatorPower.high)))
+                        return "validatorPower: integer|Long expected";
+                if (message.timestamp != null && message.hasOwnProperty("timestamp")) {
+                    var error = $root.google.protobuf.Timestamp.verify(message.timestamp);
+                    if (error)
+                        return "timestamp." + error;
+                }
+                return null;
+            };
+
+            /**
+             * Creates a DuplicateVoteEvidence message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.DuplicateVoteEvidence} DuplicateVoteEvidence
+             */
+            DuplicateVoteEvidence.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.DuplicateVoteEvidence)
+                    return object;
+                var message = new $root.tendermint.types.DuplicateVoteEvidence();
+                if (object.voteA != null) {
+                    if (typeof object.voteA !== "object")
+                        throw TypeError(".tendermint.types.DuplicateVoteEvidence.voteA: object expected");
+                    message.voteA = $root.tendermint.types.Vote.fromObject(object.voteA);
+                }
+                if (object.voteB != null) {
+                    if (typeof object.voteB !== "object")
+                        throw TypeError(".tendermint.types.DuplicateVoteEvidence.voteB: object expected");
+                    message.voteB = $root.tendermint.types.Vote.fromObject(object.voteB);
+                }
+                if (object.totalVotingPower != null)
+                    if ($util.Long)
+                        (message.totalVotingPower = $util.Long.fromValue(object.totalVotingPower)).unsigned = false;
+                    else if (typeof object.totalVotingPower === "string")
+                        message.totalVotingPower = parseInt(object.totalVotingPower, 10);
+                    else if (typeof object.totalVotingPower === "number")
+                        message.totalVotingPower = object.totalVotingPower;
+                    else if (typeof object.totalVotingPower === "object")
+                        message.totalVotingPower = new $util.LongBits(object.totalVotingPower.low >>> 0, object.totalVotingPower.high >>> 0).toNumber();
+                if (object.validatorPower != null)
+                    if ($util.Long)
+                        (message.validatorPower = $util.Long.fromValue(object.validatorPower)).unsigned = false;
+                    else if (typeof object.validatorPower === "string")
+                        message.validatorPower = parseInt(object.validatorPower, 10);
+                    else if (typeof object.validatorPower === "number")
+                        message.validatorPower = object.validatorPower;
+                    else if (typeof object.validatorPower === "object")
+                        message.validatorPower = new $util.LongBits(object.validatorPower.low >>> 0, object.validatorPower.high >>> 0).toNumber();
+                if (object.timestamp != null) {
+                    if (typeof object.timestamp !== "object")
+                        throw TypeError(".tendermint.types.DuplicateVoteEvidence.timestamp: object expected");
+                    message.timestamp = $root.google.protobuf.Timestamp.fromObject(object.timestamp);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a DuplicateVoteEvidence message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @static
+             * @param {tendermint.types.DuplicateVoteEvidence} message DuplicateVoteEvidence
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            DuplicateVoteEvidence.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.voteA = null;
+                    object.voteB = null;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.totalVotingPower = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.totalVotingPower = options.longs === String ? "0" : 0;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.validatorPower = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.validatorPower = options.longs === String ? "0" : 0;
+                    object.timestamp = null;
+                }
+                if (message.voteA != null && message.hasOwnProperty("voteA"))
+                    object.voteA = $root.tendermint.types.Vote.toObject(message.voteA, options);
+                if (message.voteB != null && message.hasOwnProperty("voteB"))
+                    object.voteB = $root.tendermint.types.Vote.toObject(message.voteB, options);
+                if (message.totalVotingPower != null && message.hasOwnProperty("totalVotingPower"))
+                    if (typeof message.totalVotingPower === "number")
+                        object.totalVotingPower = options.longs === String ? String(message.totalVotingPower) : message.totalVotingPower;
+                    else
+                        object.totalVotingPower = options.longs === String ? $util.Long.prototype.toString.call(message.totalVotingPower) : options.longs === Number ? new $util.LongBits(message.totalVotingPower.low >>> 0, message.totalVotingPower.high >>> 0).toNumber() : message.totalVotingPower;
+                if (message.validatorPower != null && message.hasOwnProperty("validatorPower"))
+                    if (typeof message.validatorPower === "number")
+                        object.validatorPower = options.longs === String ? String(message.validatorPower) : message.validatorPower;
+                    else
+                        object.validatorPower = options.longs === String ? $util.Long.prototype.toString.call(message.validatorPower) : options.longs === Number ? new $util.LongBits(message.validatorPower.low >>> 0, message.validatorPower.high >>> 0).toNumber() : message.validatorPower;
+                if (message.timestamp != null && message.hasOwnProperty("timestamp"))
+                    object.timestamp = $root.google.protobuf.Timestamp.toObject(message.timestamp, options);
+                return object;
+            };
+
+            /**
+             * Converts this DuplicateVoteEvidence to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.DuplicateVoteEvidence
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            DuplicateVoteEvidence.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return DuplicateVoteEvidence;
+        })();
+
+        types.EvidenceList = (function() {
+
+            /**
+             * Properties of an EvidenceList.
+             * @memberof tendermint.types
+             * @interface IEvidenceList
+             * @property {Array.<tendermint.types.IEvidence>|null} [evidence] EvidenceList evidence
+             */
+
+            /**
+             * Constructs a new EvidenceList.
+             * @memberof tendermint.types
+             * @classdesc Represents an EvidenceList.
+             * @implements IEvidenceList
+             * @constructor
+             * @param {tendermint.types.IEvidenceList=} [properties] Properties to set
+             */
+            function EvidenceList(properties) {
+                this.evidence = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * EvidenceList evidence.
+             * @member {Array.<tendermint.types.IEvidence>} evidence
+             * @memberof tendermint.types.EvidenceList
+             * @instance
+             */
+            EvidenceList.prototype.evidence = $util.emptyArray;
+
+            /**
+             * Creates a new EvidenceList instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.EvidenceList
+             * @static
+             * @param {tendermint.types.IEvidenceList=} [properties] Properties to set
+             * @returns {tendermint.types.EvidenceList} EvidenceList instance
+             */
+            EvidenceList.create = function create(properties) {
+                return new EvidenceList(properties);
+            };
+
+            /**
+             * Encodes the specified EvidenceList message. Does not implicitly {@link tendermint.types.EvidenceList.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.EvidenceList
+             * @static
+             * @param {tendermint.types.IEvidenceList} message EvidenceList message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            EvidenceList.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.evidence != null && message.evidence.length)
+                    for (var i = 0; i < message.evidence.length; ++i)
+                        $root.tendermint.types.Evidence.encode(message.evidence[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified EvidenceList message, length delimited. Does not implicitly {@link tendermint.types.EvidenceList.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.EvidenceList
+             * @static
+             * @param {tendermint.types.IEvidenceList} message EvidenceList message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            EvidenceList.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes an EvidenceList message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.EvidenceList
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.EvidenceList} EvidenceList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            EvidenceList.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.EvidenceList();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        if (!(message.evidence && message.evidence.length))
+                            message.evidence = [];
+                        message.evidence.push($root.tendermint.types.Evidence.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes an EvidenceList message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.EvidenceList
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.EvidenceList} EvidenceList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            EvidenceList.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies an EvidenceList message.
+             * @function verify
+             * @memberof tendermint.types.EvidenceList
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            EvidenceList.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.evidence != null && message.hasOwnProperty("evidence")) {
+                    if (!Array.isArray(message.evidence))
+                        return "evidence: array expected";
+                    for (var i = 0; i < message.evidence.length; ++i) {
+                        var error = $root.tendermint.types.Evidence.verify(message.evidence[i]);
+                        if (error)
+                            return "evidence." + error;
+                    }
+                }
+                return null;
+            };
+
+            /**
+             * Creates an EvidenceList message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.EvidenceList
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.EvidenceList} EvidenceList
+             */
+            EvidenceList.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.EvidenceList)
+                    return object;
+                var message = new $root.tendermint.types.EvidenceList();
+                if (object.evidence) {
+                    if (!Array.isArray(object.evidence))
+                        throw TypeError(".tendermint.types.EvidenceList.evidence: array expected");
+                    message.evidence = [];
+                    for (var i = 0; i < object.evidence.length; ++i) {
+                        if (typeof object.evidence[i] !== "object")
+                            throw TypeError(".tendermint.types.EvidenceList.evidence: object expected");
+                        message.evidence[i] = $root.tendermint.types.Evidence.fromObject(object.evidence[i]);
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from an EvidenceList message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.EvidenceList
+             * @static
+             * @param {tendermint.types.EvidenceList} message EvidenceList
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            EvidenceList.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.evidence = [];
+                if (message.evidence && message.evidence.length) {
+                    object.evidence = [];
+                    for (var j = 0; j < message.evidence.length; ++j)
+                        object.evidence[j] = $root.tendermint.types.Evidence.toObject(message.evidence[j], options);
+                }
+                return object;
+            };
+
+            /**
+             * Converts this EvidenceList to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.EvidenceList
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            EvidenceList.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return EvidenceList;
+        })();
+
         types.ConsensusParams = (function() {
 
             /**
@@ -19989,6 +23457,9 @@ $root.tendermint = (function() {
              * @property {tendermint.types.IEvidenceParams|null} [evidence] ConsensusParams evidence
              * @property {tendermint.types.IValidatorParams|null} [validator] ConsensusParams validator
              * @property {tendermint.types.IVersionParams|null} [version] ConsensusParams version
+             * @property {tendermint.types.ISynchronyParams|null} [synchrony] ConsensusParams synchrony
+             * @property {tendermint.types.ITimeoutParams|null} [timeout] ConsensusParams timeout
+             * @property {tendermint.types.IABCIParams|null} [abci] ConsensusParams abci
              */
 
             /**
@@ -20039,6 +23510,30 @@ $root.tendermint = (function() {
             ConsensusParams.prototype.version = null;
 
             /**
+             * ConsensusParams synchrony.
+             * @member {tendermint.types.ISynchronyParams|null|undefined} synchrony
+             * @memberof tendermint.types.ConsensusParams
+             * @instance
+             */
+            ConsensusParams.prototype.synchrony = null;
+
+            /**
+             * ConsensusParams timeout.
+             * @member {tendermint.types.ITimeoutParams|null|undefined} timeout
+             * @memberof tendermint.types.ConsensusParams
+             * @instance
+             */
+            ConsensusParams.prototype.timeout = null;
+
+            /**
+             * ConsensusParams abci.
+             * @member {tendermint.types.IABCIParams|null|undefined} abci
+             * @memberof tendermint.types.ConsensusParams
+             * @instance
+             */
+            ConsensusParams.prototype.abci = null;
+
+            /**
              * Creates a new ConsensusParams instance using the specified properties.
              * @function create
              * @memberof tendermint.types.ConsensusParams
@@ -20070,6 +23565,12 @@ $root.tendermint = (function() {
                     $root.tendermint.types.ValidatorParams.encode(message.validator, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.version != null && Object.hasOwnProperty.call(message, "version"))
                     $root.tendermint.types.VersionParams.encode(message.version, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.synchrony != null && Object.hasOwnProperty.call(message, "synchrony"))
+                    $root.tendermint.types.SynchronyParams.encode(message.synchrony, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                if (message.timeout != null && Object.hasOwnProperty.call(message, "timeout"))
+                    $root.tendermint.types.TimeoutParams.encode(message.timeout, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                if (message.abci != null && Object.hasOwnProperty.call(message, "abci"))
+                    $root.tendermint.types.ABCIParams.encode(message.abci, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 return writer;
             };
 
@@ -20115,6 +23616,15 @@ $root.tendermint = (function() {
                         break;
                     case 4:
                         message.version = $root.tendermint.types.VersionParams.decode(reader, reader.uint32());
+                        break;
+                    case 5:
+                        message.synchrony = $root.tendermint.types.SynchronyParams.decode(reader, reader.uint32());
+                        break;
+                    case 6:
+                        message.timeout = $root.tendermint.types.TimeoutParams.decode(reader, reader.uint32());
+                        break;
+                    case 7:
+                        message.abci = $root.tendermint.types.ABCIParams.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -20171,6 +23681,21 @@ $root.tendermint = (function() {
                     if (error)
                         return "version." + error;
                 }
+                if (message.synchrony != null && message.hasOwnProperty("synchrony")) {
+                    var error = $root.tendermint.types.SynchronyParams.verify(message.synchrony);
+                    if (error)
+                        return "synchrony." + error;
+                }
+                if (message.timeout != null && message.hasOwnProperty("timeout")) {
+                    var error = $root.tendermint.types.TimeoutParams.verify(message.timeout);
+                    if (error)
+                        return "timeout." + error;
+                }
+                if (message.abci != null && message.hasOwnProperty("abci")) {
+                    var error = $root.tendermint.types.ABCIParams.verify(message.abci);
+                    if (error)
+                        return "abci." + error;
+                }
                 return null;
             };
 
@@ -20206,6 +23731,21 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.types.ConsensusParams.version: object expected");
                     message.version = $root.tendermint.types.VersionParams.fromObject(object.version);
                 }
+                if (object.synchrony != null) {
+                    if (typeof object.synchrony !== "object")
+                        throw TypeError(".tendermint.types.ConsensusParams.synchrony: object expected");
+                    message.synchrony = $root.tendermint.types.SynchronyParams.fromObject(object.synchrony);
+                }
+                if (object.timeout != null) {
+                    if (typeof object.timeout !== "object")
+                        throw TypeError(".tendermint.types.ConsensusParams.timeout: object expected");
+                    message.timeout = $root.tendermint.types.TimeoutParams.fromObject(object.timeout);
+                }
+                if (object.abci != null) {
+                    if (typeof object.abci !== "object")
+                        throw TypeError(".tendermint.types.ConsensusParams.abci: object expected");
+                    message.abci = $root.tendermint.types.ABCIParams.fromObject(object.abci);
+                }
                 return message;
             };
 
@@ -20227,6 +23767,9 @@ $root.tendermint = (function() {
                     object.evidence = null;
                     object.validator = null;
                     object.version = null;
+                    object.synchrony = null;
+                    object.timeout = null;
+                    object.abci = null;
                 }
                 if (message.block != null && message.hasOwnProperty("block"))
                     object.block = $root.tendermint.types.BlockParams.toObject(message.block, options);
@@ -20236,6 +23779,12 @@ $root.tendermint = (function() {
                     object.validator = $root.tendermint.types.ValidatorParams.toObject(message.validator, options);
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = $root.tendermint.types.VersionParams.toObject(message.version, options);
+                if (message.synchrony != null && message.hasOwnProperty("synchrony"))
+                    object.synchrony = $root.tendermint.types.SynchronyParams.toObject(message.synchrony, options);
+                if (message.timeout != null && message.hasOwnProperty("timeout"))
+                    object.timeout = $root.tendermint.types.TimeoutParams.toObject(message.timeout, options);
+                if (message.abci != null && message.hasOwnProperty("abci"))
+                    object.abci = $root.tendermint.types.ABCIParams.toObject(message.abci, options);
                 return object;
             };
 
@@ -20261,7 +23810,6 @@ $root.tendermint = (function() {
              * @interface IBlockParams
              * @property {number|Long|null} [maxBytes] BlockParams maxBytes
              * @property {number|Long|null} [maxGas] BlockParams maxGas
-             * @property {number|Long|null} [timeIotaMs] BlockParams timeIotaMs
              */
 
             /**
@@ -20296,14 +23844,6 @@ $root.tendermint = (function() {
             BlockParams.prototype.maxGas = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
             /**
-             * BlockParams timeIotaMs.
-             * @member {number|Long} timeIotaMs
-             * @memberof tendermint.types.BlockParams
-             * @instance
-             */
-            BlockParams.prototype.timeIotaMs = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
-
-            /**
              * Creates a new BlockParams instance using the specified properties.
              * @function create
              * @memberof tendermint.types.BlockParams
@@ -20331,8 +23871,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 1, wireType 0 =*/8).int64(message.maxBytes);
                 if (message.maxGas != null && Object.hasOwnProperty.call(message, "maxGas"))
                     writer.uint32(/* id 2, wireType 0 =*/16).int64(message.maxGas);
-                if (message.timeIotaMs != null && Object.hasOwnProperty.call(message, "timeIotaMs"))
-                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.timeIotaMs);
                 return writer;
             };
 
@@ -20372,9 +23910,6 @@ $root.tendermint = (function() {
                         break;
                     case 2:
                         message.maxGas = reader.int64();
-                        break;
-                    case 3:
-                        message.timeIotaMs = reader.int64();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -20417,9 +23952,6 @@ $root.tendermint = (function() {
                 if (message.maxGas != null && message.hasOwnProperty("maxGas"))
                     if (!$util.isInteger(message.maxGas) && !(message.maxGas && $util.isInteger(message.maxGas.low) && $util.isInteger(message.maxGas.high)))
                         return "maxGas: integer|Long expected";
-                if (message.timeIotaMs != null && message.hasOwnProperty("timeIotaMs"))
-                    if (!$util.isInteger(message.timeIotaMs) && !(message.timeIotaMs && $util.isInteger(message.timeIotaMs.low) && $util.isInteger(message.timeIotaMs.high)))
-                        return "timeIotaMs: integer|Long expected";
                 return null;
             };
 
@@ -20453,15 +23985,6 @@ $root.tendermint = (function() {
                         message.maxGas = object.maxGas;
                     else if (typeof object.maxGas === "object")
                         message.maxGas = new $util.LongBits(object.maxGas.low >>> 0, object.maxGas.high >>> 0).toNumber();
-                if (object.timeIotaMs != null)
-                    if ($util.Long)
-                        (message.timeIotaMs = $util.Long.fromValue(object.timeIotaMs)).unsigned = false;
-                    else if (typeof object.timeIotaMs === "string")
-                        message.timeIotaMs = parseInt(object.timeIotaMs, 10);
-                    else if (typeof object.timeIotaMs === "number")
-                        message.timeIotaMs = object.timeIotaMs;
-                    else if (typeof object.timeIotaMs === "object")
-                        message.timeIotaMs = new $util.LongBits(object.timeIotaMs.low >>> 0, object.timeIotaMs.high >>> 0).toNumber();
                 return message;
             };
 
@@ -20489,11 +24012,6 @@ $root.tendermint = (function() {
                         object.maxGas = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.maxGas = options.longs === String ? "0" : 0;
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, false);
-                        object.timeIotaMs = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.timeIotaMs = options.longs === String ? "0" : 0;
                 }
                 if (message.maxBytes != null && message.hasOwnProperty("maxBytes"))
                     if (typeof message.maxBytes === "number")
@@ -20505,11 +24023,6 @@ $root.tendermint = (function() {
                         object.maxGas = options.longs === String ? String(message.maxGas) : message.maxGas;
                     else
                         object.maxGas = options.longs === String ? $util.Long.prototype.toString.call(message.maxGas) : options.longs === Number ? new $util.LongBits(message.maxGas.low >>> 0, message.maxGas.high >>> 0).toNumber() : message.maxGas;
-                if (message.timeIotaMs != null && message.hasOwnProperty("timeIotaMs"))
-                    if (typeof message.timeIotaMs === "number")
-                        object.timeIotaMs = options.longs === String ? String(message.timeIotaMs) : message.timeIotaMs;
-                    else
-                        object.timeIotaMs = options.longs === String ? $util.Long.prototype.toString.call(message.timeIotaMs) : options.longs === Number ? new $util.LongBits(message.timeIotaMs.low >>> 0, message.timeIotaMs.high >>> 0).toNumber() : message.timeIotaMs;
                 return object;
             };
 
@@ -21434,6 +24947,736 @@ $root.tendermint = (function() {
             return HashedParams;
         })();
 
+        types.SynchronyParams = (function() {
+
+            /**
+             * Properties of a SynchronyParams.
+             * @memberof tendermint.types
+             * @interface ISynchronyParams
+             * @property {google.protobuf.IDuration|null} [messageDelay] SynchronyParams messageDelay
+             * @property {google.protobuf.IDuration|null} [precision] SynchronyParams precision
+             */
+
+            /**
+             * Constructs a new SynchronyParams.
+             * @memberof tendermint.types
+             * @classdesc Represents a SynchronyParams.
+             * @implements ISynchronyParams
+             * @constructor
+             * @param {tendermint.types.ISynchronyParams=} [properties] Properties to set
+             */
+            function SynchronyParams(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * SynchronyParams messageDelay.
+             * @member {google.protobuf.IDuration|null|undefined} messageDelay
+             * @memberof tendermint.types.SynchronyParams
+             * @instance
+             */
+            SynchronyParams.prototype.messageDelay = null;
+
+            /**
+             * SynchronyParams precision.
+             * @member {google.protobuf.IDuration|null|undefined} precision
+             * @memberof tendermint.types.SynchronyParams
+             * @instance
+             */
+            SynchronyParams.prototype.precision = null;
+
+            /**
+             * Creates a new SynchronyParams instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.SynchronyParams
+             * @static
+             * @param {tendermint.types.ISynchronyParams=} [properties] Properties to set
+             * @returns {tendermint.types.SynchronyParams} SynchronyParams instance
+             */
+            SynchronyParams.create = function create(properties) {
+                return new SynchronyParams(properties);
+            };
+
+            /**
+             * Encodes the specified SynchronyParams message. Does not implicitly {@link tendermint.types.SynchronyParams.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.SynchronyParams
+             * @static
+             * @param {tendermint.types.ISynchronyParams} message SynchronyParams message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            SynchronyParams.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.messageDelay != null && Object.hasOwnProperty.call(message, "messageDelay"))
+                    $root.google.protobuf.Duration.encode(message.messageDelay, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.precision != null && Object.hasOwnProperty.call(message, "precision"))
+                    $root.google.protobuf.Duration.encode(message.precision, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                return writer;
+            };
+
+            /**
+             * Encodes the specified SynchronyParams message, length delimited. Does not implicitly {@link tendermint.types.SynchronyParams.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.SynchronyParams
+             * @static
+             * @param {tendermint.types.ISynchronyParams} message SynchronyParams message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            SynchronyParams.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a SynchronyParams message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.SynchronyParams
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.SynchronyParams} SynchronyParams
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            SynchronyParams.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.SynchronyParams();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.messageDelay = $root.google.protobuf.Duration.decode(reader, reader.uint32());
+                        break;
+                    case 2:
+                        message.precision = $root.google.protobuf.Duration.decode(reader, reader.uint32());
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a SynchronyParams message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.SynchronyParams
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.SynchronyParams} SynchronyParams
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            SynchronyParams.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a SynchronyParams message.
+             * @function verify
+             * @memberof tendermint.types.SynchronyParams
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            SynchronyParams.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.messageDelay != null && message.hasOwnProperty("messageDelay")) {
+                    var error = $root.google.protobuf.Duration.verify(message.messageDelay);
+                    if (error)
+                        return "messageDelay." + error;
+                }
+                if (message.precision != null && message.hasOwnProperty("precision")) {
+                    var error = $root.google.protobuf.Duration.verify(message.precision);
+                    if (error)
+                        return "precision." + error;
+                }
+                return null;
+            };
+
+            /**
+             * Creates a SynchronyParams message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.SynchronyParams
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.SynchronyParams} SynchronyParams
+             */
+            SynchronyParams.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.SynchronyParams)
+                    return object;
+                var message = new $root.tendermint.types.SynchronyParams();
+                if (object.messageDelay != null) {
+                    if (typeof object.messageDelay !== "object")
+                        throw TypeError(".tendermint.types.SynchronyParams.messageDelay: object expected");
+                    message.messageDelay = $root.google.protobuf.Duration.fromObject(object.messageDelay);
+                }
+                if (object.precision != null) {
+                    if (typeof object.precision !== "object")
+                        throw TypeError(".tendermint.types.SynchronyParams.precision: object expected");
+                    message.precision = $root.google.protobuf.Duration.fromObject(object.precision);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a SynchronyParams message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.SynchronyParams
+             * @static
+             * @param {tendermint.types.SynchronyParams} message SynchronyParams
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            SynchronyParams.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.messageDelay = null;
+                    object.precision = null;
+                }
+                if (message.messageDelay != null && message.hasOwnProperty("messageDelay"))
+                    object.messageDelay = $root.google.protobuf.Duration.toObject(message.messageDelay, options);
+                if (message.precision != null && message.hasOwnProperty("precision"))
+                    object.precision = $root.google.protobuf.Duration.toObject(message.precision, options);
+                return object;
+            };
+
+            /**
+             * Converts this SynchronyParams to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.SynchronyParams
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            SynchronyParams.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return SynchronyParams;
+        })();
+
+        types.TimeoutParams = (function() {
+
+            /**
+             * Properties of a TimeoutParams.
+             * @memberof tendermint.types
+             * @interface ITimeoutParams
+             * @property {google.protobuf.IDuration|null} [propose] TimeoutParams propose
+             * @property {google.protobuf.IDuration|null} [proposeDelta] TimeoutParams proposeDelta
+             * @property {google.protobuf.IDuration|null} [vote] TimeoutParams vote
+             * @property {google.protobuf.IDuration|null} [voteDelta] TimeoutParams voteDelta
+             * @property {google.protobuf.IDuration|null} [commit] TimeoutParams commit
+             * @property {boolean|null} [bypassCommitTimeout] TimeoutParams bypassCommitTimeout
+             */
+
+            /**
+             * Constructs a new TimeoutParams.
+             * @memberof tendermint.types
+             * @classdesc Represents a TimeoutParams.
+             * @implements ITimeoutParams
+             * @constructor
+             * @param {tendermint.types.ITimeoutParams=} [properties] Properties to set
+             */
+            function TimeoutParams(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * TimeoutParams propose.
+             * @member {google.protobuf.IDuration|null|undefined} propose
+             * @memberof tendermint.types.TimeoutParams
+             * @instance
+             */
+            TimeoutParams.prototype.propose = null;
+
+            /**
+             * TimeoutParams proposeDelta.
+             * @member {google.protobuf.IDuration|null|undefined} proposeDelta
+             * @memberof tendermint.types.TimeoutParams
+             * @instance
+             */
+            TimeoutParams.prototype.proposeDelta = null;
+
+            /**
+             * TimeoutParams vote.
+             * @member {google.protobuf.IDuration|null|undefined} vote
+             * @memberof tendermint.types.TimeoutParams
+             * @instance
+             */
+            TimeoutParams.prototype.vote = null;
+
+            /**
+             * TimeoutParams voteDelta.
+             * @member {google.protobuf.IDuration|null|undefined} voteDelta
+             * @memberof tendermint.types.TimeoutParams
+             * @instance
+             */
+            TimeoutParams.prototype.voteDelta = null;
+
+            /**
+             * TimeoutParams commit.
+             * @member {google.protobuf.IDuration|null|undefined} commit
+             * @memberof tendermint.types.TimeoutParams
+             * @instance
+             */
+            TimeoutParams.prototype.commit = null;
+
+            /**
+             * TimeoutParams bypassCommitTimeout.
+             * @member {boolean} bypassCommitTimeout
+             * @memberof tendermint.types.TimeoutParams
+             * @instance
+             */
+            TimeoutParams.prototype.bypassCommitTimeout = false;
+
+            /**
+             * Creates a new TimeoutParams instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.TimeoutParams
+             * @static
+             * @param {tendermint.types.ITimeoutParams=} [properties] Properties to set
+             * @returns {tendermint.types.TimeoutParams} TimeoutParams instance
+             */
+            TimeoutParams.create = function create(properties) {
+                return new TimeoutParams(properties);
+            };
+
+            /**
+             * Encodes the specified TimeoutParams message. Does not implicitly {@link tendermint.types.TimeoutParams.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.TimeoutParams
+             * @static
+             * @param {tendermint.types.ITimeoutParams} message TimeoutParams message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            TimeoutParams.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.propose != null && Object.hasOwnProperty.call(message, "propose"))
+                    $root.google.protobuf.Duration.encode(message.propose, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.proposeDelta != null && Object.hasOwnProperty.call(message, "proposeDelta"))
+                    $root.google.protobuf.Duration.encode(message.proposeDelta, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.vote != null && Object.hasOwnProperty.call(message, "vote"))
+                    $root.google.protobuf.Duration.encode(message.vote, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.voteDelta != null && Object.hasOwnProperty.call(message, "voteDelta"))
+                    $root.google.protobuf.Duration.encode(message.voteDelta, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.commit != null && Object.hasOwnProperty.call(message, "commit"))
+                    $root.google.protobuf.Duration.encode(message.commit, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                if (message.bypassCommitTimeout != null && Object.hasOwnProperty.call(message, "bypassCommitTimeout"))
+                    writer.uint32(/* id 6, wireType 0 =*/48).bool(message.bypassCommitTimeout);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified TimeoutParams message, length delimited. Does not implicitly {@link tendermint.types.TimeoutParams.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.TimeoutParams
+             * @static
+             * @param {tendermint.types.ITimeoutParams} message TimeoutParams message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            TimeoutParams.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a TimeoutParams message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.TimeoutParams
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.TimeoutParams} TimeoutParams
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            TimeoutParams.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.TimeoutParams();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        message.propose = $root.google.protobuf.Duration.decode(reader, reader.uint32());
+                        break;
+                    case 2:
+                        message.proposeDelta = $root.google.protobuf.Duration.decode(reader, reader.uint32());
+                        break;
+                    case 3:
+                        message.vote = $root.google.protobuf.Duration.decode(reader, reader.uint32());
+                        break;
+                    case 4:
+                        message.voteDelta = $root.google.protobuf.Duration.decode(reader, reader.uint32());
+                        break;
+                    case 5:
+                        message.commit = $root.google.protobuf.Duration.decode(reader, reader.uint32());
+                        break;
+                    case 6:
+                        message.bypassCommitTimeout = reader.bool();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a TimeoutParams message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.TimeoutParams
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.TimeoutParams} TimeoutParams
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            TimeoutParams.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a TimeoutParams message.
+             * @function verify
+             * @memberof tendermint.types.TimeoutParams
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            TimeoutParams.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.propose != null && message.hasOwnProperty("propose")) {
+                    var error = $root.google.protobuf.Duration.verify(message.propose);
+                    if (error)
+                        return "propose." + error;
+                }
+                if (message.proposeDelta != null && message.hasOwnProperty("proposeDelta")) {
+                    var error = $root.google.protobuf.Duration.verify(message.proposeDelta);
+                    if (error)
+                        return "proposeDelta." + error;
+                }
+                if (message.vote != null && message.hasOwnProperty("vote")) {
+                    var error = $root.google.protobuf.Duration.verify(message.vote);
+                    if (error)
+                        return "vote." + error;
+                }
+                if (message.voteDelta != null && message.hasOwnProperty("voteDelta")) {
+                    var error = $root.google.protobuf.Duration.verify(message.voteDelta);
+                    if (error)
+                        return "voteDelta." + error;
+                }
+                if (message.commit != null && message.hasOwnProperty("commit")) {
+                    var error = $root.google.protobuf.Duration.verify(message.commit);
+                    if (error)
+                        return "commit." + error;
+                }
+                if (message.bypassCommitTimeout != null && message.hasOwnProperty("bypassCommitTimeout"))
+                    if (typeof message.bypassCommitTimeout !== "boolean")
+                        return "bypassCommitTimeout: boolean expected";
+                return null;
+            };
+
+            /**
+             * Creates a TimeoutParams message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.TimeoutParams
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.TimeoutParams} TimeoutParams
+             */
+            TimeoutParams.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.TimeoutParams)
+                    return object;
+                var message = new $root.tendermint.types.TimeoutParams();
+                if (object.propose != null) {
+                    if (typeof object.propose !== "object")
+                        throw TypeError(".tendermint.types.TimeoutParams.propose: object expected");
+                    message.propose = $root.google.protobuf.Duration.fromObject(object.propose);
+                }
+                if (object.proposeDelta != null) {
+                    if (typeof object.proposeDelta !== "object")
+                        throw TypeError(".tendermint.types.TimeoutParams.proposeDelta: object expected");
+                    message.proposeDelta = $root.google.protobuf.Duration.fromObject(object.proposeDelta);
+                }
+                if (object.vote != null) {
+                    if (typeof object.vote !== "object")
+                        throw TypeError(".tendermint.types.TimeoutParams.vote: object expected");
+                    message.vote = $root.google.protobuf.Duration.fromObject(object.vote);
+                }
+                if (object.voteDelta != null) {
+                    if (typeof object.voteDelta !== "object")
+                        throw TypeError(".tendermint.types.TimeoutParams.voteDelta: object expected");
+                    message.voteDelta = $root.google.protobuf.Duration.fromObject(object.voteDelta);
+                }
+                if (object.commit != null) {
+                    if (typeof object.commit !== "object")
+                        throw TypeError(".tendermint.types.TimeoutParams.commit: object expected");
+                    message.commit = $root.google.protobuf.Duration.fromObject(object.commit);
+                }
+                if (object.bypassCommitTimeout != null)
+                    message.bypassCommitTimeout = Boolean(object.bypassCommitTimeout);
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a TimeoutParams message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.TimeoutParams
+             * @static
+             * @param {tendermint.types.TimeoutParams} message TimeoutParams
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            TimeoutParams.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.propose = null;
+                    object.proposeDelta = null;
+                    object.vote = null;
+                    object.voteDelta = null;
+                    object.commit = null;
+                    object.bypassCommitTimeout = false;
+                }
+                if (message.propose != null && message.hasOwnProperty("propose"))
+                    object.propose = $root.google.protobuf.Duration.toObject(message.propose, options);
+                if (message.proposeDelta != null && message.hasOwnProperty("proposeDelta"))
+                    object.proposeDelta = $root.google.protobuf.Duration.toObject(message.proposeDelta, options);
+                if (message.vote != null && message.hasOwnProperty("vote"))
+                    object.vote = $root.google.protobuf.Duration.toObject(message.vote, options);
+                if (message.voteDelta != null && message.hasOwnProperty("voteDelta"))
+                    object.voteDelta = $root.google.protobuf.Duration.toObject(message.voteDelta, options);
+                if (message.commit != null && message.hasOwnProperty("commit"))
+                    object.commit = $root.google.protobuf.Duration.toObject(message.commit, options);
+                if (message.bypassCommitTimeout != null && message.hasOwnProperty("bypassCommitTimeout"))
+                    object.bypassCommitTimeout = message.bypassCommitTimeout;
+                return object;
+            };
+
+            /**
+             * Converts this TimeoutParams to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.TimeoutParams
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            TimeoutParams.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return TimeoutParams;
+        })();
+
+        types.ABCIParams = (function() {
+
+            /**
+             * Properties of a ABCIParams.
+             * @memberof tendermint.types
+             * @interface IABCIParams
+             * @property {boolean|null} [recheckTx] ABCIParams recheckTx
+             */
+
+            /**
+             * Constructs a new ABCIParams.
+             * @memberof tendermint.types
+             * @classdesc Represents a ABCIParams.
+             * @implements IABCIParams
+             * @constructor
+             * @param {tendermint.types.IABCIParams=} [properties] Properties to set
+             */
+            function ABCIParams(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * ABCIParams recheckTx.
+             * @member {boolean} recheckTx
+             * @memberof tendermint.types.ABCIParams
+             * @instance
+             */
+            ABCIParams.prototype.recheckTx = false;
+
+            /**
+             * Creates a new ABCIParams instance using the specified properties.
+             * @function create
+             * @memberof tendermint.types.ABCIParams
+             * @static
+             * @param {tendermint.types.IABCIParams=} [properties] Properties to set
+             * @returns {tendermint.types.ABCIParams} ABCIParams instance
+             */
+            ABCIParams.create = function create(properties) {
+                return new ABCIParams(properties);
+            };
+
+            /**
+             * Encodes the specified ABCIParams message. Does not implicitly {@link tendermint.types.ABCIParams.verify|verify} messages.
+             * @function encode
+             * @memberof tendermint.types.ABCIParams
+             * @static
+             * @param {tendermint.types.IABCIParams} message ABCIParams message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ABCIParams.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.recheckTx != null && Object.hasOwnProperty.call(message, "recheckTx"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).bool(message.recheckTx);
+                return writer;
+            };
+
+            /**
+             * Encodes the specified ABCIParams message, length delimited. Does not implicitly {@link tendermint.types.ABCIParams.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof tendermint.types.ABCIParams
+             * @static
+             * @param {tendermint.types.IABCIParams} message ABCIParams message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ABCIParams.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+
+            /**
+             * Decodes a ABCIParams message from the specified reader or buffer.
+             * @function decode
+             * @memberof tendermint.types.ABCIParams
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {tendermint.types.ABCIParams} ABCIParams
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ABCIParams.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.types.ABCIParams();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 2:
+                        message.recheckTx = reader.bool();
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a ABCIParams message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof tendermint.types.ABCIParams
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {tendermint.types.ABCIParams} ABCIParams
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ABCIParams.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a ABCIParams message.
+             * @function verify
+             * @memberof tendermint.types.ABCIParams
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ABCIParams.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.recheckTx != null && message.hasOwnProperty("recheckTx"))
+                    if (typeof message.recheckTx !== "boolean")
+                        return "recheckTx: boolean expected";
+                return null;
+            };
+
+            /**
+             * Creates a ABCIParams message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof tendermint.types.ABCIParams
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {tendermint.types.ABCIParams} ABCIParams
+             */
+            ABCIParams.fromObject = function fromObject(object) {
+                if (object instanceof $root.tendermint.types.ABCIParams)
+                    return object;
+                var message = new $root.tendermint.types.ABCIParams();
+                if (object.recheckTx != null)
+                    message.recheckTx = Boolean(object.recheckTx);
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a ABCIParams message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof tendermint.types.ABCIParams
+             * @static
+             * @param {tendermint.types.ABCIParams} message ABCIParams
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ABCIParams.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults)
+                    object.recheckTx = false;
+                if (message.recheckTx != null && message.hasOwnProperty("recheckTx"))
+                    object.recheckTx = message.recheckTx;
+                return object;
+            };
+
+            /**
+             * Converts this ABCIParams to JSON.
+             * @function toJSON
+             * @memberof tendermint.types.ABCIParams
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ABCIParams.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            return ABCIParams;
+        })();
+
         return types;
     })();
 
@@ -21445,230 +25688,6 @@ $root.tendermint = (function() {
          * @namespace
          */
         var version = {};
-
-        version.App = (function() {
-
-            /**
-             * Properties of an App.
-             * @memberof tendermint.version
-             * @interface IApp
-             * @property {number|Long|null} [protocol] App protocol
-             * @property {string|null} [software] App software
-             */
-
-            /**
-             * Constructs a new App.
-             * @memberof tendermint.version
-             * @classdesc Represents an App.
-             * @implements IApp
-             * @constructor
-             * @param {tendermint.version.IApp=} [properties] Properties to set
-             */
-            function App(properties) {
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * App protocol.
-             * @member {number|Long} protocol
-             * @memberof tendermint.version.App
-             * @instance
-             */
-            App.prototype.protocol = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-            /**
-             * App software.
-             * @member {string} software
-             * @memberof tendermint.version.App
-             * @instance
-             */
-            App.prototype.software = "";
-
-            /**
-             * Creates a new App instance using the specified properties.
-             * @function create
-             * @memberof tendermint.version.App
-             * @static
-             * @param {tendermint.version.IApp=} [properties] Properties to set
-             * @returns {tendermint.version.App} App instance
-             */
-            App.create = function create(properties) {
-                return new App(properties);
-            };
-
-            /**
-             * Encodes the specified App message. Does not implicitly {@link tendermint.version.App.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.version.App
-             * @static
-             * @param {tendermint.version.IApp} message App message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            App.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.protocol != null && Object.hasOwnProperty.call(message, "protocol"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.protocol);
-                if (message.software != null && Object.hasOwnProperty.call(message, "software"))
-                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.software);
-                return writer;
-            };
-
-            /**
-             * Encodes the specified App message, length delimited. Does not implicitly {@link tendermint.version.App.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.version.App
-             * @static
-             * @param {tendermint.version.IApp} message App message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            App.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes an App message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.version.App
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.version.App} App
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            App.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.version.App();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.protocol = reader.uint64();
-                        break;
-                    case 2:
-                        message.software = reader.string();
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes an App message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.version.App
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.version.App} App
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            App.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies an App message.
-             * @function verify
-             * @memberof tendermint.version.App
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            App.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.protocol != null && message.hasOwnProperty("protocol"))
-                    if (!$util.isInteger(message.protocol) && !(message.protocol && $util.isInteger(message.protocol.low) && $util.isInteger(message.protocol.high)))
-                        return "protocol: integer|Long expected";
-                if (message.software != null && message.hasOwnProperty("software"))
-                    if (!$util.isString(message.software))
-                        return "software: string expected";
-                return null;
-            };
-
-            /**
-             * Creates an App message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.version.App
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.version.App} App
-             */
-            App.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.version.App)
-                    return object;
-                var message = new $root.tendermint.version.App();
-                if (object.protocol != null)
-                    if ($util.Long)
-                        (message.protocol = $util.Long.fromValue(object.protocol)).unsigned = true;
-                    else if (typeof object.protocol === "string")
-                        message.protocol = parseInt(object.protocol, 10);
-                    else if (typeof object.protocol === "number")
-                        message.protocol = object.protocol;
-                    else if (typeof object.protocol === "object")
-                        message.protocol = new $util.LongBits(object.protocol.low >>> 0, object.protocol.high >>> 0).toNumber(true);
-                if (object.software != null)
-                    message.software = String(object.software);
-                return message;
-            };
-
-            /**
-             * Creates a plain object from an App message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.version.App
-             * @static
-             * @param {tendermint.version.App} message App
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            App.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.defaults) {
-                    if ($util.Long) {
-                        var long = new $util.Long(0, 0, true);
-                        object.protocol = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                    } else
-                        object.protocol = options.longs === String ? "0" : 0;
-                    object.software = "";
-                }
-                if (message.protocol != null && message.hasOwnProperty("protocol"))
-                    if (typeof message.protocol === "number")
-                        object.protocol = options.longs === String ? String(message.protocol) : message.protocol;
-                    else
-                        object.protocol = options.longs === String ? $util.Long.prototype.toString.call(message.protocol) : options.longs === Number ? new $util.LongBits(message.protocol.low >>> 0, message.protocol.high >>> 0).toNumber(true) : message.protocol;
-                if (message.software != null && message.hasOwnProperty("software"))
-                    object.software = message.software;
-                return object;
-            };
-
-            /**
-             * Converts this App to JSON.
-             * @function toJSON
-             * @memberof tendermint.version.App
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            App.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return App;
-        })();
 
         version.Consensus = (function() {
 

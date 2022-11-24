@@ -1,6 +1,6 @@
 {
   "name": "@dashevo/abci",
-  "version": "0.20.0",
+  "version": "0.24.0-dev.1",
   "description": "Tenderdash ABCI server",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "bl": "^1.2.3",
-    "protobufjs": "github:jawid-h/protobuf.js#fix/buffer-conversion",
+    "@dashevo/protobufjs": "6.10.5",
     "protocol-buffers-encodings": "^1.1.0"
   },
   "devDependencies": {
@@ -35,7 +35,8 @@
     "sinon": "^9.2.4",
     "sinon-chai": "^3.5.0",
     "stream-mock": "^2.0.5",
-    "tendermint": "^5.0.2"
+    "tendermint": "^5.0.2",
+    "long": "^5.2.0"
   },
   "directories": {
     "example": "example",
