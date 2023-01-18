@@ -1194,7 +1194,7 @@ export namespace tendermint {
             txs?: (Uint8Array[]|null);
 
             /** RequestPrepareProposal localLastCommit */
-            localLastCommit?: (tendermint.abci.IExtendedCommitInfo|null);
+            localLastCommit?: (tendermint.abci.ICommitInfo|null);
 
             /** RequestPrepareProposal misbehavior */
             misbehavior?: (tendermint.abci.IMisbehavior[]|null);
@@ -1222,6 +1222,9 @@ export namespace tendermint {
 
             /** RequestPrepareProposal version */
             version?: (tendermint.version.IConsensus|null);
+
+            /** RequestPrepareProposal quorumHash */
+            quorumHash?: (Uint8Array|null);
         }
 
         /** Represents a RequestPrepareProposal. */
@@ -1240,7 +1243,7 @@ export namespace tendermint {
             public txs: Uint8Array[];
 
             /** RequestPrepareProposal localLastCommit. */
-            public localLastCommit?: (tendermint.abci.IExtendedCommitInfo|null);
+            public localLastCommit?: (tendermint.abci.ICommitInfo|null);
 
             /** RequestPrepareProposal misbehavior. */
             public misbehavior: tendermint.abci.IMisbehavior[];
@@ -1268,6 +1271,9 @@ export namespace tendermint {
 
             /** RequestPrepareProposal version. */
             public version?: (tendermint.version.IConsensus|null);
+
+            /** RequestPrepareProposal quorumHash. */
+            public quorumHash: Uint8Array;
 
             /**
              * Creates a new RequestPrepareProposal instance using the specified properties.
@@ -1370,6 +1376,9 @@ export namespace tendermint {
             /** RequestProcessProposal coreChainLockedHeight */
             coreChainLockedHeight?: (number|null);
 
+            /** RequestProcessProposal coreChainLockUpdate */
+            coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
+
             /** RequestProcessProposal proposerProTxHash */
             proposerProTxHash?: (Uint8Array|null);
 
@@ -1379,8 +1388,8 @@ export namespace tendermint {
             /** RequestProcessProposal version */
             version?: (tendermint.version.IConsensus|null);
 
-            /** RequestProcessProposal coreChainLockUpdate */
-            coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
+            /** RequestProcessProposal quorumHash */
+            quorumHash?: (Uint8Array|null);
         }
 
         /** Represents a RequestProcessProposal. */
@@ -1419,6 +1428,9 @@ export namespace tendermint {
             /** RequestProcessProposal coreChainLockedHeight. */
             public coreChainLockedHeight: number;
 
+            /** RequestProcessProposal coreChainLockUpdate. */
+            public coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
+
             /** RequestProcessProposal proposerProTxHash. */
             public proposerProTxHash: Uint8Array;
 
@@ -1428,8 +1440,8 @@ export namespace tendermint {
             /** RequestProcessProposal version. */
             public version?: (tendermint.version.IConsensus|null);
 
-            /** RequestProcessProposal coreChainLockUpdate. */
-            public coreChainLockUpdate?: (tendermint.types.ICoreChainLock|null);
+            /** RequestProcessProposal quorumHash. */
+            public quorumHash: Uint8Array;
 
             /**
              * Creates a new RequestProcessProposal instance using the specified properties.
@@ -3921,114 +3933,6 @@ export namespace tendermint {
             public toJSON(): { [k: string]: any };
         }
 
-        /** Properties of an ExtendedCommitInfo. */
-        interface IExtendedCommitInfo {
-
-            /** ExtendedCommitInfo round */
-            round?: (number|null);
-
-            /** ExtendedCommitInfo quorumHash */
-            quorumHash?: (Uint8Array|null);
-
-            /** ExtendedCommitInfo blockSignature */
-            blockSignature?: (Uint8Array|null);
-
-            /** ExtendedCommitInfo thresholdVoteExtensions */
-            thresholdVoteExtensions?: (tendermint.types.IVoteExtension[]|null);
-        }
-
-        /** Represents an ExtendedCommitInfo. */
-        class ExtendedCommitInfo implements IExtendedCommitInfo {
-
-            /**
-             * Constructs a new ExtendedCommitInfo.
-             * @param [properties] Properties to set
-             */
-            constructor(properties?: tendermint.abci.IExtendedCommitInfo);
-
-            /** ExtendedCommitInfo round. */
-            public round: number;
-
-            /** ExtendedCommitInfo quorumHash. */
-            public quorumHash: Uint8Array;
-
-            /** ExtendedCommitInfo blockSignature. */
-            public blockSignature: Uint8Array;
-
-            /** ExtendedCommitInfo thresholdVoteExtensions. */
-            public thresholdVoteExtensions: tendermint.types.IVoteExtension[];
-
-            /**
-             * Creates a new ExtendedCommitInfo instance using the specified properties.
-             * @param [properties] Properties to set
-             * @returns ExtendedCommitInfo instance
-             */
-            public static create(properties?: tendermint.abci.IExtendedCommitInfo): tendermint.abci.ExtendedCommitInfo;
-
-            /**
-             * Encodes the specified ExtendedCommitInfo message. Does not implicitly {@link tendermint.abci.ExtendedCommitInfo.verify|verify} messages.
-             * @param message ExtendedCommitInfo message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encode(message: tendermint.abci.IExtendedCommitInfo, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Encodes the specified ExtendedCommitInfo message, length delimited. Does not implicitly {@link tendermint.abci.ExtendedCommitInfo.verify|verify} messages.
-             * @param message ExtendedCommitInfo message or plain object to encode
-             * @param [writer] Writer to encode to
-             * @returns Writer
-             */
-            public static encodeDelimited(message: tendermint.abci.IExtendedCommitInfo, writer?: $protobuf.Writer): $protobuf.Writer;
-
-            /**
-             * Decodes an ExtendedCommitInfo message from the specified reader or buffer.
-             * @param reader Reader or buffer to decode from
-             * @param [length] Message length if known beforehand
-             * @returns ExtendedCommitInfo
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): tendermint.abci.ExtendedCommitInfo;
-
-            /**
-             * Decodes an ExtendedCommitInfo message from the specified reader or buffer, length delimited.
-             * @param reader Reader or buffer to decode from
-             * @returns ExtendedCommitInfo
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): tendermint.abci.ExtendedCommitInfo;
-
-            /**
-             * Verifies an ExtendedCommitInfo message.
-             * @param message Plain object to verify
-             * @returns `null` if valid, otherwise the reason why it is not
-             */
-            public static verify(message: { [k: string]: any }): (string|null);
-
-            /**
-             * Creates an ExtendedCommitInfo message from a plain object. Also converts values to their respective internal types.
-             * @param object Plain object
-             * @returns ExtendedCommitInfo
-             */
-            public static fromObject(object: { [k: string]: any }): tendermint.abci.ExtendedCommitInfo;
-
-            /**
-             * Creates a plain object from an ExtendedCommitInfo message. Also converts values to other types if specified.
-             * @param message ExtendedCommitInfo
-             * @param [options] Conversion options
-             * @returns Plain object
-             */
-            public static toObject(message: tendermint.abci.ExtendedCommitInfo, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-            /**
-             * Converts this ExtendedCommitInfo to JSON.
-             * @returns JSON object
-             */
-            public toJSON(): { [k: string]: any };
-        }
-
         /** Properties of an Event. */
         interface IEvent {
 
@@ -5396,9 +5300,6 @@ export namespace tendermint {
 
             /** Snapshot metadata */
             metadata?: (Uint8Array|null);
-
-            /** Snapshot coreChainLockedHeight */
-            coreChainLockedHeight?: (number|null);
         }
 
         /** Represents a Snapshot. */
@@ -5424,9 +5325,6 @@ export namespace tendermint {
 
             /** Snapshot metadata. */
             public metadata: Uint8Array;
-
-            /** Snapshot coreChainLockedHeight. */
-            public coreChainLockedHeight: number;
 
             /**
              * Creates a new Snapshot instance using the specified properties.
@@ -6668,14 +6566,14 @@ export namespace tendermint {
             /** Block data */
             data?: (tendermint.types.IData|null);
 
-            /** Block coreChainLock */
-            coreChainLock?: (tendermint.types.ICoreChainLock|null);
-
             /** Block evidence */
             evidence?: (tendermint.types.IEvidenceList|null);
 
             /** Block lastCommit */
             lastCommit?: (tendermint.types.ICommit|null);
+
+            /** Block coreChainLock */
+            coreChainLock?: (tendermint.types.ICoreChainLock|null);
         }
 
         /** Represents a Block. */
@@ -6693,14 +6591,14 @@ export namespace tendermint {
             /** Block data. */
             public data?: (tendermint.types.IData|null);
 
-            /** Block coreChainLock. */
-            public coreChainLock?: (tendermint.types.ICoreChainLock|null);
-
             /** Block evidence. */
             public evidence?: (tendermint.types.IEvidenceList|null);
 
             /** Block lastCommit. */
             public lastCommit?: (tendermint.types.ICommit|null);
+
+            /** Block coreChainLock. */
+            public coreChainLock?: (tendermint.types.ICoreChainLock|null);
 
             /**
              * Creates a new Block instance using the specified properties.
@@ -7216,9 +7114,6 @@ export namespace tendermint {
             /** Header height */
             height?: (number|Long|null);
 
-            /** Header coreChainLockedHeight */
-            coreChainLockedHeight?: (number|null);
-
             /** Header time */
             time?: (google.protobuf.ITimestamp|null);
 
@@ -7240,6 +7135,9 @@ export namespace tendermint {
             /** Header consensusHash */
             consensusHash?: (Uint8Array|null);
 
+            /** Header nextConsensusHash */
+            nextConsensusHash?: (Uint8Array|null);
+
             /** Header appHash */
             appHash?: (Uint8Array|null);
 
@@ -7249,11 +7147,14 @@ export namespace tendermint {
             /** Header evidenceHash */
             evidenceHash?: (Uint8Array|null);
 
+            /** Header proposedAppVersion */
+            proposedAppVersion?: (number|Long|null);
+
             /** Header proposerProTxHash */
             proposerProTxHash?: (Uint8Array|null);
 
-            /** Header proposedAppVersion */
-            proposedAppVersion?: (number|Long|null);
+            /** Header coreChainLockedHeight */
+            coreChainLockedHeight?: (number|null);
         }
 
         /** Represents a Header. */
@@ -7273,9 +7174,6 @@ export namespace tendermint {
 
             /** Header height. */
             public height: (number|Long);
-
-            /** Header coreChainLockedHeight. */
-            public coreChainLockedHeight: number;
 
             /** Header time. */
             public time?: (google.protobuf.ITimestamp|null);
@@ -7298,6 +7196,9 @@ export namespace tendermint {
             /** Header consensusHash. */
             public consensusHash: Uint8Array;
 
+            /** Header nextConsensusHash. */
+            public nextConsensusHash: Uint8Array;
+
             /** Header appHash. */
             public appHash: Uint8Array;
 
@@ -7307,11 +7208,14 @@ export namespace tendermint {
             /** Header evidenceHash. */
             public evidenceHash: Uint8Array;
 
+            /** Header proposedAppVersion. */
+            public proposedAppVersion: (number|Long);
+
             /** Header proposerProTxHash. */
             public proposerProTxHash: Uint8Array;
 
-            /** Header proposedAppVersion. */
-            public proposedAppVersion: (number|Long);
+            /** Header coreChainLockedHeight. */
+            public coreChainLockedHeight: number;
 
             /**
              * Creates a new Header instance using the specified properties.
