@@ -21,7 +21,7 @@ message DuplicateVoteEvidence {
   int64                     total_voting_power = 3;
   int64                     validator_power    = 4;
   google.protobuf.Timestamp timestamp          = 5
-  [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+      [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
 }
 
 message EvidenceList {
