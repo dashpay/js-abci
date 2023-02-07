@@ -3103,7 +3103,7 @@ $root.tendermint = (function() {
              * @interface IRequestPrepareProposal
              * @property {number|Long|null} [maxTxBytes] RequestPrepareProposal maxTxBytes
              * @property {Array.<Uint8Array>|null} [txs] RequestPrepareProposal txs
-             * @property {tendermint.abci.IExtendedCommitInfo|null} [localLastCommit] RequestPrepareProposal localLastCommit
+             * @property {tendermint.abci.ICommitInfo|null} [localLastCommit] RequestPrepareProposal localLastCommit
              * @property {Array.<tendermint.abci.IMisbehavior>|null} [misbehavior] RequestPrepareProposal misbehavior
              * @property {number|Long|null} [height] RequestPrepareProposal height
              * @property {google.protobuf.ITimestamp|null} [time] RequestPrepareProposal time
@@ -3113,6 +3113,7 @@ $root.tendermint = (function() {
              * @property {Uint8Array|null} [proposerProTxHash] RequestPrepareProposal proposerProTxHash
              * @property {number|Long|null} [proposedAppVersion] RequestPrepareProposal proposedAppVersion
              * @property {tendermint.version.IConsensus|null} [version] RequestPrepareProposal version
+             * @property {Uint8Array|null} [quorumHash] RequestPrepareProposal quorumHash
              */
 
             /**
@@ -3150,7 +3151,7 @@ $root.tendermint = (function() {
 
             /**
              * RequestPrepareProposal localLastCommit.
-             * @member {tendermint.abci.IExtendedCommitInfo|null|undefined} localLastCommit
+             * @member {tendermint.abci.ICommitInfo|null|undefined} localLastCommit
              * @memberof tendermint.abci.RequestPrepareProposal
              * @instance
              */
@@ -3229,6 +3230,14 @@ $root.tendermint = (function() {
             RequestPrepareProposal.prototype.version = null;
 
             /**
+             * RequestPrepareProposal quorumHash.
+             * @member {Uint8Array} quorumHash
+             * @memberof tendermint.abci.RequestPrepareProposal
+             * @instance
+             */
+            RequestPrepareProposal.prototype.quorumHash = $util.newBuffer([]);
+
+            /**
              * Creates a new RequestPrepareProposal instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.RequestPrepareProposal
@@ -3258,7 +3267,7 @@ $root.tendermint = (function() {
                     for (var i = 0; i < message.txs.length; ++i)
                         writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.txs[i]);
                 if (message.localLastCommit != null && Object.hasOwnProperty.call(message, "localLastCommit"))
-                    $root.tendermint.abci.ExtendedCommitInfo.encode(message.localLastCommit, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.tendermint.abci.CommitInfo.encode(message.localLastCommit, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.misbehavior != null && message.misbehavior.length)
                     for (var i = 0; i < message.misbehavior.length; ++i)
                         $root.tendermint.abci.Misbehavior.encode(message.misbehavior[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
@@ -3271,13 +3280,15 @@ $root.tendermint = (function() {
                 if (message.round != null && Object.hasOwnProperty.call(message, "round"))
                     writer.uint32(/* id 8, wireType 0 =*/64).int32(message.round);
                 if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
-                    writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
+                    writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.coreChainLockedHeight);
                 if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
-                    writer.uint32(/* id 101, wireType 2 =*/810).bytes(message.proposerProTxHash);
+                    writer.uint32(/* id 10, wireType 2 =*/82).bytes(message.proposerProTxHash);
                 if (message.proposedAppVersion != null && Object.hasOwnProperty.call(message, "proposedAppVersion"))
-                    writer.uint32(/* id 102, wireType 0 =*/816).uint64(message.proposedAppVersion);
+                    writer.uint32(/* id 11, wireType 0 =*/88).uint64(message.proposedAppVersion);
                 if (message.version != null && Object.hasOwnProperty.call(message, "version"))
-                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 103, wireType 2 =*/826).fork()).ldelim();
+                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+                if (message.quorumHash != null && Object.hasOwnProperty.call(message, "quorumHash"))
+                    writer.uint32(/* id 13, wireType 2 =*/106).bytes(message.quorumHash);
                 return writer;
             };
 
@@ -3321,7 +3332,7 @@ $root.tendermint = (function() {
                         message.txs.push(reader.bytes());
                         break;
                     case 3:
-                        message.localLastCommit = $root.tendermint.abci.ExtendedCommitInfo.decode(reader, reader.uint32());
+                        message.localLastCommit = $root.tendermint.abci.CommitInfo.decode(reader, reader.uint32());
                         break;
                     case 4:
                         if (!(message.misbehavior && message.misbehavior.length))
@@ -3340,17 +3351,20 @@ $root.tendermint = (function() {
                     case 8:
                         message.round = reader.int32();
                         break;
-                    case 100:
+                    case 9:
                         message.coreChainLockedHeight = reader.uint32();
                         break;
-                    case 101:
+                    case 10:
                         message.proposerProTxHash = reader.bytes();
                         break;
-                    case 102:
+                    case 11:
                         message.proposedAppVersion = reader.uint64();
                         break;
-                    case 103:
+                    case 12:
                         message.version = $root.tendermint.version.Consensus.decode(reader, reader.uint32());
+                        break;
+                    case 13:
+                        message.quorumHash = reader.bytes();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -3398,7 +3412,7 @@ $root.tendermint = (function() {
                             return "txs: buffer[] expected";
                 }
                 if (message.localLastCommit != null && message.hasOwnProperty("localLastCommit")) {
-                    var error = $root.tendermint.abci.ExtendedCommitInfo.verify(message.localLastCommit);
+                    var error = $root.tendermint.abci.CommitInfo.verify(message.localLastCommit);
                     if (error)
                         return "localLastCommit." + error;
                 }
@@ -3439,6 +3453,9 @@ $root.tendermint = (function() {
                     if (error)
                         return "version." + error;
                 }
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    if (!(message.quorumHash && typeof message.quorumHash.length === "number" || $util.isString(message.quorumHash)))
+                        return "quorumHash: buffer expected";
                 return null;
             };
 
@@ -3476,7 +3493,7 @@ $root.tendermint = (function() {
                 if (object.localLastCommit != null) {
                     if (typeof object.localLastCommit !== "object")
                         throw TypeError(".tendermint.abci.RequestPrepareProposal.localLastCommit: object expected");
-                    message.localLastCommit = $root.tendermint.abci.ExtendedCommitInfo.fromObject(object.localLastCommit);
+                    message.localLastCommit = $root.tendermint.abci.CommitInfo.fromObject(object.localLastCommit);
                 }
                 if (object.misbehavior) {
                     if (!Array.isArray(object.misbehavior))
@@ -3530,6 +3547,11 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.RequestPrepareProposal.version: object expected");
                     message.version = $root.tendermint.version.Consensus.fromObject(object.version);
                 }
+                if (object.quorumHash != null)
+                    if (typeof object.quorumHash === "string")
+                        $util.base64.decode(object.quorumHash, message.quorumHash = $util.newBuffer($util.base64.length(object.quorumHash)), 0);
+                    else if (object.quorumHash.length >= 0)
+                        message.quorumHash = object.quorumHash;
                 return message;
             };
 
@@ -3585,6 +3607,13 @@ $root.tendermint = (function() {
                     } else
                         object.proposedAppVersion = options.longs === String ? "0" : 0;
                     object.version = null;
+                    if (options.bytes === String)
+                        object.quorumHash = "";
+                    else {
+                        object.quorumHash = [];
+                        if (options.bytes !== Array)
+                            object.quorumHash = $util.newBuffer(object.quorumHash);
+                    }
                 }
                 if (message.maxTxBytes != null && message.hasOwnProperty("maxTxBytes"))
                     if (typeof message.maxTxBytes === "number")
@@ -3597,7 +3626,7 @@ $root.tendermint = (function() {
                         object.txs[j] = options.bytes === String ? $util.base64.encode(message.txs[j], 0, message.txs[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.txs[j]) : message.txs[j];
                 }
                 if (message.localLastCommit != null && message.hasOwnProperty("localLastCommit"))
-                    object.localLastCommit = $root.tendermint.abci.ExtendedCommitInfo.toObject(message.localLastCommit, options);
+                    object.localLastCommit = $root.tendermint.abci.CommitInfo.toObject(message.localLastCommit, options);
                 if (message.misbehavior && message.misbehavior.length) {
                     object.misbehavior = [];
                     for (var j = 0; j < message.misbehavior.length; ++j)
@@ -3625,6 +3654,8 @@ $root.tendermint = (function() {
                         object.proposedAppVersion = options.longs === String ? $util.Long.prototype.toString.call(message.proposedAppVersion) : options.longs === Number ? new $util.LongBits(message.proposedAppVersion.low >>> 0, message.proposedAppVersion.high >>> 0).toNumber(true) : message.proposedAppVersion;
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = $root.tendermint.version.Consensus.toObject(message.version, options);
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 return object;
             };
 
@@ -3657,10 +3688,11 @@ $root.tendermint = (function() {
              * @property {google.protobuf.ITimestamp|null} [time] RequestProcessProposal time
              * @property {Uint8Array|null} [nextValidatorsHash] RequestProcessProposal nextValidatorsHash
              * @property {number|null} [coreChainLockedHeight] RequestProcessProposal coreChainLockedHeight
+             * @property {tendermint.types.ICoreChainLock|null} [coreChainLockUpdate] RequestProcessProposal coreChainLockUpdate
              * @property {Uint8Array|null} [proposerProTxHash] RequestProcessProposal proposerProTxHash
              * @property {number|Long|null} [proposedAppVersion] RequestProcessProposal proposedAppVersion
              * @property {tendermint.version.IConsensus|null} [version] RequestProcessProposal version
-             * @property {tendermint.types.ICoreChainLock|null} [coreChainLockUpdate] RequestProcessProposal coreChainLockUpdate
+             * @property {Uint8Array|null} [quorumHash] RequestProcessProposal quorumHash
              */
 
             /**
@@ -3753,6 +3785,14 @@ $root.tendermint = (function() {
             RequestProcessProposal.prototype.coreChainLockedHeight = 0;
 
             /**
+             * RequestProcessProposal coreChainLockUpdate.
+             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLockUpdate
+             * @memberof tendermint.abci.RequestProcessProposal
+             * @instance
+             */
+            RequestProcessProposal.prototype.coreChainLockUpdate = null;
+
+            /**
              * RequestProcessProposal proposerProTxHash.
              * @member {Uint8Array} proposerProTxHash
              * @memberof tendermint.abci.RequestProcessProposal
@@ -3777,12 +3817,12 @@ $root.tendermint = (function() {
             RequestProcessProposal.prototype.version = null;
 
             /**
-             * RequestProcessProposal coreChainLockUpdate.
-             * @member {tendermint.types.ICoreChainLock|null|undefined} coreChainLockUpdate
+             * RequestProcessProposal quorumHash.
+             * @member {Uint8Array} quorumHash
              * @memberof tendermint.abci.RequestProcessProposal
              * @instance
              */
-            RequestProcessProposal.prototype.coreChainLockUpdate = null;
+            RequestProcessProposal.prototype.quorumHash = $util.newBuffer([]);
 
             /**
              * Creates a new RequestProcessProposal instance using the specified properties.
@@ -3820,22 +3860,24 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.hash);
                 if (message.height != null && Object.hasOwnProperty.call(message, "height"))
                     writer.uint32(/* id 5, wireType 0 =*/40).int64(message.height);
-                if (message.time != null && Object.hasOwnProperty.call(message, "time"))
-                    $root.google.protobuf.Timestamp.encode(message.time, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
-                if (message.nextValidatorsHash != null && Object.hasOwnProperty.call(message, "nextValidatorsHash"))
-                    writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.nextValidatorsHash);
                 if (message.round != null && Object.hasOwnProperty.call(message, "round"))
-                    writer.uint32(/* id 8, wireType 0 =*/64).int32(message.round);
+                    writer.uint32(/* id 6, wireType 0 =*/48).int32(message.round);
+                if (message.time != null && Object.hasOwnProperty.call(message, "time"))
+                    $root.google.protobuf.Timestamp.encode(message.time, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                if (message.nextValidatorsHash != null && Object.hasOwnProperty.call(message, "nextValidatorsHash"))
+                    writer.uint32(/* id 8, wireType 2 =*/66).bytes(message.nextValidatorsHash);
                 if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
-                    writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
-                if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
-                    writer.uint32(/* id 101, wireType 2 =*/810).bytes(message.proposerProTxHash);
-                if (message.proposedAppVersion != null && Object.hasOwnProperty.call(message, "proposedAppVersion"))
-                    writer.uint32(/* id 102, wireType 0 =*/816).uint64(message.proposedAppVersion);
-                if (message.version != null && Object.hasOwnProperty.call(message, "version"))
-                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 103, wireType 2 =*/826).fork()).ldelim();
+                    writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.coreChainLockedHeight);
                 if (message.coreChainLockUpdate != null && Object.hasOwnProperty.call(message, "coreChainLockUpdate"))
-                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 104, wireType 2 =*/834).fork()).ldelim();
+                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                if (message.proposerProTxHash != null && Object.hasOwnProperty.call(message, "proposerProTxHash"))
+                    writer.uint32(/* id 11, wireType 2 =*/90).bytes(message.proposerProTxHash);
+                if (message.proposedAppVersion != null && Object.hasOwnProperty.call(message, "proposedAppVersion"))
+                    writer.uint32(/* id 12, wireType 0 =*/96).uint64(message.proposedAppVersion);
+                if (message.version != null && Object.hasOwnProperty.call(message, "version"))
+                    $root.tendermint.version.Consensus.encode(message.version, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
+                if (message.quorumHash != null && Object.hasOwnProperty.call(message, "quorumHash"))
+                    writer.uint32(/* id 14, wireType 2 =*/114).bytes(message.quorumHash);
                 return writer;
             };
 
@@ -3889,29 +3931,32 @@ $root.tendermint = (function() {
                     case 5:
                         message.height = reader.int64();
                         break;
-                    case 8:
+                    case 6:
                         message.round = reader.int32();
                         break;
-                    case 6:
+                    case 7:
                         message.time = $root.google.protobuf.Timestamp.decode(reader, reader.uint32());
                         break;
-                    case 7:
+                    case 8:
                         message.nextValidatorsHash = reader.bytes();
                         break;
-                    case 100:
+                    case 9:
                         message.coreChainLockedHeight = reader.uint32();
                         break;
-                    case 101:
+                    case 10:
+                        message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
+                        break;
+                    case 11:
                         message.proposerProTxHash = reader.bytes();
                         break;
-                    case 102:
+                    case 12:
                         message.proposedAppVersion = reader.uint64();
                         break;
-                    case 103:
+                    case 13:
                         message.version = $root.tendermint.version.Consensus.decode(reader, reader.uint32());
                         break;
-                    case 104:
-                        message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
+                    case 14:
+                        message.quorumHash = reader.bytes();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -3989,6 +4034,11 @@ $root.tendermint = (function() {
                 if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
                     if (!$util.isInteger(message.coreChainLockedHeight))
                         return "coreChainLockedHeight: integer expected";
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate")) {
+                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLockUpdate);
+                    if (error)
+                        return "coreChainLockUpdate." + error;
+                }
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
                     if (!(message.proposerProTxHash && typeof message.proposerProTxHash.length === "number" || $util.isString(message.proposerProTxHash)))
                         return "proposerProTxHash: buffer expected";
@@ -4000,11 +4050,9 @@ $root.tendermint = (function() {
                     if (error)
                         return "version." + error;
                 }
-                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate")) {
-                    var error = $root.tendermint.types.CoreChainLock.verify(message.coreChainLockUpdate);
-                    if (error)
-                        return "coreChainLockUpdate." + error;
-                }
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    if (!(message.quorumHash && typeof message.quorumHash.length === "number" || $util.isString(message.quorumHash)))
+                        return "quorumHash: buffer expected";
                 return null;
             };
 
@@ -4073,6 +4121,11 @@ $root.tendermint = (function() {
                         message.nextValidatorsHash = object.nextValidatorsHash;
                 if (object.coreChainLockedHeight != null)
                     message.coreChainLockedHeight = object.coreChainLockedHeight >>> 0;
+                if (object.coreChainLockUpdate != null) {
+                    if (typeof object.coreChainLockUpdate !== "object")
+                        throw TypeError(".tendermint.abci.RequestProcessProposal.coreChainLockUpdate: object expected");
+                    message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLockUpdate);
+                }
                 if (object.proposerProTxHash != null)
                     if (typeof object.proposerProTxHash === "string")
                         $util.base64.decode(object.proposerProTxHash, message.proposerProTxHash = $util.newBuffer($util.base64.length(object.proposerProTxHash)), 0);
@@ -4092,11 +4145,11 @@ $root.tendermint = (function() {
                         throw TypeError(".tendermint.abci.RequestProcessProposal.version: object expected");
                     message.version = $root.tendermint.version.Consensus.fromObject(object.version);
                 }
-                if (object.coreChainLockUpdate != null) {
-                    if (typeof object.coreChainLockUpdate !== "object")
-                        throw TypeError(".tendermint.abci.RequestProcessProposal.coreChainLockUpdate: object expected");
-                    message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.fromObject(object.coreChainLockUpdate);
-                }
+                if (object.quorumHash != null)
+                    if (typeof object.quorumHash === "string")
+                        $util.base64.decode(object.quorumHash, message.quorumHash = $util.newBuffer($util.base64.length(object.quorumHash)), 0);
+                    else if (object.quorumHash.length >= 0)
+                        message.quorumHash = object.quorumHash;
                 return message;
             };
 
@@ -4131,6 +4184,7 @@ $root.tendermint = (function() {
                         object.height = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.height = options.longs === String ? "0" : 0;
+                    object.round = 0;
                     object.time = null;
                     if (options.bytes === String)
                         object.nextValidatorsHash = "";
@@ -4139,8 +4193,8 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.nextValidatorsHash = $util.newBuffer(object.nextValidatorsHash);
                     }
-                    object.round = 0;
                     object.coreChainLockedHeight = 0;
+                    object.coreChainLockUpdate = null;
                     if (options.bytes === String)
                         object.proposerProTxHash = "";
                     else {
@@ -4154,7 +4208,13 @@ $root.tendermint = (function() {
                     } else
                         object.proposedAppVersion = options.longs === String ? "0" : 0;
                     object.version = null;
-                    object.coreChainLockUpdate = null;
+                    if (options.bytes === String)
+                        object.quorumHash = "";
+                    else {
+                        object.quorumHash = [];
+                        if (options.bytes !== Array)
+                            object.quorumHash = $util.newBuffer(object.quorumHash);
+                    }
                 }
                 if (message.txs && message.txs.length) {
                     object.txs = [];
@@ -4175,14 +4235,16 @@ $root.tendermint = (function() {
                         object.height = options.longs === String ? String(message.height) : message.height;
                     else
                         object.height = options.longs === String ? $util.Long.prototype.toString.call(message.height) : options.longs === Number ? new $util.LongBits(message.height.low >>> 0, message.height.high >>> 0).toNumber() : message.height;
+                if (message.round != null && message.hasOwnProperty("round"))
+                    object.round = message.round;
                 if (message.time != null && message.hasOwnProperty("time"))
                     object.time = $root.google.protobuf.Timestamp.toObject(message.time, options);
                 if (message.nextValidatorsHash != null && message.hasOwnProperty("nextValidatorsHash"))
                     object.nextValidatorsHash = options.bytes === String ? $util.base64.encode(message.nextValidatorsHash, 0, message.nextValidatorsHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.nextValidatorsHash) : message.nextValidatorsHash;
-                if (message.round != null && message.hasOwnProperty("round"))
-                    object.round = message.round;
                 if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
                     object.coreChainLockedHeight = message.coreChainLockedHeight;
+                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
+                    object.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLockUpdate, options);
                 if (message.proposerProTxHash != null && message.hasOwnProperty("proposerProTxHash"))
                     object.proposerProTxHash = options.bytes === String ? $util.base64.encode(message.proposerProTxHash, 0, message.proposerProTxHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.proposerProTxHash) : message.proposerProTxHash;
                 if (message.proposedAppVersion != null && message.hasOwnProperty("proposedAppVersion"))
@@ -4192,8 +4254,8 @@ $root.tendermint = (function() {
                         object.proposedAppVersion = options.longs === String ? $util.Long.prototype.toString.call(message.proposedAppVersion) : options.longs === Number ? new $util.LongBits(message.proposedAppVersion.low >>> 0, message.proposedAppVersion.high >>> 0).toNumber(true) : message.proposedAppVersion;
                 if (message.version != null && message.hasOwnProperty("version"))
                     object.version = $root.tendermint.version.Consensus.toObject(message.version, options);
-                if (message.coreChainLockUpdate != null && message.hasOwnProperty("coreChainLockUpdate"))
-                    object.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.toObject(message.coreChainLockUpdate, options);
+                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
+                    object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
                 return object;
             };
 
@@ -5394,25 +5456,25 @@ $root.tendermint = (function() {
                 if (message.query != null && Object.hasOwnProperty.call(message, "query"))
                     $root.tendermint.abci.ResponseQuery.encode(message.query, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 if (message.checkTx != null && Object.hasOwnProperty.call(message, "checkTx"))
-                    $root.tendermint.abci.ResponseCheckTx.encode(message.checkTx, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    $root.tendermint.abci.ResponseCheckTx.encode(message.checkTx, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 if (message.listSnapshots != null && Object.hasOwnProperty.call(message, "listSnapshots"))
-                    $root.tendermint.abci.ResponseListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
+                    $root.tendermint.abci.ResponseListSnapshots.encode(message.listSnapshots, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                 if (message.offerSnapshot != null && Object.hasOwnProperty.call(message, "offerSnapshot"))
-                    $root.tendermint.abci.ResponseOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
+                    $root.tendermint.abci.ResponseOfferSnapshot.encode(message.offerSnapshot, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
                 if (message.loadSnapshotChunk != null && Object.hasOwnProperty.call(message, "loadSnapshotChunk"))
-                    $root.tendermint.abci.ResponseLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
+                    $root.tendermint.abci.ResponseLoadSnapshotChunk.encode(message.loadSnapshotChunk, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
                 if (message.applySnapshotChunk != null && Object.hasOwnProperty.call(message, "applySnapshotChunk"))
-                    $root.tendermint.abci.ResponseApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
+                    $root.tendermint.abci.ResponseApplySnapshotChunk.encode(message.applySnapshotChunk, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
                 if (message.prepareProposal != null && Object.hasOwnProperty.call(message, "prepareProposal"))
-                    $root.tendermint.abci.ResponsePrepareProposal.encode(message.prepareProposal, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
+                    $root.tendermint.abci.ResponsePrepareProposal.encode(message.prepareProposal, writer.uint32(/* id 12, wireType 2 =*/98).fork()).ldelim();
                 if (message.processProposal != null && Object.hasOwnProperty.call(message, "processProposal"))
-                    $root.tendermint.abci.ResponseProcessProposal.encode(message.processProposal, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
+                    $root.tendermint.abci.ResponseProcessProposal.encode(message.processProposal, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
                 if (message.extendVote != null && Object.hasOwnProperty.call(message, "extendVote"))
-                    $root.tendermint.abci.ResponseExtendVote.encode(message.extendVote, writer.uint32(/* id 18, wireType 2 =*/146).fork()).ldelim();
+                    $root.tendermint.abci.ResponseExtendVote.encode(message.extendVote, writer.uint32(/* id 14, wireType 2 =*/114).fork()).ldelim();
                 if (message.verifyVoteExtension != null && Object.hasOwnProperty.call(message, "verifyVoteExtension"))
-                    $root.tendermint.abci.ResponseVerifyVoteExtension.encode(message.verifyVoteExtension, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
+                    $root.tendermint.abci.ResponseVerifyVoteExtension.encode(message.verifyVoteExtension, writer.uint32(/* id 15, wireType 2 =*/122).fork()).ldelim();
                 if (message.finalizeBlock != null && Object.hasOwnProperty.call(message, "finalizeBlock"))
-                    $root.tendermint.abci.ResponseFinalizeBlock.encode(message.finalizeBlock, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
+                    $root.tendermint.abci.ResponseFinalizeBlock.encode(message.finalizeBlock, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
                 return writer;
             };
 
@@ -5465,34 +5527,34 @@ $root.tendermint = (function() {
                     case 6:
                         message.query = $root.tendermint.abci.ResponseQuery.decode(reader, reader.uint32());
                         break;
-                    case 8:
+                    case 7:
                         message.checkTx = $root.tendermint.abci.ResponseCheckTx.decode(reader, reader.uint32());
                         break;
-                    case 12:
+                    case 8:
                         message.listSnapshots = $root.tendermint.abci.ResponseListSnapshots.decode(reader, reader.uint32());
                         break;
-                    case 13:
+                    case 9:
                         message.offerSnapshot = $root.tendermint.abci.ResponseOfferSnapshot.decode(reader, reader.uint32());
                         break;
-                    case 14:
+                    case 10:
                         message.loadSnapshotChunk = $root.tendermint.abci.ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
                         break;
-                    case 15:
+                    case 11:
                         message.applySnapshotChunk = $root.tendermint.abci.ResponseApplySnapshotChunk.decode(reader, reader.uint32());
                         break;
-                    case 16:
+                    case 12:
                         message.prepareProposal = $root.tendermint.abci.ResponsePrepareProposal.decode(reader, reader.uint32());
                         break;
-                    case 17:
+                    case 13:
                         message.processProposal = $root.tendermint.abci.ResponseProcessProposal.decode(reader, reader.uint32());
                         break;
-                    case 18:
+                    case 14:
                         message.extendVote = $root.tendermint.abci.ResponseExtendVote.decode(reader, reader.uint32());
                         break;
-                    case 19:
+                    case 15:
                         message.verifyVoteExtension = $root.tendermint.abci.ResponseVerifyVoteExtension.decode(reader, reader.uint32());
                         break;
-                    case 20:
+                    case 16:
                         message.finalizeBlock = $root.tendermint.abci.ResponseFinalizeBlock.decode(reader, reader.uint32());
                         break;
                     default:
@@ -6839,13 +6901,13 @@ $root.tendermint = (function() {
                 if (message.consensusParams != null && Object.hasOwnProperty.call(message, "consensusParams"))
                     $root.tendermint.types.ConsensusParams.encode(message.consensusParams, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                 if (message.appHash != null && Object.hasOwnProperty.call(message, "appHash"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.appHash);
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.appHash);
                 if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
-                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
+                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.nextCoreChainLockUpdate != null && Object.hasOwnProperty.call(message, "nextCoreChainLockUpdate"))
-                    $root.tendermint.types.CoreChainLock.encode(message.nextCoreChainLockUpdate, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
+                    $root.tendermint.types.CoreChainLock.encode(message.nextCoreChainLockUpdate, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.initialCoreHeight != null && Object.hasOwnProperty.call(message, "initialCoreHeight"))
-                    writer.uint32(/* id 102, wireType 0 =*/816).uint32(message.initialCoreHeight);
+                    writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.initialCoreHeight);
                 return writer;
             };
 
@@ -6883,16 +6945,16 @@ $root.tendermint = (function() {
                     case 1:
                         message.consensusParams = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
-                    case 3:
+                    case 2:
                         message.appHash = reader.bytes();
                         break;
-                    case 100:
+                    case 3:
                         message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
                         break;
-                    case 101:
+                    case 4:
                         message.nextCoreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
                         break;
-                    case 102:
+                    case 5:
                         message.initialCoreHeight = reader.uint32();
                         break;
                     default:
@@ -7175,21 +7237,21 @@ $root.tendermint = (function() {
                 if (message.code != null && Object.hasOwnProperty.call(message, "code"))
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.code);
                 if (message.log != null && Object.hasOwnProperty.call(message, "log"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.log);
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.log);
                 if (message.info != null && Object.hasOwnProperty.call(message, "info"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.info);
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.info);
                 if (message.index != null && Object.hasOwnProperty.call(message, "index"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).int64(message.index);
+                    writer.uint32(/* id 4, wireType 0 =*/32).int64(message.index);
                 if (message.key != null && Object.hasOwnProperty.call(message, "key"))
-                    writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.key);
+                    writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.key);
                 if (message.value != null && Object.hasOwnProperty.call(message, "value"))
-                    writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.value);
+                    writer.uint32(/* id 6, wireType 2 =*/50).bytes(message.value);
                 if (message.proofOps != null && Object.hasOwnProperty.call(message, "proofOps"))
-                    $root.tendermint.crypto.ProofOps.encode(message.proofOps, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    $root.tendermint.crypto.ProofOps.encode(message.proofOps, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 if (message.height != null && Object.hasOwnProperty.call(message, "height"))
-                    writer.uint32(/* id 9, wireType 0 =*/72).int64(message.height);
+                    writer.uint32(/* id 8, wireType 0 =*/64).int64(message.height);
                 if (message.codespace != null && Object.hasOwnProperty.call(message, "codespace"))
-                    writer.uint32(/* id 10, wireType 2 =*/82).string(message.codespace);
+                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.codespace);
                 return writer;
             };
 
@@ -7227,28 +7289,28 @@ $root.tendermint = (function() {
                     case 1:
                         message.code = reader.uint32();
                         break;
-                    case 3:
+                    case 2:
                         message.log = reader.string();
                         break;
-                    case 4:
+                    case 3:
                         message.info = reader.string();
                         break;
-                    case 5:
+                    case 4:
                         message.index = reader.int64();
                         break;
-                    case 6:
+                    case 5:
                         message.key = reader.bytes();
                         break;
-                    case 7:
+                    case 6:
                         message.value = reader.bytes();
                         break;
-                    case 8:
+                    case 7:
                         message.proofOps = $root.tendermint.crypto.ProofOps.decode(reader, reader.uint32());
                         break;
-                    case 9:
+                    case 8:
                         message.height = reader.int64();
                         break;
-                    case 10:
+                    case 9:
                         message.codespace = reader.string();
                         break;
                     default:
@@ -7583,17 +7645,17 @@ $root.tendermint = (function() {
                 if (message.data != null && Object.hasOwnProperty.call(message, "data"))
                     writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.data);
                 if (message.info != null && Object.hasOwnProperty.call(message, "info"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.info);
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.info);
                 if (message.gasWanted != null && Object.hasOwnProperty.call(message, "gasWanted"))
-                    writer.uint32(/* id 5, wireType 0 =*/40).int64(message.gasWanted);
+                    writer.uint32(/* id 4, wireType 0 =*/32).int64(message.gasWanted);
                 if (message.codespace != null && Object.hasOwnProperty.call(message, "codespace"))
-                    writer.uint32(/* id 8, wireType 2 =*/66).string(message.codespace);
+                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.codespace);
                 if (message.sender != null && Object.hasOwnProperty.call(message, "sender"))
-                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.sender);
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.sender);
                 if (message.priority != null && Object.hasOwnProperty.call(message, "priority"))
-                    writer.uint32(/* id 10, wireType 0 =*/80).int64(message.priority);
+                    writer.uint32(/* id 7, wireType 0 =*/56).int64(message.priority);
                 if (message.mempoolError != null && Object.hasOwnProperty.call(message, "mempoolError"))
-                    writer.uint32(/* id 11, wireType 2 =*/90).string(message.mempoolError);
+                    writer.uint32(/* id 8, wireType 2 =*/66).string(message.mempoolError);
                 return writer;
             };
 
@@ -7634,22 +7696,22 @@ $root.tendermint = (function() {
                     case 2:
                         message.data = reader.bytes();
                         break;
-                    case 4:
+                    case 3:
                         message.info = reader.string();
                         break;
-                    case 5:
+                    case 4:
                         message.gasWanted = reader.int64();
                         break;
-                    case 8:
+                    case 5:
                         message.codespace = reader.string();
                         break;
-                    case 9:
+                    case 6:
                         message.sender = reader.string();
                         break;
-                    case 10:
+                    case 7:
                         message.priority = reader.int64();
                         break;
-                    case 11:
+                    case 8:
                         message.mempoolError = reader.string();
                         break;
                     default:
@@ -8924,11 +8986,11 @@ $root.tendermint = (function() {
                     for (var i = 0; i < message.txResults.length; ++i)
                         $root.tendermint.abci.ExecTxResult.encode(message.txResults[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.consensusParamUpdates != null && Object.hasOwnProperty.call(message, "consensusParamUpdates"))
-                    $root.tendermint.types.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.coreChainLockUpdate != null && Object.hasOwnProperty.call(message, "coreChainLockUpdate"))
-                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
+                    $root.tendermint.types.CoreChainLock.encode(message.coreChainLockUpdate, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
-                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 101, wireType 2 =*/810).fork()).ldelim();
+                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 return writer;
             };
 
@@ -8976,13 +9038,13 @@ $root.tendermint = (function() {
                             message.txResults = [];
                         message.txResults.push($root.tendermint.abci.ExecTxResult.decode(reader, reader.uint32()));
                         break;
-                    case 5:
+                    case 4:
                         message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
-                    case 100:
+                    case 5:
                         message.coreChainLockUpdate = $root.tendermint.types.CoreChainLock.decode(reader, reader.uint32());
                         break;
-                    case 101:
+                    case 6:
                         message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
                         break;
                     default:
@@ -9279,9 +9341,9 @@ $root.tendermint = (function() {
                     for (var i = 0; i < message.txResults.length; ++i)
                         $root.tendermint.abci.ExecTxResult.encode(message.txResults[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.consensusParamUpdates != null && Object.hasOwnProperty.call(message, "consensusParamUpdates"))
-                    $root.tendermint.types.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    $root.tendermint.types.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 if (message.validatorSetUpdate != null && Object.hasOwnProperty.call(message, "validatorSetUpdate"))
-                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 100, wireType 2 =*/802).fork()).ldelim();
+                    $root.tendermint.abci.ValidatorSetUpdate.encode(message.validatorSetUpdate, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 return writer;
             };
 
@@ -9327,10 +9389,10 @@ $root.tendermint = (function() {
                             message.txResults = [];
                         message.txResults.push($root.tendermint.abci.ExecTxResult.decode(reader, reader.uint32()));
                         break;
-                    case 5:
+                    case 4:
                         message.consensusParamUpdates = $root.tendermint.types.ConsensusParams.decode(reader, reader.uint32());
                         break;
-                    case 100:
+                    case 5:
                         message.validatorSetUpdate = $root.tendermint.abci.ValidatorSetUpdate.decode(reader, reader.uint32());
                         break;
                     default:
@@ -10260,7 +10322,7 @@ $root.tendermint = (function() {
                     for (var i = 0; i < message.events.length; ++i)
                         $root.tendermint.abci.Event.encode(message.events[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
                 if (message.retainHeight != null && Object.hasOwnProperty.call(message, "retainHeight"))
-                    writer.uint32(/* id 6, wireType 0 =*/48).int64(message.retainHeight);
+                    writer.uint32(/* id 2, wireType 0 =*/16).int64(message.retainHeight);
                 return writer;
             };
 
@@ -10300,7 +10362,7 @@ $root.tendermint = (function() {
                             message.events = [];
                         message.events.push($root.tendermint.abci.Event.decode(reader, reader.uint32()));
                         break;
-                    case 6:
+                    case 2:
                         message.retainHeight = reader.int64();
                         break;
                     default:
@@ -10522,12 +10584,12 @@ $root.tendermint = (function() {
                 if (message.round != null && Object.hasOwnProperty.call(message, "round"))
                     writer.uint32(/* id 1, wireType 0 =*/8).int32(message.round);
                 if (message.quorumHash != null && Object.hasOwnProperty.call(message, "quorumHash"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.quorumHash);
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.quorumHash);
                 if (message.blockSignature != null && Object.hasOwnProperty.call(message, "blockSignature"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.blockSignature);
+                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.blockSignature);
                 if (message.thresholdVoteExtensions != null && message.thresholdVoteExtensions.length)
                     for (var i = 0; i < message.thresholdVoteExtensions.length; ++i)
-                        $root.tendermint.types.VoteExtension.encode(message.thresholdVoteExtensions[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                        $root.tendermint.types.VoteExtension.encode(message.thresholdVoteExtensions[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                 return writer;
             };
 
@@ -10565,13 +10627,13 @@ $root.tendermint = (function() {
                     case 1:
                         message.round = reader.int32();
                         break;
-                    case 3:
+                    case 2:
                         message.quorumHash = reader.bytes();
                         break;
-                    case 4:
+                    case 3:
                         message.blockSignature = reader.bytes();
                         break;
-                    case 6:
+                    case 4:
                         if (!(message.thresholdVoteExtensions && message.thresholdVoteExtensions.length))
                             message.thresholdVoteExtensions = [];
                         message.thresholdVoteExtensions.push($root.tendermint.types.VoteExtension.decode(reader, reader.uint32()));
@@ -10727,300 +10789,6 @@ $root.tendermint = (function() {
             };
 
             return CommitInfo;
-        })();
-
-        abci.ExtendedCommitInfo = (function() {
-
-            /**
-             * Properties of an ExtendedCommitInfo.
-             * @memberof tendermint.abci
-             * @interface IExtendedCommitInfo
-             * @property {number|null} [round] ExtendedCommitInfo round
-             * @property {Uint8Array|null} [quorumHash] ExtendedCommitInfo quorumHash
-             * @property {Uint8Array|null} [blockSignature] ExtendedCommitInfo blockSignature
-             * @property {Array.<tendermint.types.IVoteExtension>|null} [thresholdVoteExtensions] ExtendedCommitInfo thresholdVoteExtensions
-             */
-
-            /**
-             * Constructs a new ExtendedCommitInfo.
-             * @memberof tendermint.abci
-             * @classdesc Represents an ExtendedCommitInfo.
-             * @implements IExtendedCommitInfo
-             * @constructor
-             * @param {tendermint.abci.IExtendedCommitInfo=} [properties] Properties to set
-             */
-            function ExtendedCommitInfo(properties) {
-                this.thresholdVoteExtensions = [];
-                if (properties)
-                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                        if (properties[keys[i]] != null)
-                            this[keys[i]] = properties[keys[i]];
-            }
-
-            /**
-             * ExtendedCommitInfo round.
-             * @member {number} round
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @instance
-             */
-            ExtendedCommitInfo.prototype.round = 0;
-
-            /**
-             * ExtendedCommitInfo quorumHash.
-             * @member {Uint8Array} quorumHash
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @instance
-             */
-            ExtendedCommitInfo.prototype.quorumHash = $util.newBuffer([]);
-
-            /**
-             * ExtendedCommitInfo blockSignature.
-             * @member {Uint8Array} blockSignature
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @instance
-             */
-            ExtendedCommitInfo.prototype.blockSignature = $util.newBuffer([]);
-
-            /**
-             * ExtendedCommitInfo thresholdVoteExtensions.
-             * @member {Array.<tendermint.types.IVoteExtension>} thresholdVoteExtensions
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @instance
-             */
-            ExtendedCommitInfo.prototype.thresholdVoteExtensions = $util.emptyArray;
-
-            /**
-             * Creates a new ExtendedCommitInfo instance using the specified properties.
-             * @function create
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @static
-             * @param {tendermint.abci.IExtendedCommitInfo=} [properties] Properties to set
-             * @returns {tendermint.abci.ExtendedCommitInfo} ExtendedCommitInfo instance
-             */
-            ExtendedCommitInfo.create = function create(properties) {
-                return new ExtendedCommitInfo(properties);
-            };
-
-            /**
-             * Encodes the specified ExtendedCommitInfo message. Does not implicitly {@link tendermint.abci.ExtendedCommitInfo.verify|verify} messages.
-             * @function encode
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @static
-             * @param {tendermint.abci.IExtendedCommitInfo} message ExtendedCommitInfo message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ExtendedCommitInfo.encode = function encode(message, writer) {
-                if (!writer)
-                    writer = $Writer.create();
-                if (message.round != null && Object.hasOwnProperty.call(message, "round"))
-                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.round);
-                if (message.quorumHash != null && Object.hasOwnProperty.call(message, "quorumHash"))
-                    writer.uint32(/* id 3, wireType 2 =*/26).bytes(message.quorumHash);
-                if (message.blockSignature != null && Object.hasOwnProperty.call(message, "blockSignature"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.blockSignature);
-                if (message.thresholdVoteExtensions != null && message.thresholdVoteExtensions.length)
-                    for (var i = 0; i < message.thresholdVoteExtensions.length; ++i)
-                        $root.tendermint.types.VoteExtension.encode(message.thresholdVoteExtensions[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
-                return writer;
-            };
-
-            /**
-             * Encodes the specified ExtendedCommitInfo message, length delimited. Does not implicitly {@link tendermint.abci.ExtendedCommitInfo.verify|verify} messages.
-             * @function encodeDelimited
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @static
-             * @param {tendermint.abci.IExtendedCommitInfo} message ExtendedCommitInfo message or plain object to encode
-             * @param {$protobuf.Writer} [writer] Writer to encode to
-             * @returns {$protobuf.Writer} Writer
-             */
-            ExtendedCommitInfo.encodeDelimited = function encodeDelimited(message, writer) {
-                return this.encode(message, writer).ldelim();
-            };
-
-            /**
-             * Decodes an ExtendedCommitInfo message from the specified reader or buffer.
-             * @function decode
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @param {number} [length] Message length if known beforehand
-             * @returns {tendermint.abci.ExtendedCommitInfo} ExtendedCommitInfo
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ExtendedCommitInfo.decode = function decode(reader, length) {
-                if (!(reader instanceof $Reader))
-                    reader = $Reader.create(reader);
-                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.tendermint.abci.ExtendedCommitInfo();
-                while (reader.pos < end) {
-                    var tag = reader.uint32();
-                    switch (tag >>> 3) {
-                    case 1:
-                        message.round = reader.int32();
-                        break;
-                    case 3:
-                        message.quorumHash = reader.bytes();
-                        break;
-                    case 4:
-                        message.blockSignature = reader.bytes();
-                        break;
-                    case 6:
-                        if (!(message.thresholdVoteExtensions && message.thresholdVoteExtensions.length))
-                            message.thresholdVoteExtensions = [];
-                        message.thresholdVoteExtensions.push($root.tendermint.types.VoteExtension.decode(reader, reader.uint32()));
-                        break;
-                    default:
-                        reader.skipType(tag & 7);
-                        break;
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Decodes an ExtendedCommitInfo message from the specified reader or buffer, length delimited.
-             * @function decodeDelimited
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @static
-             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-             * @returns {tendermint.abci.ExtendedCommitInfo} ExtendedCommitInfo
-             * @throws {Error} If the payload is not a reader or valid buffer
-             * @throws {$protobuf.util.ProtocolError} If required fields are missing
-             */
-            ExtendedCommitInfo.decodeDelimited = function decodeDelimited(reader) {
-                if (!(reader instanceof $Reader))
-                    reader = new $Reader(reader);
-                return this.decode(reader, reader.uint32());
-            };
-
-            /**
-             * Verifies an ExtendedCommitInfo message.
-             * @function verify
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @static
-             * @param {Object.<string,*>} message Plain object to verify
-             * @returns {string|null} `null` if valid, otherwise the reason why it is not
-             */
-            ExtendedCommitInfo.verify = function verify(message) {
-                if (typeof message !== "object" || message === null)
-                    return "object expected";
-                if (message.round != null && message.hasOwnProperty("round"))
-                    if (!$util.isInteger(message.round))
-                        return "round: integer expected";
-                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
-                    if (!(message.quorumHash && typeof message.quorumHash.length === "number" || $util.isString(message.quorumHash)))
-                        return "quorumHash: buffer expected";
-                if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
-                    if (!(message.blockSignature && typeof message.blockSignature.length === "number" || $util.isString(message.blockSignature)))
-                        return "blockSignature: buffer expected";
-                if (message.thresholdVoteExtensions != null && message.hasOwnProperty("thresholdVoteExtensions")) {
-                    if (!Array.isArray(message.thresholdVoteExtensions))
-                        return "thresholdVoteExtensions: array expected";
-                    for (var i = 0; i < message.thresholdVoteExtensions.length; ++i) {
-                        var error = $root.tendermint.types.VoteExtension.verify(message.thresholdVoteExtensions[i]);
-                        if (error)
-                            return "thresholdVoteExtensions." + error;
-                    }
-                }
-                return null;
-            };
-
-            /**
-             * Creates an ExtendedCommitInfo message from a plain object. Also converts values to their respective internal types.
-             * @function fromObject
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @static
-             * @param {Object.<string,*>} object Plain object
-             * @returns {tendermint.abci.ExtendedCommitInfo} ExtendedCommitInfo
-             */
-            ExtendedCommitInfo.fromObject = function fromObject(object) {
-                if (object instanceof $root.tendermint.abci.ExtendedCommitInfo)
-                    return object;
-                var message = new $root.tendermint.abci.ExtendedCommitInfo();
-                if (object.round != null)
-                    message.round = object.round | 0;
-                if (object.quorumHash != null)
-                    if (typeof object.quorumHash === "string")
-                        $util.base64.decode(object.quorumHash, message.quorumHash = $util.newBuffer($util.base64.length(object.quorumHash)), 0);
-                    else if (object.quorumHash.length >= 0)
-                        message.quorumHash = object.quorumHash;
-                if (object.blockSignature != null)
-                    if (typeof object.blockSignature === "string")
-                        $util.base64.decode(object.blockSignature, message.blockSignature = $util.newBuffer($util.base64.length(object.blockSignature)), 0);
-                    else if (object.blockSignature.length >= 0)
-                        message.blockSignature = object.blockSignature;
-                if (object.thresholdVoteExtensions) {
-                    if (!Array.isArray(object.thresholdVoteExtensions))
-                        throw TypeError(".tendermint.abci.ExtendedCommitInfo.thresholdVoteExtensions: array expected");
-                    message.thresholdVoteExtensions = [];
-                    for (var i = 0; i < object.thresholdVoteExtensions.length; ++i) {
-                        if (typeof object.thresholdVoteExtensions[i] !== "object")
-                            throw TypeError(".tendermint.abci.ExtendedCommitInfo.thresholdVoteExtensions: object expected");
-                        message.thresholdVoteExtensions[i] = $root.tendermint.types.VoteExtension.fromObject(object.thresholdVoteExtensions[i]);
-                    }
-                }
-                return message;
-            };
-
-            /**
-             * Creates a plain object from an ExtendedCommitInfo message. Also converts values to other types if specified.
-             * @function toObject
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @static
-             * @param {tendermint.abci.ExtendedCommitInfo} message ExtendedCommitInfo
-             * @param {$protobuf.IConversionOptions} [options] Conversion options
-             * @returns {Object.<string,*>} Plain object
-             */
-            ExtendedCommitInfo.toObject = function toObject(message, options) {
-                if (!options)
-                    options = {};
-                var object = {};
-                if (options.arrays || options.defaults)
-                    object.thresholdVoteExtensions = [];
-                if (options.defaults) {
-                    object.round = 0;
-                    if (options.bytes === String)
-                        object.quorumHash = "";
-                    else {
-                        object.quorumHash = [];
-                        if (options.bytes !== Array)
-                            object.quorumHash = $util.newBuffer(object.quorumHash);
-                    }
-                    if (options.bytes === String)
-                        object.blockSignature = "";
-                    else {
-                        object.blockSignature = [];
-                        if (options.bytes !== Array)
-                            object.blockSignature = $util.newBuffer(object.blockSignature);
-                    }
-                }
-                if (message.round != null && message.hasOwnProperty("round"))
-                    object.round = message.round;
-                if (message.quorumHash != null && message.hasOwnProperty("quorumHash"))
-                    object.quorumHash = options.bytes === String ? $util.base64.encode(message.quorumHash, 0, message.quorumHash.length) : options.bytes === Array ? Array.prototype.slice.call(message.quorumHash) : message.quorumHash;
-                if (message.blockSignature != null && message.hasOwnProperty("blockSignature"))
-                    object.blockSignature = options.bytes === String ? $util.base64.encode(message.blockSignature, 0, message.blockSignature.length) : options.bytes === Array ? Array.prototype.slice.call(message.blockSignature) : message.blockSignature;
-                if (message.thresholdVoteExtensions && message.thresholdVoteExtensions.length) {
-                    object.thresholdVoteExtensions = [];
-                    for (var j = 0; j < message.thresholdVoteExtensions.length; ++j)
-                        object.thresholdVoteExtensions[j] = $root.tendermint.types.VoteExtension.toObject(message.thresholdVoteExtensions[j], options);
-                }
-                return object;
-            };
-
-            /**
-             * Converts this ExtendedCommitInfo to JSON.
-             * @function toJSON
-             * @memberof tendermint.abci.ExtendedCommitInfo
-             * @instance
-             * @returns {Object.<string,*>} JSON object
-             */
-            ExtendedCommitInfo.prototype.toJSON = function toJSON() {
-                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-            };
-
-            return ExtendedCommitInfo;
         })();
 
         abci.Event = (function() {
@@ -12495,9 +12263,9 @@ $root.tendermint = (function() {
                 if (!writer)
                     writer = $Writer.create();
                 if (message.power != null && Object.hasOwnProperty.call(message, "power"))
-                    writer.uint32(/* id 3, wireType 0 =*/24).int64(message.power);
+                    writer.uint32(/* id 1, wireType 0 =*/8).int64(message.power);
                 if (message.proTxHash != null && Object.hasOwnProperty.call(message, "proTxHash"))
-                    writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.proTxHash);
+                    writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.proTxHash);
                 return writer;
             };
 
@@ -12532,10 +12300,10 @@ $root.tendermint = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 3:
+                    case 1:
                         message.power = reader.int64();
                         break;
-                    case 4:
+                    case 2:
                         message.proTxHash = reader.bytes();
                         break;
                     default:
@@ -14420,7 +14188,6 @@ $root.tendermint = (function() {
              * @property {number|null} [chunks] Snapshot chunks
              * @property {Uint8Array|null} [hash] Snapshot hash
              * @property {Uint8Array|null} [metadata] Snapshot metadata
-             * @property {number|null} [coreChainLockedHeight] Snapshot coreChainLockedHeight
              */
 
             /**
@@ -14479,14 +14246,6 @@ $root.tendermint = (function() {
             Snapshot.prototype.metadata = $util.newBuffer([]);
 
             /**
-             * Snapshot coreChainLockedHeight.
-             * @member {number} coreChainLockedHeight
-             * @memberof tendermint.abci.Snapshot
-             * @instance
-             */
-            Snapshot.prototype.coreChainLockedHeight = 0;
-
-            /**
              * Creates a new Snapshot instance using the specified properties.
              * @function create
              * @memberof tendermint.abci.Snapshot
@@ -14520,8 +14279,6 @@ $root.tendermint = (function() {
                     writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.hash);
                 if (message.metadata != null && Object.hasOwnProperty.call(message, "metadata"))
                     writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.metadata);
-                if (message.coreChainLockedHeight != null && Object.hasOwnProperty.call(message, "coreChainLockedHeight"))
-                    writer.uint32(/* id 100, wireType 0 =*/800).uint32(message.coreChainLockedHeight);
                 return writer;
             };
 
@@ -14570,9 +14327,6 @@ $root.tendermint = (function() {
                         break;
                     case 5:
                         message.metadata = reader.bytes();
-                        break;
-                    case 100:
-                        message.coreChainLockedHeight = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -14624,9 +14378,6 @@ $root.tendermint = (function() {
                 if (message.metadata != null && message.hasOwnProperty("metadata"))
                     if (!(message.metadata && typeof message.metadata.length === "number" || $util.isString(message.metadata)))
                         return "metadata: buffer expected";
-                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
-                    if (!$util.isInteger(message.coreChainLockedHeight))
-                        return "coreChainLockedHeight: integer expected";
                 return null;
             };
 
@@ -14665,8 +14416,6 @@ $root.tendermint = (function() {
                         $util.base64.decode(object.metadata, message.metadata = $util.newBuffer($util.base64.length(object.metadata)), 0);
                     else if (object.metadata.length >= 0)
                         message.metadata = object.metadata;
-                if (object.coreChainLockedHeight != null)
-                    message.coreChainLockedHeight = object.coreChainLockedHeight >>> 0;
                 return message;
             };
 
@@ -14705,7 +14454,6 @@ $root.tendermint = (function() {
                         if (options.bytes !== Array)
                             object.metadata = $util.newBuffer(object.metadata);
                     }
-                    object.coreChainLockedHeight = 0;
                 }
                 if (message.height != null && message.hasOwnProperty("height"))
                     if (typeof message.height === "number")
@@ -14720,8 +14468,6 @@ $root.tendermint = (function() {
                     object.hash = options.bytes === String ? $util.base64.encode(message.hash, 0, message.hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.hash) : message.hash;
                 if (message.metadata != null && message.hasOwnProperty("metadata"))
                     object.metadata = options.bytes === String ? $util.base64.encode(message.metadata, 0, message.metadata.length) : options.bytes === Array ? Array.prototype.slice.call(message.metadata) : message.metadata;
-                if (message.coreChainLockedHeight != null && message.hasOwnProperty("coreChainLockedHeight"))
-                    object.coreChainLockedHeight = message.coreChainLockedHeight;
                 return object;
             };
 
