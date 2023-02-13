@@ -6566,14 +6566,14 @@ export namespace tendermint {
             /** Block data */
             data?: (tendermint.types.IData|null);
 
-            /** Block coreChainLock */
-            coreChainLock?: (tendermint.types.ICoreChainLock|null);
-
             /** Block evidence */
             evidence?: (tendermint.types.IEvidenceList|null);
 
             /** Block lastCommit */
             lastCommit?: (tendermint.types.ICommit|null);
+
+            /** Block coreChainLock */
+            coreChainLock?: (tendermint.types.ICoreChainLock|null);
         }
 
         /** Represents a Block. */
@@ -6591,14 +6591,14 @@ export namespace tendermint {
             /** Block data. */
             public data?: (tendermint.types.IData|null);
 
-            /** Block coreChainLock. */
-            public coreChainLock?: (tendermint.types.ICoreChainLock|null);
-
             /** Block evidence. */
             public evidence?: (tendermint.types.IEvidenceList|null);
 
             /** Block lastCommit. */
             public lastCommit?: (tendermint.types.ICommit|null);
+
+            /** Block coreChainLock. */
+            public coreChainLock?: (tendermint.types.ICoreChainLock|null);
 
             /**
              * Creates a new Block instance using the specified properties.
@@ -7114,9 +7114,6 @@ export namespace tendermint {
             /** Header height */
             height?: (number|Long|null);
 
-            /** Header coreChainLockedHeight */
-            coreChainLockedHeight?: (number|null);
-
             /** Header time */
             time?: (google.protobuf.ITimestamp|null);
 
@@ -7138,6 +7135,9 @@ export namespace tendermint {
             /** Header consensusHash */
             consensusHash?: (Uint8Array|null);
 
+            /** Header nextConsensusHash */
+            nextConsensusHash?: (Uint8Array|null);
+
             /** Header appHash */
             appHash?: (Uint8Array|null);
 
@@ -7147,11 +7147,14 @@ export namespace tendermint {
             /** Header evidenceHash */
             evidenceHash?: (Uint8Array|null);
 
+            /** Header proposedAppVersion */
+            proposedAppVersion?: (number|Long|null);
+
             /** Header proposerProTxHash */
             proposerProTxHash?: (Uint8Array|null);
 
-            /** Header proposedAppVersion */
-            proposedAppVersion?: (number|Long|null);
+            /** Header coreChainLockedHeight */
+            coreChainLockedHeight?: (number|null);
         }
 
         /** Represents a Header. */
@@ -7171,9 +7174,6 @@ export namespace tendermint {
 
             /** Header height. */
             public height: (number|Long);
-
-            /** Header coreChainLockedHeight. */
-            public coreChainLockedHeight: number;
 
             /** Header time. */
             public time?: (google.protobuf.ITimestamp|null);
@@ -7196,6 +7196,9 @@ export namespace tendermint {
             /** Header consensusHash. */
             public consensusHash: Uint8Array;
 
+            /** Header nextConsensusHash. */
+            public nextConsensusHash: Uint8Array;
+
             /** Header appHash. */
             public appHash: Uint8Array;
 
@@ -7205,11 +7208,14 @@ export namespace tendermint {
             /** Header evidenceHash. */
             public evidenceHash: Uint8Array;
 
+            /** Header proposedAppVersion. */
+            public proposedAppVersion: (number|Long);
+
             /** Header proposerProTxHash. */
             public proposerProTxHash: Uint8Array;
 
-            /** Header proposedAppVersion. */
-            public proposedAppVersion: (number|Long);
+            /** Header coreChainLockedHeight. */
+            public coreChainLockedHeight: number;
 
             /**
              * Creates a new Header instance using the specified properties.
